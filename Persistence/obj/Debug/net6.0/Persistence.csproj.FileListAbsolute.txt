@@ -1,0 +1,12 @@
+D:\Project\RECRUITMENT\Persistence\bin\Debug\net6.0\Persistence.deps.json
+D:\Project\RECRUITMENT\Persistence\bin\Debug\net6.0\Persistence.dll
+D:\Project\RECRUITMENT\Persistence\bin\Debug\net6.0\ref\Persistence.dll
+D:\Project\RECRUITMENT\Persistence\bin\Debug\net6.0\Persistence.pdb
+D:\Project\RECRUITMENT\Persistence\obj\Debug\net6.0\Persistence.csproj.AssemblyReference.cache
+D:\Project\RECRUITMENT\Persistence\obj\Debug\net6.0\Persistence.GeneratedMSBuildEditorConfig.editorconfig
+D:\Project\RECRUITMENT\Persistence\obj\Debug\net6.0\Persistence.AssemblyInfoInputs.cache
+D:\Project\RECRUITMENT\Persistence\obj\Debug\net6.0\Persistence.AssemblyInfo.cs
+D:\Project\RECRUITMENT\Persistence\obj\Debug\net6.0\Persistence.csproj.CoreCompileInputs.cache
+D:\Project\RECRUITMENT\Persistence\obj\Debug\net6.0\Persistence.dll
+D:\Project\RECRUITMENT\Persistence\obj\Debug\net6.0\ref\Persistence.dll
+D:\Project\RECRUITMENT\Persistence\obj\Debug\net6.0\Persistence.pdb

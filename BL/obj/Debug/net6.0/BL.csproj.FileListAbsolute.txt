@@ -1,0 +1,17 @@
+D:\Project\RECRUITMENT\Bl\bin\Debug\net6.0\BL.deps.json
+D:\Project\RECRUITMENT\Bl\bin\Debug\net6.0\BL.dll
+D:\Project\RECRUITMENT\Bl\bin\Debug\net6.0\ref\BL.dll
+D:\Project\RECRUITMENT\Bl\bin\Debug\net6.0\BL.pdb
+D:\Project\RECRUITMENT\Bl\bin\Debug\net6.0\DAL.dll
+D:\Project\RECRUITMENT\Bl\bin\Debug\net6.0\Persistence.dll
+D:\Project\RECRUITMENT\Bl\bin\Debug\net6.0\DAL.pdb
+D:\Project\RECRUITMENT\Bl\bin\Debug\net6.0\Persistence.pdb
+D:\Project\RECRUITMENT\Bl\obj\Debug\net6.0\BL.csproj.AssemblyReference.cache
+D:\Project\RECRUITMENT\Bl\obj\Debug\net6.0\BL.GeneratedMSBuildEditorConfig.editorconfig
+D:\Project\RECRUITMENT\Bl\obj\Debug\net6.0\BL.AssemblyInfoInputs.cache
+D:\Project\RECRUITMENT\Bl\obj\Debug\net6.0\BL.AssemblyInfo.cs
+D:\Project\RECRUITMENT\Bl\obj\Debug\net6.0\BL.csproj.CoreCompileInputs.cache
+D:\Project\RECRUITMENT\Bl\obj\Debug\net6.0\BL.csproj.CopyComplete
+D:\Project\RECRUITMENT\Bl\obj\Debug\net6.0\BL.dll
+D:\Project\RECRUITMENT\Bl\obj\Debug\net6.0\ref\BL.dll
+D:\Project\RECRUITMENT\Bl\obj\Debug\net6.0\BL.pdb
