@@ -121,19 +121,51 @@ public class Menu
         {
             Console.Write(" Email: ");
             email = Console.ReadLine() ?? "Error";
-            if (IsValidEmail(email))
+            if(email.Length > 100)
             {
-                break;
+                Console.WriteLine("\n Email is too long. Maximum characters allowed is 100\n");
             }
             else
             {
-                Console.WriteLine("\n Invalid email format! Please re-enter your emai.\n");
+                if (IsValidEmail(email))
+                {
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("\n Invalid email format! Please re-enter your emai.\n");
+                }
+            }
+        }
+
+        while (true)
+        {
+            Console.Write(" Password: ");
+            password = Console.ReadLine() ?? "Error";
+            if(password.Length > 100)
+            {
+                Console.WriteLine("\n Password is too long. Maximum characters allowed is 100\n");
+            }
+            else
+            {
+                break;
             }
         }  
-        Console.Write(" Password: ");
-        password = Console.ReadLine() ?? "Error";
-        Console.Write(" Username: ");
-        username = Console.ReadLine() ?? "Error";
+
+        while (true)
+        {
+            Console.Write(" Username: ");
+            username = Console.ReadLine() ?? "Error";
+            if(username.Length > 50)
+            {
+                Console.WriteLine("\n Username is too long. Maximum characters allowed is 50\n");
+            }
+            else
+            {
+                break;
+            }
+        }  
+        
 
         while (true)
         {
@@ -339,36 +371,125 @@ public class Menu
         Console.WriteLine("           CREATE CV");
         Console.WriteLine("================================");
 
-        Console.Write(" Full Name       : ");
-        FullName = Console.ReadLine() ?? "Error";
-        Console.Write(" Career Title    : ");
-        CareerTitle = Console.ReadLine() ?? "Error";
-        Console.Write(" Career Objective: ");
-        CareerObjective = Console.ReadLine() ?? "Error";
-        Console.Write(" Date of Birth   : ");
-        BirthDate = Console.ReadLine() ?? "Error";
+        while (true)
+        {
+            Console.Write(" Full Name       : ");
+            FullName = Console.ReadLine() ?? "Error";
+            if(FullName.Length > 100)
+            {
+                Console.WriteLine("\n Full Name is too long. Maximum characters allowed is 100\n");
+            }
+            else
+            {
+                break;
+            }
+        }
+        
+        while (true)
+        {
+            Console.Write(" Career Title    : ");
+            CareerTitle = Console.ReadLine() ?? "Error";
+            if(CareerTitle.Length > 50)
+            {
+                Console.WriteLine("\n Career Title is too long. Maximum characters allowed is 50\n");
+            }
+            else
+            {
+                break;
+            }
+        }
+        
+        while (true)
+        {
+            Console.Write(" Career Objective: ");
+            CareerObjective = Console.ReadLine() ?? "Error";
+            if(CareerObjective.Length > 5000)
+            {
+                Console.WriteLine("\n Career Objective is too long. Maximum characters allowed is 5000\n");
+            }
+            else
+            {
+                break;
+            }
+        }
+        
+        while (true)
+        {
+            Console.Write(" Date of Birth   : ");
+            BirthDate = Console.ReadLine() ?? "Error";
+            if(BirthDate.Length > 20)
+            {
+                Console.WriteLine("\n Date of Birth is too long. Maximum characters allowed is 20\n");
+            }
+            else
+            {
+                break;
+            }
+        }
+        
         while (true)
         {
             Console.Write(" Phone Number    : ");
             PhoneNum = Console.ReadLine() ?? "Error";
-
-            if (NumericRegex.IsMatch(PhoneNum))
+            if(PhoneNum.Length > 10)
             {
-                break;
+                Console.WriteLine("\n Phone Number is too long. Maximum characters allowed is 10\n");
             }
             else
             {
-                Console.WriteLine("\n Phone number is numbers only.\n");
+                if (NumericRegex.IsMatch(PhoneNum))
+                {
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("\n Phone Number is numbers only.\n");
+                }
             }
         }
-        Console.Write(" Email           : ");
-        Email = Console.ReadLine() ?? "Error";
-        Console.Write(" Social Media    : ");
-        SocialMedia = Console.ReadLine() ?? "Error";
-        Console.Write(" Address         : ");
-        PersonalAddress = Console.ReadLine() ?? "Error";
-
         
+        while (true)
+        {
+            Console.Write(" Email           : ");
+            Email = Console.ReadLine() ?? "Error";
+            if(Email.Length > 100)
+            {
+                Console.WriteLine("\n Email is too long. Maximum characters allowed is 100\n");
+            }
+            else
+            {
+                break;
+            }
+        }
+
+        while (true)
+        {
+            Console.Write(" Social Media    : ");
+            SocialMedia = Console.ReadLine() ?? "Error";
+            if(SocialMedia.Length > 2000)
+            {
+                Console.WriteLine("\n Social Media is too long. Maximum characters allowed is 2000\n");
+            }
+            else
+            {
+                break;
+            }
+        }
+        
+        while (true)
+        {
+            Console.Write(" Address         : ");
+            PersonalAddress = Console.ReadLine() ?? "Error";
+            if(PersonalAddress.Length > 5000)
+            {
+                Console.WriteLine("\n Address is too long. Maximum characters allowed is 5000\n");
+            }
+            else
+            {
+                break;
+            }
+        }
+            
         while (true)
         {
             Console.WriteLine("================================");
@@ -476,16 +597,76 @@ public class Menu
         }
         Console.WriteLine("================================");
 
-        Console.Write(" Job Position: ");
-        JobPosition = Console.ReadLine() ?? "Error";
-        Console.Write(" From        : ");
-        FromDate = Console.ReadLine() ?? "Error";
-        Console.Write(" To          : ");
-        ToDate = Console.ReadLine() ?? "Error";
-        Console.Write(" Association : ");
-        Association = Console.ReadLine() ?? "Error";
-        Console.Write(" Description : ");
-        Description = Console.ReadLine() ?? "Error";
+        while (true)
+        {
+            Console.Write(" Job Position: ");
+            JobPosition = Console.ReadLine() ?? "Error";
+            if(JobPosition.Length > 100)
+            {
+                Console.WriteLine("\n Job Position is too long. Maximum characters allowed is 100\n");
+            }
+            else
+            {
+                break;
+            }
+        }
+        
+        while (true)
+        {
+            Console.Write(" From        : ");
+            FromDate = Console.ReadLine() ?? "Error";
+            if(FromDate.Length > 50)
+            {
+                Console.WriteLine("\n From Date is too long. Maximum characters allowed is 50\n");
+            }
+            else
+            {
+                break;
+            }
+        }
+        
+        while (true)
+        {
+            Console.Write(" To          : ");
+            ToDate = Console.ReadLine() ?? "Error";
+            if(ToDate.Length > 50)
+            {
+                Console.WriteLine("\n To Date is too long. Maximum characters allowed is 50\n");
+            }
+            else
+            {
+                break;
+            }
+        }
+        
+        while (true)
+        {
+            Console.Write(" Association : ");
+            Association = Console.ReadLine() ?? "Error";
+            if(Association.Length > 100)
+            {
+                Console.WriteLine("\n Association is too long. Maximum characters allowed is 100\n");
+            }
+            else
+            {
+                break;
+            }
+        }
+        
+        while (true)
+        {
+            Console.Write(" Description : ");
+            Description = Console.ReadLine() ?? "Error";
+            if(Description.Length > 5000)
+            {
+                Console.WriteLine("\n Description is too long. Maximum characters allowed is 5000\n");
+            }
+            else
+            {
+                break;
+            }
+        }
+        
 
         return new CVDetails(Title, JobPosition, FromDate, ToDate, Association, Description);
     }
@@ -603,23 +784,71 @@ public class Menu
             {
                 case "1":
                     Console.WriteLine("================================");
-                    Console.Write(" Full Name       : ");
-                    temp.FullName = Console.ReadLine() ?? "Error";
+                    while (true)
+                    {
+                        Console.Write(" Full Name       : ");
+                        string FullName = Console.ReadLine() ?? "Error";
+                        if(FullName.Length > 100)
+                        {
+                            Console.WriteLine("\n Full Name is too long. Maximum characters allowed is 100\n");
+                        }
+                        else
+                        {
+                            temp.FullName = FullName;
+                            break;
+                        }
+                    }
                     break;
                 case "2":
                     Console.WriteLine("================================");
-                    Console.Write(" Career Title    : ");
-                    temp.CareerTitle = Console.ReadLine() ?? "Error";
+                    while (true)
+                    {
+                        Console.Write(" Career Title       : ");
+                        string CareerTitle = Console.ReadLine() ?? "Error";
+                        if(CareerTitle.Length > 50)
+                        {
+                            Console.WriteLine("\n Career Title is too long. Maximum characters allowed is 50\n");
+                        }
+                        else
+                        {
+                            temp.CareerTitle = CareerTitle;
+                            break;
+                        }
+                    }
                     break;
                 case "3":
                     Console.WriteLine("================================");
-                    Console.Write(" Career Objective: ");
-                    temp.CareerObjective = Console.ReadLine() ?? "Error";
+                    while (true)
+                    {
+                        Console.Write(" Career Objective: ");
+                        string CareerObjective = Console.ReadLine() ?? "Error";
+                        if(CareerObjective.Length > 5000)
+                        {
+                            Console.WriteLine("\n Career Objective is too long. Maximum characters allowed is 5000\n");
+                        }
+                        else
+                        {
+                            temp.CareerObjective = CareerObjective;
+                            break;
+                        }
+                    }
                     break;
                 case "4":
                     Console.WriteLine("================================");
-                    Console.Write(" Date of Birth   : ");
-                    temp.BirthDate = Console.ReadLine() ?? "Error";
+                    while (true)
+                    {
+                        Console.Write(" Date of Birth   : ");
+                        string BirthDate = Console.ReadLine() ?? "Error";
+                        if(BirthDate.Length > 20)
+                        {
+                            Console.WriteLine("\n Date of Birth is too long. Maximum characters allowed is 20\n");
+                        }
+                        else
+                        {
+                            temp.BirthDate = BirthDate;
+                            break;
+                        }
+                    }
                     break;
                 case "5":
                     Console.WriteLine("================================");
@@ -628,31 +857,74 @@ public class Menu
                         Console.Write(" Phone Number    : ");
                         string? _PhoneNum = Console.ReadLine() ?? "Error";
 
-                        if (NumericRegex.IsMatch(_PhoneNum))
+                        if(_PhoneNum.Length > 10)
                         {
-                            temp.PhoneNum = _PhoneNum;
-                            break;
+                            Console.WriteLine("\n Phone Number is too long. Maximum characters allowed is 10\n");
                         }
                         else
                         {
-                            Console.WriteLine("\n Phone number is numbers only.\n");
+                            if (NumericRegex.IsMatch(_PhoneNum))
+                            {
+                                temp.PhoneNum = _PhoneNum;
+                                break;
+                            }
+                            else
+                            {
+                                Console.WriteLine("\n Phone number is numbers only.\n");
+                            }
                         }
                     }
                     break;
                 case "6":
                     Console.WriteLine("================================");
-                    Console.Write(" Email           : ");
-                    temp.Email = Console.ReadLine() ?? "Error";
+                    while (true)
+                    {
+                        Console.Write(" Email           : ");
+                        string Email = Console.ReadLine() ?? "Error";
+                        if(Email.Length > 100)
+                        {
+                            Console.WriteLine("\n Email is too long. Maximum characters allowed is 100\n");
+                        }
+                        else
+                        {
+                            temp.Email = Email;
+                            break;
+                        }
+                    }
                     break;
                 case "7":
                     Console.WriteLine("================================");
-                    Console.Write(" Social Media    : ");
-                    temp.SocialMedia = Console.ReadLine() ?? "Error";
+                    while (true)
+                    {
+                        Console.Write(" Social Media    : ");
+                        string SocialMedia = Console.ReadLine() ?? "Error";
+                        if(SocialMedia.Length > 2000)
+                        {
+                            Console.WriteLine("\n Social Media is too long. Maximum characters allowed is 2000\n");
+                        }
+                        else
+                        {
+                            temp.SocialMedia = SocialMedia;
+                            break;
+                        }
+                    }
                     break;
                 case "8":
                     Console.WriteLine("================================");
-                    Console.Write(" Address         : ");
-                    temp.PersonalAddress = Console.ReadLine() ?? "Error";
+                    while (true)
+                    {
+                        Console.Write(" Address         : ");
+                        string PersonalAddress = Console.ReadLine() ?? "Error";
+                        if(PersonalAddress.Length > 5000)
+                        {
+                            Console.WriteLine("\n Address is too long. Maximum characters allowed is 5000\n");
+                        }
+                        else
+                        {
+                            temp.PersonalAddress = PersonalAddress;
+                            break;
+                        }
+                    }
                     break;
                 case "9":
                     temp.CVDetails = UpdateCVDetails(temp.CVDetails);
@@ -890,16 +1162,75 @@ public class Menu
                                         if(detail.JobPosition!.ToUpper().Contains(choice.ToUpper()) && detail.Title == "Skill")
                                         {
                                             Console.WriteLine("================================");
-                                            Console.Write(" Job Position: ");
-                                            detail.JobPosition = Console.ReadLine() ?? "Error";
-                                            Console.Write(" From        : ");
-                                            detail.FromDate = Console.ReadLine() ?? "Error";
-                                            Console.Write(" To          : ");
-                                            detail.ToDate = Console.ReadLine() ?? "Error";
-                                            Console.Write(" Association : ");
-                                            detail.Association = Console.ReadLine() ?? "Error";
-                                            Console.Write(" Description : ");
-                                            detail.Description = Console.ReadLine() ?? "Error";
+                                            while (true)
+                                            {
+                                                Console.Write(" Job Position: ");
+                                                detail.JobPosition = Console.ReadLine() ?? "Error";
+                                                if(detail.JobPosition.Length > 100)
+                                                {
+                                                    Console.WriteLine("\n Job Position is too long. Maximum characters allowed is 100\n");
+                                                }
+                                                else
+                                                {
+                                                    break;
+                                                }
+                                            }
+                                            
+                                            while (true)
+                                            {
+                                                Console.Write(" From        : ");
+                                                detail.FromDate = Console.ReadLine() ?? "Error";
+                                                if(detail.FromDate.Length > 50)
+                                                {
+                                                    Console.WriteLine("\n From Date is too long. Maximum characters allowed is 50\n");
+                                                }
+                                                else
+                                                {
+                                                    break;
+                                                }
+                                            }
+                                            
+                                            while (true)
+                                            {
+                                                Console.Write(" To          : ");
+                                                detail.ToDate = Console.ReadLine() ?? "Error";
+                                                if(detail.ToDate.Length > 50)
+                                                {
+                                                    Console.WriteLine("\n To Date is too long. Maximum characters allowed is 50\n");
+                                                }
+                                                else
+                                                {
+                                                    break;
+                                                }
+                                            }
+                                            
+                                            while (true)
+                                            {
+                                                Console.Write(" Association : ");
+                                                detail.Association = Console.ReadLine() ?? "Error";
+                                                if(detail.Association.Length > 100)
+                                                {
+                                                    Console.WriteLine("\n Association is too long. Maximum characters allowed is 100\n");
+                                                }
+                                                else
+                                                {
+                                                    break;
+                                                }
+                                            }
+                                            
+                                            while (true)
+                                            {
+                                                Console.Write(" Description : ");
+                                                detail.Description = Console.ReadLine() ?? "Error";
+                                                if(detail.Description.Length > 5000)
+                                                {
+                                                    Console.WriteLine("\n Description is too long. Maximum characters allowed is 5000\n");
+                                                }
+                                                else
+                                                {
+                                                    break;
+                                                }
+                                            }
                                         }
                                     }
                                     break;
@@ -912,16 +1243,75 @@ public class Menu
                                         if(detail.JobPosition!.ToUpper().Contains(choice.ToUpper()) && detail.Title == "Work Experience")
                                         {
                                             Console.WriteLine("================================");
-                                            Console.Write(" Job Position: ");
-                                            detail.JobPosition = Console.ReadLine() ?? "Error";
-                                            Console.Write(" From        : ");
-                                            detail.FromDate = Console.ReadLine() ?? "Error";
-                                            Console.Write(" To          : ");
-                                            detail.ToDate = Console.ReadLine() ?? "Error";
-                                            Console.Write(" Association : ");
-                                            detail.Association = Console.ReadLine() ?? "Error";
-                                            Console.Write(" Description : ");
-                                            detail.Description = Console.ReadLine() ?? "Error";
+                                            while (true)
+                                            {
+                                                Console.Write(" Job Position: ");
+                                                detail.JobPosition = Console.ReadLine() ?? "Error";
+                                                if(detail.JobPosition.Length > 100)
+                                                {
+                                                    Console.WriteLine("\n Job Position is too long. Maximum characters allowed is 100\n");
+                                                }
+                                                else
+                                                {
+                                                    break;
+                                                }
+                                            }
+                                            
+                                            while (true)
+                                            {
+                                                Console.Write(" From        : ");
+                                                detail.FromDate = Console.ReadLine() ?? "Error";
+                                                if(detail.FromDate.Length > 50)
+                                                {
+                                                    Console.WriteLine("\n From Date is too long. Maximum characters allowed is 50\n");
+                                                }
+                                                else
+                                                {
+                                                    break;
+                                                }
+                                            }
+                                            
+                                            while (true)
+                                            {
+                                                Console.Write(" To          : ");
+                                                detail.ToDate = Console.ReadLine() ?? "Error";
+                                                if(detail.ToDate.Length > 50)
+                                                {
+                                                    Console.WriteLine("\n To Date is too long. Maximum characters allowed is 50\n");
+                                                }
+                                                else
+                                                {
+                                                    break;
+                                                }
+                                            }
+                                            
+                                            while (true)
+                                            {
+                                                Console.Write(" Association : ");
+                                                detail.Association = Console.ReadLine() ?? "Error";
+                                                if(detail.Association.Length > 100)
+                                                {
+                                                    Console.WriteLine("\n Association is too long. Maximum characters allowed is 100\n");
+                                                }
+                                                else
+                                                {
+                                                    break;
+                                                }
+                                            }
+                                            
+                                            while (true)
+                                            {
+                                                Console.Write(" Description : ");
+                                                detail.Description = Console.ReadLine() ?? "Error";
+                                                if(detail.Description.Length > 5000)
+                                                {
+                                                    Console.WriteLine("\n Description is too long. Maximum characters allowed is 5000\n");
+                                                }
+                                                else
+                                                {
+                                                    break;
+                                                }
+                                            }
                                         }
                                     }
                                     break;
@@ -934,16 +1324,75 @@ public class Menu
                                         if(detail.JobPosition!.ToUpper().Contains(choice.ToUpper()) && detail.Title == "Education")
                                         {
                                             Console.WriteLine("================================");
-                                            Console.Write(" Job Position: ");
-                                            detail.JobPosition = Console.ReadLine() ?? "Error";
-                                            Console.Write(" From        : ");
-                                            detail.FromDate = Console.ReadLine() ?? "Error";
-                                            Console.Write(" To          : ");
-                                            detail.ToDate = Console.ReadLine() ?? "Error";
-                                            Console.Write(" Association : ");
-                                            detail.Association = Console.ReadLine() ?? "Error";
-                                            Console.Write(" Description : ");
-                                            detail.Description = Console.ReadLine() ?? "Error";
+                                            while (true)
+                                            {
+                                                Console.Write(" Job Position: ");
+                                                detail.JobPosition = Console.ReadLine() ?? "Error";
+                                                if(detail.JobPosition.Length > 100)
+                                                {
+                                                    Console.WriteLine("\n Job Position is too long. Maximum characters allowed is 100\n");
+                                                }
+                                                else
+                                                {
+                                                    break;
+                                                }
+                                            }
+                                            
+                                            while (true)
+                                            {
+                                                Console.Write(" From        : ");
+                                                detail.FromDate = Console.ReadLine() ?? "Error";
+                                                if(detail.FromDate.Length > 50)
+                                                {
+                                                    Console.WriteLine("\n From Date is too long. Maximum characters allowed is 50\n");
+                                                }
+                                                else
+                                                {
+                                                    break;
+                                                }
+                                            }
+                                            
+                                            while (true)
+                                            {
+                                                Console.Write(" To          : ");
+                                                detail.ToDate = Console.ReadLine() ?? "Error";
+                                                if(detail.ToDate.Length > 50)
+                                                {
+                                                    Console.WriteLine("\n To Date is too long. Maximum characters allowed is 50\n");
+                                                }
+                                                else
+                                                {
+                                                    break;
+                                                }
+                                            }
+                                            
+                                            while (true)
+                                            {
+                                                Console.Write(" Association : ");
+                                                detail.Association = Console.ReadLine() ?? "Error";
+                                                if(detail.Association.Length > 100)
+                                                {
+                                                    Console.WriteLine("\n Association is too long. Maximum characters allowed is 100\n");
+                                                }
+                                                else
+                                                {
+                                                    break;
+                                                }
+                                            }
+                                            
+                                            while (true)
+                                            {
+                                                Console.Write(" Description : ");
+                                                detail.Description = Console.ReadLine() ?? "Error";
+                                                if(detail.Description.Length > 5000)
+                                                {
+                                                    Console.WriteLine("\n Description is too long. Maximum characters allowed is 5000\n");
+                                                }
+                                                else
+                                                {
+                                                    break;
+                                                }
+                                            }
                                         }
                                     }
                                     break;
@@ -956,16 +1405,75 @@ public class Menu
                                         if(detail.JobPosition!.ToUpper().Contains(choice.ToUpper()) && detail.Title == "Activity")
                                         {
                                             Console.WriteLine("================================");
-                                            Console.Write(" Job Position: ");
-                                            detail.JobPosition = Console.ReadLine() ?? "Error";
-                                            Console.Write(" From        : ");
-                                            detail.FromDate = Console.ReadLine() ?? "Error";
-                                            Console.Write(" To          : ");
-                                            detail.ToDate = Console.ReadLine() ?? "Error";
-                                            Console.Write(" Association : ");
-                                            detail.Association = Console.ReadLine() ?? "Error";
-                                            Console.Write(" Description : ");
-                                            detail.Description = Console.ReadLine() ?? "Error";
+                                            while (true)
+                                            {
+                                                Console.Write(" Job Position: ");
+                                                detail.JobPosition = Console.ReadLine() ?? "Error";
+                                                if(detail.JobPosition.Length > 100)
+                                                {
+                                                    Console.WriteLine("\n Job Position is too long. Maximum characters allowed is 100\n");
+                                                }
+                                                else
+                                                {
+                                                    break;
+                                                }
+                                            }
+                                            
+                                            while (true)
+                                            {
+                                                Console.Write(" From        : ");
+                                                detail.FromDate = Console.ReadLine() ?? "Error";
+                                                if(detail.FromDate.Length > 50)
+                                                {
+                                                    Console.WriteLine("\n From Date is too long. Maximum characters allowed is 50\n");
+                                                }
+                                                else
+                                                {
+                                                    break;
+                                                }
+                                            }
+                                            
+                                            while (true)
+                                            {
+                                                Console.Write(" To          : ");
+                                                detail.ToDate = Console.ReadLine() ?? "Error";
+                                                if(detail.ToDate.Length > 50)
+                                                {
+                                                    Console.WriteLine("\n To Date is too long. Maximum characters allowed is 50\n");
+                                                }
+                                                else
+                                                {
+                                                    break;
+                                                }
+                                            }
+                                            
+                                            while (true)
+                                            {
+                                                Console.Write(" Association : ");
+                                                detail.Association = Console.ReadLine() ?? "Error";
+                                                if(detail.Association.Length > 100)
+                                                {
+                                                    Console.WriteLine("\n Association is too long. Maximum characters allowed is 100\n");
+                                                }
+                                                else
+                                                {
+                                                    break;
+                                                }
+                                            }
+                                            
+                                            while (true)
+                                            {
+                                                Console.Write(" Description : ");
+                                                detail.Description = Console.ReadLine() ?? "Error";
+                                                if(detail.Description.Length > 5000)
+                                                {
+                                                    Console.WriteLine("\n Description is too long. Maximum characters allowed is 5000\n");
+                                                }
+                                                else
+                                                {
+                                                    break;
+                                                }
+                                            }
                                         }
                                     }
                                     break;
@@ -978,16 +1486,75 @@ public class Menu
                                         if(detail.JobPosition!.ToUpper().Contains(choice.ToUpper()) && detail.Title == "Certificate")
                                         {
                                             Console.WriteLine("================================");
-                                            Console.Write(" Job Position: ");
-                                            detail.JobPosition = Console.ReadLine() ?? "Error";
-                                            Console.Write(" From        : ");
-                                            detail.FromDate = Console.ReadLine() ?? "Error";
-                                            Console.Write(" To          : ");
-                                            detail.ToDate = Console.ReadLine() ?? "Error";
-                                            Console.Write(" Association : ");
-                                            detail.Association = Console.ReadLine() ?? "Error";
-                                            Console.Write(" Description : ");
-                                            detail.Description = Console.ReadLine() ?? "Error";
+                                            while (true)
+                                            {
+                                                Console.Write(" Job Position: ");
+                                                detail.JobPosition = Console.ReadLine() ?? "Error";
+                                                if(detail.JobPosition.Length > 100)
+                                                {
+                                                    Console.WriteLine("\n Job Position is too long. Maximum characters allowed is 100\n");
+                                                }
+                                                else
+                                                {
+                                                    break;
+                                                }
+                                            }
+                                            
+                                            while (true)
+                                            {
+                                                Console.Write(" From        : ");
+                                                detail.FromDate = Console.ReadLine() ?? "Error";
+                                                if(detail.FromDate.Length > 50)
+                                                {
+                                                    Console.WriteLine("\n From Date is too long. Maximum characters allowed is 50\n");
+                                                }
+                                                else
+                                                {
+                                                    break;
+                                                }
+                                            }
+                                            
+                                            while (true)
+                                            {
+                                                Console.Write(" To          : ");
+                                                detail.ToDate = Console.ReadLine() ?? "Error";
+                                                if(detail.ToDate.Length > 50)
+                                                {
+                                                    Console.WriteLine("\n To Date is too long. Maximum characters allowed is 50\n");
+                                                }
+                                                else
+                                                {
+                                                    break;
+                                                }
+                                            }
+                                            
+                                            while (true)
+                                            {
+                                                Console.Write(" Association : ");
+                                                detail.Association = Console.ReadLine() ?? "Error";
+                                                if(detail.Association.Length > 100)
+                                                {
+                                                    Console.WriteLine("\n Association is too long. Maximum characters allowed is 100\n");
+                                                }
+                                                else
+                                                {
+                                                    break;
+                                                }
+                                            }
+                                            
+                                            while (true)
+                                            {
+                                                Console.Write(" Description : ");
+                                                detail.Description = Console.ReadLine() ?? "Error";
+                                                if(detail.Description.Length > 5000)
+                                                {
+                                                    Console.WriteLine("\n Description is too long. Maximum characters allowed is 5000\n");
+                                                }
+                                                else
+                                                {
+                                                    break;
+                                                }
+                                            }
                                         }
                                     }
                                     break;
