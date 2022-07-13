@@ -1,8 +1,10 @@
 namespace Pl_Console;
 using System.Net.Mail;
 using Persistence;
+using System.Text.RegularExpressions;
 public class Menu
 {
+    private static readonly Regex NumericRegex = new Regex(@"^[0-9]*$");
     public void StartMenu()
     {
         string choice;
@@ -261,7 +263,7 @@ public class Menu
                     ViewCVMenu(CandidateID);
                     break;
                 case "3":
-                    
+                    SearchRecruitNewsMenu(CandidateID);
                     break;
                 case "0":
                     Console.WriteLine("================================"); 
@@ -345,8 +347,20 @@ public class Menu
         CareerObjective = Console.ReadLine() ?? "Error";
         Console.Write(" Date of Birth   : ");
         BirthDate = Console.ReadLine() ?? "Error";
-        Console.Write(" Phone Number    : ");
-        PhoneNum = Console.ReadLine() ?? "Error";
+        while (true)
+        {
+            Console.Write(" Phone Number    : ");
+            PhoneNum = Console.ReadLine() ?? "Error";
+
+            if (NumericRegex.IsMatch(PhoneNum))
+            {
+                break;
+            }
+            else
+            {
+                Console.WriteLine("\n Phone number is numbers only.\n");
+            }
+        }
         Console.Write(" Email           : ");
         Email = Console.ReadLine() ?? "Error";
         Console.Write(" Social Media    : ");
@@ -609,8 +623,21 @@ public class Menu
                     break;
                 case "5":
                     Console.WriteLine("================================");
-                    Console.Write(" Phone Number    : ");
-                    temp.PhoneNum = Console.ReadLine() ?? "Error";
+                    while (true)
+                    {
+                        Console.Write(" Phone Number    : ");
+                        string? _PhoneNum = Console.ReadLine() ?? "Error";
+
+                        if (NumericRegex.IsMatch(_PhoneNum))
+                        {
+                            temp.PhoneNum = _PhoneNum;
+                            break;
+                        }
+                        else
+                        {
+                            Console.WriteLine("\n Phone number is numbers only.\n");
+                        }
+                    }
                     break;
                 case "6":
                     Console.WriteLine("================================");
@@ -1159,13 +1186,14 @@ public class Menu
             switch (choice)
             {
                 case "1":
-                    
+                    DisplaySearchedNews(recruitNews, CandidateID);
+                    // DisplaySearchedNews(SearchRecruitNewsViaProfession(), CandidateID);
                     break;
                 case "2":
-                    
+                    // DisplaySearchedNews(SearchRecruitNewsViaSalaryRange(), CandidateID);
                     break;
                 case "3":
-                    
+                    // DisplaySearchedNews(SearchRecruitNewsViaCity(), CandidateID);
                     break;
                 case "0":
                     Console.WriteLine("================================"); 
@@ -1180,6 +1208,117 @@ public class Menu
             if (end == true)
             {
                 break;
+            }
+        }
+    }
+
+    public List<RecruitNews> SearchRecruitNewsViaProfession()
+    {
+        string choice;
+        
+        while (true)
+        {
+            Console.WriteLine("================================");
+            Console.WriteLine("          PROFESSION");
+            Console.WriteLine("================================");
+            Console.WriteLine(" 1) Seller");
+            Console.WriteLine(" 2) Translator");
+            Console.WriteLine(" 3) Journalist");
+            Console.WriteLine(" 4) Post and Telecommunications");
+            Console.WriteLine(" 5) Insurance");
+            Console.WriteLine("================================");
+            Console.Write(" Enter the option number: ");
+            choice = Console.ReadLine() ?? "Error";   
+            switch (choice)
+            {
+                case "1":
+                    return new List<RecruitNews>();
+                case "2":
+                    return new List<RecruitNews>();
+                case "3":
+                    return new List<RecruitNews>();
+                case "4":
+                    return new List<RecruitNews>();
+                case "5":
+                    return new List<RecruitNews>();
+                default:
+                    Console.WriteLine("================================"); 
+                    Console.WriteLine(" Invalid choice! Please re-enter your option.");
+                    break;
+            }
+        }
+    }
+
+    public List<RecruitNews> SearchRecruitNewsViaSalaryRange()
+    {
+        string choice;
+        
+        while (true)
+        {
+            Console.WriteLine("================================");
+            Console.WriteLine("            SALARY");
+            Console.WriteLine("================================");
+            Console.WriteLine(" 1) Bellow 3 million");
+            Console.WriteLine(" 2) 3 - 5 million");
+            Console.WriteLine(" 3) 5 - 7 million");
+            Console.WriteLine(" 4) 7 - 10 million");
+            Console.WriteLine(" 5) Higher than 10 million");
+            Console.WriteLine("================================");
+            Console.Write(" Enter the option number: ");
+            choice = Console.ReadLine() ?? "Error";   
+            switch (choice)
+            {
+                case "1":
+                    return new List<RecruitNews>();
+                case "2":
+                    return new List<RecruitNews>();
+                case "3":
+                    return new List<RecruitNews>();
+                case "4":
+                    return new List<RecruitNews>();
+                case "5":
+                    return new List<RecruitNews>();
+                default:
+                    Console.WriteLine("================================"); 
+                    Console.WriteLine(" Invalid choice! Please re-enter your option.");
+                    break;
+            }
+        }
+    }
+
+    public List<RecruitNews> SearchRecruitNewsViaCity()
+    {
+        string choice;
+        
+        while (true)
+        {
+            Console.WriteLine("================================");
+            Console.WriteLine("             CITY");
+            Console.WriteLine("================================");
+            Console.WriteLine(" 1) Ha Noi");
+            Console.WriteLine(" 2) Ho Chi Minh");
+            Console.WriteLine(" 3) Binh Duong");
+            Console.WriteLine(" 4) Bac Ninh");
+            Console.WriteLine(" 5) Dong Nai");
+            Console.WriteLine("================================");
+            Console.Write(" Enter the option number: ");
+            choice = Console.ReadLine() ?? "Error";   
+            switch (choice)
+            {
+                case "1":
+                    return new List<RecruitNews>();
+                case "2":
+                    return new List<RecruitNews>();
+                case "3":
+                    return new List<RecruitNews>();
+                case "4":
+                    return new List<RecruitNews>();
+                case "5":
+                    return new List<RecruitNews>();
+                default:
+                    Console.WriteLine("================================"); 
+                    Console.WriteLine(" Invalid choice! Please re-enter your option.");
+                    break;
             }
         }
     }
@@ -1211,7 +1350,7 @@ public class Menu
             bool success = int.TryParse(choice, out int position);
             if(success)
             {
-                
+                SearchedNewsDetails(recruitNews[position - 1], CandidateID);
             }
             else
             {
@@ -1225,15 +1364,31 @@ public class Menu
     {
         string choice;
         bool end = false;
+        bool IsApplied = false;
+
+        Recruiter recruiter = new Recruiter("Hung", "643876393", "Manager", "FPT", "", "1-9", "IT");
 
         while (true)
         {
             Console.WriteLine("================================");
             Console.WriteLine("          NEWS DETAILS");
             Console.WriteLine("================================");
+            Console.WriteLine(" Name: {0}", news.NewsName);
+            Console.WriteLine(" Deadline: {0}", news.DeadLine);
+            Console.WriteLine(" Recruiter: {0}", recruiter.Username);
+            Console.WriteLine(" Recruiter's Numeber: {0}", recruiter.PhoneNum);
+            Console.WriteLine(" SalaryRange: {0}", news.SalaryRange);
+            Console.WriteLine(" Form of Employ: {0}", news.FormOfEmploy);
+            Console.WriteLine(" Gender: {0}", news.Gender);
+            Console.WriteLine(" Hiring Amount: {0}", news.HiringAmount);
+            Console.WriteLine(" Hiring Position: {0}", news.HiringPosition);
+            Console.WriteLine(" Required Expirence: {0}", news.RequiredExp);
+            Console.WriteLine(" City Address: {0}", news.CityAddress);
+            Console.WriteLine(" Company: {0}", recruiter.CompanyName);
+            Console.WriteLine(" Bussiness Field: {0}", recruiter.BussinessField);
 
             Console.WriteLine("================================");
-            Console.WriteLine(" 1) Profession");
+            Console.WriteLine(" 1) Apply");
             Console.WriteLine(" 0) Exit");
             Console.WriteLine("================================");
             Console.Write(" Enter the option number: ");
@@ -1241,13 +1396,15 @@ public class Menu
             switch (choice)
             {
                 case "1":
-                    
-                    break;
-                case "2":
-                    
-                    break;
-                case "3":
-                    
+                    if(IsApplied)
+                    {
+                        Console.WriteLine("================================");
+                        Console.WriteLine(" Already applied!");
+                    }
+                    else
+                    {
+                        IsApplied = true;
+                    }
                     break;
                 case "0":
                     Console.WriteLine("================================"); 

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Project\\RECRUITMENT\\Persistence\\Persistence.csproj": {}
+    "D:\\Project2\\Project2\\Persistence\\Persistence.csproj": {}
   },
   "projects": {
-    "D:\\Project\\RECRUITMENT\\Persistence\\Persistence.csproj": {
+    "D:\\Project2\\Project2\\Persistence\\Persistence.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Project\\RECRUITMENT\\Persistence\\Persistence.csproj",
+        "projectUniqueName": "D:\\Project2\\Project2\\Persistence\\Persistence.csproj",
         "projectName": "Persistence",
-        "projectPath": "D:\\Project\\RECRUITMENT\\Persistence\\Persistence.csproj",
+        "projectPath": "D:\\Project2\\Project2\\Persistence\\Persistence.csproj",
         "packagesPath": "C:\\Users\\Admin.DESKTOP-QQO7LC2\\.nuget\\packages\\",
-        "outputPath": "D:\\Project\\RECRUITMENT\\Persistence\\obj\\",
+        "outputPath": "D:\\Project2\\Project2\\Persistence\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Admin.DESKTOP-QQO7LC2\\AppData\\Roaming\\NuGet\\NuGet.Config"

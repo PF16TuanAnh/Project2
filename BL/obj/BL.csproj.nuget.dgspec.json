@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Project\\RECRUITMENT\\Bl\\BL.csproj": {}
+    "D:\\Project2\\Project2\\Bl\\BL.csproj": {}
   },
   "projects": {
-    "D:\\Project\\RECRUITMENT\\Bl\\BL.csproj": {
+    "D:\\Project2\\Project2\\Bl\\BL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Project\\RECRUITMENT\\Bl\\BL.csproj",
+        "projectUniqueName": "D:\\Project2\\Project2\\Bl\\BL.csproj",
         "projectName": "BL",
-        "projectPath": "D:\\Project\\RECRUITMENT\\Bl\\BL.csproj",
+        "projectPath": "D:\\Project2\\Project2\\Bl\\BL.csproj",
         "packagesPath": "C:\\Users\\Admin.DESKTOP-QQO7LC2\\.nuget\\packages\\",
-        "outputPath": "D:\\Project\\RECRUITMENT\\Bl\\obj\\",
+        "outputPath": "D:\\Project2\\Project2\\Bl\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Admin.DESKTOP-QQO7LC2\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -26,11 +26,11 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "D:\\Project\\RECRUITMENT\\DAL\\DAL.csproj": {
-                "projectPath": "D:\\Project\\RECRUITMENT\\DAL\\DAL.csproj"
+              "D:\\Project2\\Project2\\DAL\\DAL.csproj": {
+                "projectPath": "D:\\Project2\\Project2\\DAL\\DAL.csproj"
               },
-              "D:\\Project\\RECRUITMENT\\Persistence\\Persistence.csproj": {
-                "projectPath": "D:\\Project\\RECRUITMENT\\Persistence\\Persistence.csproj"
+              "D:\\Project2\\Project2\\Persistence\\Persistence.csproj": {
+                "projectPath": "D:\\Project2\\Project2\\Persistence\\Persistence.csproj"
               }
             }
           }
@@ -63,14 +63,14 @@
         }
       }
     },
-    "D:\\Project\\RECRUITMENT\\DAL\\DAL.csproj": {
+    "D:\\Project2\\Project2\\DAL\\DAL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Project\\RECRUITMENT\\DAL\\DAL.csproj",
+        "projectUniqueName": "D:\\Project2\\Project2\\DAL\\DAL.csproj",
         "projectName": "DAL",
-        "projectPath": "D:\\Project\\RECRUITMENT\\DAL\\DAL.csproj",
+        "projectPath": "D:\\Project2\\Project2\\DAL\\DAL.csproj",
         "packagesPath": "C:\\Users\\Admin.DESKTOP-QQO7LC2\\.nuget\\packages\\",
-        "outputPath": "D:\\Project\\RECRUITMENT\\DAL\\obj\\",
+        "outputPath": "D:\\Project2\\Project2\\DAL\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Admin.DESKTOP-QQO7LC2\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -85,8 +85,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "D:\\Project\\RECRUITMENT\\Persistence\\Persistence.csproj": {
-                "projectPath": "D:\\Project\\RECRUITMENT\\Persistence\\Persistence.csproj"
+              "D:\\Project2\\Project2\\Persistence\\Persistence.csproj": {
+                "projectPath": "D:\\Project2\\Project2\\Persistence\\Persistence.csproj"
               }
             }
           }
@@ -119,14 +119,14 @@
         }
       }
     },
-    "D:\\Project\\RECRUITMENT\\Persistence\\Persistence.csproj": {
+    "D:\\Project2\\Project2\\Persistence\\Persistence.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Project\\RECRUITMENT\\Persistence\\Persistence.csproj",
+        "projectUniqueName": "D:\\Project2\\Project2\\Persistence\\Persistence.csproj",
         "projectName": "Persistence",
-        "projectPath": "D:\\Project\\RECRUITMENT\\Persistence\\Persistence.csproj",
+        "projectPath": "D:\\Project2\\Project2\\Persistence\\Persistence.csproj",
         "packagesPath": "C:\\Users\\Admin.DESKTOP-QQO7LC2\\.nuget\\packages\\",
-        "outputPath": "D:\\Project\\RECRUITMENT\\Persistence\\obj\\",
+        "outputPath": "D:\\Project2\\Project2\\Persistence\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Admin.DESKTOP-QQO7LC2\\AppData\\Roaming\\NuGet\\NuGet.Config"

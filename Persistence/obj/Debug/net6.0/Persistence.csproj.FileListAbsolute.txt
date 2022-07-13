@@ -10,3 +10,15 @@ D:\Project\RECRUITMENT\Persistence\obj\Debug\net6.0\Persistence.csproj.CoreCompi
 D:\Project\RECRUITMENT\Persistence\obj\Debug\net6.0\Persistence.dll
 D:\Project\RECRUITMENT\Persistence\obj\Debug\net6.0\ref\Persistence.dll
 D:\Project\RECRUITMENT\Persistence\obj\Debug\net6.0\Persistence.pdb
+D:\Project2\Project2\Persistence\bin\Debug\net6.0\Persistence.deps.json
+D:\Project2\Project2\Persistence\bin\Debug\net6.0\Persistence.dll
+D:\Project2\Project2\Persistence\bin\Debug\net6.0\ref\Persistence.dll
+D:\Project2\Project2\Persistence\bin\Debug\net6.0\Persistence.pdb
+D:\Project2\Project2\Persistence\obj\Debug\net6.0\Persistence.csproj.AssemblyReference.cache
+D:\Project2\Project2\Persistence\obj\Debug\net6.0\Persistence.GeneratedMSBuildEditorConfig.editorconfig
+D:\Project2\Project2\Persistence\obj\Debug\net6.0\Persistence.AssemblyInfoInputs.cache
+D:\Project2\Project2\Persistence\obj\Debug\net6.0\Persistence.AssemblyInfo.cs
+D:\Project2\Project2\Persistence\obj\Debug\net6.0\Persistence.csproj.CoreCompileInputs.cache
+D:\Project2\Project2\Persistence\obj\Debug\net6.0\Persistence.dll
+D:\Project2\Project2\Persistence\obj\Debug\net6.0\ref\Persistence.dll
+D:\Project2\Project2\Persistence\obj\Debug\net6.0\Persistence.pdb
