@@ -3,6 +3,7 @@ namespace Persistence;
 public class RecruitNews
 {
     public int NewsID{get; set;}
+    public int RecruiterID{get; set;}
     public string? NewsName{get; set;}
     public string? DeadLine{get; set;}
     public string? SalaryRange{get; set;}
@@ -13,7 +14,6 @@ public class RecruitNews
     public string? RequiredExp{get; set;}
     public string? CityAddress{get; set;}
     public string? Profession{get; set;}
-    public Boolean IsOpen{get; set;}
 
     public RecruitNews()
     {
