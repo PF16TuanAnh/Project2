@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Project2\\Project2\\Bl\\BL.csproj": {}
+    "F:\\Project2-1\\Bl\\BL.csproj": {}
   },
   "projects": {
-    "D:\\Project2\\Project2\\Bl\\BL.csproj": {
+    "F:\\Project2-1\\Bl\\BL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Project2\\Project2\\Bl\\BL.csproj",
+        "projectUniqueName": "F:\\Project2-1\\Bl\\BL.csproj",
         "projectName": "BL",
-        "projectPath": "D:\\Project2\\Project2\\Bl\\BL.csproj",
-        "packagesPath": "C:\\Users\\Admin.DESKTOP-QQO7LC2\\.nuget\\packages\\",
-        "outputPath": "D:\\Project2\\Project2\\Bl\\obj\\",
+        "projectPath": "F:\\Project2-1\\Bl\\BL.csproj",
+        "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
+        "outputPath": "F:\\Project2-1\\Bl\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Admin.DESKTOP-QQO7LC2\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\ADMIN\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
@@ -26,11 +26,11 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "D:\\Project2\\Project2\\DAL\\DAL.csproj": {
-                "projectPath": "D:\\Project2\\Project2\\DAL\\DAL.csproj"
+              "F:\\Project2-1\\DAL\\DAL.csproj": {
+                "projectPath": "F:\\Project2-1\\DAL\\DAL.csproj"
               },
-              "D:\\Project2\\Project2\\Persistence\\Persistence.csproj": {
-                "projectPath": "D:\\Project2\\Project2\\Persistence\\Persistence.csproj"
+              "F:\\Project2-1\\Persistence\\Persistence.csproj": {
+                "projectPath": "F:\\Project2-1\\Persistence\\Persistence.csproj"
               }
             }
           }
@@ -59,21 +59,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\Project2\\Project2\\DAL\\DAL.csproj": {
+    "F:\\Project2-1\\DAL\\DAL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Project2\\Project2\\DAL\\DAL.csproj",
+        "projectUniqueName": "F:\\Project2-1\\DAL\\DAL.csproj",
         "projectName": "DAL",
-        "projectPath": "D:\\Project2\\Project2\\DAL\\DAL.csproj",
-        "packagesPath": "C:\\Users\\Admin.DESKTOP-QQO7LC2\\.nuget\\packages\\",
-        "outputPath": "D:\\Project2\\Project2\\DAL\\obj\\",
+        "projectPath": "F:\\Project2-1\\DAL\\DAL.csproj",
+        "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
+        "outputPath": "F:\\Project2-1\\DAL\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Admin.DESKTOP-QQO7LC2\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\ADMIN\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
@@ -85,8 +85,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "D:\\Project2\\Project2\\Persistence\\Persistence.csproj": {
-                "projectPath": "D:\\Project2\\Project2\\Persistence\\Persistence.csproj"
+              "F:\\Project2-1\\Persistence\\Persistence.csproj": {
+                "projectPath": "F:\\Project2-1\\Persistence\\Persistence.csproj"
               }
             }
           }
@@ -100,6 +100,12 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
+          "dependencies": {
+            "mysql.data": {
+              "target": "Package",
+              "version": "[8.0.29, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -115,21 +121,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\Project2\\Project2\\Persistence\\Persistence.csproj": {
+    "F:\\Project2-1\\Persistence\\Persistence.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Project2\\Project2\\Persistence\\Persistence.csproj",
+        "projectUniqueName": "F:\\Project2-1\\Persistence\\Persistence.csproj",
         "projectName": "Persistence",
-        "projectPath": "D:\\Project2\\Project2\\Persistence\\Persistence.csproj",
-        "packagesPath": "C:\\Users\\Admin.DESKTOP-QQO7LC2\\.nuget\\packages\\",
-        "outputPath": "D:\\Project2\\Project2\\Persistence\\obj\\",
+        "projectPath": "F:\\Project2-1\\Persistence\\Persistence.csproj",
+        "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
+        "outputPath": "F:\\Project2-1\\Persistence\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Admin.DESKTOP-QQO7LC2\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\ADMIN\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
@@ -167,7 +173,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
         }
       }
     }

@@ -1955,7 +1955,14 @@ public class Menu
             Console.WriteLine(" Bussiness Field: {0}", recruiter.BussinessField);
 
             Console.WriteLine("================================");
-            Console.WriteLine(" 1) Apply");
+            if(IsApplied)
+            {
+                Console.WriteLine(" Applied!");
+            }
+            else
+            {
+                Console.WriteLine(" 1) Apply");
+            }
             Console.WriteLine(" 0) Exit");
             Console.WriteLine("================================");
             Console.Write(" Enter the option number: ");
@@ -1963,12 +1970,7 @@ public class Menu
             switch (choice)
             {
                 case "1":
-                    if(IsApplied)
-                    {
-                        Console.WriteLine("================================");
-                        Console.WriteLine(" Already applied!");
-                    }
-                    else
+                    if(!IsApplied)
                     {
                         IsApplied = true;
                     }

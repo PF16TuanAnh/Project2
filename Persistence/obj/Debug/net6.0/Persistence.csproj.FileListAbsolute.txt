@@ -22,3 +22,15 @@ D:\Project2\Project2\Persistence\obj\Debug\net6.0\Persistence.csproj.CoreCompile
 D:\Project2\Project2\Persistence\obj\Debug\net6.0\Persistence.dll
 D:\Project2\Project2\Persistence\obj\Debug\net6.0\ref\Persistence.dll
 D:\Project2\Project2\Persistence\obj\Debug\net6.0\Persistence.pdb
+F:\Project2-1\Persistence\bin\Debug\net6.0\Persistence.deps.json
+F:\Project2-1\Persistence\bin\Debug\net6.0\Persistence.dll
+F:\Project2-1\Persistence\bin\Debug\net6.0\Persistence.pdb
+F:\Project2-1\Persistence\obj\Debug\net6.0\Persistence.csproj.AssemblyReference.cache
+F:\Project2-1\Persistence\obj\Debug\net6.0\Persistence.GeneratedMSBuildEditorConfig.editorconfig
+F:\Project2-1\Persistence\obj\Debug\net6.0\Persistence.AssemblyInfoInputs.cache
+F:\Project2-1\Persistence\obj\Debug\net6.0\Persistence.AssemblyInfo.cs
+F:\Project2-1\Persistence\obj\Debug\net6.0\Persistence.csproj.CoreCompileInputs.cache
+F:\Project2-1\Persistence\obj\Debug\net6.0\Persistence.dll
+F:\Project2-1\Persistence\obj\Debug\net6.0\refint\Persistence.dll
+F:\Project2-1\Persistence\obj\Debug\net6.0\Persistence.pdb
+F:\Project2-1\Persistence\obj\Debug\net6.0\ref\Persistence.dll

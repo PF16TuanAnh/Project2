@@ -12,7 +12,7 @@ public class DBHelper
         {
             connection = new MySqlConnection
             {
-                ConnectionString = @"server=localhost; user=root; password=Sieunhan159357; database=employees;"
+                ConnectionString = @"server=localhost; user=root; password=Sieunhan159357; database=project;"
             };
         }
 
