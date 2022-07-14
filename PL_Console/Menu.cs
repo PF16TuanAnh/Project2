@@ -2,6 +2,7 @@ namespace Pl_Console;
 using System.Net.Mail;
 using Persistence;
 using System.Text.RegularExpressions;
+using ConsoleTables;
 public class Menu
 {
     private static readonly Regex NumericRegex = new Regex(@"^[0-9]*$");
@@ -11,9 +12,9 @@ public class Menu
         bool end = false;
         while (true)
         {
-            Console.WriteLine("================================");
+            Console.WriteLine("================================\n");
             Console.WriteLine("        RECRUITMENT APP");
-            Console.WriteLine("================================");
+            Console.WriteLine("\n================================");
             Console.WriteLine(" 1) Log in");
             Console.WriteLine(" 2) Register");
             Console.WriteLine(" 0) Exit");
@@ -54,9 +55,9 @@ public class Menu
         bool EmailExisted = true;
         bool PasswordCorrected = true;
 
-        Console.WriteLine("================================");
+        Console.WriteLine("================================\n");
         Console.WriteLine("            LOG IN");
-        Console.WriteLine("================================");
+        Console.WriteLine("\n================================");
         Console.Write(" Email: ");
         email = Console.ReadLine() ?? "Error";
         Console.Write(" Password: ");
@@ -114,9 +115,9 @@ public class Menu
         int? CandidateID = 1;
         int? RecruiterID = null;
 
-        Console.WriteLine("================================");
+        Console.WriteLine("================================\n");
         Console.WriteLine("            REGISTER");
-        Console.WriteLine("================================");
+        Console.WriteLine("\n================================");
         while (true)
         {
             Console.Write(" Email: ");
@@ -169,9 +170,9 @@ public class Menu
 
         while (true)
         {
-            Console.WriteLine("================================");
+            Console.WriteLine("================================\n");
             Console.WriteLine("          Your Gender");
-            Console.WriteLine("================================");
+            Console.WriteLine("\n================================");
             Console.WriteLine(" 1) Male");
             Console.WriteLine(" 2) Female");
             Console.WriteLine(" 3) Other");
@@ -206,9 +207,9 @@ public class Menu
 
         while (true)
         {
-            Console.WriteLine("================================");
+            Console.WriteLine("================================\n");
             Console.WriteLine("          Register As");
-            Console.WriteLine("================================");
+            Console.WriteLine("\n================================");
             Console.WriteLine(" 1) Candidate");
             Console.WriteLine(" 2) Recruiter");
             Console.WriteLine("================================");
@@ -276,9 +277,9 @@ public class Menu
         string choice;
         while (true)
         {
-            Console.WriteLine("================================");
+            Console.WriteLine("================================\n");
             Console.WriteLine(" Username: {0}", username);
-            Console.WriteLine("================================");
+            Console.WriteLine("\n================================");
             Console.WriteLine(" 1) Create CV");
             Console.WriteLine(" 2) View CV");
             Console.WriteLine(" 3) Search Recruitment News");
@@ -315,9 +316,9 @@ public class Menu
         string choice;
         while (true)
         {
-            Console.WriteLine("================================");
+            Console.WriteLine("================================\n");
             Console.WriteLine(" Username: {0}", username);
-            Console.WriteLine("================================");
+            Console.WriteLine("\n================================");
             Console.WriteLine(" 1) View Personal Information");
             Console.WriteLine(" 2) Add Recruitment News");
             Console.WriteLine(" 3) View Your Recruitment News");
@@ -367,9 +368,9 @@ public class Menu
         string? PersonalAddress;
         List<CVDetails>? CVDetails = null;
 
-        Console.WriteLine("================================");
+        Console.WriteLine("================================\n");
         Console.WriteLine("           CREATE CV");
-        Console.WriteLine("================================");
+        Console.WriteLine("\n================================");
 
         while (true)
         {
@@ -492,9 +493,9 @@ public class Menu
             
         while (true)
         {
-            Console.WriteLine("================================");
+            Console.WriteLine("================================\n");
             Console.WriteLine("              ADD");
-            Console.WriteLine("================================");
+            Console.WriteLine("\n================================");
             Console.WriteLine(" 1) A Skill");
             Console.WriteLine(" 2) A Work Experience");
             Console.WriteLine(" 3) An Education");
@@ -542,7 +543,6 @@ public class Menu
                     CVDetails.Add(AddCVDetails(5));
                     break;
                 case "0":
-                    Console.WriteLine("================================"); 
                     end = true;
                     break;
                 default:
@@ -569,7 +569,7 @@ public class Menu
         string? Association;
         string? Description;
 
-        Console.WriteLine("================================");
+        Console.WriteLine("================================\n");
         switch (type)
         {
             case 1:
@@ -595,7 +595,7 @@ public class Menu
             default:
                 break;
         }
-        Console.WriteLine("================================");
+        Console.WriteLine("\n================================");
 
         while (true)
         {
@@ -680,9 +680,9 @@ public class Menu
 
         while (true)
         {
-            Console.WriteLine("================================");
+            Console.WriteLine("================================\n");
             Console.WriteLine("            YOUR CV");
-            Console.WriteLine("================================");
+            Console.WriteLine("\n================================");
             Console.WriteLine(" Full Name       : {0}", temp.FullName);
             Console.WriteLine(" Career Title    : {0}", temp.CareerTitle);
             Console.WriteLine(" Career Objective: {0}", temp.CareerObjective);
@@ -694,77 +694,67 @@ public class Menu
             Console.WriteLine(" \n Skills:\n");
             if(temp.CVDetails != null)
             {
+                var table = new ConsoleTable("Job Position", "From", "To", "Association", "Description");
                 foreach (CVDetails detail in temp.CVDetails)
                 {
                     if(detail.Title == "Skill")
                     {
-                        Console.WriteLine("  Job Position: {0}", detail.JobPosition);
-                        Console.WriteLine("  From        : {0}", detail.FromDate);
-                        Console.WriteLine("  To          : {0}", detail.ToDate);
-                        Console.WriteLine("  Association : {0}", detail.Association);
-                        Console.WriteLine("  Description : {0}\n", detail.Description);
+                        table.AddRow(detail.JobPosition, detail.FromDate, detail.ToDate, detail.Association, detail.Description);  
                     }
                 }
+                table.Write(Format.Alternative);
             }
             Console.WriteLine(" Work Experiences:\n");
             if(temp.CVDetails != null)
             {
+                var table = new ConsoleTable("Job Position", "From", "To", "Association", "Description");
                 foreach (CVDetails detail in temp.CVDetails)
                 {
                     if(detail.Title == "Work Experience")
                     {
-                        Console.WriteLine("  Job Position: {0}", detail.JobPosition);
-                        Console.WriteLine("  From        : {0}", detail.FromDate);
-                        Console.WriteLine("  To          : {0}", detail.ToDate);
-                        Console.WriteLine("  Association : {0}", detail.Association);
-                        Console.WriteLine("  Description : {0}\n", detail.Description);
+                        table.AddRow(detail.JobPosition, detail.FromDate, detail.ToDate, detail.Association, detail.Description);  
                     }
                 }
+                table.Write(Format.Alternative);
             }
             Console.WriteLine(" Educations:\n");
             if(temp.CVDetails != null)
             {
+                var table = new ConsoleTable("Job Position", "From", "To", "Association", "Description");
                 foreach (CVDetails detail in temp.CVDetails)
                 {
                     if(detail.Title == "Education")
                     {
-                        Console.WriteLine("  Job Position: {0}", detail.JobPosition);
-                        Console.WriteLine("  From        : {0}", detail.FromDate);
-                        Console.WriteLine("  To          : {0}", detail.ToDate);
-                        Console.WriteLine("  Association : {0}", detail.Association);
-                        Console.WriteLine("  Description : {0}\n", detail.Description);
+                        table.AddRow(detail.JobPosition, detail.FromDate, detail.ToDate, detail.Association, detail.Description);  
                     }
                 }
+                table.Write(Format.Alternative);
             }
             Console.WriteLine(" Activities:\n");
             if(temp.CVDetails != null)
             {
+                var table = new ConsoleTable("Job Position", "From", "To", "Association", "Description");
                 foreach (CVDetails detail in temp.CVDetails)
                 {
                     if(detail.Title == "Activity")
                     {
-                        Console.WriteLine("  Job Position: {0}", detail.JobPosition);
-                        Console.WriteLine("  From        : {0}", detail.FromDate);
-                        Console.WriteLine("  To          : {0}", detail.ToDate);
-                        Console.WriteLine("  Association : {0}", detail.Association);
-                        Console.WriteLine("  Description : {0}\n", detail.Description);
+                        table.AddRow(detail.JobPosition, detail.FromDate, detail.ToDate, detail.Association, detail.Description);  
                     }
                 }
+                table.Write(Format.Alternative);
             }
             Console.WriteLine(" Certifications:\n");
             if(temp.CVDetails != null)
             {
+                var table = new ConsoleTable("Job Position", "From", "To", "Association", "Description");
                 foreach (CVDetails detail in temp.CVDetails)
                 {
                     if(detail.Title == "Certificate")
                     {
-                        Console.WriteLine("  Job Position: {0}", detail.JobPosition);
-                        Console.WriteLine("  From        : {0}", detail.FromDate);
-                        Console.WriteLine("  To          : {0}", detail.ToDate);
-                        Console.WriteLine("  Association : {0}", detail.Association);
-                        Console.WriteLine("  Description : {0}\n", detail.Description);
+                        table.AddRow(detail.JobPosition, detail.FromDate, detail.ToDate, detail.Association, detail.Description);  
                     }
                 }
+                table.Write(Format.Alternative);
             }
             Console.WriteLine("================================");
             Console.WriteLine(" 1) FullName");
@@ -984,77 +974,67 @@ public class Menu
             Console.WriteLine(" Skills:\n");
             if(CVDetails != null)
             {
+                var table = new ConsoleTable("Job Position", "From", "To", "Association", "Description");
                 foreach (CVDetails detail in CVDetails)
                 {
                     if(detail.Title == "Skill")
                     {
-                        Console.WriteLine("  Job Position: {0}", detail.JobPosition);
-                        Console.WriteLine("  From        : {0}", detail.FromDate);
-                        Console.WriteLine("  To          : {0}", detail.ToDate);
-                        Console.WriteLine("  Association : {0}", detail.Association);
-                        Console.WriteLine("  Description : {0}\n", detail.Description);
+                        table.AddRow(detail.JobPosition, detail.FromDate, detail.ToDate, detail.Association, detail.Description);  
                     }
                 }
+                table.Write(Format.Alternative);
             }
             Console.WriteLine(" Work Experiences:\n");
             if(CVDetails != null)
             {
+                var table = new ConsoleTable("Job Position", "From", "To", "Association", "Description");
                 foreach (CVDetails detail in CVDetails)
                 {
                     if(detail.Title == "Work Experience")
                     {
-                        Console.WriteLine("  Job Position: {0}", detail.JobPosition);
-                        Console.WriteLine("  From        : {0}", detail.FromDate);
-                        Console.WriteLine("  To          : {0}", detail.ToDate);
-                        Console.WriteLine("  Association : {0}", detail.Association);
-                        Console.WriteLine("  Description : {0}\n", detail.Description);
+                        table.AddRow(detail.JobPosition, detail.FromDate, detail.ToDate, detail.Association, detail.Description);  
                     }
                 }
+                table.Write(Format.Alternative);
             }
             Console.WriteLine(" Educations:\n");
             if(CVDetails != null)
             {
+                var table = new ConsoleTable("Job Position", "From", "To", "Association", "Description");
                 foreach (CVDetails detail in CVDetails)
                 {
                     if(detail.Title == "Education")
                     {
-                        Console.WriteLine("  Job Position: {0}", detail.JobPosition);
-                        Console.WriteLine("  From        : {0}", detail.FromDate);
-                        Console.WriteLine("  To          : {0}", detail.ToDate);
-                        Console.WriteLine("  Association : {0}", detail.Association);
-                        Console.WriteLine("  Description : {0}\n", detail.Description);
+                        table.AddRow(detail.JobPosition, detail.FromDate, detail.ToDate, detail.Association, detail.Description);  
                     }
                 }
+                table.Write(Format.Alternative);
             }
             Console.WriteLine(" Activities:\n");
             if(CVDetails != null)
             {
+                var table = new ConsoleTable("Job Position", "From", "To", "Association", "Description");
                 foreach (CVDetails detail in CVDetails)
                 {
                     if(detail.Title == "Activity")
                     {
-                        Console.WriteLine("  Job Position: {0}", detail.JobPosition);
-                        Console.WriteLine("  From        : {0}", detail.FromDate);
-                        Console.WriteLine("  To          : {0}", detail.ToDate);
-                        Console.WriteLine("  Association : {0}", detail.Association);
-                        Console.WriteLine("  Description : {0}\n", detail.Description);
+                        table.AddRow(detail.JobPosition, detail.FromDate, detail.ToDate, detail.Association, detail.Description);  
                     }
                 }
+                table.Write(Format.Alternative);
             }
             Console.WriteLine(" Certifications:\n");
             if(CVDetails != null)
             {
+                var table = new ConsoleTable("Job Position", "From", "To", "Association", "Description");
                 foreach (CVDetails detail in CVDetails)
                 {
                     if(detail.Title == "Certificate")
                     {
-                        Console.WriteLine("  Job Position: {0}", detail.JobPosition);
-                        Console.WriteLine("  From        : {0}", detail.FromDate);
-                        Console.WriteLine("  To          : {0}", detail.ToDate);
-                        Console.WriteLine("  Association : {0}", detail.Association);
-                        Console.WriteLine("  Description : {0}\n", detail.Description);
+                        table.AddRow(detail.JobPosition, detail.FromDate, detail.ToDate, detail.Association, detail.Description);  
                     }
                 }
+                table.Write(Format.Alternative);
             }
             Console.WriteLine("================================");
             Console.WriteLine(" 1) Add");
@@ -1069,9 +1049,9 @@ public class Menu
                 case "1": // Add more CVDetails
                     while (true)
                     {
-                        Console.WriteLine("================================");
+                        Console.WriteLine("================================\n");
                         Console.WriteLine("              ADD");
-                        Console.WriteLine("================================");
+                        Console.WriteLine("\n================================");
                         Console.WriteLine(" 1) A Skill");
                         Console.WriteLine(" 2) A Work Experience");
                         Console.WriteLine(" 3) An Education");
@@ -1139,9 +1119,9 @@ public class Menu
                     {
                         while (true)
                         {
-                            Console.WriteLine("================================");
+                            Console.WriteLine("================================\n");
                             Console.WriteLine("            CHANGE");
-                            Console.WriteLine("================================");
+                            Console.WriteLine("\n================================");
                             Console.WriteLine(" 1) A Skill");
                             Console.WriteLine(" 2) A Work Experience");
                             Console.WriteLine(" 3) An Education");
@@ -1585,9 +1565,9 @@ public class Menu
                     {
                         while (true)
                         {
-                            Console.WriteLine("================================");
+                            Console.WriteLine("================================\n");
                             Console.WriteLine("             DELETE");
-                            Console.WriteLine("================================");
+                            Console.WriteLine("\n================================");
                             Console.WriteLine(" 1) A Skill");
                             Console.WriteLine(" 2) A Work Experience");
                             Console.WriteLine(" 3) An Education");
@@ -1707,7 +1687,6 @@ public class Menu
                     }
                     break;
                 case "0":
-                    Console.WriteLine("================================"); 
                     end = true;
                     break;
                 default:
@@ -1740,9 +1719,9 @@ public class Menu
 
         while (true)
         {
-            Console.WriteLine("================================");
+            Console.WriteLine("================================\n");
             Console.WriteLine("          SEARCH VIA");
-            Console.WriteLine("================================");
+            Console.WriteLine("\n================================");
             Console.WriteLine(" 1) Profession");
             Console.WriteLine(" 2) Salary Range");
             Console.WriteLine(" 2) City Address");
@@ -1763,7 +1742,6 @@ public class Menu
                     // DisplaySearchedNews(SearchRecruitNewsViaCity(), CandidateID);
                     break;
                 case "0":
-                    Console.WriteLine("================================"); 
                     end = true;
                     break;
                 default:
@@ -1785,9 +1763,9 @@ public class Menu
         
         while (true)
         {
-            Console.WriteLine("================================");
+            Console.WriteLine("================================\n");
             Console.WriteLine("          PROFESSION");
-            Console.WriteLine("================================");
+            Console.WriteLine("\n================================");
             Console.WriteLine(" 1) Seller");
             Console.WriteLine(" 2) Translator");
             Console.WriteLine(" 3) Journalist");
@@ -1822,9 +1800,9 @@ public class Menu
         
         while (true)
         {
-            Console.WriteLine("================================");
+            Console.WriteLine("================================\n");
             Console.WriteLine("            SALARY");
-            Console.WriteLine("================================");
+            Console.WriteLine("\n================================");
             Console.WriteLine(" 1) Bellow 3 million");
             Console.WriteLine(" 2) 3 - 5 million");
             Console.WriteLine(" 3) 5 - 7 million");
@@ -1859,9 +1837,9 @@ public class Menu
         
         while (true)
         {
-            Console.WriteLine("================================");
+            Console.WriteLine("================================\n");
             Console.WriteLine("             CITY");
-            Console.WriteLine("================================");
+            Console.WriteLine("\n================================");
             Console.WriteLine(" 1) Ha Noi");
             Console.WriteLine(" 2) Ho Chi Minh");
             Console.WriteLine(" 3) Binh Duong");
@@ -1897,9 +1875,9 @@ public class Menu
         while (true)
         {
             int count = 0;
-            Console.WriteLine("================================");
+            Console.WriteLine("================================\n");
             Console.WriteLine("       RECRUITMENT NEWS");
-            Console.WriteLine("================================");
+            Console.WriteLine("\n================================");
             foreach (RecruitNews news in recruitNews)
             {
                 count++;
@@ -1937,9 +1915,9 @@ public class Menu
 
         while (true)
         {
-            Console.WriteLine("================================");
+            Console.WriteLine("================================\n");
             Console.WriteLine("          NEWS DETAILS");
-            Console.WriteLine("================================");
+            Console.WriteLine("\n================================");
             Console.WriteLine(" Name: {0}", news.NewsName);
             Console.WriteLine(" Deadline: {0}", news.DeadLine);
             Console.WriteLine(" Recruiter: {0}", recruiter.Username);
