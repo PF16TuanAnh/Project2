@@ -1,4 +1,5 @@
 namespace Pl_Console;
+using BL;
 using System.Net.Mail;
 using Persistence;
 using System.Text.RegularExpressions;
@@ -6,9 +7,17 @@ using ConsoleTables;
 public class Menu
 {
     private static readonly Regex NumericRegex = new Regex(@"^[0-9]*$");
+    private UserBL userBL;
+    private CandidateBL candidateBL;
+
+    public Menu()
+    {
+        userBL = new UserBL();
+        candidateBL = new CandidateBL();
+    }
+
     public void StartMenu()
     {
-        string choice;
         bool end = false;
         while (true)
         {
@@ -19,9 +28,8 @@ public class Menu
             Console.WriteLine(" 2) Register");
             Console.WriteLine(" 0) Exit");
             Console.WriteLine("================================");
-            Console.Write(" Enter the option number: ");
-            choice = Console.ReadLine() ?? "Error";   
-            switch (choice)
+            Console.Write(" Enter the option number: ");  
+            switch (GetUserInput())
             {
                 case "1":
                     LogInMenu();
@@ -50,25 +58,22 @@ public class Menu
     {
         string email;
         string password;
-        int? CandidateID = 1;
-        int? RecruiterID = null;
-        bool EmailExisted = true;
-        bool PasswordCorrected = true;
 
         Console.WriteLine("================================\n");
         Console.WriteLine("            LOG IN");
         Console.WriteLine("\n================================");
         Console.Write(" Email: ");
-        email = Console.ReadLine() ?? "Error";
+        email = GetUserInput();
         Console.Write(" Password: ");
-        password = Console.ReadLine() ?? "Error";
+        password = GetUserInput();
 
         while (true)
         {
-            if (EmailExisted)
+            if (userBL.CheckUserEmail(email))
             {
-                if (PasswordCorrected)
+                if (userBL.CheckUserPassword(email, password))
                 {
+                    int? CandidateID = userBL.GetCandidateIDByEmail(email);
                     if (CandidateID != null)
                     {
                         Console.WriteLine("================================");
@@ -86,19 +91,17 @@ public class Menu
                 else
                 {
                     Console.WriteLine("================================");
-                    Console.WriteLine(" Password is incorrect! Please re-enter your password");
+                    Console.WriteLine(" Password is incorrect! Please re-enter your password.");
                     Console.Write(" Password: ");
-                    password = Console.ReadLine() ?? "Error";
-                    PasswordCorrected = true;
+                    password = GetUserInput();
                 }
             }
             else
             {
                 Console.WriteLine("================================");
-                Console.WriteLine(" Email doesn't exist! Please re-enter your emai.");
+                Console.WriteLine(" Email doesn't exist! Please re-enter your email.");
                 Console.Write(" Email: ");
-                email = Console.ReadLine() ?? "Error";
-                EmailExisted = true;
+                email = GetUserInput();
             }
         }
     }
@@ -110,7 +113,6 @@ public class Menu
         string username;
         string gender = "Other";
         int role = 1; // 1 = "Candidate", 2 = "Recruiter"
-        string choice;
         bool end = false;
         int? CandidateID = 1;
         int? RecruiterID = null;
@@ -121,7 +123,7 @@ public class Menu
         while (true)
         {
             Console.Write(" Email: ");
-            email = Console.ReadLine() ?? "Error";
+            email = GetUserInput();
             if(email.Length > 100)
             {
                 Console.WriteLine("\n Email is too long. Maximum characters allowed is 100\n");
@@ -142,7 +144,7 @@ public class Menu
         while (true)
         {
             Console.Write(" Password: ");
-            password = Console.ReadLine() ?? "Error";
+            password = GetUserInput();
             if(password.Length > 100)
             {
                 Console.WriteLine("\n Password is too long. Maximum characters allowed is 100\n");
@@ -156,7 +158,7 @@ public class Menu
         while (true)
         {
             Console.Write(" Username: ");
-            username = Console.ReadLine() ?? "Error";
+            username = GetUserInput();
             if(username.Length > 50)
             {
                 Console.WriteLine("\n Username is too long. Maximum characters allowed is 50\n");
@@ -178,8 +180,7 @@ public class Menu
             Console.WriteLine(" 3) Other");
             Console.WriteLine("================================");
             Console.Write(" Enter the option number: ");
-            choice = Console.ReadLine() ?? "Error";   
-            switch (choice)
+            switch (GetUserInput())
             {
                 case "1":
                     gender = "Male";
@@ -214,8 +215,7 @@ public class Menu
             Console.WriteLine(" 2) Recruiter");
             Console.WriteLine("================================");
             Console.Write(" Enter the option number: ");
-            choice = Console.ReadLine() ?? "Error";   
-            switch (choice)
+            switch (GetUserInput())
             {
                 case "1":
                     role = 1;
@@ -273,12 +273,11 @@ public class Menu
 
     public void CandidateMenu(int? CandidateID)
     {
-        string username = "temp";
-        string choice;
+        Candidate candidate = candidateBL.GetCandidateByID(CandidateID);
         while (true)
         {
             Console.WriteLine("================================\n");
-            Console.WriteLine(" Username: {0}", username);
+            Console.WriteLine(" Username: {0}", candidate.Username);
             Console.WriteLine("\n================================");
             Console.WriteLine(" 1) Create CV");
             Console.WriteLine(" 2) View CV");
@@ -286,8 +285,7 @@ public class Menu
             Console.WriteLine(" 0) Exit");
             Console.WriteLine("================================");
             Console.Write(" Enter the option number: ");
-            choice = Console.ReadLine() ?? "Error";   
-            switch (choice)
+            switch (GetUserInput())
             {
                 case "1":
                     CreateCVMenu(CandidateID);
@@ -313,7 +311,6 @@ public class Menu
      public void RecruiterMenu(int? RecruiterID)
     {
         string username = "temp";
-        string choice;
         while (true)
         {
             Console.WriteLine("================================\n");
@@ -326,8 +323,7 @@ public class Menu
             Console.WriteLine(" 0) Exit");
             Console.WriteLine("================================");
             Console.Write(" Enter the option number: ");
-            choice = Console.ReadLine() ?? "Error";   
-            switch (choice)
+            switch (GetUserInput())
             {
                 case "1":
                     
@@ -355,7 +351,6 @@ public class Menu
 
     public void CreateCVMenu(int? CandidateID)
     {
-        string choice;
         bool end = false;
 
         string? FullName;
@@ -375,7 +370,7 @@ public class Menu
         while (true)
         {
             Console.Write(" Full Name       : ");
-            FullName = Console.ReadLine() ?? "Error";
+            FullName = GetUserInput();
             if(FullName.Length > 100)
             {
                 Console.WriteLine("\n Full Name is too long. Maximum characters allowed is 100\n");
@@ -389,7 +384,7 @@ public class Menu
         while (true)
         {
             Console.Write(" Career Title    : ");
-            CareerTitle = Console.ReadLine() ?? "Error";
+            CareerTitle = GetUserInput();
             if(CareerTitle.Length > 50)
             {
                 Console.WriteLine("\n Career Title is too long. Maximum characters allowed is 50\n");
@@ -403,7 +398,7 @@ public class Menu
         while (true)
         {
             Console.Write(" Career Objective: ");
-            CareerObjective = Console.ReadLine() ?? "Error";
+            CareerObjective = GetUserInput();
             if(CareerObjective.Length > 5000)
             {
                 Console.WriteLine("\n Career Objective is too long. Maximum characters allowed is 5000\n");
@@ -417,7 +412,7 @@ public class Menu
         while (true)
         {
             Console.Write(" Date of Birth   : ");
-            BirthDate = Console.ReadLine() ?? "Error";
+            BirthDate = GetUserInput();
             if(BirthDate.Length > 20)
             {
                 Console.WriteLine("\n Date of Birth is too long. Maximum characters allowed is 20\n");
@@ -431,7 +426,7 @@ public class Menu
         while (true)
         {
             Console.Write(" Phone Number    : ");
-            PhoneNum = Console.ReadLine() ?? "Error";
+            PhoneNum = GetUserInput();
             if(PhoneNum.Length > 10)
             {
                 Console.WriteLine("\n Phone Number is too long. Maximum characters allowed is 10\n");
@@ -452,7 +447,7 @@ public class Menu
         while (true)
         {
             Console.Write(" Email           : ");
-            Email = Console.ReadLine() ?? "Error";
+            Email = GetUserInput();
             if(Email.Length > 100)
             {
                 Console.WriteLine("\n Email is too long. Maximum characters allowed is 100\n");
@@ -466,7 +461,7 @@ public class Menu
         while (true)
         {
             Console.Write(" Social Media    : ");
-            SocialMedia = Console.ReadLine() ?? "Error";
+            SocialMedia = GetUserInput();
             if(SocialMedia.Length > 2000)
             {
                 Console.WriteLine("\n Social Media is too long. Maximum characters allowed is 2000\n");
@@ -480,7 +475,7 @@ public class Menu
         while (true)
         {
             Console.Write(" Address         : ");
-            PersonalAddress = Console.ReadLine() ?? "Error";
+            PersonalAddress = GetUserInput();
             if(PersonalAddress.Length > 5000)
             {
                 Console.WriteLine("\n Address is too long. Maximum characters allowed is 5000\n");
@@ -504,8 +499,7 @@ public class Menu
             Console.WriteLine(" 0) Done");
             Console.WriteLine("================================");
             Console.Write(" Enter the option number: ");
-            choice = Console.ReadLine() ?? "Error";   
-            switch (choice)
+            switch (GetUserInput())
             {
                 case "1":
                     if (CVDetails == null)
@@ -600,7 +594,7 @@ public class Menu
         while (true)
         {
             Console.Write(" Job Position: ");
-            JobPosition = Console.ReadLine() ?? "Error";
+            JobPosition = GetUserInput();
             if(JobPosition.Length > 100)
             {
                 Console.WriteLine("\n Job Position is too long. Maximum characters allowed is 100\n");
@@ -614,7 +608,7 @@ public class Menu
         while (true)
         {
             Console.Write(" From        : ");
-            FromDate = Console.ReadLine() ?? "Error";
+            FromDate = GetUserInput();
             if(FromDate.Length > 50)
             {
                 Console.WriteLine("\n From Date is too long. Maximum characters allowed is 50\n");
@@ -628,7 +622,7 @@ public class Menu
         while (true)
         {
             Console.Write(" To          : ");
-            ToDate = Console.ReadLine() ?? "Error";
+            ToDate = GetUserInput();
             if(ToDate.Length > 50)
             {
                 Console.WriteLine("\n To Date is too long. Maximum characters allowed is 50\n");
@@ -642,7 +636,7 @@ public class Menu
         while (true)
         {
             Console.Write(" Association : ");
-            Association = Console.ReadLine() ?? "Error";
+            Association = GetUserInput();
             if(Association.Length > 100)
             {
                 Console.WriteLine("\n Association is too long. Maximum characters allowed is 100\n");
@@ -656,7 +650,7 @@ public class Menu
         while (true)
         {
             Console.Write(" Description : ");
-            Description = Console.ReadLine() ?? "Error";
+            Description = GetUserInput();
             if(Description.Length > 5000)
             {
                 Console.WriteLine("\n Description is too long. Maximum characters allowed is 5000\n");
@@ -673,7 +667,6 @@ public class Menu
 
     public void ViewCVMenu(int? CandidateCV)
     {
-        string choice;
         bool end = false;
         CV temp = new CV("test", "testTitle", "\n ufquorqoufhbqohtfouqhtoqhutoquhtq\n fqfqnoqfoi\n qefqfwqfqw", "11/20/2003", "28742742", "hfwfhei@gamil.com",
         "None", "", null);
@@ -769,15 +762,14 @@ public class Menu
             Console.WriteLine(" 0) Return");
             Console.WriteLine("================================");
             Console.Write(" Enter the option number to change the details or to return: ");
-            choice = Console.ReadLine() ?? "Error";   
-            switch (choice)
+            switch (GetUserInput())
             {
                 case "1":
                     Console.WriteLine("================================");
                     while (true)
                     {
                         Console.Write(" Full Name       : ");
-                        string FullName = Console.ReadLine() ?? "Error";
+                        string FullName = GetUserInput();
                         if(FullName.Length > 100)
                         {
                             Console.WriteLine("\n Full Name is too long. Maximum characters allowed is 100\n");
@@ -794,7 +786,7 @@ public class Menu
                     while (true)
                     {
                         Console.Write(" Career Title       : ");
-                        string CareerTitle = Console.ReadLine() ?? "Error";
+                        string CareerTitle = GetUserInput();
                         if(CareerTitle.Length > 50)
                         {
                             Console.WriteLine("\n Career Title is too long. Maximum characters allowed is 50\n");
@@ -811,7 +803,7 @@ public class Menu
                     while (true)
                     {
                         Console.Write(" Career Objective: ");
-                        string CareerObjective = Console.ReadLine() ?? "Error";
+                        string CareerObjective = GetUserInput();
                         if(CareerObjective.Length > 5000)
                         {
                             Console.WriteLine("\n Career Objective is too long. Maximum characters allowed is 5000\n");
@@ -828,7 +820,7 @@ public class Menu
                     while (true)
                     {
                         Console.Write(" Date of Birth   : ");
-                        string BirthDate = Console.ReadLine() ?? "Error";
+                        string BirthDate = GetUserInput();
                         if(BirthDate.Length > 20)
                         {
                             Console.WriteLine("\n Date of Birth is too long. Maximum characters allowed is 20\n");
@@ -845,7 +837,7 @@ public class Menu
                     while (true)
                     {
                         Console.Write(" Phone Number    : ");
-                        string? _PhoneNum = Console.ReadLine() ?? "Error";
+                        string? _PhoneNum = GetUserInput();
 
                         if(_PhoneNum.Length > 10)
                         {
@@ -870,7 +862,7 @@ public class Menu
                     while (true)
                     {
                         Console.Write(" Email           : ");
-                        string Email = Console.ReadLine() ?? "Error";
+                        string Email = GetUserInput();
                         if(Email.Length > 100)
                         {
                             Console.WriteLine("\n Email is too long. Maximum characters allowed is 100\n");
@@ -887,7 +879,7 @@ public class Menu
                     while (true)
                     {
                         Console.Write(" Social Media    : ");
-                        string SocialMedia = Console.ReadLine() ?? "Error";
+                        string SocialMedia = GetUserInput();
                         if(SocialMedia.Length > 2000)
                         {
                             Console.WriteLine("\n Social Media is too long. Maximum characters allowed is 2000\n");
@@ -904,7 +896,7 @@ public class Menu
                     while (true)
                     {
                         Console.Write(" Address         : ");
-                        string PersonalAddress = Console.ReadLine() ?? "Error";
+                        string PersonalAddress = GetUserInput();
                         if(PersonalAddress.Length > 5000)
                         {
                             Console.WriteLine("\n Address is too long. Maximum characters allowed is 5000\n");
@@ -928,8 +920,7 @@ public class Menu
                         Console.WriteLine(" 0) Cancel");
                         Console.WriteLine("================================");
                         Console.Write(" Enter the option number: ");
-                        choice = Console.ReadLine() ?? "Error";  
-                        switch (choice)
+                        switch (GetUserInput())
                         {
                             case "1":
                                 end = true;
@@ -964,7 +955,6 @@ public class Menu
 
     public List<CVDetails> UpdateCVDetails(List<CVDetails>? CVDetails)
     {
-        string choice;
         bool end = false;
 
         while (true)
@@ -1043,8 +1033,7 @@ public class Menu
             Console.WriteLine(" 0) Done");
             Console.WriteLine("================================");
             Console.Write(" Enter the option number: ");
-            choice = Console.ReadLine() ?? "Error";   
-            switch (choice)
+            switch (GetUserInput())
             {
                 case "1": // Add more CVDetails
                     while (true)
@@ -1060,8 +1049,7 @@ public class Menu
                         Console.WriteLine(" 0) Done");
                         Console.WriteLine("================================");
                         Console.Write(" Enter the option number: ");
-                        choice = Console.ReadLine() ?? "Error";   
-                        switch (choice)
+                        switch (GetUserInput())
                         {
                             case "1":
                                 if (CVDetails == null)
@@ -1130,13 +1118,12 @@ public class Menu
                             Console.WriteLine(" 0) Done");
                             Console.WriteLine("================================");
                             Console.Write(" Enter the option number: ");
-                            choice = Console.ReadLine() ?? "Error";   
-                            switch (choice)
+                            switch (GetUserInput())
                             {
                                 case "1":
                                     Console.WriteLine("================================");
                                     Console.Write(" Enter the Job Position of the Skill: ");
-                                    choice = Console.ReadLine() ?? "";
+                                    string choice = GetUserInput();
                                     foreach (CVDetails detail in CVDetails)
                                     {
                                         if(detail.JobPosition!.ToUpper().Contains(choice.ToUpper()) && detail.Title == "Skill")
@@ -1145,7 +1132,7 @@ public class Menu
                                             while (true)
                                             {
                                                 Console.Write(" Job Position: ");
-                                                detail.JobPosition = Console.ReadLine() ?? "Error";
+                                                detail.JobPosition = GetUserInput();
                                                 if(detail.JobPosition.Length > 100)
                                                 {
                                                     Console.WriteLine("\n Job Position is too long. Maximum characters allowed is 100\n");
@@ -1159,7 +1146,7 @@ public class Menu
                                             while (true)
                                             {
                                                 Console.Write(" From        : ");
-                                                detail.FromDate = Console.ReadLine() ?? "Error";
+                                                detail.FromDate = GetUserInput();
                                                 if(detail.FromDate.Length > 50)
                                                 {
                                                     Console.WriteLine("\n From Date is too long. Maximum characters allowed is 50\n");
@@ -1173,7 +1160,7 @@ public class Menu
                                             while (true)
                                             {
                                                 Console.Write(" To          : ");
-                                                detail.ToDate = Console.ReadLine() ?? "Error";
+                                                detail.ToDate = GetUserInput();
                                                 if(detail.ToDate.Length > 50)
                                                 {
                                                     Console.WriteLine("\n To Date is too long. Maximum characters allowed is 50\n");
@@ -1187,7 +1174,7 @@ public class Menu
                                             while (true)
                                             {
                                                 Console.Write(" Association : ");
-                                                detail.Association = Console.ReadLine() ?? "Error";
+                                                detail.Association = GetUserInput();
                                                 if(detail.Association.Length > 100)
                                                 {
                                                     Console.WriteLine("\n Association is too long. Maximum characters allowed is 100\n");
@@ -1201,7 +1188,7 @@ public class Menu
                                             while (true)
                                             {
                                                 Console.Write(" Description : ");
-                                                detail.Description = Console.ReadLine() ?? "Error";
+                                                detail.Description = GetUserInput();
                                                 if(detail.Description.Length > 5000)
                                                 {
                                                     Console.WriteLine("\n Description is too long. Maximum characters allowed is 5000\n");
@@ -1217,7 +1204,7 @@ public class Menu
                                 case "2":
                                     Console.WriteLine("================================");
                                     Console.Write(" Enter the Job Position of the Work Experience: ");
-                                    choice = Console.ReadLine() ?? "";
+                                    choice = GetUserInput();
                                     foreach (CVDetails detail in CVDetails)
                                     {
                                         if(detail.JobPosition!.ToUpper().Contains(choice.ToUpper()) && detail.Title == "Work Experience")
@@ -1226,7 +1213,7 @@ public class Menu
                                             while (true)
                                             {
                                                 Console.Write(" Job Position: ");
-                                                detail.JobPosition = Console.ReadLine() ?? "Error";
+                                                detail.JobPosition = GetUserInput();
                                                 if(detail.JobPosition.Length > 100)
                                                 {
                                                     Console.WriteLine("\n Job Position is too long. Maximum characters allowed is 100\n");
@@ -1240,7 +1227,7 @@ public class Menu
                                             while (true)
                                             {
                                                 Console.Write(" From        : ");
-                                                detail.FromDate = Console.ReadLine() ?? "Error";
+                                                detail.FromDate = GetUserInput();
                                                 if(detail.FromDate.Length > 50)
                                                 {
                                                     Console.WriteLine("\n From Date is too long. Maximum characters allowed is 50\n");
@@ -1254,7 +1241,7 @@ public class Menu
                                             while (true)
                                             {
                                                 Console.Write(" To          : ");
-                                                detail.ToDate = Console.ReadLine() ?? "Error";
+                                                detail.ToDate = GetUserInput();
                                                 if(detail.ToDate.Length > 50)
                                                 {
                                                     Console.WriteLine("\n To Date is too long. Maximum characters allowed is 50\n");
@@ -1268,7 +1255,7 @@ public class Menu
                                             while (true)
                                             {
                                                 Console.Write(" Association : ");
-                                                detail.Association = Console.ReadLine() ?? "Error";
+                                                detail.Association = GetUserInput();
                                                 if(detail.Association.Length > 100)
                                                 {
                                                     Console.WriteLine("\n Association is too long. Maximum characters allowed is 100\n");
@@ -1282,7 +1269,7 @@ public class Menu
                                             while (true)
                                             {
                                                 Console.Write(" Description : ");
-                                                detail.Description = Console.ReadLine() ?? "Error";
+                                                detail.Description = GetUserInput();
                                                 if(detail.Description.Length > 5000)
                                                 {
                                                     Console.WriteLine("\n Description is too long. Maximum characters allowed is 5000\n");
@@ -1298,7 +1285,7 @@ public class Menu
                                 case "3":
                                     Console.WriteLine("================================");
                                     Console.Write(" Enter the Job Position of the Education: ");
-                                    choice = Console.ReadLine() ?? "";
+                                    choice = GetUserInput();
                                     foreach (CVDetails detail in CVDetails)
                                     {
                                         if(detail.JobPosition!.ToUpper().Contains(choice.ToUpper()) && detail.Title == "Education")
@@ -1307,7 +1294,7 @@ public class Menu
                                             while (true)
                                             {
                                                 Console.Write(" Job Position: ");
-                                                detail.JobPosition = Console.ReadLine() ?? "Error";
+                                                detail.JobPosition = GetUserInput();
                                                 if(detail.JobPosition.Length > 100)
                                                 {
                                                     Console.WriteLine("\n Job Position is too long. Maximum characters allowed is 100\n");
@@ -1321,7 +1308,7 @@ public class Menu
                                             while (true)
                                             {
                                                 Console.Write(" From        : ");
-                                                detail.FromDate = Console.ReadLine() ?? "Error";
+                                                detail.FromDate = GetUserInput();
                                                 if(detail.FromDate.Length > 50)
                                                 {
                                                     Console.WriteLine("\n From Date is too long. Maximum characters allowed is 50\n");
@@ -1335,7 +1322,7 @@ public class Menu
                                             while (true)
                                             {
                                                 Console.Write(" To          : ");
-                                                detail.ToDate = Console.ReadLine() ?? "Error";
+                                                detail.ToDate = GetUserInput();
                                                 if(detail.ToDate.Length > 50)
                                                 {
                                                     Console.WriteLine("\n To Date is too long. Maximum characters allowed is 50\n");
@@ -1349,7 +1336,7 @@ public class Menu
                                             while (true)
                                             {
                                                 Console.Write(" Association : ");
-                                                detail.Association = Console.ReadLine() ?? "Error";
+                                                detail.Association = GetUserInput();
                                                 if(detail.Association.Length > 100)
                                                 {
                                                     Console.WriteLine("\n Association is too long. Maximum characters allowed is 100\n");
@@ -1363,7 +1350,7 @@ public class Menu
                                             while (true)
                                             {
                                                 Console.Write(" Description : ");
-                                                detail.Description = Console.ReadLine() ?? "Error";
+                                                detail.Description = GetUserInput();
                                                 if(detail.Description.Length > 5000)
                                                 {
                                                     Console.WriteLine("\n Description is too long. Maximum characters allowed is 5000\n");
@@ -1379,7 +1366,7 @@ public class Menu
                                 case "4":
                                     Console.WriteLine("================================");
                                     Console.Write(" Enter the Job Position of the Activity: ");
-                                    choice = Console.ReadLine() ?? "";
+                                    choice = GetUserInput();
                                     foreach (CVDetails detail in CVDetails)
                                     {
                                         if(detail.JobPosition!.ToUpper().Contains(choice.ToUpper()) && detail.Title == "Activity")
@@ -1388,7 +1375,7 @@ public class Menu
                                             while (true)
                                             {
                                                 Console.Write(" Job Position: ");
-                                                detail.JobPosition = Console.ReadLine() ?? "Error";
+                                                detail.JobPosition = GetUserInput();
                                                 if(detail.JobPosition.Length > 100)
                                                 {
                                                     Console.WriteLine("\n Job Position is too long. Maximum characters allowed is 100\n");
@@ -1402,7 +1389,7 @@ public class Menu
                                             while (true)
                                             {
                                                 Console.Write(" From        : ");
-                                                detail.FromDate = Console.ReadLine() ?? "Error";
+                                                detail.FromDate = GetUserInput();
                                                 if(detail.FromDate.Length > 50)
                                                 {
                                                     Console.WriteLine("\n From Date is too long. Maximum characters allowed is 50\n");
@@ -1416,7 +1403,7 @@ public class Menu
                                             while (true)
                                             {
                                                 Console.Write(" To          : ");
-                                                detail.ToDate = Console.ReadLine() ?? "Error";
+                                                detail.ToDate = GetUserInput();
                                                 if(detail.ToDate.Length > 50)
                                                 {
                                                     Console.WriteLine("\n To Date is too long. Maximum characters allowed is 50\n");
@@ -1430,7 +1417,7 @@ public class Menu
                                             while (true)
                                             {
                                                 Console.Write(" Association : ");
-                                                detail.Association = Console.ReadLine() ?? "Error";
+                                                detail.Association = GetUserInput();
                                                 if(detail.Association.Length > 100)
                                                 {
                                                     Console.WriteLine("\n Association is too long. Maximum characters allowed is 100\n");
@@ -1444,7 +1431,7 @@ public class Menu
                                             while (true)
                                             {
                                                 Console.Write(" Description : ");
-                                                detail.Description = Console.ReadLine() ?? "Error";
+                                                detail.Description = GetUserInput();
                                                 if(detail.Description.Length > 5000)
                                                 {
                                                     Console.WriteLine("\n Description is too long. Maximum characters allowed is 5000\n");
@@ -1460,7 +1447,7 @@ public class Menu
                                 case "5":
                                     Console.WriteLine("================================");
                                     Console.Write(" Enter the Job Position of the Certificate: ");
-                                    choice = Console.ReadLine() ?? "";
+                                    choice = GetUserInput();
                                     foreach (CVDetails detail in CVDetails)
                                     {
                                         if(detail.JobPosition!.ToUpper().Contains(choice.ToUpper()) && detail.Title == "Certificate")
@@ -1469,7 +1456,7 @@ public class Menu
                                             while (true)
                                             {
                                                 Console.Write(" Job Position: ");
-                                                detail.JobPosition = Console.ReadLine() ?? "Error";
+                                                detail.JobPosition = GetUserInput();
                                                 if(detail.JobPosition.Length > 100)
                                                 {
                                                     Console.WriteLine("\n Job Position is too long. Maximum characters allowed is 100\n");
@@ -1483,7 +1470,7 @@ public class Menu
                                             while (true)
                                             {
                                                 Console.Write(" From        : ");
-                                                detail.FromDate = Console.ReadLine() ?? "Error";
+                                                detail.FromDate = GetUserInput();
                                                 if(detail.FromDate.Length > 50)
                                                 {
                                                     Console.WriteLine("\n From Date is too long. Maximum characters allowed is 50\n");
@@ -1497,7 +1484,7 @@ public class Menu
                                             while (true)
                                             {
                                                 Console.Write(" To          : ");
-                                                detail.ToDate = Console.ReadLine() ?? "Error";
+                                                detail.ToDate = GetUserInput();
                                                 if(detail.ToDate.Length > 50)
                                                 {
                                                     Console.WriteLine("\n To Date is too long. Maximum characters allowed is 50\n");
@@ -1511,7 +1498,7 @@ public class Menu
                                             while (true)
                                             {
                                                 Console.Write(" Association : ");
-                                                detail.Association = Console.ReadLine() ?? "Error";
+                                                detail.Association = GetUserInput();
                                                 if(detail.Association.Length > 100)
                                                 {
                                                     Console.WriteLine("\n Association is too long. Maximum characters allowed is 100\n");
@@ -1525,7 +1512,7 @@ public class Menu
                                             while (true)
                                             {
                                                 Console.Write(" Description : ");
-                                                detail.Description = Console.ReadLine() ?? "Error";
+                                                detail.Description = GetUserInput();
                                                 if(detail.Description.Length > 5000)
                                                 {
                                                     Console.WriteLine("\n Description is too long. Maximum characters allowed is 5000\n");
@@ -1576,13 +1563,13 @@ public class Menu
                             Console.WriteLine(" 0) Done");
                             Console.WriteLine("================================");
                             Console.Write(" Enter the option number: ");
-                            choice = Console.ReadLine() ?? "Error";   
+                            string choice = GetUserInput();   
                             switch (choice)
                             {
                                 case "1":
                                     Console.WriteLine("================================");
                                     Console.Write(" Enter the Job Position of the Skill: ");
-                                    choice = Console.ReadLine() ?? "";
+                                    choice = GetUserInput();
                                     foreach (CVDetails detail in CVDetails)
                                     {
                                         if(detail.JobPosition!.ToUpper().Contains(choice.ToUpper()) && detail.Title == "Skill")
@@ -1599,7 +1586,7 @@ public class Menu
                                 case "2":
                                     Console.WriteLine("================================");
                                     Console.Write(" Enter the Job Position of the Work Experience: ");
-                                    choice = Console.ReadLine() ?? "";
+                                    choice = GetUserInput();
                                     foreach (CVDetails detail in CVDetails)
                                     {
                                         if(detail.JobPosition!.ToUpper().Contains(choice.ToUpper()) && detail.Title == "Work Experience")
@@ -1616,7 +1603,7 @@ public class Menu
                                 case "3":
                                     Console.WriteLine("================================");
                                     Console.Write(" Enter the Job Position of the Education: ");
-                                    choice = Console.ReadLine() ?? "";
+                                    choice = GetUserInput();
                                     foreach (CVDetails detail in CVDetails)
                                     {
                                         if(detail.JobPosition!.ToUpper().Contains(choice.ToUpper()) && detail.Title == "Education")
@@ -1633,7 +1620,7 @@ public class Menu
                                 case "4":
                                     Console.WriteLine("================================");
                                     Console.Write(" Enter the Job Position of the Activity: ");
-                                    choice = Console.ReadLine() ?? "";
+                                    choice = GetUserInput();
                                     foreach (CVDetails detail in CVDetails)
                                     {
                                         if(detail.JobPosition!.ToUpper().Contains(choice.ToUpper()) && detail.Title == "Activity")
@@ -1650,7 +1637,7 @@ public class Menu
                                 case "5":
                                     Console.WriteLine("================================");
                                     Console.Write(" Enter the Job Position of the Certificate: ");
-                                    choice = Console.ReadLine() ?? "";
+                                    choice = GetUserInput();
                                     foreach (CVDetails detail in CVDetails)
                                     {
                                         if(detail.JobPosition!.ToUpper().Contains(choice.ToUpper()) && detail.Title == "Certificate")
@@ -1706,7 +1693,6 @@ public class Menu
 
     public void SearchRecruitNewsMenu(int? CandidateID)
     {
-        string choice;
         bool end = false;
 
         List<RecruitNews> recruitNews = new List<RecruitNews>();
@@ -1728,8 +1714,7 @@ public class Menu
             Console.WriteLine(" 0) Exit");
             Console.WriteLine("================================");
             Console.Write(" Enter the option number: ");
-            choice = Console.ReadLine() ?? "Error";   
-            switch (choice)
+            switch (GetUserInput())
             {
                 case "1":
                     DisplaySearchedNews(recruitNews, CandidateID);
@@ -1759,8 +1744,6 @@ public class Menu
 
     public List<RecruitNews> SearchRecruitNewsViaProfession()
     {
-        string choice;
-        
         while (true)
         {
             Console.WriteLine("================================\n");
@@ -1773,8 +1756,7 @@ public class Menu
             Console.WriteLine(" 5) Insurance");
             Console.WriteLine("================================");
             Console.Write(" Enter the option number: ");
-            choice = Console.ReadLine() ?? "Error";   
-            switch (choice)
+            switch (GetUserInput())
             {
                 case "1":
                     return new List<RecruitNews>();
@@ -1796,8 +1778,6 @@ public class Menu
 
     public List<RecruitNews> SearchRecruitNewsViaSalaryRange()
     {
-        string choice;
-        
         while (true)
         {
             Console.WriteLine("================================\n");
@@ -1810,8 +1790,7 @@ public class Menu
             Console.WriteLine(" 5) Higher than 10 million");
             Console.WriteLine("================================");
             Console.Write(" Enter the option number: ");
-            choice = Console.ReadLine() ?? "Error";   
-            switch (choice)
+            switch (GetUserInput())
             {
                 case "1":
                     return new List<RecruitNews>();
@@ -1833,8 +1812,6 @@ public class Menu
 
     public List<RecruitNews> SearchRecruitNewsViaCity()
     {
-        string choice;
-        
         while (true)
         {
             Console.WriteLine("================================\n");
@@ -1847,8 +1824,7 @@ public class Menu
             Console.WriteLine(" 5) Dong Nai");
             Console.WriteLine("================================");
             Console.Write(" Enter the option number: ");
-            choice = Console.ReadLine() ?? "Error";   
-            switch (choice)
+            switch (GetUserInput())
             {
                 case "1":
                     return new List<RecruitNews>();
@@ -1870,8 +1846,6 @@ public class Menu
 
     public void DisplaySearchedNews(List<RecruitNews> recruitNews, int? CandidateID)
     {  
-        string choice;
-
         while (true)
         {
             int count = 0;
@@ -1885,7 +1859,7 @@ public class Menu
             }
             Console.WriteLine("================================");
             Console.Write(" Enter the position of news you like to view or 0 to return: ");
-            choice = Console.ReadLine() ?? "Error";
+            string choice = GetUserInput();
 
             if(choice == "0")
             {
@@ -1907,7 +1881,6 @@ public class Menu
 
     public void SearchedNewsDetails(RecruitNews news, int? CandidateID)
     {
-        string choice;
         bool end = false;
         bool IsApplied = false;
 
@@ -1944,8 +1917,7 @@ public class Menu
             Console.WriteLine(" 0) Exit");
             Console.WriteLine("================================");
             Console.Write(" Enter the option number: ");
-            choice = Console.ReadLine() ?? "Error";   
-            switch (choice)
+            switch (GetUserInput())
             {
                 case "1":
                     if(!IsApplied)
@@ -1990,5 +1962,22 @@ public class Menu
             return false; // Double dot or dot at end of user part.
 
         return true;
+    }
+
+    public string GetUserInput()
+    {
+        string input;
+
+        try
+        {
+            input = Console.ReadLine() ?? "Error";   
+        }
+        catch (Exception)
+        {
+            
+            return "Error";
+        }
+
+        return input;
     }
 }

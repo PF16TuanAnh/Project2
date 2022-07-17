@@ -8,25 +8,46 @@ public class UserDAL
     private string? query;
     private MySqlDataReader? reader;
 
-    // public Employee GetEmployeeByID(int empId)
-    // {
-    //     query = @"select emp_no, first_name, last_name from employees where emp_no = " + empId;
+    public User GetUserByEmail(string email)
+    {
+        
+        query = @"select * from Users where Email = '" + email + "'";
 
         
-    //     DBHelper.OpenConnection();
+        DBHelper.OpenConnection();
         
-    //     reader = DBHelper.ExecQuery(query);
+        reader = DBHelper.ExecQuery(query);
 
-    //     Employee employee = null!;
-    //     if (reader.Read())
-    //     {
-    //         employee = GetEmployeeInfo(reader);
-    //     }
+        User user = null!;
+        if (reader.Read())
+        {
+            user = GetUserInfo(reader);
+        }
 
-    //     DBHelper.CloseConnection();
+        DBHelper.CloseConnection();
 
-    //     return employee;
-    // }
+        return user;
+    }
+
+    public int? GetCandidateIDByEmail(string email)
+    {
+        query = @"select c.CandidateID from Candidates c inner join Users u on c.UserID = u.UserID where Email = '" + email + "'";
+
+        
+        DBHelper.OpenConnection();
+        
+        reader = DBHelper.ExecQuery(query);
+
+        int? CandidateID = null;
+        if (reader.Read())
+        {
+            CandidateID = reader.GetInt32("CandidateID");
+        }
+
+        DBHelper.CloseConnection();
+
+        return CandidateID;
+    }
 
     private User GetUserInfo(MySqlDataReader reader)
     {

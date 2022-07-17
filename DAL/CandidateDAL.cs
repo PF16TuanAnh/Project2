@@ -8,25 +8,25 @@ public class CandidateDAL
     private string? query;
     private MySqlDataReader? reader;
 
-    // public Candidate GetCandidateByUserID(int UserID)
-    // {
-    //     query = @"select emp_no, first_name, last_name from employees where emp_no = " + empId;
+    public Candidate GetCandidateByID(int? CandidateID)
+    {
+        query = @"select * from Candidates c inner join Users u on c.UserID = u.UserID where CandidateID = " + CandidateID;
 
         
-    //     DBHelper.OpenConnection();
+        DBHelper.OpenConnection();
         
-    //     reader = DBHelper.ExecQuery(query);
+        reader = DBHelper.ExecQuery(query);
 
-    //     Employee employee = null!;
-    //     if (reader.Read())
-    //     {
-    //         employee = GetEmployeeInfo(reader);
-    //     }
+        Candidate candidate = null!;
+        if (reader.Read())
+        {
+            candidate = GetCandidateInfo(reader);
+        }
 
-    //     DBHelper.CloseConnection();
+        DBHelper.CloseConnection();
 
-    //     return employee;
-    // }
+        return candidate;
+    }
 
     private Candidate GetCandidateInfo(MySqlDataReader reader)
     {
