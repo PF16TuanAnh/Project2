@@ -3,3 +3,7 @@ BL/obj/
 DAL/obj/
 Persistence/obj/
 PL_Console/obj/
+BL/bin/
+DAL/bin/
+*.dll
+PL_Console/bin/
