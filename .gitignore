@@ -1,3 +1,5 @@
 /.vscode
-**/bin/*
-**/obj/*
+BL/obj/
+DAL/obj/
+Persistence/obj/
+PL_Console/obj/
