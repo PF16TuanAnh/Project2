@@ -2,7 +2,7 @@
   "version": 3,
   "targets": {
     "net6.0": {
-      "BouncyCastle.NetCore/1.8.5": {
+      "BouncyCastle.NetCore/1.9.0": {
         "type": "package",
         "compile": {
           "lib/netstandard2.0/BouncyCastle.Crypto.dll": {}
@@ -392,6 +392,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
         "dependencies": {
+          "BouncyCastle.NetCore": "1.9.0",
           "Persistence": "1.0.0",
           "mysql.data": "8.0.29"
         },
@@ -415,29 +416,19 @@
     }
   },
   "libraries": {
-    "BouncyCastle.NetCore/1.8.5": {
-      "sha512": "6uxsQw2UXrt82VQAWC2td3oBSJjUZ3P4u4DliagB8wf67KsU53V8sW9xwdF+IwZOOZFR0TCZuv/YKZ2BlrfAag==",
+    "BouncyCastle.NetCore/1.9.0": {
+      "sha512": "FpWfsqjMp+RNavLqMlviDPlbdf7q4j/pr9SHfc1LKcZz5PRjciuYo59nFnw+eJi+H8cm0eH5uVZStwAv1LRdCw==",
       "type": "package",
-      "path": "bouncycastle.netcore/1.8.5",
+      "path": "bouncycastle.netcore/1.9.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "bouncycastle.netcore.1.8.5.nupkg.sha512",
+        "bouncycastle.netcore.1.9.0.nupkg.sha512",
         "bouncycastle.netcore.nuspec",
-        "lib/Mono/BouncyCastle.Crypto.dll",
-        "lib/Mono/BouncyCastle.Crypto.xml",
-        "lib/MonoAndroid/BouncyCastle.Crypto.dll",
-        "lib/MonoAndroid/BouncyCastle.Crypto.xml",
-        "lib/MonoMac/BouncyCastle.Crypto.dll",
-        "lib/MonoMac/BouncyCastle.Crypto.xml",
-        "lib/MonoTouch/BouncyCastle.Crypto.dll",
-        "lib/MonoTouch/BouncyCastle.Crypto.xml",
         "lib/net20/BouncyCastle.Crypto.dll",
         "lib/net20/BouncyCastle.Crypto.xml",
         "lib/netstandard2.0/BouncyCastle.Crypto.dll",
-        "lib/netstandard2.0/BouncyCastle.Crypto.xml",
-        "lib/xamarinios/BouncyCastle.Crypto.dll",
-        "lib/xamarinios/BouncyCastle.Crypto.xml"
+        "lib/netstandard2.0/BouncyCastle.Crypto.xml"
       ]
     },
     "ConsoleTables/2.4.2": {
@@ -1543,19 +1534,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Admin.DESKTOP-QQO7LC2\\.nuget\\packages\\": {}
+    "C:\\Users\\ADMIN\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Project2\\Project2\\PL_Console\\PL_Console.csproj",
+      "projectUniqueName": "F:\\Project2-1\\PL_Console\\PL_Console.csproj",
       "projectName": "PL_Console",
-      "projectPath": "D:\\Project2\\Project2\\PL_Console\\PL_Console.csproj",
-      "packagesPath": "C:\\Users\\Admin.DESKTOP-QQO7LC2\\.nuget\\packages\\",
-      "outputPath": "D:\\Project2\\Project2\\PL_Console\\obj\\",
+      "projectPath": "F:\\Project2-1\\PL_Console\\PL_Console.csproj",
+      "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
+      "outputPath": "F:\\Project2-1\\PL_Console\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Admin.DESKTOP-QQO7LC2\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\ADMIN\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
@@ -1567,11 +1558,11 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "D:\\Project2\\Project2\\Bl\\BL.csproj": {
-              "projectPath": "D:\\Project2\\Project2\\Bl\\BL.csproj"
+            "F:\\Project2-1\\Bl\\BL.csproj": {
+              "projectPath": "F:\\Project2-1\\Bl\\BL.csproj"
             },
-            "D:\\Project2\\Project2\\Persistence\\Persistence.csproj": {
-              "projectPath": "D:\\Project2\\Project2\\Persistence\\Persistence.csproj"
+            "F:\\Project2-1\\Persistence\\Persistence.csproj": {
+              "projectPath": "F:\\Project2-1\\Persistence\\Persistence.csproj"
             }
           }
         }
@@ -1606,7 +1597,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
       }
     }
   }
