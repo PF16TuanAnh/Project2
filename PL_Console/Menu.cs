@@ -114,8 +114,6 @@ public class Menu
         string gender = "Other";
         int role = 1; // 1 = "Candidate", 2 = "Recruiter"
         bool end = false;
-        int? CandidateID = 1;
-        int? RecruiterID = null;
 
         Console.WriteLine("================================\n");
         Console.WriteLine("            REGISTER");
@@ -238,14 +236,15 @@ public class Menu
         }
 
         User newAccount = new User(username, email, password, gender);
+        int? ID = userBL.InsertNewUser(newAccount, role);
 
         if(role == 1)
         {
-            if(CandidateID != null)
+            if(ID != null)
             {
                 Console.WriteLine("================================");
                 Console.WriteLine(" Logged in as a Candidate.");
-                CandidateMenu(CandidateID);
+                CandidateMenu(ID);
             }
             else
             {
@@ -256,11 +255,11 @@ public class Menu
         }
         else
         {
-            if(RecruiterID != null)
+            if(ID != null)
             {
                 Console.WriteLine("================================");
                 Console.WriteLine(" Logged in as a Recruiter.");
-                // RecruiterMenu(RecruiterID)
+                // RecruiterMenu(ID)
             }
             else
             {

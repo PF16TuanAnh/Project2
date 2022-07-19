@@ -16,14 +16,14 @@ public class UserBL
 
     public User GetUserByEmail(string email)
     {
+        email = email!.ToUpper();
+        email = GetHashString(email);
         User user = userDAL.GetUserByEmail(email);
         return user;
     }
 
     public bool CheckUserEmail(string email)
     {
-        // email = email.ToUpper();
-        
         if (GetUserByEmail(email) != null)
         {
             return true;
@@ -49,16 +49,32 @@ public class UserBL
 
     public int? GetCandidateIDByEmail(string email)
     {
+        email = email!.ToUpper();
+        email = GetHashString(email);
         return userDAL.GetCandidateIDByEmail(email);
     }
 
-    public static byte[] GetHash(string inputString)
+    public int? InsertNewUser(User user, int role)
+    {
+        user.Email = user.Email!.ToUpper();
+        user.Email = GetHashString(user.Email);
+        if(role == 1)
+        {
+            return userDAL.InsertNewCandidate(user);
+        }
+        else
+        {
+            return userDAL.InsertNewRecruiter(user);
+        }
+    }
+
+    public byte[] GetHash(string inputString)
     {
         using (HashAlgorithm algorithm = SHA256.Create())
             return algorithm.ComputeHash(Encoding.UTF8.GetBytes(inputString));
     }
 
-    public static string GetHashString(string inputString)
+    public string GetHashString(string inputString)
     {
         StringBuilder sb = new StringBuilder();
         foreach (byte b in GetHash(inputString))
