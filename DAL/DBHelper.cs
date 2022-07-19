@@ -31,8 +31,18 @@ public class DBHelper
         {
             GetConnection();
         }
-        connection!.Open();
-
+        
+        try
+        {
+            connection!.Open();
+        }
+        catch (Exception)
+        {
+            Console.WriteLine("================================"); 
+            Console.WriteLine(" Unexpected errors occurred when trying to connect to the database! Closing out.");
+            System.Environment.Exit(0);
+        }
+        
         return connection;
     }
 

@@ -290,7 +290,15 @@ public class Menu
                     CreateCVMenu(CandidateID);
                     break;
                 case "2":
-                    ViewCVMenu(CandidateID);
+                    if (candidate.CandidateCV != null)
+                    {
+                        ViewCVMenu(candidate.CandidateCV);
+                    }
+                    else
+                    {
+                        Console.WriteLine("================================"); 
+                        Console.WriteLine(" You haven't created your CV yet!");
+                    }
                     break;
                 case "3":
                     SearchRecruitNewsMenu(CandidateID);
@@ -453,7 +461,14 @@ public class Menu
             }
             else
             {
-                break;
+                if (IsValidEmail(Email))
+                {
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("\n Invalid email format! Please re-enter your emai.\n");
+                }
             }
         }
 
@@ -664,30 +679,28 @@ public class Menu
         return new CVDetails(Title, JobPosition, FromDate, ToDate, Association, Description);
     }
 
-    public void ViewCVMenu(int? CandidateCV)
+    public void ViewCVMenu(CV cv)
     {
         bool end = false;
-        CV temp = new CV("test", "testTitle", "\n ufquorqoufhbqohtfouqhtoqhutoquhtq\n fqfqnoqfoi\n qefqfwqfqw", "11/20/2003", "28742742", "hfwfhei@gamil.com",
-        "None", "", null);
 
         while (true)
         {
             Console.WriteLine("================================\n");
             Console.WriteLine("            YOUR CV");
             Console.WriteLine("\n================================");
-            Console.WriteLine(" Full Name       : {0}", temp.FullName);
-            Console.WriteLine(" Career Title    : {0}", temp.CareerTitle);
-            Console.WriteLine(" Career Objective: {0}", temp.CareerObjective);
-            Console.WriteLine(" Date of Birth   : {0}", temp.BirthDate);
-            Console.WriteLine(" Phone Number    : {0}", temp.PhoneNum);
-            Console.WriteLine(" Email           : {0}", temp.Email);
-            Console.WriteLine(" Social Media    : {0}", temp.SocialMedia);
-            Console.WriteLine(" Address         : {0}", temp.PersonalAddress);
+            Console.WriteLine(" Full Name       : {0}", cv.FullName);
+            Console.WriteLine(" Career Title    : {0}", cv.CareerTitle);
+            Console.WriteLine(" Career Objective: {0}", cv.CareerObjective);
+            Console.WriteLine(" Date of Birth   : {0}", cv.BirthDate);
+            Console.WriteLine(" Phone Number    : {0}", cv.PhoneNum);
+            Console.WriteLine(" Email           : {0}", cv.Email);
+            Console.WriteLine(" Social Media    : {0}", cv.SocialMedia);
+            Console.WriteLine(" Address         : {0}", cv.PersonalAddress);
             Console.WriteLine(" \n Skills:\n");
-            if(temp.CVDetails != null)
+            if(cv.CVDetails != null)
             {
                 var table = new ConsoleTable("Job Position", "From", "To", "Association", "Description");
-                foreach (CVDetails detail in temp.CVDetails)
+                foreach (CVDetails detail in cv.CVDetails)
                 {
                     if(detail.Title == "Skill")
                     {
@@ -697,10 +710,10 @@ public class Menu
                 table.Write(Format.Alternative);
             }
             Console.WriteLine(" Work Experiences:\n");
-            if(temp.CVDetails != null)
+            if(cv.CVDetails != null)
             {
                 var table = new ConsoleTable("Job Position", "From", "To", "Association", "Description");
-                foreach (CVDetails detail in temp.CVDetails)
+                foreach (CVDetails detail in cv.CVDetails)
                 {
                     if(detail.Title == "Work Experience")
                     {
@@ -710,10 +723,10 @@ public class Menu
                 table.Write(Format.Alternative);
             }
             Console.WriteLine(" Educations:\n");
-            if(temp.CVDetails != null)
+            if(cv.CVDetails != null)
             {
                 var table = new ConsoleTable("Job Position", "From", "To", "Association", "Description");
-                foreach (CVDetails detail in temp.CVDetails)
+                foreach (CVDetails detail in cv.CVDetails)
                 {
                     if(detail.Title == "Education")
                     {
@@ -723,10 +736,10 @@ public class Menu
                 table.Write(Format.Alternative);
             }
             Console.WriteLine(" Activities:\n");
-            if(temp.CVDetails != null)
+            if(cv.CVDetails != null)
             {
                 var table = new ConsoleTable("Job Position", "From", "To", "Association", "Description");
-                foreach (CVDetails detail in temp.CVDetails)
+                foreach (CVDetails detail in cv.CVDetails)
                 {
                     if(detail.Title == "Activity")
                     {
@@ -736,10 +749,10 @@ public class Menu
                 table.Write(Format.Alternative);
             }
             Console.WriteLine(" Certifications:\n");
-            if(temp.CVDetails != null)
+            if(cv.CVDetails != null)
             {
                 var table = new ConsoleTable("Job Position", "From", "To", "Association", "Description");
-                foreach (CVDetails detail in temp.CVDetails)
+                foreach (CVDetails detail in cv.CVDetails)
                 {
                     if(detail.Title == "Certificate")
                     {
@@ -775,7 +788,7 @@ public class Menu
                         }
                         else
                         {
-                            temp.FullName = FullName;
+                            cv.FullName = FullName;
                             break;
                         }
                     }
@@ -792,7 +805,7 @@ public class Menu
                         }
                         else
                         {
-                            temp.CareerTitle = CareerTitle;
+                            cv.CareerTitle = CareerTitle;
                             break;
                         }
                     }
@@ -809,7 +822,7 @@ public class Menu
                         }
                         else
                         {
-                            temp.CareerObjective = CareerObjective;
+                            cv.CareerObjective = CareerObjective;
                             break;
                         }
                     }
@@ -826,7 +839,7 @@ public class Menu
                         }
                         else
                         {
-                            temp.BirthDate = BirthDate;
+                            cv.BirthDate = BirthDate;
                             break;
                         }
                     }
@@ -846,7 +859,7 @@ public class Menu
                         {
                             if (NumericRegex.IsMatch(_PhoneNum))
                             {
-                                temp.PhoneNum = _PhoneNum;
+                                cv.PhoneNum = _PhoneNum;
                                 break;
                             }
                             else
@@ -868,8 +881,15 @@ public class Menu
                         }
                         else
                         {
-                            temp.Email = Email;
-                            break;
+                            if (IsValidEmail(Email))
+                            {
+                                cv.Email = Email;
+                                break;
+                            }
+                            else
+                            {
+                                Console.WriteLine("\n Invalid email format! Please re-enter your emai.\n");
+                            }
                         }
                     }
                     break;
@@ -885,7 +905,7 @@ public class Menu
                         }
                         else
                         {
-                            temp.SocialMedia = SocialMedia;
+                            cv.SocialMedia = SocialMedia;
                             break;
                         }
                     }
@@ -902,13 +922,13 @@ public class Menu
                         }
                         else
                         {
-                            temp.PersonalAddress = PersonalAddress;
+                            cv.PersonalAddress = PersonalAddress;
                             break;
                         }
                     }
                     break;
                 case "9":
-                    temp.CVDetails = UpdateCVDetails(temp.CVDetails);
+                    cv.CVDetails = UpdateCVDetails(cv.CVDetails);
                     break;
                 case "0":
                     while(true)
@@ -922,6 +942,7 @@ public class Menu
                         switch (GetUserInput())
                         {
                             case "1":
+                                candidateBL.UpdateCVInfo(cv);
                                 end = true;
                                 break;
                             case "0":

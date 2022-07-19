@@ -16,8 +16,8 @@ public class UserBL
 
     public User GetUserByEmail(string email)
     {
-        email = email!.ToUpper();
-        email = GetHashString(email);
+        // email = email!.ToUpper();
+        // email = GetHashString(email);
         User user = userDAL.GetUserByEmail(email);
         return user;
     }
@@ -34,6 +34,7 @@ public class UserBL
     public bool CheckUserPassword(string email, string password)
     {
         User user = GetUserByEmail(email);
+        // password = GetHashString(password);
         if (user != null)
         {
             if (password == user.Password)
@@ -49,8 +50,8 @@ public class UserBL
 
     public int? GetCandidateIDByEmail(string email)
     {
-        email = email!.ToUpper();
-        email = GetHashString(email);
+        // email = email!.ToUpper();
+        // email = GetHashString(email);
         return userDAL.GetCandidateIDByEmail(email);
     }
 
@@ -58,6 +59,7 @@ public class UserBL
     {
         user.Email = user.Email!.ToUpper();
         user.Email = GetHashString(user.Email);
+        user.Password = GetHashString(user.Password!);
         if(role == 1)
         {
             return userDAL.InsertNewCandidate(user);

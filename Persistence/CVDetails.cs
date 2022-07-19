@@ -3,6 +3,7 @@ namespace Persistence;
 public class CVDetails
 {
     public int DetailsID{get; set;}
+    public int CVID{get; set;}
     public string? Title{get; set;}
     public string? JobPosition{get; set;}
     public string? FromDate{get; set;}
