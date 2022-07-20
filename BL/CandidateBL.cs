@@ -35,4 +35,16 @@ public class CandidateBL
             }
         }
     }
+
+    public void CreateNewCV(CV cv, int? CandidateID)
+    {
+        candidateDAL.InsertNewCV(cv, CandidateID);
+        if (cv.CVDetails != null)
+        {
+            foreach (CVDetails details in cv.CVDetails)
+            {
+                candidateDAL.InsertNewCVDetails(details);
+            }
+        }
+    }
 }

@@ -88,6 +88,41 @@ public class CandidateDAL
         }
     }
 
+    public void InsertNewCV(CV cv, int? CandidateID)
+    {
+        MySqlCommand cmd = new MySqlCommand("sp_InsertCV", DBHelper.OpenConnection());
+        try
+        {   
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@CandidateID", CandidateID);
+            cmd.Parameters["@CandidateID"].Direction = System.Data.ParameterDirection.Input;
+            cmd.Parameters.AddWithValue("@FullName", cv.FullName);
+            cmd.Parameters["@FullName"].Direction = System.Data.ParameterDirection.Input;
+            cmd.Parameters.AddWithValue("@CareerTitle", cv.CareerTitle);
+            cmd.Parameters["@CareerTitle"].Direction = System.Data.ParameterDirection.Input;
+            cmd.Parameters.AddWithValue("@CareerObjective", cv.CareerObjective);
+            cmd.Parameters["@CareerObjective"].Direction = System.Data.ParameterDirection.Input;
+            cmd.Parameters.AddWithValue("@Email", cv.Email);
+            cmd.Parameters["@Email"].Direction = System.Data.ParameterDirection.Input;
+            cmd.Parameters.AddWithValue("@BirthDate", cv.BirthDate);
+            cmd.Parameters["@BirthDate"].Direction = System.Data.ParameterDirection.Input;
+            cmd.Parameters.AddWithValue("@PhoneNum", cv.PhoneNum);
+            cmd.Parameters["@PhoneNum"].Direction = System.Data.ParameterDirection.Input;
+            cmd.Parameters.AddWithValue("@PersonalAddress", cv.PersonalAddress);
+            cmd.Parameters["@PersonalAddress"].Direction = System.Data.ParameterDirection.Input;
+            cmd.Parameters.AddWithValue("@SocialMedia", cv.SocialMedia);
+            cmd.Parameters["@SocialMedia"].Direction = System.Data.ParameterDirection.Input;
+            cmd.ExecuteNonQuery();
+        }
+        catch(Exception e) {
+            throw e;
+        }
+        finally
+        {
+            DBHelper.CloseConnection();
+        }
+    }
+
     private CV GetCVInfo(MySqlDataReader reader)
     {
         CV cv = new CV();

@@ -272,9 +272,9 @@ public class Menu
 
     public void CandidateMenu(int? CandidateID)
     {
-        Candidate candidate = candidateBL.GetCandidateByID(CandidateID);
         while (true)
         {
+            Candidate candidate = candidateBL.GetCandidateByID(CandidateID);
             Console.WriteLine("================================\n");
             Console.WriteLine(" Username: {0}", candidate.Username);
             Console.WriteLine("\n================================");
@@ -436,7 +436,11 @@ public class Menu
             PhoneNum = GetUserInput();
             if(PhoneNum.Length > 10)
             {
-                Console.WriteLine("\n Phone Number is too long. Maximum characters allowed is 10\n");
+                Console.WriteLine("\n Phone Number is too long. Maximum characters allowed is 10.\n");
+            }
+            else if (string.IsNullOrEmpty(PhoneNum))
+            {
+                Console.WriteLine("\n Phone Number can't be left empty.\n");
             }
             else
             {
@@ -566,6 +570,7 @@ public class Menu
         }
 
         CV newCV = new CV(FullName, CareerTitle, CareerObjective, BirthDate, PhoneNum, Email, SocialMedia, PersonalAddress, CVDetails);
+        candidateBL.CreateNewCV(newCV, CandidateID);
     }
 
     public CVDetails AddCVDetails(int type)
@@ -854,6 +859,10 @@ public class Menu
                         if(_PhoneNum.Length > 10)
                         {
                             Console.WriteLine("\n Phone Number is too long. Maximum characters allowed is 10\n");
+                        }
+                        else if (string.IsNullOrEmpty(_PhoneNum))
+                        {
+                            Console.WriteLine("\n Phone Number can't be left empty.\n");
                         }
                         else
                         {
