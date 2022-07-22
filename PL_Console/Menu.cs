@@ -1915,7 +1915,7 @@ public class Menu
     {
         bool end = false;
         
-        Recruiter recruiter = new Recruiter("Hung", "643876393", "Manager", "FPT", "", "1-9", "IT");
+        Recruiter recruiter = recruiterBL.GetRecruiterByNewsID(news.NewsID);
 
         while (true)
         {

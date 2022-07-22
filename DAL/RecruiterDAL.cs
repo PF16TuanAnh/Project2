@@ -8,37 +8,37 @@ public class RecruiterDAL
     private string? query;
     private MySqlDataReader? reader;
 
-    // public Candidate GetCandidateByUserID(int UserID)
-    // {
-    //     query = @"select emp_no, first_name, last_name from employees where emp_no = " + empId;
+    public Recruiter GetRecruiterByNewsID(int NewsID)
+    {
+        query = @"select r.*, u.Username from Recruiters r inner join RecruitNews rn on r.RecruiterID = rn.RecruiterID inner join Users u on r.UserID = u.UserID where NewsID = " + NewsID;
 
         
-    //     DBHelper.OpenConnection();
+        DBHelper.OpenConnection();
         
-    //     reader = DBHelper.ExecQuery(query);
+        reader = DBHelper.ExecQuery(query);
 
-    //     Employee employee = null!;
-    //     if (reader.Read())
-    //     {
-    //         employee = GetEmployeeInfo(reader);
-    //     }
+        Recruiter recruiter = null!;
+        if (reader.Read())
+        {
+            recruiter = GetRecruiterInfo(reader);
+        }
 
-    //     DBHelper.CloseConnection();
+        DBHelper.CloseConnection();
 
-    //     return employee;
-    // }
+        return recruiter;
+    }
 
     private Recruiter GetRecruiterInfo(MySqlDataReader reader)
     {
         Recruiter recruiter = new Recruiter();
-        recruiter.RecruiterID = reader.GetInt32("RecruiterID");
-        recruiter.PhoneNum = reader.GetString("PhoneNum");
-        recruiter.Position = reader.GetString("Position");
-        recruiter.CompanyName = reader.GetString("CompanyName");
-        recruiter.CompanyDescription = reader.GetString("CompanyDescription");
-        recruiter.BussinessSize = reader.GetString("BussinessSize");
-        recruiter.BussinessField = reader.GetString("BussinessField");
-        recruiter.Username = reader.GetString("Username");
+        if (!reader.IsDBNull(reader.GetOrdinal("RecruiterID"))) recruiter.RecruiterID = reader.GetInt32("RecruiterID");
+        if (!reader.IsDBNull(reader.GetOrdinal("PhoneNum"))) recruiter.PhoneNum = reader.GetString("PhoneNum");
+        if (!reader.IsDBNull(reader.GetOrdinal("Position"))) recruiter.Position = reader.GetString("Position");
+        if (!reader.IsDBNull(reader.GetOrdinal("CompanyName"))) recruiter.CompanyName = reader.GetString("CompanyName");
+        if (!reader.IsDBNull(reader.GetOrdinal("CompanyDescription"))) recruiter.CompanyDescription = reader.GetString("CompanyDescription");
+        if (!reader.IsDBNull(reader.GetOrdinal("BussinessSize"))) recruiter.BussinessSize = reader.GetString("BussinessSize");
+        if (!reader.IsDBNull(reader.GetOrdinal("BussinessField"))) recruiter.BussinessField = reader.GetString("BussinessField");
+        if (!reader.IsDBNull(reader.GetOrdinal("Username"))) recruiter.Username = reader.GetString("Username");
 
         return recruiter;
     }
@@ -118,18 +118,18 @@ public class RecruiterDAL
     private RecruitNews GetRecruitNewsInfo(MySqlDataReader reader)
     {
         RecruitNews recruitNews = new RecruitNews();
-        recruitNews.NewsID = reader.GetInt32("NewsID");
-        recruitNews.NewsName = reader.GetString("NewsName");
-        recruitNews.DeadLine = reader.GetString("Deadline");
-        recruitNews.SalaryRange = reader.GetString("SalaryRange");
-        recruitNews.FormOfEmploy = reader.GetString("FormOfEmploy");
-        recruitNews.Gender = reader.GetString("Gender");
-        recruitNews.HiringAmount = reader.GetString("HiringAmount");
-        recruitNews.HiringPosition = reader.GetString("HiringPosition");
-        recruitNews.RequiredExp = reader.GetString("RequiredExp");
-        recruitNews.CityAddress = reader.GetString("CityAddress");
-        recruitNews.Profession = reader.GetString("Profession");
-        recruitNews.RecruiterID = reader.GetInt32("RecruiterID");
+        if (!reader.IsDBNull(reader.GetOrdinal("NewsID"))) recruitNews.NewsID = reader.GetInt32("NewsID");
+        if (!reader.IsDBNull(reader.GetOrdinal("NewsName"))) recruitNews.NewsName = reader.GetString("NewsName");
+        if (!reader.IsDBNull(reader.GetOrdinal("Deadline"))) recruitNews.DeadLine = reader.GetString("Deadline");
+        if (!reader.IsDBNull(reader.GetOrdinal("SalaryRange"))) recruitNews.SalaryRange = reader.GetString("SalaryRange");
+        if (!reader.IsDBNull(reader.GetOrdinal("FormOfEmploy")))  recruitNews.FormOfEmploy = reader.GetString("FormOfEmploy");
+        if (!reader.IsDBNull(reader.GetOrdinal("Gender"))) recruitNews.Gender = reader.GetString("Gender");
+        if (!reader.IsDBNull(reader.GetOrdinal("HiringAmount"))) recruitNews.HiringAmount = reader.GetString("HiringAmount");
+        if (!reader.IsDBNull(reader.GetOrdinal("HiringPosition"))) recruitNews.HiringPosition = reader.GetString("HiringPosition");
+        if (!reader.IsDBNull(reader.GetOrdinal("RequiredExp"))) recruitNews.RequiredExp = reader.GetString("RequiredExp");
+        if (!reader.IsDBNull(reader.GetOrdinal("CityAddress"))) recruitNews.CityAddress = reader.GetString("CityAddress");
+        if (!reader.IsDBNull(reader.GetOrdinal("Profession"))) recruitNews.Profession = reader.GetString("Profession");
+        if (!reader.IsDBNull(reader.GetOrdinal("RecruiterID"))) recruitNews.RecruiterID = reader.GetInt32("RecruiterID");
         return recruitNews;
     }
 }

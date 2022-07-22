@@ -26,4 +26,9 @@ public class RecruiterBL
     {
         return recruiterDAL.GetNewsByCityAddress(CityAddress);
     }
+
+    public Recruiter GetRecruiterByNewsID(int NewsID)
+    {
+        return recruiterDAL.GetRecruiterByNewsID(NewsID);
+    }
 }
