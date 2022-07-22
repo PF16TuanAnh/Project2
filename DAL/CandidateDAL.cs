@@ -114,9 +114,7 @@ public class CandidateDAL
             cmd.Parameters["@SocialMedia"].Direction = System.Data.ParameterDirection.Input;
             cmd.ExecuteNonQuery();
         }
-        catch(Exception e) {
-            throw e;
-        }
+        catch {}
         finally
         {
             DBHelper.CloseConnection();
@@ -253,5 +251,43 @@ public class CandidateDAL
         if (!reader.IsDBNull(reader.GetOrdinal("Descriptions"))) cVDetails.Description = reader.GetString("Descriptions");
 
         return cVDetails;
+    }
+
+    public void InsertToApplyCandidates(int? CandidateID, int NewsID)
+    {
+        MySqlCommand cmd = new MySqlCommand("sp_InsertToApplyCandidates", DBHelper.OpenConnection());
+        try
+        {   
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@CandidateID", CandidateID);
+            cmd.Parameters["@CandidateID"].Direction = System.Data.ParameterDirection.Input;
+            cmd.Parameters.AddWithValue("@NewsID", NewsID);
+            cmd.Parameters["@NewsID"].Direction = System.Data.ParameterDirection.Input;
+            cmd.ExecuteNonQuery();
+        }
+        catch{}
+        finally
+        {
+            DBHelper.CloseConnection();
+        }
+    }
+
+
+    public bool GetApplyStatusByNewsID(int? CandidateID, int NewsID)
+    {
+        bool IsApplied = false;
+        query = @"select * from ApplyCandidates where CandidateID = " + CandidateID + " and  NewsID = " + NewsID;
+        
+        DBHelper.OpenConnection();
+        reader = DBHelper.ExecQuery(query);
+
+        if (reader.Read())
+        {
+            IsApplied = true;
+        }
+
+        DBHelper.CloseConnection();
+
+        return IsApplied!;
     }
 }

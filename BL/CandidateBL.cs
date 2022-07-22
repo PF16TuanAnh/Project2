@@ -47,4 +47,14 @@ public class CandidateBL
             }
         }
     }
+
+    public void ApplyToNews(int? CandidateID, int NewsID)
+    {
+        candidateDAL.InsertToApplyCandidates(CandidateID, NewsID);
+    }
+
+    public bool IsApplied(int? CandidateID, int NewsID)
+    {
+        return candidateDAL.GetApplyStatusByNewsID(CandidateID, NewsID);
+    }
 }

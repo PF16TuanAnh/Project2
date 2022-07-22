@@ -12,11 +12,18 @@ public class RecruiterBL
         recruiterDAL = new RecruiterDAL();
     }
 
-    // public User GetEmployeeByID(int emp_no)
-    // {
-    //     Employee employee = employeeDAL.GetEmployeeByID(emp_no);
-    //     employee.EmployeeFirstName = employee.EmployeeFirstName!.ToUpper();
-    //     employee.EmployeeLastName = employee.EmployeeLastName!.ToUpper();
-    //     return employee;
-    // }
+    public List<RecruitNews> GetNewsByProfession(string Profession)
+    {
+        return recruiterDAL.GetNewsByProfession(Profession);
+    }
+
+    public List<RecruitNews> GetNewsBySalaryRange(string SalaryRange)
+    {
+        return recruiterDAL.GetNewsBySalaryRange(SalaryRange);
+    }
+
+    public List<RecruitNews> GetNewsByCityAddress(string CityAddress)
+    {
+        return recruiterDAL.GetNewsByCityAddress(CityAddress);
+    }
 }

@@ -43,25 +43,77 @@ public class RecruiterDAL
         return recruiter;
     }
 
-    // public CV GetCVByID(int CandidateID)
-    // {
-    //     query = @"select emp_no, first_name, last_name from employees where emp_no = " + empId;
+    public List<RecruitNews> GetNewsBySalaryRange(string SalaryRange)
+    {
+        query = @"select * from RecruitNews where SalaryRange = '" + SalaryRange + "'" + " and IsOpen = true";
 
         
-    //     DBHelper.OpenConnection();
+        DBHelper.OpenConnection();
         
-    //     reader = DBHelper.ExecQuery(query);
+        reader = DBHelper.ExecQuery(query);
 
-    //     Employee employee = null!;
-    //     if (reader.Read())
-    //     {
-    //         employee = GetEmployeeInfo(reader);
-    //     }
+        List<RecruitNews> recruitNews = null!;
+        while (reader.Read())
+        {
+            if(recruitNews == null)
+            {
+                recruitNews = new List<RecruitNews>();
+            }
+            recruitNews.Add(GetRecruitNewsInfo(reader));
+        }
 
-    //     DBHelper.CloseConnection();
+        DBHelper.CloseConnection();
 
-    //     return employee;
-    // }
+        return recruitNews;
+    }
+
+    public List<RecruitNews> GetNewsByCityAddress(string CityAddress)
+    {
+        query = @"select * from RecruitNews where CityAddress = '" + CityAddress + "'" + " and IsOpen = true";
+
+        
+        DBHelper.OpenConnection();
+        
+        reader = DBHelper.ExecQuery(query);
+
+        List<RecruitNews> recruitNews = null!;
+        while (reader.Read())
+        {
+            if(recruitNews == null)
+            {
+                recruitNews = new List<RecruitNews>();
+            }
+            recruitNews.Add(GetRecruitNewsInfo(reader));
+        }
+
+        DBHelper.CloseConnection();
+
+        return recruitNews;
+    }
+
+    public List<RecruitNews> GetNewsByProfession(string Profession)
+    {
+        query = @"select * from RecruitNews where Profession = '" + Profession + "'" + " and IsOpen = true";
+
+        
+        DBHelper.OpenConnection();
+        
+        reader = DBHelper.ExecQuery(query);
+
+        List<RecruitNews> recruitNews = null!;
+        while (reader.Read())
+        {
+            if(recruitNews == null)
+            {
+                recruitNews = new List<RecruitNews>();
+            }
+            recruitNews.Add(GetRecruitNewsInfo(reader));
+        }
+
+        DBHelper.CloseConnection();
+
+        return recruitNews;
+    }
 
     private RecruitNews GetRecruitNewsInfo(MySqlDataReader reader)
     {

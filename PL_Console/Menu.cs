@@ -9,11 +9,13 @@ public class Menu
     private static readonly Regex NumericRegex = new Regex(@"^[0-9]*$");
     private UserBL userBL;
     private CandidateBL candidateBL;
+    private RecruiterBL recruiterBL;
 
     public Menu()
     {
         userBL = new UserBL();
         candidateBL = new CandidateBL();
+        recruiterBL = new RecruiterBL();
     }
 
     public void StartMenu()
@@ -1724,14 +1726,6 @@ public class Menu
     {
         bool end = false;
 
-        List<RecruitNews> recruitNews = new List<RecruitNews>();
-        recruitNews.Add(new RecruitNews("test", "10/12/2023", "Based on Agreement", "Offline", "All", "4-6 people",
-        "Staff", "5 years of experience", "Ha Noi", "Marketing"));
-        recruitNews.Add(new RecruitNews("test1", "5/7/2023", "Based on Agreement", "Offline", "All", "4-6 people",
-        "Staff", "5 years of experience", "Ha Noi", "Marketing"));
-        recruitNews.Add(new RecruitNews("test3", "8/10/2022", "1000$ - 3000$", "Online", "All", "1-3 people",
-        "Staff", "5 years of experience", "Binh Dinh", "Marketing"));
-
         while (true)
         {
             Console.WriteLine("================================\n");
@@ -1739,21 +1733,20 @@ public class Menu
             Console.WriteLine("\n================================");
             Console.WriteLine(" 1) Profession");
             Console.WriteLine(" 2) Salary Range");
-            Console.WriteLine(" 2) City Address");
+            Console.WriteLine(" 3) City Address");
             Console.WriteLine(" 0) Exit");
             Console.WriteLine("================================");
             Console.Write(" Enter the option number: ");
             switch (GetUserInput())
             {
                 case "1":
-                    DisplaySearchedNews(recruitNews, CandidateID);
-                    // DisplaySearchedNews(SearchRecruitNewsViaProfession(), CandidateID);
+                    DisplaySearchedNews(SearchRecruitNewsViaProfession(), CandidateID);
                     break;
                 case "2":
-                    // DisplaySearchedNews(SearchRecruitNewsViaSalaryRange(), CandidateID);
+                    DisplaySearchedNews(SearchRecruitNewsViaSalaryRange(), CandidateID);
                     break;
                 case "3":
-                    // DisplaySearchedNews(SearchRecruitNewsViaCity(), CandidateID);
+                    DisplaySearchedNews(SearchRecruitNewsViaCity(), CandidateID);
                     break;
                 case "0":
                     end = true;
@@ -1788,15 +1781,15 @@ public class Menu
             switch (GetUserInput())
             {
                 case "1":
-                    return new List<RecruitNews>();
+                    return recruiterBL.GetNewsByProfession("Seller");
                 case "2":
-                    return new List<RecruitNews>();
+                    return recruiterBL.GetNewsByProfession("Translator");
                 case "3":
-                    return new List<RecruitNews>();
+                    return recruiterBL.GetNewsByProfession("Journalist");
                 case "4":
-                    return new List<RecruitNews>();
+                    return recruiterBL.GetNewsByProfession("Post and Telecommunications");
                 case "5":
-                    return new List<RecruitNews>();
+                    return recruiterBL.GetNewsByProfession("Insurance");
                 default:
                     Console.WriteLine("================================"); 
                     Console.WriteLine(" Invalid choice! Please re-enter your option.");
@@ -1822,15 +1815,15 @@ public class Menu
             switch (GetUserInput())
             {
                 case "1":
-                    return new List<RecruitNews>();
+                    return recruiterBL.GetNewsBySalaryRange("Bellow 3 million");
                 case "2":
-                    return new List<RecruitNews>();
+                    return recruiterBL.GetNewsBySalaryRange("3 - 5 million");
                 case "3":
-                    return new List<RecruitNews>();
+                    return recruiterBL.GetNewsBySalaryRange("5 - 7 million");
                 case "4":
-                    return new List<RecruitNews>();
+                    return recruiterBL.GetNewsBySalaryRange("7 - 10 million");
                 case "5":
-                    return new List<RecruitNews>();
+                    return recruiterBL.GetNewsBySalaryRange("Higher than 10 million");
                 default:
                     Console.WriteLine("================================"); 
                     Console.WriteLine(" Invalid choice! Please re-enter your option.");
@@ -1856,15 +1849,15 @@ public class Menu
             switch (GetUserInput())
             {
                 case "1":
-                    return new List<RecruitNews>();
+                    return recruiterBL.GetNewsByCityAddress("Ha Noi");
                 case "2":
-                    return new List<RecruitNews>();
+                    return recruiterBL.GetNewsByCityAddress("Ho Chi Minh");
                 case "3":
-                    return new List<RecruitNews>();
+                    return recruiterBL.GetNewsByCityAddress("Binh Duong");
                 case "4":
-                    return new List<RecruitNews>();
+                    return recruiterBL.GetNewsByCityAddress("Bac Ninh");
                 case "5":
-                    return new List<RecruitNews>();
+                    return recruiterBL.GetNewsByCityAddress("Dong Nai");
                 default:
                     Console.WriteLine("================================"); 
                     Console.WriteLine(" Invalid choice! Please re-enter your option.");
@@ -1875,48 +1868,58 @@ public class Menu
 
     public void DisplaySearchedNews(List<RecruitNews> recruitNews, int? CandidateID)
     {  
-        while (true)
+        if (recruitNews != null)
         {
-            int count = 0;
-            Console.WriteLine("================================\n");
-            Console.WriteLine("       RECRUITMENT NEWS");
-            Console.WriteLine("\n================================");
-            foreach (RecruitNews news in recruitNews)
+            while (true)
             {
-                count++;
-                Console.WriteLine(" {0}) Name: {1}", count, news.NewsName);
-            }
-            Console.WriteLine("================================");
-            Console.Write(" Enter the position of news you like to view or 0 to return: ");
-            string choice = GetUserInput();
+                var table = new ConsoleTable("Pos", "Name");
 
-            if(choice == "0")
-            {
-                break;
-            }
-
-            bool success = int.TryParse(choice, out int position);
-            if(success)
-            {
-                SearchedNewsDetails(recruitNews[position - 1], CandidateID);
-            }
-            else
-            {
+                int count = 0;
+                Console.WriteLine("================================\n");
+                Console.WriteLine("       RECRUITMENT NEWS");
+                Console.WriteLine("\n================================");
+                foreach (RecruitNews news in recruitNews)
+                {
+                    table.AddRow(++count, news.NewsName);
+                }
+                table.Write(Format.Alternative);
                 Console.WriteLine("================================");
-                Console.WriteLine(" Invalid choice! Please re-enter your option.");
+                Console.Write(" Enter the position of news you like to view or 0 to return: ");
+                string choice = GetUserInput();
+
+                if(choice == "0")
+                {
+                    break;
+                }
+
+                bool success = int.TryParse(choice, out int position);
+                if(success)
+                {
+                    SearchedNewsDetails(recruitNews[position - 1], CandidateID);
+                }
+                else
+                {
+                    Console.WriteLine("================================");
+                    Console.WriteLine(" Invalid choice! Please re-enter your option.");
+                }
             }
+        }
+        else
+        {
+            Console.WriteLine("================================"); 
+            Console.WriteLine(" No results!");
         }
     }
 
     public void SearchedNewsDetails(RecruitNews news, int? CandidateID)
     {
         bool end = false;
-        bool IsApplied = false;
-
+        
         Recruiter recruiter = new Recruiter("Hung", "643876393", "Manager", "FPT", "", "1-9", "IT");
 
         while (true)
         {
+            bool IsApplied = candidateBL.IsApplied(CandidateID, news.NewsID);
             Console.WriteLine("================================\n");
             Console.WriteLine("          NEWS DETAILS");
             Console.WriteLine("\n================================");
@@ -1951,7 +1954,7 @@ public class Menu
                 case "1":
                     if(!IsApplied)
                     {
-                        IsApplied = true;
+                        candidateBL.ApplyToNews(CandidateID, news.NewsID);
                     }
                     break;
                 case "0":
