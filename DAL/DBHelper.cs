@@ -12,7 +12,7 @@ public class DBHelper
         {
             connection = new MySqlConnection
             {
-                ConnectionString = @"server=localhost; user=root; password=36558136; database=project;" // Change password according to your MySQL password
+                ConnectionString = @"server=localhost; user=root; password=Sieunhan159357; database=project;" // Change password according to your MySQL password
             };
         }
 
@@ -32,16 +32,7 @@ public class DBHelper
             GetConnection();
         }
         
-        try
-        {
-            connection!.Open();
-        }
-        catch (Exception)
-        {
-            Console.WriteLine("================================"); 
-            Console.WriteLine(" Unexpected errors occurred when trying to connect to the database! Closing out.");
-            System.Environment.Exit(0);
-        }
+        connection!.Open();
         
         return connection;
     }

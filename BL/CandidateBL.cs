@@ -19,38 +19,66 @@ public class CandidateBL
 
     public void UpdateCVInfo(CV cv)
     {
-        candidateDAL.UpdateCV(cv);
-        if (cv.CVDetails != null)
+        if(candidateDAL.UpdateCV(cv))
         {
-            foreach (CVDetails details in cv.CVDetails)
+            if (cv.CVDetails != null)
             {
-                if(candidateDAL.GetCVDetailsByID(details.DetailsID) != null)
+                foreach (CVDetails details in cv.CVDetails)
                 {
-                    candidateDAL.ChangeCVDetails(details);
-                }
-                else
-                {
-                    candidateDAL.InsertNewCVDetails(details);
+                    if(candidateDAL.GetCVDetailsByID(details.DetailsID) != null)
+                    {
+                        candidateDAL.ChangeCVDetails(details);
+                    }
+                    else
+                    {
+                        if(!candidateDAL.InsertNewCVDetails(details))
+                        {
+                            Console.WriteLine("================================"); 
+                            Console.WriteLine(" Unexpected problems might have occurred to the connection to the database. Parts of the info couldn't be updated.");
+                            break;
+                        }
+                    }
                 }
             }
+        }
+        else
+        {
+            Console.WriteLine("================================"); 
+            Console.WriteLine(" Couldn't update your CV. Unexpected problems might have occurred to the connection to the database.");
         }
     }
 
     public void CreateNewCV(CV cv, int? CandidateID)
     {
-        candidateDAL.InsertNewCV(cv, CandidateID);
-        if (cv.CVDetails != null)
+        if(candidateDAL.InsertNewCV(cv, CandidateID))
         {
-            foreach (CVDetails details in cv.CVDetails)
+            if (cv.CVDetails != null)
             {
-                candidateDAL.InsertNewCVDetails(details);
+                foreach (CVDetails details in cv.CVDetails)
+                {
+                    if(!candidateDAL.InsertNewCVDetails(details))
+                    {
+                        Console.WriteLine("================================"); 
+                        Console.WriteLine(" Unexpected problems might have occurred to the connection to the database. Parts of the CV will be missing");
+                        break;
+                    }
+                }
             }
+        }
+        else
+        {
+            Console.WriteLine("================================"); 
+            Console.WriteLine(" Couldn't create new CV. Unexpected problems might have occurred to the connection to the database.");
         }
     }
 
     public void ApplyToNews(int? CandidateID, int NewsID)
     {
-        candidateDAL.InsertToApplyCandidates(CandidateID, NewsID);
+        if (!candidateDAL.InsertToApplyCandidates(CandidateID, NewsID))
+        {
+            Console.WriteLine("================================"); 
+            Console.WriteLine(" Couldn't apply to the recruitment news. Unexpected problems might have occurred to the connection to the database.");
+        }
     }
 
     public bool IsApplied(int? CandidateID, int NewsID)

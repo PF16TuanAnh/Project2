@@ -12,17 +12,27 @@ public class UserDAL
     {
         
         query = @"select * from Users where Email = '" + email + "'";
-
-        
-        DBHelper.OpenConnection();
-        
-        reader = DBHelper.ExecQuery(query);
-
         User user = null!;
-        if (reader.Read())
+
+        try
         {
-            user = GetUserInfo(reader);
+            DBHelper.OpenConnection();
+        
+            reader = DBHelper.ExecQuery(query);
+
+            
+            if (reader.Read())
+            {
+                user = GetUserInfo(reader);
+            }
         }
+        catch (Exception)
+        {
+            Console.WriteLine("================================"); 
+            Console.WriteLine(" Unexpected errors occurred to the connection to the database! Closing out.");
+            System.Environment.Exit(0);
+        }
+        
 
         DBHelper.CloseConnection();
 
@@ -32,17 +42,26 @@ public class UserDAL
     public int? GetCandidateIDByEmail(string email)
     {
         query = @"select c.CandidateID from Candidates c inner join Users u on c.UserID = u.UserID where Email = '" + email + "'";
-
-        
-        DBHelper.OpenConnection();
-        
-        reader = DBHelper.ExecQuery(query);
-
         int? CandidateID = null;
-        if (reader.Read())
+        
+        try
         {
-            CandidateID = reader.GetInt32("CandidateID");
+            DBHelper.OpenConnection();
+        
+            reader = DBHelper.ExecQuery(query);
+
+            if (reader.Read())
+            {
+                CandidateID = reader.GetInt32("CandidateID");
+            }
         }
+        catch (Exception)
+        {
+            Console.WriteLine("================================"); 
+            Console.WriteLine(" Unexpected errors occurred to the connection to the database! Closing out.");
+            System.Environment.Exit(0);
+        }
+        
 
         DBHelper.CloseConnection();
 

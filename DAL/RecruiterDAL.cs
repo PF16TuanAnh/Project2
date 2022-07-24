@@ -11,17 +11,21 @@ public class RecruiterDAL
     public Recruiter GetRecruiterByNewsID(int NewsID)
     {
         query = @"select r.*, u.Username from Recruiters r inner join RecruitNews rn on r.RecruiterID = rn.RecruiterID inner join Users u on r.UserID = u.UserID where NewsID = " + NewsID;
-
-        
-        DBHelper.OpenConnection();
-        
-        reader = DBHelper.ExecQuery(query);
-
         Recruiter recruiter = null!;
-        if (reader.Read())
+        
+        try
         {
-            recruiter = GetRecruiterInfo(reader);
+            DBHelper.OpenConnection();
+        
+            reader = DBHelper.ExecQuery(query);
+            
+            if (reader.Read())
+            {
+                recruiter = GetRecruiterInfo(reader);
+            }
         }
+        catch{}
+        
 
         DBHelper.CloseConnection();
 
@@ -46,22 +50,29 @@ public class RecruiterDAL
     public List<RecruitNews> GetNewsBySalaryRange(string SalaryRange)
     {
         query = @"select * from RecruitNews where SalaryRange = '" + SalaryRange + "'" + " and IsOpen = true";
-
-        
-        DBHelper.OpenConnection();
-        
-        reader = DBHelper.ExecQuery(query);
-
         List<RecruitNews> recruitNews = null!;
-        while (reader.Read())
+        
+        try
         {
-            if(recruitNews == null)
-            {
-                recruitNews = new List<RecruitNews>();
-            }
-            recruitNews.Add(GetRecruitNewsInfo(reader));
-        }
+            DBHelper.OpenConnection();
+        
+            reader = DBHelper.ExecQuery(query);
 
+            while (reader.Read())
+            {
+                if(recruitNews == null)
+                {
+                    recruitNews = new List<RecruitNews>();
+                }
+                recruitNews.Add(GetRecruitNewsInfo(reader));
+            }
+        }
+        catch
+        {
+            Console.WriteLine("================================"); 
+            Console.WriteLine(" Unexpected problems might have occurred to the connection to the database. Couldn't retrieve recruitment news.");
+        }
+        
         DBHelper.CloseConnection();
 
         return recruitNews;
@@ -70,22 +81,29 @@ public class RecruiterDAL
     public List<RecruitNews> GetNewsByCityAddress(string CityAddress)
     {
         query = @"select * from RecruitNews where CityAddress = '" + CityAddress + "'" + " and IsOpen = true";
-
-        
-        DBHelper.OpenConnection();
-        
-        reader = DBHelper.ExecQuery(query);
-
         List<RecruitNews> recruitNews = null!;
-        while (reader.Read())
+        
+        try
         {
-            if(recruitNews == null)
-            {
-                recruitNews = new List<RecruitNews>();
-            }
-            recruitNews.Add(GetRecruitNewsInfo(reader));
-        }
+            DBHelper.OpenConnection();
+        
+            reader = DBHelper.ExecQuery(query);
 
+            while (reader.Read())
+            {
+                if(recruitNews == null)
+                {
+                    recruitNews = new List<RecruitNews>();
+                }
+                recruitNews.Add(GetRecruitNewsInfo(reader));
+            }
+        }
+        catch
+        {
+            Console.WriteLine("================================"); 
+            Console.WriteLine(" Unexpected problems might have occurred to the connection to the database. Couldn't retrieve recruitment news.");
+        }
+        
         DBHelper.CloseConnection();
 
         return recruitNews;
@@ -94,22 +112,29 @@ public class RecruiterDAL
     public List<RecruitNews> GetNewsByProfession(string Profession)
     {
         query = @"select * from RecruitNews where Profession = '" + Profession + "'" + " and IsOpen = true";
-
-        
-        DBHelper.OpenConnection();
-        
-        reader = DBHelper.ExecQuery(query);
-
         List<RecruitNews> recruitNews = null!;
-        while (reader.Read())
+        
+        try
         {
-            if(recruitNews == null)
-            {
-                recruitNews = new List<RecruitNews>();
-            }
-            recruitNews.Add(GetRecruitNewsInfo(reader));
-        }
+            DBHelper.OpenConnection();
+        
+            reader = DBHelper.ExecQuery(query);
 
+            while (reader.Read())
+            {
+                if(recruitNews == null)
+                {
+                    recruitNews = new List<RecruitNews>();
+                }
+                recruitNews.Add(GetRecruitNewsInfo(reader));
+            }
+        }
+        catch
+        {
+            Console.WriteLine("================================"); 
+            Console.WriteLine(" Unexpected problems might have occurred to the connection to the database. Couldn't retrieve recruitment news.");
+        }
+        
         DBHelper.CloseConnection();
 
         return recruitNews;

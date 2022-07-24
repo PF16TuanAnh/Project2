@@ -11,18 +11,22 @@ public class CandidateDAL
     public Candidate GetCandidateByID(int? CandidateID)
     {
         query = @"select * from Candidates c inner join Users u on c.UserID = u.UserID where CandidateID = " + CandidateID;
-
-        
-        DBHelper.OpenConnection();
-        
-        reader = DBHelper.ExecQuery(query);
-
         Candidate candidate = null!;
-        if (reader.Read())
+        
+        try
         {
-            candidate = GetCandidateInfo(reader);
-        }
+            DBHelper.OpenConnection();
+        
+            reader = DBHelper.ExecQuery(query);
 
+            
+            if (reader.Read())
+            {
+                candidate = GetCandidateInfo(reader);
+            }
+        }
+        catch{}
+        
         DBHelper.CloseConnection();
 
         return candidate;
@@ -55,7 +59,7 @@ public class CandidateDAL
         return cv;
     }
 
-    public void UpdateCV(CV cv)
+    public bool UpdateCV(CV cv)
     {
         MySqlCommand cmd = new MySqlCommand("sp_UpdateCV", DBHelper.OpenConnection());
         try
@@ -81,14 +85,15 @@ public class CandidateDAL
             cmd.Parameters["@SocialMedia"].Direction = System.Data.ParameterDirection.Input;
             cmd.ExecuteNonQuery();
         }
-        catch {}
+        catch {return false;}
         finally
         {
             DBHelper.CloseConnection();
         }
+        return true;
     }
 
-    public void InsertNewCV(CV cv, int? CandidateID)
+    public bool InsertNewCV(CV cv, int? CandidateID)
     {
         MySqlCommand cmd = new MySqlCommand("sp_InsertCV", DBHelper.OpenConnection());
         try
@@ -114,11 +119,12 @@ public class CandidateDAL
             cmd.Parameters["@SocialMedia"].Direction = System.Data.ParameterDirection.Input;
             cmd.ExecuteNonQuery();
         }
-        catch {}
+        catch {return false;}
         finally
         {
             DBHelper.CloseConnection();
         }
+        return true;
     }
 
     private CV GetCVInfo(MySqlDataReader reader)
@@ -142,17 +148,25 @@ public class CandidateDAL
     {
         
         query = @"select * from CVDetails where DetailID = " +  DetailID;
-
-        
-        DBHelper.OpenConnection();
-        
-        reader = DBHelper.ExecQuery(query);
-
         CVDetails cVDetails = null!;
-        if (reader.Read())
+        
+        try
         {
-            cVDetails = GetCVDetailsInfo(reader);
+            DBHelper.OpenConnection();
+        
+            reader = DBHelper.ExecQuery(query);
+
+            
+            if (reader.Read())
+            {
+                cVDetails = GetCVDetailsInfo(reader);
+            }
         }
+        catch (Exception)
+        {
+            return new CVDetails();
+        }
+        
 
         DBHelper.CloseConnection();
 
@@ -180,7 +194,7 @@ public class CandidateDAL
         return CVDetails!;
     }
 
-    public void InsertNewCVDetails(CVDetails cVDetails)
+    public bool InsertNewCVDetails(CVDetails cVDetails)
     {
         MySqlCommand cmd = new MySqlCommand("sp_InsertCVDetails", DBHelper.OpenConnection());
         try
@@ -202,11 +216,12 @@ public class CandidateDAL
             cmd.Parameters["@JobPosition"].Direction = System.Data.ParameterDirection.Input;
             cmd.ExecuteNonQuery();
         }
-        catch {}
+        catch {return false;}
         finally
         {
             DBHelper.CloseConnection();
         }
+        return true;
     }
 
     public void ChangeCVDetails(CVDetails cVDetails)
@@ -253,7 +268,7 @@ public class CandidateDAL
         return cVDetails;
     }
 
-    public void InsertToApplyCandidates(int? CandidateID, int NewsID)
+    public bool InsertToApplyCandidates(int? CandidateID, int NewsID)
     {
         MySqlCommand cmd = new MySqlCommand("sp_InsertToApplyCandidates", DBHelper.OpenConnection());
         try
@@ -265,11 +280,13 @@ public class CandidateDAL
             cmd.Parameters["@NewsID"].Direction = System.Data.ParameterDirection.Input;
             cmd.ExecuteNonQuery();
         }
-        catch{}
+        catch{return false;}
         finally
         {
             DBHelper.CloseConnection();
         }
+
+        return true;
     }
 
 
@@ -278,16 +295,21 @@ public class CandidateDAL
         bool IsApplied = false;
         query = @"select * from ApplyCandidates where CandidateID = " + CandidateID + " and  NewsID = " + NewsID;
         
-        DBHelper.OpenConnection();
-        reader = DBHelper.ExecQuery(query);
-
-        if (reader.Read())
+        try
         {
-            IsApplied = true;
+            DBHelper.OpenConnection();
+            reader = DBHelper.ExecQuery(query);
+
+            if (reader.Read())
+            {
+                IsApplied = true;
+            }
         }
+        catch{}
+        
 
         DBHelper.CloseConnection();
 
-        return IsApplied!;
+        return IsApplied;
     }
 }

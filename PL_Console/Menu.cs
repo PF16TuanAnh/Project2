@@ -277,43 +277,54 @@ public class Menu
         while (true)
         {
             Candidate candidate = candidateBL.GetCandidateByID(CandidateID);
-            Console.WriteLine("================================\n");
-            Console.WriteLine(" Username: {0}", candidate.Username);
-            Console.WriteLine("\n================================");
-            Console.WriteLine(" 1) Create CV");
-            Console.WriteLine(" 2) View CV");
-            Console.WriteLine(" 3) Search Recruitment News");
-            Console.WriteLine(" 0) Exit");
-            Console.WriteLine("================================");
-            Console.Write(" Enter the option number: ");
-            switch (GetUserInput())
+            if(candidate != null)
             {
-                case "1":
-                    CreateCVMenu(CandidateID);
-                    break;
-                case "2":
-                    if (candidate.CandidateCV != null)
-                    {
-                        ViewCVMenu(candidate.CandidateCV);
-                    }
-                    else
-                    {
+                Console.WriteLine("================================\n");
+                Console.WriteLine(" Username: {0}", candidate.Username);
+                Console.WriteLine("\n================================");
+                Console.WriteLine(" 1) Create CV");
+                Console.WriteLine(" 2) View CV");
+                Console.WriteLine(" 3) Search Recruitment News");
+                Console.WriteLine(" 0) Exit");
+                Console.WriteLine("================================");
+                Console.Write(" Enter the option number: ");
+                switch (GetUserInput())
+                {
+                    case "1":
+                        CreateCVMenu(CandidateID);
+                        break;
+                    case "2":
+                        if (candidate.CandidateCV != null)
+                        {
+                            ViewCVMenu(candidate.CandidateCV);
+                        }
+                        else
+                        {
+                            Console.WriteLine("================================"); 
+                            Console.WriteLine(" You haven't created your CV yet!");
+                        }
+                        break;
+                    case "3":
+                        SearchRecruitNewsMenu(CandidateID);
+                        break;
+                    case "0":
                         Console.WriteLine("================================"); 
-                        Console.WriteLine(" You haven't created your CV yet!");
-                    }
-                    break;
-                case "3":
-                    SearchRecruitNewsMenu(CandidateID);
-                    break;
-                case "0":
-                    Console.WriteLine("================================"); 
-                    System.Environment.Exit(0);
-                    break;
-                default:
-                    Console.WriteLine("================================"); 
-                    Console.WriteLine(" Invalid choice! Please re-enter your option.");
-                    break;
+                        System.Environment.Exit(0);
+                        break;
+                    default:
+                        Console.WriteLine("================================"); 
+                        Console.WriteLine(" Invalid choice! Please re-enter your option.");
+                        break;
+                }
             }
+            else
+            {
+                Console.WriteLine("================================"); 
+                Console.WriteLine(" Couldn't retrieve the user info. Unexpected problems might have occurred to the connection to the database.");
+                System.Environment.Exit(0);
+                break;
+            }
+            
         }
     }
 
@@ -1916,61 +1927,68 @@ public class Menu
         bool end = false;
         
         Recruiter recruiter = recruiterBL.GetRecruiterByNewsID(news.NewsID);
-
-        while (true)
+        if (recruiter != null)
         {
-            bool IsApplied = candidateBL.IsApplied(CandidateID, news.NewsID);
-            Console.WriteLine("================================\n");
-            Console.WriteLine("          NEWS DETAILS");
-            Console.WriteLine("\n================================");
-            Console.WriteLine(" Name: {0}", news.NewsName);
-            Console.WriteLine(" Deadline: {0}", news.DeadLine);
-            Console.WriteLine(" Recruiter: {0}", recruiter.Username);
-            Console.WriteLine(" Recruiter's Numeber: {0}", recruiter.PhoneNum);
-            Console.WriteLine(" SalaryRange: {0}", news.SalaryRange);
-            Console.WriteLine(" Form of Employ: {0}", news.FormOfEmploy);
-            Console.WriteLine(" Gender: {0}", news.Gender);
-            Console.WriteLine(" Hiring Amount: {0}", news.HiringAmount);
-            Console.WriteLine(" Hiring Position: {0}", news.HiringPosition);
-            Console.WriteLine(" Required Expirence: {0}", news.RequiredExp);
-            Console.WriteLine(" City Address: {0}", news.CityAddress);
-            Console.WriteLine(" Company: {0}", recruiter.CompanyName);
-            Console.WriteLine(" Bussiness Field: {0}", recruiter.BussinessField);
+            while (true)
+            {
+                bool IsApplied = candidateBL.IsApplied(CandidateID, news.NewsID);
+                Console.WriteLine("================================\n");
+                Console.WriteLine("          NEWS DETAILS");
+                Console.WriteLine("\n================================");
+                Console.WriteLine(" Name: {0}", news.NewsName);
+                Console.WriteLine(" Deadline: {0}", news.DeadLine);
+                Console.WriteLine(" Recruiter: {0}", recruiter.Username);
+                Console.WriteLine(" Recruiter's Numeber: {0}", recruiter.PhoneNum);
+                Console.WriteLine(" SalaryRange: {0}", news.SalaryRange);
+                Console.WriteLine(" Form of Employ: {0}", news.FormOfEmploy);
+                Console.WriteLine(" Gender: {0}", news.Gender);
+                Console.WriteLine(" Hiring Amount: {0}", news.HiringAmount);
+                Console.WriteLine(" Hiring Position: {0}", news.HiringPosition);
+                Console.WriteLine(" Required Expirence: {0}", news.RequiredExp);
+                Console.WriteLine(" City Address: {0}", news.CityAddress);
+                Console.WriteLine(" Company: {0}", recruiter.CompanyName);
+                Console.WriteLine(" Bussiness Field: {0}", recruiter.BussinessField);
 
-            Console.WriteLine("================================");
-            if(IsApplied)
-            {
-                Console.WriteLine(" Applied!");
-            }
-            else
-            {
-                Console.WriteLine(" 1) Apply");
-            }
-            Console.WriteLine(" 0) Exit");
-            Console.WriteLine("================================");
-            Console.Write(" Enter the option number: ");
-            switch (GetUserInput())
-            {
-                case "1":
-                    if(!IsApplied)
-                    {
-                        candidateBL.ApplyToNews(CandidateID, news.NewsID);
-                    }
-                    break;
-                case "0":
-                    Console.WriteLine("================================"); 
-                    end = true;
-                    break;
-                default:
-                    Console.WriteLine("================================"); 
-                    Console.WriteLine(" Invalid choice! Please re-enter your option.");
-                    break;
-            }
+                Console.WriteLine("================================");
+                if(IsApplied)
+                {
+                    Console.WriteLine(" Applied!");
+                }
+                else
+                {
+                    Console.WriteLine(" 1) Apply");
+                }
+                Console.WriteLine(" 0) Exit");
+                Console.WriteLine("================================");
+                Console.Write(" Enter the option number: ");
+                switch (GetUserInput())
+                {
+                    case "1":
+                        if(!IsApplied)
+                        {
+                            candidateBL.ApplyToNews(CandidateID, news.NewsID);
+                        }
+                        break;
+                    case "0":
+                        Console.WriteLine("================================"); 
+                        end = true;
+                        break;
+                    default:
+                        Console.WriteLine("================================"); 
+                        Console.WriteLine(" Invalid choice! Please re-enter your option.");
+                        break;
+                }
 
-            if (end == true)
-            {
-                break;
+                if (end == true)
+                {
+                    break;
+                }
             }
+        }
+        else
+        {
+            Console.WriteLine("================================"); 
+            Console.WriteLine(" Unexpected problems might have occurred to the connection to the database. Couldn't retrieve all details of the recruitment news.");
         }
     }
 
