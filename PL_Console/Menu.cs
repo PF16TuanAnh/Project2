@@ -321,7 +321,6 @@ public class Menu
             {
                 Console.WriteLine("================================"); 
                 Console.WriteLine(" Couldn't retrieve the user info. Unexpected problems might have occurred to the connection to the database.");
-                System.Environment.Exit(0);
                 break;
             }
             
