@@ -64,6 +64,7 @@ public class Menu
         Console.WriteLine("================================\n");
         Console.WriteLine("            LOG IN");
         Console.WriteLine("\n================================");
+        Console.WriteLine(" You can Enter 0 on email or password to turn back.");
         Console.Write(" Email: ");
         email = GetUserInput();
         Console.Write(" Password: ");
@@ -71,8 +72,22 @@ public class Menu
 
         while (true)
         {
+            if (email == "0")
+            {
+                break;
+            }
+
+            if (password == "0")
+            {
+                break;
+            }
             if (userBL.CheckUserEmail(email))
             {
+                if (password == "0")
+                {
+                    break;
+                }
+
                 if (userBL.CheckUserPassword(email, password))
                 {
                     int? CandidateID = userBL.GetCandidateIDByEmail(email);
