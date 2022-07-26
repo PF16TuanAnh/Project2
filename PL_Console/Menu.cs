@@ -81,14 +81,19 @@ public class Menu
             {
                 break;
             }
-            if (userBL.CheckUserEmail(email))
+
+            User user = userBL.GetUserByEmail(email);
+
+            if (user != null)
             {
                 if (password == "0")
                 {
                     break;
                 }
 
-                if (userBL.CheckUserPassword(email, password))
+                password = userBL.GetHashString(password);
+
+                if (password == user.Password)
                 {
                     int? CandidateID = userBL.GetCandidateIDByEmail(email);
                     if (CandidateID != null)

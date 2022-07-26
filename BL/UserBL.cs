@@ -22,32 +22,6 @@ public class UserBL
         return user;
     }
 
-    public bool CheckUserEmail(string email)
-    {
-        if (GetUserByEmail(email) != null)
-        {
-            return true;
-        }
-        
-        return false;
-    }
-    public bool CheckUserPassword(string email, string password)
-    {
-        User user = GetUserByEmail(email);
-        password = GetHashString(password);
-        if (user != null)
-        {
-            if (password == user.Password)
-            {
-                return true;
-            }
-
-            return false;
-        }
-        
-        return false;
-    }
-
     public int? GetCandidateIDByEmail(string email)
     {
         email = email!.ToUpper();
