@@ -25,13 +25,14 @@ public class CandidateBL
             {
                 foreach (CVDetails details in cv.CVDetails)
                 {
-                    if(candidateDAL.GetCVDetailsByID(details.DetailsID) != null)
+                    CVDetails? check = candidateDAL.GetCVDetailsByID(details.DetailsID);
+                    if(check != null && check.Description != null)
                     {
                         candidateDAL.ChangeCVDetails(details);
                     }
                     else
                     {
-                        if(!candidateDAL.InsertNewCVDetails(details))
+                        if(!candidateDAL.InsertNewCVDetails(details, cv.CVID))
                         {
                             Console.WriteLine("================================"); 
                             Console.WriteLine(" Unexpected problems might have occurred to the connection to the database. Parts of the info couldn't be updated.");
@@ -50,13 +51,14 @@ public class CandidateBL
 
     public void CreateNewCV(CV cv, int? CandidateID)
     {
-        if(candidateDAL.InsertNewCV(cv, CandidateID))
+        int? CVID = candidateDAL.InsertNewCV(cv, CandidateID);
+        if(CVID != null)
         {
             if (cv.CVDetails != null)
             {
                 foreach (CVDetails details in cv.CVDetails)
                 {
-                    if(!candidateDAL.InsertNewCVDetails(details))
+                    if(!candidateDAL.InsertNewCVDetails(details, CVID))
                     {
                         Console.WriteLine("================================"); 
                         Console.WriteLine(" Unexpected problems might have occurred to the connection to the database. Parts of the CV will be missing");

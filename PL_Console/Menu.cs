@@ -1177,12 +1177,19 @@ public class Menu
                             switch (GetUserInput())
                             {
                                 case "1":
+                                    int count = 0;
                                     Console.WriteLine("================================");
-                                    Console.Write(" Enter the Job Position of the Skill: ");
+                                    Console.Write(" Enter the number position of the Work Experience: ");
                                     string choice = GetUserInput();
+                                    
                                     foreach (CVDetails detail in CVDetails)
                                     {
-                                        if(detail.JobPosition!.ToUpper().Contains(choice.ToUpper()) && detail.Title == "Skill")
+                                        if(detail.Title == "Work Experience")
+                                        {
+                                            count++;
+                                        }
+                                        
+                                        if(int.TryParse(choice, out int pos) && count == pos)
                                         {
                                             Console.WriteLine("================================");
                                             while (true)
@@ -1258,12 +1265,19 @@ public class Menu
                                     }
                                     break;
                                 case "2":
+                                    int count = 0;
                                     Console.WriteLine("================================");
-                                    Console.Write(" Enter the Job Position of the Work Experience: ");
-                                    choice = GetUserInput();
+                                    Console.Write(" Enter the number position of the Skill: ");
+                                    string choice = GetUserInput();
+                                    
                                     foreach (CVDetails detail in CVDetails)
                                     {
-                                        if(detail.JobPosition!.ToUpper().Contains(choice.ToUpper()) && detail.Title == "Work Experience")
+                                        if(detail.Title == "Skill")
+                                        {
+                                            count++;
+                                        }
+                                        
+                                        if(int.TryParse(choice, out int pos) && count == pos)
                                         {
                                             Console.WriteLine("================================");
                                             while (true)

@@ -93,9 +93,11 @@ public class CandidateDAL
         return true;
     }
 
-    public bool InsertNewCV(CV cv, int? CandidateID)
+    public int? InsertNewCV(CV cv, int? CandidateID)
     {
         MySqlCommand cmd = new MySqlCommand("sp_InsertCV", DBHelper.OpenConnection());
+        int? CVID = null;
+
         try
         {   
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
@@ -117,14 +119,17 @@ public class CandidateDAL
             cmd.Parameters["@PersonalAddress"].Direction = System.Data.ParameterDirection.Input;
             cmd.Parameters.AddWithValue("@SocialMedia", cv.SocialMedia);
             cmd.Parameters["@SocialMedia"].Direction = System.Data.ParameterDirection.Input;
+            cmd.Parameters.AddWithValue("@CVID", MySqlDbType.Int32);
+            cmd.Parameters["@CVID"].Direction = System.Data.ParameterDirection.Output;
             cmd.ExecuteNonQuery();
+            CVID = (int) cmd.Parameters["@CVID"].Value;
         }
-        catch {return false;}
+        catch {}
         finally
         {
             DBHelper.CloseConnection();
         }
-        return true;
+        return CVID;
     }
 
     private CV GetCVInfo(MySqlDataReader reader)
@@ -162,7 +167,7 @@ public class CandidateDAL
                 cVDetails = GetCVDetailsInfo(reader);
             }
         }
-        catch (Exception)
+        catch
         {
             return new CVDetails();
         }
@@ -194,13 +199,13 @@ public class CandidateDAL
         return CVDetails!;
     }
 
-    public bool InsertNewCVDetails(CVDetails cVDetails)
+    public bool InsertNewCVDetails(CVDetails cVDetails, int? CVID)
     {
         MySqlCommand cmd = new MySqlCommand("sp_InsertCVDetails", DBHelper.OpenConnection());
         try
         {   
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@CVID", cVDetails.CVID);
+            cmd.Parameters.AddWithValue("@CVID", CVID);
             cmd.Parameters["@CVID"].Direction = System.Data.ParameterDirection.Input;
             cmd.Parameters.AddWithValue("@Association", cVDetails.Association);
             cmd.Parameters["@Association"].Direction = System.Data.ParameterDirection.Input;
@@ -216,7 +221,10 @@ public class CandidateDAL
             cmd.Parameters["@JobPosition"].Direction = System.Data.ParameterDirection.Input;
             cmd.ExecuteNonQuery();
         }
-        catch {return false;}
+        catch
+        {
+            return false;
+        }
         finally
         {
             DBHelper.CloseConnection();
@@ -257,14 +265,13 @@ public class CandidateDAL
     {
         CVDetails cVDetails = new CVDetails();
         if (!reader.IsDBNull(reader.GetOrdinal("DetailID"))) cVDetails.DetailsID = reader.GetInt32("DetailID");
-        if (!reader.IsDBNull(reader.GetOrdinal("CVID"))) cVDetails.DetailsID = reader.GetInt32("CVID");
+        if (!reader.IsDBNull(reader.GetOrdinal("CVID"))) cVDetails.CVID = reader.GetInt32("CVID");
         if (!reader.IsDBNull(reader.GetOrdinal("Title")))cVDetails.Title = reader.GetString("Title");
         if (!reader.IsDBNull(reader.GetOrdinal("JobPosition")))cVDetails.JobPosition = reader.GetString("JobPosition");
         if (!reader.IsDBNull(reader.GetOrdinal("FromDate")))cVDetails.FromDate = reader.GetString("FromDate");
         if (!reader.IsDBNull(reader.GetOrdinal("ToDate")))cVDetails.ToDate = reader.GetString("ToDate");
         if (!reader.IsDBNull(reader.GetOrdinal("Association"))) cVDetails.Association = reader.GetString("Association");
         if (!reader.IsDBNull(reader.GetOrdinal("Descriptions"))) cVDetails.Description = reader.GetString("Descriptions");
-
         return cVDetails;
     }
 
