@@ -297,29 +297,31 @@ public class Menu
                 Console.WriteLine("================================\n");
                 Console.WriteLine(" Username: {0}", candidate.Username);
                 Console.WriteLine("\n================================");
-                Console.WriteLine(" 1) Create CV");
-                Console.WriteLine(" 2) View CV");
-                Console.WriteLine(" 3) Search Recruitment News");
+                if (candidate.CandidateCV != null)
+                {
+                    Console.WriteLine(" 1) View CV");
+                }
+                else
+                {
+                    Console.WriteLine(" 1) Create CV");
+                }
+                Console.WriteLine(" 2) Search Recruitment News");
                 Console.WriteLine(" 0) Exit");
                 Console.WriteLine("================================");
                 Console.Write(" Enter the option number: ");
                 switch (GetUserInput())
                 {
                     case "1":
-                        CreateCVMenu(CandidateID);
-                        break;
-                    case "2":
                         if (candidate.CandidateCV != null)
                         {
                             ViewCVMenu(candidate.CandidateCV);
                         }
                         else
                         {
-                            Console.WriteLine("================================"); 
-                            Console.WriteLine(" You haven't created your CV yet!");
+                            CreateCVMenu(CandidateID);
                         }
                         break;
-                    case "3":
+                    case "2":
                         SearchRecruitNewsMenu(CandidateID);
                         break;
                     case "0":
@@ -1177,423 +1179,19 @@ public class Menu
                             switch (GetUserInput())
                             {
                                 case "1":
-                                    int count = 0;
-                                    Console.WriteLine("================================");
-                                    Console.Write(" Enter the number position of the Work Experience: ");
-                                    string choice = GetUserInput();
-                                    
-                                    foreach (CVDetails detail in CVDetails)
-                                    {
-                                        if(detail.Title == "Work Experience")
-                                        {
-                                            count++;
-                                        }
-                                        
-                                        if(int.TryParse(choice, out int pos) && count == pos)
-                                        {
-                                            Console.WriteLine("================================");
-                                            while (true)
-                                            {
-                                                Console.Write(" Job Position: ");
-                                                detail.JobPosition = GetUserInput();
-                                                if(detail.JobPosition.Length > 100)
-                                                {
-                                                    Console.WriteLine("\n Job Position is too long. Maximum characters allowed is 100\n");
-                                                }
-                                                else
-                                                {
-                                                    break;
-                                                }
-                                            }
-                                            
-                                            while (true)
-                                            {
-                                                Console.Write(" From        : ");
-                                                detail.FromDate = GetUserInput();
-                                                if(detail.FromDate.Length > 50)
-                                                {
-                                                    Console.WriteLine("\n From Date is too long. Maximum characters allowed is 50\n");
-                                                }
-                                                else
-                                                {
-                                                    break;
-                                                }
-                                            }
-                                            
-                                            while (true)
-                                            {
-                                                Console.Write(" To          : ");
-                                                detail.ToDate = GetUserInput();
-                                                if(detail.ToDate.Length > 50)
-                                                {
-                                                    Console.WriteLine("\n To Date is too long. Maximum characters allowed is 50\n");
-                                                }
-                                                else
-                                                {
-                                                    break;
-                                                }
-                                            }
-                                            
-                                            while (true)
-                                            {
-                                                Console.Write(" Association : ");
-                                                detail.Association = GetUserInput();
-                                                if(detail.Association.Length > 100)
-                                                {
-                                                    Console.WriteLine("\n Association is too long. Maximum characters allowed is 100\n");
-                                                }
-                                                else
-                                                {
-                                                    break;
-                                                }
-                                            }
-                                            
-                                            while (true)
-                                            {
-                                                Console.Write(" Description : ");
-                                                detail.Description = GetUserInput();
-                                                if(detail.Description.Length > 5000)
-                                                {
-                                                    Console.WriteLine("\n Description is too long. Maximum characters allowed is 5000\n");
-                                                }
-                                                else
-                                                {
-                                                    break;
-                                                }
-                                            }
-                                        }
-                                    }
+                                    CVDetails = ChangeCVDetails(CVDetails, "Skill");
                                     break;
                                 case "2":
-                                    int count = 0;
-                                    Console.WriteLine("================================");
-                                    Console.Write(" Enter the number position of the Skill: ");
-                                    string choice = GetUserInput();
-                                    
-                                    foreach (CVDetails detail in CVDetails)
-                                    {
-                                        if(detail.Title == "Skill")
-                                        {
-                                            count++;
-                                        }
-                                        
-                                        if(int.TryParse(choice, out int pos) && count == pos)
-                                        {
-                                            Console.WriteLine("================================");
-                                            while (true)
-                                            {
-                                                Console.Write(" Job Position: ");
-                                                detail.JobPosition = GetUserInput();
-                                                if(detail.JobPosition.Length > 100)
-                                                {
-                                                    Console.WriteLine("\n Job Position is too long. Maximum characters allowed is 100\n");
-                                                }
-                                                else
-                                                {
-                                                    break;
-                                                }
-                                            }
-                                            
-                                            while (true)
-                                            {
-                                                Console.Write(" From        : ");
-                                                detail.FromDate = GetUserInput();
-                                                if(detail.FromDate.Length > 50)
-                                                {
-                                                    Console.WriteLine("\n From Date is too long. Maximum characters allowed is 50\n");
-                                                }
-                                                else
-                                                {
-                                                    break;
-                                                }
-                                            }
-                                            
-                                            while (true)
-                                            {
-                                                Console.Write(" To          : ");
-                                                detail.ToDate = GetUserInput();
-                                                if(detail.ToDate.Length > 50)
-                                                {
-                                                    Console.WriteLine("\n To Date is too long. Maximum characters allowed is 50\n");
-                                                }
-                                                else
-                                                {
-                                                    break;
-                                                }
-                                            }
-                                            
-                                            while (true)
-                                            {
-                                                Console.Write(" Association : ");
-                                                detail.Association = GetUserInput();
-                                                if(detail.Association.Length > 100)
-                                                {
-                                                    Console.WriteLine("\n Association is too long. Maximum characters allowed is 100\n");
-                                                }
-                                                else
-                                                {
-                                                    break;
-                                                }
-                                            }
-                                            
-                                            while (true)
-                                            {
-                                                Console.Write(" Description : ");
-                                                detail.Description = GetUserInput();
-                                                if(detail.Description.Length > 5000)
-                                                {
-                                                    Console.WriteLine("\n Description is too long. Maximum characters allowed is 5000\n");
-                                                }
-                                                else
-                                                {
-                                                    break;
-                                                }
-                                            }
-                                        }
-                                    }
+                                    CVDetails = ChangeCVDetails(CVDetails, "Work Experience");
                                     break;
                                 case "3":
-                                    Console.WriteLine("================================");
-                                    Console.Write(" Enter the Job Position of the Education: ");
-                                    choice = GetUserInput();
-                                    foreach (CVDetails detail in CVDetails)
-                                    {
-                                        if(detail.JobPosition!.ToUpper().Contains(choice.ToUpper()) && detail.Title == "Education")
-                                        {
-                                            Console.WriteLine("================================");
-                                            while (true)
-                                            {
-                                                Console.Write(" Job Position: ");
-                                                detail.JobPosition = GetUserInput();
-                                                if(detail.JobPosition.Length > 100)
-                                                {
-                                                    Console.WriteLine("\n Job Position is too long. Maximum characters allowed is 100\n");
-                                                }
-                                                else
-                                                {
-                                                    break;
-                                                }
-                                            }
-                                            
-                                            while (true)
-                                            {
-                                                Console.Write(" From        : ");
-                                                detail.FromDate = GetUserInput();
-                                                if(detail.FromDate.Length > 50)
-                                                {
-                                                    Console.WriteLine("\n From Date is too long. Maximum characters allowed is 50\n");
-                                                }
-                                                else
-                                                {
-                                                    break;
-                                                }
-                                            }
-                                            
-                                            while (true)
-                                            {
-                                                Console.Write(" To          : ");
-                                                detail.ToDate = GetUserInput();
-                                                if(detail.ToDate.Length > 50)
-                                                {
-                                                    Console.WriteLine("\n To Date is too long. Maximum characters allowed is 50\n");
-                                                }
-                                                else
-                                                {
-                                                    break;
-                                                }
-                                            }
-                                            
-                                            while (true)
-                                            {
-                                                Console.Write(" Association : ");
-                                                detail.Association = GetUserInput();
-                                                if(detail.Association.Length > 100)
-                                                {
-                                                    Console.WriteLine("\n Association is too long. Maximum characters allowed is 100\n");
-                                                }
-                                                else
-                                                {
-                                                    break;
-                                                }
-                                            }
-                                            
-                                            while (true)
-                                            {
-                                                Console.Write(" Description : ");
-                                                detail.Description = GetUserInput();
-                                                if(detail.Description.Length > 5000)
-                                                {
-                                                    Console.WriteLine("\n Description is too long. Maximum characters allowed is 5000\n");
-                                                }
-                                                else
-                                                {
-                                                    break;
-                                                }
-                                            }
-                                        }
-                                    }
+                                    CVDetails = ChangeCVDetails(CVDetails, "Education");
                                     break;
                                 case "4":
-                                    Console.WriteLine("================================");
-                                    Console.Write(" Enter the Job Position of the Activity: ");
-                                    choice = GetUserInput();
-                                    foreach (CVDetails detail in CVDetails)
-                                    {
-                                        if(detail.JobPosition!.ToUpper().Contains(choice.ToUpper()) && detail.Title == "Activity")
-                                        {
-                                            Console.WriteLine("================================");
-                                            while (true)
-                                            {
-                                                Console.Write(" Job Position: ");
-                                                detail.JobPosition = GetUserInput();
-                                                if(detail.JobPosition.Length > 100)
-                                                {
-                                                    Console.WriteLine("\n Job Position is too long. Maximum characters allowed is 100\n");
-                                                }
-                                                else
-                                                {
-                                                    break;
-                                                }
-                                            }
-                                            
-                                            while (true)
-                                            {
-                                                Console.Write(" From        : ");
-                                                detail.FromDate = GetUserInput();
-                                                if(detail.FromDate.Length > 50)
-                                                {
-                                                    Console.WriteLine("\n From Date is too long. Maximum characters allowed is 50\n");
-                                                }
-                                                else
-                                                {
-                                                    break;
-                                                }
-                                            }
-                                            
-                                            while (true)
-                                            {
-                                                Console.Write(" To          : ");
-                                                detail.ToDate = GetUserInput();
-                                                if(detail.ToDate.Length > 50)
-                                                {
-                                                    Console.WriteLine("\n To Date is too long. Maximum characters allowed is 50\n");
-                                                }
-                                                else
-                                                {
-                                                    break;
-                                                }
-                                            }
-                                            
-                                            while (true)
-                                            {
-                                                Console.Write(" Association : ");
-                                                detail.Association = GetUserInput();
-                                                if(detail.Association.Length > 100)
-                                                {
-                                                    Console.WriteLine("\n Association is too long. Maximum characters allowed is 100\n");
-                                                }
-                                                else
-                                                {
-                                                    break;
-                                                }
-                                            }
-                                            
-                                            while (true)
-                                            {
-                                                Console.Write(" Description : ");
-                                                detail.Description = GetUserInput();
-                                                if(detail.Description.Length > 5000)
-                                                {
-                                                    Console.WriteLine("\n Description is too long. Maximum characters allowed is 5000\n");
-                                                }
-                                                else
-                                                {
-                                                    break;
-                                                }
-                                            }
-                                        }
-                                    }
+                                    CVDetails = ChangeCVDetails(CVDetails, "Activity");
                                     break;
                                 case "5":
-                                    Console.WriteLine("================================");
-                                    Console.Write(" Enter the Job Position of the Certificate: ");
-                                    choice = GetUserInput();
-                                    foreach (CVDetails detail in CVDetails)
-                                    {
-                                        if(detail.JobPosition!.ToUpper().Contains(choice.ToUpper()) && detail.Title == "Certificate")
-                                        {
-                                            Console.WriteLine("================================");
-                                            while (true)
-                                            {
-                                                Console.Write(" Job Position: ");
-                                                detail.JobPosition = GetUserInput();
-                                                if(detail.JobPosition.Length > 100)
-                                                {
-                                                    Console.WriteLine("\n Job Position is too long. Maximum characters allowed is 100\n");
-                                                }
-                                                else
-                                                {
-                                                    break;
-                                                }
-                                            }
-                                            
-                                            while (true)
-                                            {
-                                                Console.Write(" From        : ");
-                                                detail.FromDate = GetUserInput();
-                                                if(detail.FromDate.Length > 50)
-                                                {
-                                                    Console.WriteLine("\n From Date is too long. Maximum characters allowed is 50\n");
-                                                }
-                                                else
-                                                {
-                                                    break;
-                                                }
-                                            }
-                                            
-                                            while (true)
-                                            {
-                                                Console.Write(" To          : ");
-                                                detail.ToDate = GetUserInput();
-                                                if(detail.ToDate.Length > 50)
-                                                {
-                                                    Console.WriteLine("\n To Date is too long. Maximum characters allowed is 50\n");
-                                                }
-                                                else
-                                                {
-                                                    break;
-                                                }
-                                            }
-                                            
-                                            while (true)
-                                            {
-                                                Console.Write(" Association : ");
-                                                detail.Association = GetUserInput();
-                                                if(detail.Association.Length > 100)
-                                                {
-                                                    Console.WriteLine("\n Association is too long. Maximum characters allowed is 100\n");
-                                                }
-                                                else
-                                                {
-                                                    break;
-                                                }
-                                            }
-                                            
-                                            while (true)
-                                            {
-                                                Console.Write(" Description : ");
-                                                detail.Description = GetUserInput();
-                                                if(detail.Description.Length > 5000)
-                                                {
-                                                    Console.WriteLine("\n Description is too long. Maximum characters allowed is 5000\n");
-                                                }
-                                                else
-                                                {
-                                                    break;
-                                                }
-                                            }
-                                        }
-                                    }
+                                    CVDetails = ChangeCVDetails(CVDetails, "Certificate");
                                     break;
                                 case "0":
                                     Console.WriteLine("================================"); 
@@ -1637,89 +1235,19 @@ public class Menu
                             switch (choice)
                             {
                                 case "1":
-                                    Console.WriteLine("================================");
-                                    Console.Write(" Enter the Job Position of the Skill: ");
-                                    choice = GetUserInput();
-                                    foreach (CVDetails detail in CVDetails)
-                                    {
-                                        if(detail.JobPosition!.ToUpper().Contains(choice.ToUpper()) && detail.Title == "Skill")
-                                        {
-                                            detail.JobPosition = "";
-                                            detail.Title = "";
-                                            detail.FromDate = "";
-                                            detail.ToDate = "";
-                                            detail.Association = "";
-                                            detail.Description = "";
-                                        }
-                                    }
+                                    CVDetails = DeleteCVDetails(CVDetails, "Skill");
                                     break;
                                 case "2":
-                                    Console.WriteLine("================================");
-                                    Console.Write(" Enter the Job Position of the Work Experience: ");
-                                    choice = GetUserInput();
-                                    foreach (CVDetails detail in CVDetails)
-                                    {
-                                        if(detail.JobPosition!.ToUpper().Contains(choice.ToUpper()) && detail.Title == "Work Experience")
-                                        {
-                                            detail.JobPosition = "";
-                                            detail.Title = "";
-                                            detail.FromDate = "";
-                                            detail.ToDate = "";
-                                            detail.Association = "";
-                                            detail.Description = "";
-                                        }
-                                    }
+                                    CVDetails = DeleteCVDetails(CVDetails, "Work Experience");
                                     break;
                                 case "3":
-                                    Console.WriteLine("================================");
-                                    Console.Write(" Enter the Job Position of the Education: ");
-                                    choice = GetUserInput();
-                                    foreach (CVDetails detail in CVDetails)
-                                    {
-                                        if(detail.JobPosition!.ToUpper().Contains(choice.ToUpper()) && detail.Title == "Education")
-                                        {
-                                            detail.JobPosition = "";
-                                            detail.Title = "";
-                                            detail.FromDate = "";
-                                            detail.ToDate = "";
-                                            detail.Association = "";
-                                            detail.Description = "";
-                                        }
-                                    }
+                                    CVDetails = DeleteCVDetails(CVDetails, "Education");
                                     break;
                                 case "4":
-                                    Console.WriteLine("================================");
-                                    Console.Write(" Enter the Job Position of the Activity: ");
-                                    choice = GetUserInput();
-                                    foreach (CVDetails detail in CVDetails)
-                                    {
-                                        if(detail.JobPosition!.ToUpper().Contains(choice.ToUpper()) && detail.Title == "Activity")
-                                        {
-                                            detail.JobPosition = "";
-                                            detail.Title = "";
-                                            detail.FromDate = "";
-                                            detail.ToDate = "";
-                                            detail.Association = "";
-                                            detail.Description = "";
-                                        }
-                                    }
+                                    CVDetails = DeleteCVDetails(CVDetails, "Activity");
                                     break;
                                 case "5":
-                                    Console.WriteLine("================================");
-                                    Console.Write(" Enter the Job Position of the Certificate: ");
-                                    choice = GetUserInput();
-                                    foreach (CVDetails detail in CVDetails)
-                                    {
-                                        if(detail.JobPosition!.ToUpper().Contains(choice.ToUpper()) && detail.Title == "Certificate")
-                                        {
-                                            detail.JobPosition = "";
-                                            detail.Title = "";
-                                            detail.FromDate = "";
-                                            detail.ToDate = "";
-                                            detail.Association = "";
-                                            detail.Description = "";
-                                        }
-                                    }
+                                    CVDetails = DeleteCVDetails(CVDetails, "Certificate");
                                     break;
                                 case "0":
                                     Console.WriteLine("================================"); 
@@ -1966,9 +1494,9 @@ public class Menu
                 Console.WriteLine(" Name: {0}", news.NewsName);
                 Console.WriteLine(" Deadline: {0}", news.DeadLine);
                 Console.WriteLine(" Recruiter: {0}", recruiter.Username);
-                Console.WriteLine(" Recruiter's Numeber: {0}", recruiter.PhoneNum);
+                Console.WriteLine(" Recruiter's Number: {0}", recruiter.PhoneNum);
                 Console.WriteLine(" SalaryRange: {0}", news.SalaryRange);
-                Console.WriteLine(" Form of Employ: {0}", news.FormOfEmploy);
+                Console.WriteLine(" Form of Employment: {0}", news.FormOfEmploy);
                 Console.WriteLine(" Gender: {0}", news.Gender);
                 Console.WriteLine(" Hiring Amount: {0}", news.HiringAmount);
                 Console.WriteLine(" Hiring Position: {0}", news.HiringPosition);
@@ -2057,5 +1585,125 @@ public class Menu
         }
 
         return input;
+    }
+
+    public List<CVDetails> ChangeCVDetails(List<CVDetails> CVDetails, string type)
+    {
+        int count = 0;
+        Console.WriteLine("================================");
+        Console.Write(" Enter the number position of the {0}: ", type);
+        string choice = GetUserInput();
+        
+        foreach (CVDetails detail in CVDetails)
+        {
+            if(detail.Title == type)
+            {
+                count++;
+            }
+            
+            if(int.TryParse(choice, out int pos) && count == pos && detail.Title == type)
+            {
+                Console.WriteLine("================================");
+                while (true)
+                {
+                    Console.Write(" Job Position: ");
+                    detail.JobPosition = GetUserInput();
+                    if(detail.JobPosition.Length > 100)
+                    {
+                        Console.WriteLine("\n Job Position is too long. Maximum characters allowed is 100\n");
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                
+                while (true)
+                {
+                    Console.Write(" From        : ");
+                    detail.FromDate = GetUserInput();
+                    if(detail.FromDate.Length > 50)
+                    {
+                        Console.WriteLine("\n From Date is too long. Maximum characters allowed is 50\n");
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                
+                while (true)
+                {
+                    Console.Write(" To          : ");
+                    detail.ToDate = GetUserInput();
+                    if(detail.ToDate.Length > 50)
+                    {
+                        Console.WriteLine("\n To Date is too long. Maximum characters allowed is 50\n");
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                
+                while (true)
+                {
+                    Console.Write(" Association : ");
+                    detail.Association = GetUserInput();
+                    if(detail.Association.Length > 100)
+                    {
+                        Console.WriteLine("\n Association is too long. Maximum characters allowed is 100\n");
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                
+                while (true)
+                {
+                    Console.Write(" Description : ");
+                    detail.Description = GetUserInput();
+                    if(detail.Description.Length > 5000)
+                    {
+                        Console.WriteLine("\n Description is too long. Maximum characters allowed is 5000\n");
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+            }
+        }
+
+        return CVDetails;
+    }
+
+    public List<CVDetails> DeleteCVDetails(List<CVDetails> CVDetails, string type)
+    {
+        int count = 0;
+        Console.WriteLine("================================");
+        Console.Write(" Enter the number position of the {0}: ", type);
+        string choice = GetUserInput();
+        
+        foreach (CVDetails detail in CVDetails)
+        {
+            if(detail.Title == type)
+            {
+                count++;
+            }
+            
+            if(int.TryParse(choice, out int pos) && count == pos)
+            {
+                detail.JobPosition = "";
+                detail.Title = "";
+                detail.FromDate = "";
+                detail.ToDate = "";
+                detail.Association = "";
+                detail.Description = "";
+            }
+        }
+
+        return CVDetails;
     }
 }
