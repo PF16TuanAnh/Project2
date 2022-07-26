@@ -29,8 +29,7 @@ public class UserDAL
         catch (Exception)
         {
             Console.WriteLine("================================"); 
-            Console.WriteLine(" Unexpected errors occurred to the connection to the database! Closing out.");
-            System.Environment.Exit(0);
+            Console.WriteLine(" Unexpected errors occurred to the connection to the database! Couldn't retrieve user login info.");
         }
         
 
