@@ -1698,7 +1698,7 @@ public class Menu
                 count++;
             }
             
-            if(int.TryParse(choice, out int pos) && count == pos)
+            if(int.TryParse(choice, out int pos) && count == pos && detail.Title == type)
             {
                 detail.JobPosition = "";
                 detail.Title = "";
