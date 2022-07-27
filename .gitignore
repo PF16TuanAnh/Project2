@@ -6,9 +6,5 @@ PL_Console/obj/
 BL/bin/
 DAL/bin/
 *.dll
-<<<<<<< HEAD
 PL_Console/bin/
-=======
-PL_Console/bin/
->>>>>>> 63e8dff045072b65350371a3ff72963de17a0702
 Persistence/bin/
