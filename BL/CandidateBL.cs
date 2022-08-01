@@ -30,7 +30,7 @@ public class CandidateBL
                     {
                         candidateDAL.ChangeCVDetails(details);
                     }
-                    else
+                    else if (check == null)
                     {
                         if(!candidateDAL.InsertNewCVDetails(details, cv.CVID))
                         {
@@ -38,6 +38,12 @@ public class CandidateBL
                             Console.WriteLine(" Unexpected problems might have occurred to the connection to the database. Parts of the info couldn't be updated.");
                             break;
                         }
+                    }
+                    else
+                    {
+                        Console.WriteLine("================================"); 
+                        Console.WriteLine(" Unexpected problems might have occurred to the connection to the database. Parts of the info couldn't be updated.");
+                        break;
                     }
                 }
             }
