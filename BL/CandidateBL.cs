@@ -28,7 +28,12 @@ public class CandidateBL
                     CVDetails? check = candidateDAL.GetCVDetailsByID(details.DetailsID);
                     if(check != null && check.Description != null)
                     {
-                        candidateDAL.ChangeCVDetails(details);
+                        if(!candidateDAL.ChangeCVDetails(details))
+                        {
+                            Console.WriteLine("================================"); 
+                            Console.WriteLine(" Unexpected problems might have occurred to the connection to the database. Parts of the info couldn't be updated.");
+                            break;
+                        }
                     }
                     else if (check == null)
                     {

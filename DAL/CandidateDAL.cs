@@ -232,7 +232,7 @@ public class CandidateDAL
         return true;
     }
 
-    public void ChangeCVDetails(CVDetails cVDetails)
+    public bool ChangeCVDetails(CVDetails cVDetails)
     {
         MySqlCommand cmd = new MySqlCommand("sp_ChangeCVDetails", DBHelper.OpenConnection());
         try
@@ -254,11 +254,12 @@ public class CandidateDAL
             cmd.Parameters["@JobPosition"].Direction = System.Data.ParameterDirection.Input;
             cmd.ExecuteNonQuery();
         }
-        catch {}
+        catch {return false;}
         finally
         {
             DBHelper.CloseConnection();
         }
+        return true;
     }
 
     private CVDetails GetCVDetailsInfo(MySqlDataReader reader)
