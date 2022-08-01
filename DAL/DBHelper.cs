@@ -12,7 +12,7 @@ public class DBHelper
         {
             connection = new MySqlConnection
             {
-                ConnectionString = @"server=localhost; user=root; password=Sieunhan159357; database=project;" // Change password according to your MySQL password
+                ConnectionString = @"server=localhost; user=root; password=36558136; database=project;" // Change password according to your MySQL password
             };
         }
 
@@ -32,9 +32,16 @@ public class DBHelper
             GetConnection();
         }
         
-        connection!.Open();
+        try
+        {
+            connection!.Open();
+        }
+        catch{
+            connection = null;
+        }
+
         
-        return connection;
+        return connection!;
     }
 
     public static void CloseConnection()
