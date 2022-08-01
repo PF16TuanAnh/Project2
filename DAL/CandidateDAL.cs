@@ -59,77 +59,169 @@ public class CandidateDAL
         return cv;
     }
 
-    public bool UpdateCV(CV cv)
+    public int? AddNewCV(CV cv, int? CandidateID)
     {
-        MySqlCommand cmd = new MySqlCommand("sp_UpdateCV", DBHelper.OpenConnection());
-        try
-        {   
-            cmd.CommandType = System.Data.CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@CVID", cv.CVID);
-            cmd.Parameters["@CVID"].Direction = System.Data.ParameterDirection.Input;
-            cmd.Parameters.AddWithValue("@FullName", cv.FullName);
-            cmd.Parameters["@FullName"].Direction = System.Data.ParameterDirection.Input;
-            cmd.Parameters.AddWithValue("@CareerTitle", cv.CareerTitle);
-            cmd.Parameters["@CareerTitle"].Direction = System.Data.ParameterDirection.Input;
-            cmd.Parameters.AddWithValue("@CareerObjective", cv.CareerObjective);
-            cmd.Parameters["@CareerObjective"].Direction = System.Data.ParameterDirection.Input;
-            cmd.Parameters.AddWithValue("@Email", cv.Email);
-            cmd.Parameters["@Email"].Direction = System.Data.ParameterDirection.Input;
-            cmd.Parameters.AddWithValue("@BirthDate", cv.BirthDate);
-            cmd.Parameters["@BirthDate"].Direction = System.Data.ParameterDirection.Input;
-            cmd.Parameters.AddWithValue("@PhoneNum", cv.PhoneNum);
-            cmd.Parameters["@PhoneNum"].Direction = System.Data.ParameterDirection.Input;
-            cmd.Parameters.AddWithValue("@PersonalAddress", cv.PersonalAddress);
-            cmd.Parameters["@PersonalAddress"].Direction = System.Data.ParameterDirection.Input;
-            cmd.Parameters.AddWithValue("@SocialMedia", cv.SocialMedia);
-            cmd.Parameters["@SocialMedia"].Direction = System.Data.ParameterDirection.Input;
-            cmd.ExecuteNonQuery();
-        }
-        catch {return false;}
-        finally
+        int? CVID = null;
+        MySqlConnection connection = DBHelper.OpenConnection();
+        if(connection != null)
         {
-            DBHelper.CloseConnection();
+            MySqlCommand cmd = connection.CreateCommand();
+            cmd.Connection = connection;
+            MySqlTransaction trans = connection.BeginTransaction();
+            cmd.Transaction = trans;
+            MySqlDataReader reader = null!;
+
+            try
+            {
+                // Insert into CVs
+                cmd.CommandText = @"insert into CVs (CandidateID, FullName, CareerTitle, CareerObjective, Email, BirthDate, PhoneNum, PersonalAddress, SocialMedia)
+                values (@CandidateID, @FullName, @CareerTitle, @CareerObjective, @Email, @BirthDate, @PhoneNum, @PersonalAddress, @SocialMedia);";
+                cmd.Parameters.Clear();
+                cmd.Parameters.AddWithValue("@CandidateID", CandidateID);
+                cmd.Parameters.AddWithValue("@FullName", cv.FullName);
+                cmd.Parameters.AddWithValue("@CareerTitle", cv.CareerTitle);
+                cmd.Parameters.AddWithValue("@Email", cv.Email);
+                cmd.Parameters.AddWithValue("@BirthDate", cv.BirthDate);
+                cmd.Parameters.AddWithValue("@PhoneNum", cv.PhoneNum);
+                cmd.Parameters.AddWithValue("@CareerObjective", cv.CareerObjective);
+                cmd.Parameters.AddWithValue("@PersonalAddress", cv.PersonalAddress);
+                cmd.Parameters.AddWithValue("@SocialMedia", cv.SocialMedia);
+                cmd.ExecuteNonQuery();
+                cmd.CommandText = @"select CVID from CVs where CandidateID = " + CandidateID;
+                reader = cmd.ExecuteReader();
+                if(reader.Read())
+                {
+                    CVID = reader.GetInt32("CVID");
+                }
+                reader.Close();
+
+                // Insert into CVDetails
+                if (cv.CVDetails != null && CVID != null)
+                {
+                    foreach (CVDetails detail in cv.CVDetails)
+                    {
+                        cmd.CommandText = @"insert into CVDetails (CVID, Association, Descriptions, FromDate, ToDate, Title, JobPosition)
+                        values (@CVID, @Association, @Descriptions, @FromDate, @ToDate, @Title, @JobPosition);";
+                        cmd.Parameters.Clear();
+                        cmd.Parameters.AddWithValue("@CVID", CVID);
+                        cmd.Parameters.AddWithValue("@Association", detail.Association);
+                        cmd.Parameters.AddWithValue("@Descriptions", detail.Description);
+                        cmd.Parameters.AddWithValue("@FromDate", detail.FromDate);
+                        cmd.Parameters.AddWithValue("@ToDate", detail.ToDate);
+                        cmd.Parameters.AddWithValue("@Title", detail.Title);
+                        cmd.Parameters.AddWithValue("@JobPosition", detail.JobPosition);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+                trans.Commit();
+            }
+            catch 
+            {
+                CVID = null;
+                try
+                {
+                    trans.Rollback();
+                }
+                catch{}
+            }
+            finally
+            {
+                DBHelper.CloseConnection();
+            }
         }
-        return true;
+
+        return CVID;
     }
 
-    public int? InsertNewCV(CV cv, int? CandidateID)
+    public bool UpdateCV(CV cv)
     {
-        MySqlCommand cmd = new MySqlCommand("sp_InsertCV", DBHelper.OpenConnection());
-        int? CVID = null;
-
-        try
-        {   
-            cmd.CommandType = System.Data.CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@CandidateID", CandidateID);
-            cmd.Parameters["@CandidateID"].Direction = System.Data.ParameterDirection.Input;
-            cmd.Parameters.AddWithValue("@FullName", cv.FullName);
-            cmd.Parameters["@FullName"].Direction = System.Data.ParameterDirection.Input;
-            cmd.Parameters.AddWithValue("@CareerTitle", cv.CareerTitle);
-            cmd.Parameters["@CareerTitle"].Direction = System.Data.ParameterDirection.Input;
-            cmd.Parameters.AddWithValue("@CareerObjective", cv.CareerObjective);
-            cmd.Parameters["@CareerObjective"].Direction = System.Data.ParameterDirection.Input;
-            cmd.Parameters.AddWithValue("@Email", cv.Email);
-            cmd.Parameters["@Email"].Direction = System.Data.ParameterDirection.Input;
-            cmd.Parameters.AddWithValue("@BirthDate", cv.BirthDate);
-            cmd.Parameters["@BirthDate"].Direction = System.Data.ParameterDirection.Input;
-            cmd.Parameters.AddWithValue("@PhoneNum", cv.PhoneNum);
-            cmd.Parameters["@PhoneNum"].Direction = System.Data.ParameterDirection.Input;
-            cmd.Parameters.AddWithValue("@PersonalAddress", cv.PersonalAddress);
-            cmd.Parameters["@PersonalAddress"].Direction = System.Data.ParameterDirection.Input;
-            cmd.Parameters.AddWithValue("@SocialMedia", cv.SocialMedia);
-            cmd.Parameters["@SocialMedia"].Direction = System.Data.ParameterDirection.Input;
-            cmd.Parameters.AddWithValue("@CVID", MySqlDbType.Int32);
-            cmd.Parameters["@CVID"].Direction = System.Data.ParameterDirection.Output;
-            cmd.ExecuteNonQuery();
-            CVID = (int) cmd.Parameters["@CVID"].Value;
-        }
-        catch {}
-        finally
+        bool success = false;
+        MySqlConnection connection = DBHelper.OpenConnection();
+        if(connection != null)
         {
-            DBHelper.CloseConnection();
+            MySqlCommand cmd = connection.CreateCommand();
+            cmd.Connection = connection;
+            MySqlTransaction trans = connection.BeginTransaction();
+            cmd.Transaction = trans;
+
+            try
+            {
+                // Update CVs
+                cmd.CommandText = @"update CVs c
+                set c.FullName = @FullName, c.CareerTitle = @CareerTitle,
+                c.CareerObjective = @CareerObjective, c.Email = @Email,
+                c.BirthDate = @BirthDate, c.PhoneNum = @PhoneNum,
+                c.PersonalAddress = @PersonalAddress, c.SocialMedia = @SocialMedia
+                where c.CVID = @CVID;";
+                cmd.Parameters.Clear();
+                cmd.Parameters.AddWithValue("@CVID", cv.CVID);
+                cmd.Parameters.AddWithValue("@FullName", cv.FullName);
+                cmd.Parameters.AddWithValue("@CareerTitle", cv.CareerTitle);
+                cmd.Parameters.AddWithValue("@Email", cv.Email);
+                cmd.Parameters.AddWithValue("@BirthDate", cv.BirthDate);
+                cmd.Parameters.AddWithValue("@PhoneNum", cv.PhoneNum);
+                cmd.Parameters.AddWithValue("@CareerObjective", cv.CareerObjective);
+                cmd.Parameters.AddWithValue("@PersonalAddress", cv.PersonalAddress);
+                cmd.Parameters.AddWithValue("@SocialMedia", cv.SocialMedia);
+                cmd.ExecuteNonQuery();
+
+                // Insert into or Update CVDetails
+                if (cv.CVDetails != null)
+                {
+                    foreach (CVDetails detail in cv.CVDetails)
+                    {
+                        if (detail.DetailsID == null) // Insert into CVDetails
+                        {
+                            cmd.CommandText = @"insert into CVDetails (CVID, Association, Descriptions, FromDate, ToDate, Title, JobPosition)
+                            values (@CVID, @Association, @Descriptions, @FromDate, @ToDate, @Title, @JobPosition);";
+                            cmd.Parameters.Clear();
+                            cmd.Parameters.AddWithValue("@CVID",cv.CVID);
+                            cmd.Parameters.AddWithValue("@Association", detail.Association);
+                            cmd.Parameters.AddWithValue("@Descriptions", detail.Description);
+                            cmd.Parameters.AddWithValue("@FromDate", detail.FromDate);
+                            cmd.Parameters.AddWithValue("@ToDate", detail.ToDate);
+                            cmd.Parameters.AddWithValue("@Title", detail.Title);
+                            cmd.Parameters.AddWithValue("@JobPosition", detail.JobPosition);
+                            cmd.ExecuteNonQuery();
+                        }
+                        else // Update CVDetails
+                        {
+                            cmd.CommandText = @"update CVDetails c
+                            set c.Association = @Association, c.Descriptions = @Descriptions,
+                            c.FromDate = @FromDate, c.ToDate = @ToDate,
+                            c.Title = @Title, c.JobPosition = @JobPosition
+                            where c.DetailID = @DetailID;";
+                            cmd.Parameters.Clear();
+                            cmd.Parameters.AddWithValue("@DetailID", detail.DetailsID);
+                            cmd.Parameters.AddWithValue("@Association", detail.Association);
+                            cmd.Parameters.AddWithValue("@Descriptions", detail.Description);
+                            cmd.Parameters.AddWithValue("@FromDate", detail.FromDate);
+                            cmd.Parameters.AddWithValue("@ToDate", detail.ToDate);
+                            cmd.Parameters.AddWithValue("@Title", detail.Title);
+                            cmd.Parameters.AddWithValue("@JobPosition", detail.JobPosition);
+                            cmd.ExecuteNonQuery();
+                        }
+                    }
+                }
+                trans.Commit();
+                success = true;
+            }
+            catch 
+            {
+                success = false;
+                try
+                {
+                    trans.Rollback();
+                }
+                catch{}
+            }
+            finally
+            {
+                DBHelper.CloseConnection();
+            }
         }
-        return CVID;
+
+        return success;
     }
 
     private CV GetCVInfo(MySqlDataReader reader)
@@ -197,69 +289,6 @@ public class CandidateDAL
         }
 
         return CVDetails!;
-    }
-
-    public bool InsertNewCVDetails(CVDetails cVDetails, int? CVID)
-    {
-        MySqlCommand cmd = new MySqlCommand("sp_InsertCVDetails", DBHelper.OpenConnection());
-        try
-        {   
-            cmd.CommandType = System.Data.CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@CVID", CVID);
-            cmd.Parameters["@CVID"].Direction = System.Data.ParameterDirection.Input;
-            cmd.Parameters.AddWithValue("@Association", cVDetails.Association);
-            cmd.Parameters["@Association"].Direction = System.Data.ParameterDirection.Input;
-            cmd.Parameters.AddWithValue("@Descriptions", cVDetails.Description);
-            cmd.Parameters["@Descriptions"].Direction = System.Data.ParameterDirection.Input;
-            cmd.Parameters.AddWithValue("@FromDate", cVDetails.FromDate);
-            cmd.Parameters["@FromDate"].Direction = System.Data.ParameterDirection.Input;
-            cmd.Parameters.AddWithValue("@ToDate", cVDetails.ToDate);
-            cmd.Parameters["@ToDate"].Direction = System.Data.ParameterDirection.Input;
-            cmd.Parameters.AddWithValue("@Title", cVDetails.Title);
-            cmd.Parameters["@Title"].Direction = System.Data.ParameterDirection.Input;
-            cmd.Parameters.AddWithValue("@JobPosition", cVDetails.JobPosition);
-            cmd.Parameters["@JobPosition"].Direction = System.Data.ParameterDirection.Input;
-            cmd.ExecuteNonQuery();
-        }
-        catch
-        {
-            return false;
-        }
-        finally
-        {
-            DBHelper.CloseConnection();
-        }
-        return true;
-    }
-
-    public bool ChangeCVDetails(CVDetails cVDetails)
-    {
-        MySqlCommand cmd = new MySqlCommand("sp_ChangeCVDetails", DBHelper.OpenConnection());
-        try
-        {   
-            cmd.CommandType = System.Data.CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@DetailID", cVDetails.DetailsID);
-            cmd.Parameters["@DetailID"].Direction = System.Data.ParameterDirection.Input;
-            cmd.Parameters.AddWithValue("@Association", cVDetails.Association);
-            cmd.Parameters["@Association"].Direction = System.Data.ParameterDirection.Input;
-            cmd.Parameters.AddWithValue("@Descriptions", cVDetails.Description);
-            cmd.Parameters["@Descriptions"].Direction = System.Data.ParameterDirection.Input;
-            cmd.Parameters.AddWithValue("@FromDate", cVDetails.FromDate);
-            cmd.Parameters["@FromDate"].Direction = System.Data.ParameterDirection.Input;
-            cmd.Parameters.AddWithValue("@ToDate", cVDetails.ToDate);
-            cmd.Parameters["@ToDate"].Direction = System.Data.ParameterDirection.Input;
-            cmd.Parameters.AddWithValue("@Title", cVDetails.Title);
-            cmd.Parameters["@Title"].Direction = System.Data.ParameterDirection.Input;
-            cmd.Parameters.AddWithValue("@JobPosition", cVDetails.JobPosition);
-            cmd.Parameters["@JobPosition"].Direction = System.Data.ParameterDirection.Input;
-            cmd.ExecuteNonQuery();
-        }
-        catch {return false;}
-        finally
-        {
-            DBHelper.CloseConnection();
-        }
-        return true;
     }
 
     private CVDetails GetCVDetailsInfo(MySqlDataReader reader)
