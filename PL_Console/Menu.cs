@@ -809,7 +809,7 @@ public class Menu
             Console.WriteLine(" 6) Email");
             Console.WriteLine(" 7) Social Media");
             Console.WriteLine(" 8) Address");
-            Console.WriteLine(" 9) Skills, Work Experiences, Educations, Activities,Cartifications");
+            Console.WriteLine(" 9) Skills, Work Experiences, Educations, Activities, Certifications");
             Console.WriteLine(" 0) Return");
             Console.WriteLine("================================");
             Console.Write(" Enter the option number to change the details or to return: ");
