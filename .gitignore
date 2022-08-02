@@ -8,3 +8,7 @@ DAL/bin/
 *.dll
 PL_Console/bin/
 Persistence/bin/
+TestBL/bin/
+TestBL/obj/
+TestDAL/bin/
+TestDAL/obj/

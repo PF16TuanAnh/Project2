@@ -1377,7 +1377,7 @@ public class Menu
             Console.WriteLine("================================\n");
             Console.WriteLine("            SALARY");
             Console.WriteLine("\n================================");
-            Console.WriteLine(" 1) Bellow 3 million");
+            Console.WriteLine(" 1) Below 3 million");
             Console.WriteLine(" 2) 3 - 5 million");
             Console.WriteLine(" 3) 5 - 7 million");
             Console.WriteLine(" 4) 7 - 10 million");
@@ -1387,7 +1387,7 @@ public class Menu
             switch (GetUserInput())
             {
                 case "1":
-                    return recruiterBL.GetNewsBySalaryRange("Bellow 3 million");
+                    return recruiterBL.GetNewsBySalaryRange("Below 3 million");
                 case "2":
                     return recruiterBL.GetNewsBySalaryRange("3 - 5 million");
                 case "3":
@@ -1505,10 +1505,10 @@ public class Menu
                 Console.WriteLine(" Gender: {0}", news.Gender);
                 Console.WriteLine(" Hiring Amount: {0}", news.HiringAmount);
                 Console.WriteLine(" Hiring Position: {0}", news.HiringPosition);
-                Console.WriteLine(" Required Expirence: {0}", news.RequiredExp);
+                Console.WriteLine(" Required Experience: {0}", news.RequiredExp);
                 Console.WriteLine(" City Address: {0}", news.CityAddress);
                 Console.WriteLine(" Company: {0}", recruiter.CompanyName);
-                Console.WriteLine(" Bussiness Field: {0}", recruiter.BussinessField);
+                Console.WriteLine(" Business Field: {0}", recruiter.BusinessField);
 
                 Console.WriteLine("================================");
                 if(IsApplied)
