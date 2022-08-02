@@ -241,35 +241,6 @@ public class CandidateDAL
         return cv;
     }
 
-    public CVDetails GetCVDetailsByID(int DetailID)
-    {
-        
-        query = @"select * from CVDetails where DetailID = " +  DetailID;
-        CVDetails cVDetails = null!;
-        
-        try
-        {
-            DBHelper.OpenConnection();
-        
-            reader = DBHelper.ExecQuery(query);
-
-            
-            if (reader.Read())
-            {
-                cVDetails = GetCVDetailsInfo(reader);
-            }
-        }
-        catch
-        {
-            return new CVDetails();
-        }
-        
-
-        DBHelper.CloseConnection();
-
-        return cVDetails;
-    }
-
     public List<CVDetails> GetCVDetailsByCVID(int CVID)
     {
         query = @"select * from CVDetails where CVID = " + CVID;
