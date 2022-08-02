@@ -40,8 +40,8 @@ public class RecruiterDAL
         if (!reader.IsDBNull(reader.GetOrdinal("Position"))) recruiter.Position = reader.GetString("Position");
         if (!reader.IsDBNull(reader.GetOrdinal("CompanyName"))) recruiter.CompanyName = reader.GetString("CompanyName");
         if (!reader.IsDBNull(reader.GetOrdinal("CompanyDescription"))) recruiter.CompanyDescription = reader.GetString("CompanyDescription");
-        if (!reader.IsDBNull(reader.GetOrdinal("BussinessSize"))) recruiter.BussinessSize = reader.GetString("BussinessSize");
-        if (!reader.IsDBNull(reader.GetOrdinal("BussinessField"))) recruiter.BussinessField = reader.GetString("BussinessField");
+        if (!reader.IsDBNull(reader.GetOrdinal("BusinessSize"))) recruiter.BusinessSize = reader.GetString("BusinessSize");
+        if (!reader.IsDBNull(reader.GetOrdinal("BusinessField"))) recruiter.BusinessField = reader.GetString("BusinessField");
         if (!reader.IsDBNull(reader.GetOrdinal("Username"))) recruiter.Username = reader.GetString("Username");
 
         return recruiter;

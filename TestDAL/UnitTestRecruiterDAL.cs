@@ -30,7 +30,7 @@ public class UnitTestRecruiterDAL : IDisposable
     [Fact]
     public void PassingGetNewsBySalaryRange()
     {
-        List<RecruitNews> results = recruiterDAL.GetNewsBySalaryRange("Bellow 3 million");
+        List<RecruitNews> results = recruiterDAL.GetNewsBySalaryRange("Below 3 million");
         Assert.IsType<RecruitNews>(results[0]);
     }
 
