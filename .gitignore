@@ -6,7 +6,7 @@ PL_Console/obj/
 BL/bin/
 DAL/bin/
 *.dll
-PL_Console/bin/
+PL_Console/bin/Debug
 Persistence/bin/
 TestBL/bin/
 TestBL/obj/
