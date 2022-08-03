@@ -89,9 +89,11 @@ public class UnitTestCandidateDAL : IDisposable
     [Theory]
     [InlineData(1, 1)]
     [InlineData(null, 1)]
+    [InlineData(0, 1)]
+    [InlineData(1, 0)]
     public void PassingGetApplyStatusByNewsID(int? CandidateID, int NewsID)
     {
-        if(CandidateID != null)
+        if(CandidateID > 0 && NewsID > 0)
         {
             Assert.True(candidateDAL.GetApplyStatusByNewsID(CandidateID, NewsID));
         }
