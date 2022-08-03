@@ -1,0 +1,1 @@
+server=localhost; user=root; password=36558136; database=project;
