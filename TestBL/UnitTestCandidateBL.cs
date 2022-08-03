@@ -91,9 +91,11 @@ public class UnitTestCandidateBL : IDisposable
     [Theory]
     [InlineData(1, 1)]
     [InlineData(null, 1)]
+    [InlineData(0, 1)]
+    [InlineData(1, 0)]
     public void PassingIsApplied(int? CandidateID, int NewsID)
     {
-        if(CandidateID != null)
+        if(CandidateID > 0 && NewsID > 0)
         {
             Assert.True(candidateBL.IsApplied(CandidateID, NewsID));
         }
