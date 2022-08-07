@@ -1,1 +1,0 @@
-server=localhost; user=root; password=Jijiji123456; database=project;

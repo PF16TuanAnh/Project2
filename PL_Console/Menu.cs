@@ -1746,8 +1746,8 @@ public class Menu
         string? PhoneNum;
         string? Position = "staff";
         string? CompanyDescription;
-        string? BussinessSize;
-        string? BussinessField;
+        string? BusinessSize;
+        string? BusinessField;
         string? CompanyAddress;
 
 
@@ -1757,15 +1757,26 @@ public class Menu
 
         while (true) // PhoneNum
         {
-            Console.Write(" Phone Number       : ");
+            Console.Write(" Phone Number    : ");
             PhoneNum = GetUserInput();
-            if(PhoneNum.Length > 100)
+            if(PhoneNum.Length > 10)
             {
-                Console.WriteLine("\n Phone Number is too long. Maximum characters allowed is 100\n");
+                Console.WriteLine("\n Phone Number is too long. Maximum characters allowed is 10.\n");
+            }
+            else if (string.IsNullOrEmpty(PhoneNum))
+            {
+                Console.WriteLine("\n Phone Number can't be left empty.\n");
             }
             else
             {
-                break;
+                if (NumericRegex.IsMatch(PhoneNum))
+                {
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("\n Phone Number is numbers only.\n");
+                }
             }
         }
         while (true) // CompanyName
@@ -1847,35 +1858,35 @@ public class Menu
         {
             Console.Write(" Company Description: ");
             CompanyDescription = GetUserInput();
-            if(CompanyDescription.Length > 100)
+            if(CompanyDescription.Length > 5000)
             {
-                Console.WriteLine("\n Company Description is too long. Maximum characters allowed is 100\n");
+                Console.WriteLine("\n Company Description is too long. Maximum characters allowed is 5000\n");
             }
             else
             {
                 break;
             }
         }
-        while (true) // BussinessSize
+        while (true) // BusinessSize
         {
-            Console.Write(" Bussiness Size     : ");
-            BussinessSize = GetUserInput();
-            if(BussinessSize.Length > 100)
+            Console.Write(" Business Size     : ");
+            BusinessSize = GetUserInput();
+            if(BusinessSize.Length > 50)
             {
-                Console.WriteLine("\n Bussiness Size is too long. Maximum characters allowed is 100\n");
+                Console.WriteLine("\n Business Size is too long. Maximum characters allowed is 50\n");
             }
             else
             {
                 break;
             }
         }
-        while (true) // BussinessField
+        while (true) // BusinessField
         {
-            Console.Write(" Bussiness Field    : ");
-            BussinessField = GetUserInput();
-            if(BussinessField.Length > 100)
+            Console.Write(" Business Field    : ");
+            BusinessField = GetUserInput();
+            if(BusinessField.Length > 100)
             {
-                Console.WriteLine("\n Bussiness Field is too long. Maximum characters allowed is 100\n");
+                Console.WriteLine("\n Business Field is too long. Maximum characters allowed is 100\n");
             }
             else
             {
@@ -1883,7 +1894,7 @@ public class Menu
             }
         }
         
-        Recruiter newProfile = new Recruiter(PhoneNum, Position, CompanyName, CompanyAddress, CompanyDescription, BussinessSize, BussinessField);
+        Recruiter newProfile = new Recruiter(PhoneNum, Position, CompanyName, CompanyAddress, CompanyDescription, BusinessSize, BusinessField);
         recruiterBL.CreateNewProfile(newProfile, RecruiterID);
         
     }
@@ -1937,15 +1948,14 @@ public class Menu
 
         string? NewsName;
         string? DeadLine;
-        string? SalaryRange;
+        string? SalaryRange = "Below 3 million";
         string? FormOfEmploy;
         string? Gender;
         string? HiringAmount;
         string? HiringPosition = "Staff";
         string? RequiredExp;
-        string? CityAddress;
-        string? Profession;
-        bool IsOpen = true;
+        string? CityAddress = "Ha Noi";
+        string? Profession = "Seller";
         bool end = false;
         
         Console.WriteLine("================================\n");
@@ -1954,11 +1964,11 @@ public class Menu
 
         while (true) // NewsName
         {
-            Console.Write(" New Name         : ");
+            Console.Write(" News Name         : ");
             NewsName = GetUserInput();
-            if(NewsName.Length > 100)
+            if(NewsName.Length > 200)
             {
-                Console.WriteLine("\n Name is too long. Maximum characters allowed is 100\n");
+                Console.WriteLine("\n Name is too long. Maximum characters allowed is 200\n");
             }
             else
             {
@@ -1969,9 +1979,9 @@ public class Menu
         {
             Console.Write(" Deadline         : ");
             DeadLine = GetUserInput();
-            if(DeadLine.Length > 100)
+            if(DeadLine.Length > 50)
             {
-                Console.WriteLine("\n Deadline is too long. Maximum characters allowed is 100\n");
+                Console.WriteLine("\n Deadline is too long. Maximum characters allowed is 50\n");
             }
             else
             {
@@ -1980,13 +1990,46 @@ public class Menu
         }
         while (true) // SalaryRange
         {
-            Console.Write(" Salary Range     : ");
-            SalaryRange = GetUserInput();
-            if(SalaryRange.Length > 100)
+            bool endSalaryRange = false;
+            Console.WriteLine("================================\n");
+            Console.WriteLine("            SALARY");
+            Console.WriteLine("\n================================");
+            Console.WriteLine(" 1) Below 3 million");
+            Console.WriteLine(" 2) 3 - 5 million");
+            Console.WriteLine(" 3) 5 - 7 million");
+            Console.WriteLine(" 4) 7 - 10 million");
+            Console.WriteLine(" 5) Higher than 10 million");
+            Console.WriteLine("================================");
+            Console.Write(" Enter the option number: ");
+            switch (GetUserInput())
             {
-                Console.WriteLine("\n Salary Range is too long. Maximum characters allowed is 100\n");
+                case "1":
+                    SalaryRange = "Below 3 million";
+                    endSalaryRange = true;
+                    break;
+                case "2":
+                    SalaryRange = "3 - 5 million";
+                    endSalaryRange = true;
+                    break;
+                case "3":
+                    SalaryRange =  "5 - 7 million";
+                    endSalaryRange = true;
+                    break;
+                case "4":
+                    SalaryRange =  "7 - 10 million";
+                    endSalaryRange = true;
+                    break;
+                case "5":
+                    SalaryRange = "Higher than 10 million";
+                    endSalaryRange = true;
+                    break;
+                default:
+                    Console.WriteLine("================================"); 
+                    Console.WriteLine(" Invalid choice! Please re-enter your option.");
+                    break;
             }
-            else
+
+            if (endSalaryRange == true)
             {
                 break;
             }
@@ -2008,9 +2051,9 @@ public class Menu
         {
             Console.Write(" Gender           : ");
             Gender = GetUserInput();
-            if(Gender.Length > 100)
+            if(Gender.Length > 50)
             {
-                Console.WriteLine("\n Gender is too long. Maximum characters allowed is 100\n");
+                Console.WriteLine("\n Gender is too long. Maximum characters allowed is 50\n");
             }
             else
             {
@@ -2021,9 +2064,9 @@ public class Menu
         {
             Console.Write(" Hiring Amount    : ");
             HiringAmount = GetUserInput();
-            if(HiringAmount.Length > 100)
+            if(HiringAmount.Length > 30)
             {
-                Console.WriteLine("\n Hiring Amount is too long. Maximum characters allowed is 100\n");
+                Console.WriteLine("\n Hiring Amount is too long. Maximum characters allowed is 30\n");
             }
             else
             {
@@ -2090,9 +2133,9 @@ public class Menu
             Console.Write(" Required Exp     : ");
 
             RequiredExp = GetUserInput();
-            if(RequiredExp.Length > 100)
+            if(RequiredExp.Length > 200)
             {
-                Console.WriteLine("\n Required Exp is too long. Maximum characters allowed is 100\n");
+                Console.WriteLine("\n Required Exp is too long. Maximum characters allowed is 200\n");
             }
             else
             {
@@ -2101,34 +2144,101 @@ public class Menu
         }
         while (true) // CityAddress
         {
-            Console.Write(" City Address     : ");
-            CityAddress = GetUserInput();
-            if(CityAddress.Length > 100)
+            bool endAddress = false;
+            Console.WriteLine("================================\n");
+            Console.WriteLine("             CITY");
+            Console.WriteLine("\n================================");
+            Console.WriteLine(" 1) Ha Noi");
+            Console.WriteLine(" 2) Ho Chi Minh");
+            Console.WriteLine(" 3) Binh Duong");
+            Console.WriteLine(" 4) Bac Ninh");
+            Console.WriteLine(" 5) Dong Nai");
+            Console.WriteLine("================================");
+            Console.Write(" Enter the option number: ");
+
+            switch (GetUserInput())
             {
-                Console.WriteLine("\n City Address is too long. Maximum characters allowed is 100\n");
+                case "1":
+                    CityAddress = "Ha Noi";
+                    endAddress = true;
+                    break;
+                case "2":
+                    CityAddress = "Ho Chi Minh";
+                    endAddress = true;
+                    break;
+                case "3":
+                    CityAddress =  "Binh Duong";
+                    endAddress = true;
+                    break;
+                case "4":
+                    CityAddress =  "Bac Ninh";
+                    endAddress = true;
+                    break;
+                case "5":
+                    CityAddress = "Dong Nai";
+                    endAddress = true;
+                    break;
+                default:
+                    Console.WriteLine("================================"); 
+                    Console.WriteLine(" Invalid choice! Please re-enter your option.");
+                    break;
             }
-            else
+
+            if (endAddress == true)
             {
                 break;
             }
         }
         while (true) // Profession
         {
-            Console.Write(" Profession       : ");
+            bool endProfession = false;
+            Console.WriteLine("================================\n");
+            Console.WriteLine("          PROFESSION");
+            Console.WriteLine("\n================================");
+            Console.WriteLine(" 1) Seller");
+            Console.WriteLine(" 2) Translator");
+            Console.WriteLine(" 3) Journalist");
+            Console.WriteLine(" 4) Post and Telecommunications");
+            Console.WriteLine(" 5) Insurance");
+            Console.WriteLine("================================");
+            Console.Write(" Enter the option number: ");
 
-            Profession = GetUserInput();
-            if(Profession.Length > 100)
+            switch (GetUserInput())
             {
-                Console.WriteLine("\n Profession is too long. Maximum characters allowed is 100\n");
+                case "1":
+                    Profession = "Seller";
+                    endProfession = true;
+                    break;
+                case "2":
+                    Profession = "Translator";
+                    endProfession = true;
+                    break;
+                case "3":
+                    Profession =  "Journalist";
+                    endProfession = true;
+                    break;
+                case "4":
+                    Profession =  "Post and Telecommunications";
+                    endProfession = true;
+                    break;
+                case "5":
+                    Profession = "Insurance";
+                    endProfession = true;
+                    break;
+                default:
+                    Console.WriteLine("================================"); 
+                    Console.WriteLine(" Invalid choice! Please re-enter your option.");
+                    break;
             }
-            else
+
+            if (endProfession == true)
             {
                 break;
             }
         }
     
         RecruitNews News = new RecruitNews(NewsName, DeadLine, FormOfEmploy, Gender, HiringAmount, 
-                                            HiringPosition, RequiredExp, IsOpen, SalaryRange, CityAddress, Profession);
+                                            HiringPosition, RequiredExp, SalaryRange, CityAddress, Profession);
         recruiterBL.CreateRecruitment(News, RecruiterID);
     }
 
@@ -2163,9 +2273,9 @@ public class Menu
                     {
                         Console.Write(" News Name       : ");
                         string NewsName = GetUserInput();
-                        if(NewsName.Length > 100)
+                        if(NewsName.Length > 200)
                         {
-                            Console.WriteLine("\n News Name is too long. Maximum characters allowed is 100\n");
+                            Console.WriteLine("\n News Name is too long. Maximum characters allowed is 200\n");
                         }
                         else
                         {
@@ -2180,9 +2290,9 @@ public class Menu
                     {
                         Console.Write(" Deadline       : ");
                         string DeadLine = GetUserInput();
-                        if(DeadLine.Length > 100)
+                        if(DeadLine.Length > 50)
                         {
-                            Console.WriteLine("\n News Name is too long. Maximum characters allowed is 100\n");
+                            Console.WriteLine("\n News Name is too long. Maximum characters allowed is 50\n");
                         }
                         else
                         {
@@ -2214,9 +2324,9 @@ public class Menu
                     {
                         Console.Write(" Gender       : ");
                         string Gender = GetUserInput();
-                        if(Gender.Length > 100)
+                        if(Gender.Length > 50)
                         {
-                            Console.WriteLine("\n Gender is too long. Maximum characters allowed is 100\n");
+                            Console.WriteLine("\n Gender is too long. Maximum characters allowed is 50\n");
                         }
                         else
                         {
@@ -2231,9 +2341,9 @@ public class Menu
                     {
                         Console.Write(" Hiring Amount       : ");
                         string HiringAmount = GetUserInput();
-                        if(HiringAmount.Length > 100)
+                        if(HiringAmount.Length > 30)
                         {
-                            Console.WriteLine("\n Hiring Amount is too long. Maximum characters allowed is 100\n");
+                            Console.WriteLine("\n Hiring Amount is too long. Maximum characters allowed is 30\n");
                         }
                         else
                         {
@@ -2305,9 +2415,9 @@ public class Menu
                     {
                         Console.Write(" Required Experiences       : ");
                         string RequiredExp = GetUserInput();
-                        if(RequiredExp.Length > 100)
+                        if(RequiredExp.Length > 200)
                         {
-                            Console.WriteLine("\n Required Experiences is too long. Maximum characters allowed is 100\n");
+                            Console.WriteLine("\n Required Experiences is too long. Maximum characters allowed is 200\n");
                         }
                         else
                         {
@@ -2323,8 +2433,8 @@ public class Menu
                         bool endStatus = true;
                         Console.WriteLine("             STATUS");
                         Console.WriteLine("================================");
-                        Console.WriteLine(" 1, IsOpen  ");
-                        Console.WriteLine(" 2, IsClose  ");
+                        Console.WriteLine(" 1, Open  ");
+                        Console.WriteLine(" 2, Close  ");
                         Console.WriteLine("================================");
                         Console.Write(" Enter only number here (1-2): ");
                             switch (GetUserInput())
@@ -2348,57 +2458,152 @@ public class Menu
                     }       
                     break;
                 case "9": //SalaryRange
-                    Console.WriteLine("================================");
                     while (true)
                     {
-                        Console.Write(" Salary Range       : ");
-                        string SalaryRange = GetUserInput();
-                        if(SalaryRange.Length > 100)
+                        bool endSalaryRange = false;
+                        Console.WriteLine("================================\n");
+                        Console.WriteLine("            SALARY");
+                        Console.WriteLine("\n================================");
+                        Console.WriteLine(" 1) Below 3 million");
+                        Console.WriteLine(" 2) 3 - 5 million");
+                        Console.WriteLine(" 3) 5 - 7 million");
+                        Console.WriteLine(" 4) 7 - 10 million");
+                        Console.WriteLine(" 5) Higher than 10 million");
+                        Console.WriteLine("================================");
+                        Console.Write(" Enter the option number: ");
+                        switch (GetUserInput())
                         {
-                            Console.WriteLine("\n Salary Range is too long. Maximum characters allowed is 100\n");
+                            case "1":
+                                news.SalaryRange = "Below 3 million";
+                                endSalaryRange = true;
+                                break;
+                            case "2":
+                                news.SalaryRange = "3 - 5 million";
+                                endSalaryRange = true;
+                                break;
+                            case "3":
+                                news.SalaryRange =  "5 - 7 million";
+                                endSalaryRange = true;
+                                break;
+                            case "4":
+                                news.SalaryRange =  "7 - 10 million";
+                                endSalaryRange = true;
+                                break;
+                            case "5":
+                                news.SalaryRange = "Higher than 10 million";
+                                endSalaryRange = true;
+                                break;
+                            default:
+                                Console.WriteLine("================================"); 
+                                Console.WriteLine(" Invalid choice! Please re-enter your option.");
+                                break;
                         }
-                        else
+
+                        if (endSalaryRange == true)
                         {
-                            news.SalaryRange = SalaryRange;
                             break;
                         }
                     }
                     break;
                 case "10": //CityAddress
-                    Console.WriteLine("================================");
                     while (true)
                     {
-                        Console.Write(" City Address      : ");
-                        string CityAddress = GetUserInput();
-                        if(CityAddress.Length > 100)
+                        bool endAddress = false;
+                        Console.WriteLine("================================\n");
+                        Console.WriteLine("             CITY");
+                        Console.WriteLine("\n================================");
+                        Console.WriteLine(" 1) Ha Noi");
+                        Console.WriteLine(" 2) Ho Chi Minh");
+                        Console.WriteLine(" 3) Binh Duong");
+                        Console.WriteLine(" 4) Bac Ninh");
+                        Console.WriteLine(" 5) Dong Nai");
+                        Console.WriteLine("================================");
+                        Console.Write(" Enter the option number: ");
+
+                        switch (GetUserInput())
                         {
-                            Console.WriteLine("\n City Address is too long. Maximum characters allowed is 100\n");
+                            case "1":
+                                news.CityAddress = "Ha Noi";
+                                endAddress = true;
+                                break;
+                            case "2":
+                                news.CityAddress = "Ho Chi Minh";
+                                endAddress = true;
+                                break;
+                            case "3":
+                                news.CityAddress =  "Binh Duong";
+                                endAddress = true;
+                                break;
+                            case "4":
+                                news.CityAddress =  "Bac Ninh";
+                                endAddress = true;
+                                break;
+                            case "5":
+                                news.CityAddress = "Dong Nai";
+                                endAddress = true;
+                                break;
+                            default:
+                                Console.WriteLine("================================"); 
+                                Console.WriteLine(" Invalid choice! Please re-enter your option.");
+                                break;
                         }
-                        else
+
+                        if (endAddress == true)
                         {
-                            news.CityAddress = CityAddress;
                             break;
                         }
                     }
                     break;
                 case "11": //Profession
-                    Console.WriteLine("================================");
-                    while (true)
+                    while (true) // Profession
                     {
-                        Console.Write(" Profession       : ");
-                        string Profession = GetUserInput();
-                        if(Profession.Length > 100)
+                        bool endProfession = false;
+                        Console.WriteLine("================================\n");
+                        Console.WriteLine("          PROFESSION");
+                        Console.WriteLine("\n================================");
+                        Console.WriteLine(" 1) Seller");
+                        Console.WriteLine(" 2) Translator");
+                        Console.WriteLine(" 3) Journalist");
+                        Console.WriteLine(" 4) Post and Telecommunications");
+                        Console.WriteLine(" 5) Insurance");
+                        Console.WriteLine("================================");
+                        Console.Write(" Enter the option number: ");
+
+                        switch (GetUserInput())
                         {
-                            Console.WriteLine("\n Profession is too long. Maximum characters allowed is 100\n");
+                            case "1":
+                                news.Profession = "Seller";
+                                endProfession = true;
+                                break;
+                            case "2":
+                                news.Profession = "Translator";
+                                endProfession = true;
+                                break;
+                            case "3":
+                                news.Profession =  "Journalist";
+                                endProfession = true;
+                                break;
+                            case "4":
+                                news.Profession =  "Post and Telecommunications";
+                                endProfession = true;
+                                break;
+                            case "5":
+                                news.Profession = "Insurance";
+                                endProfession = true;
+                                break;
+                            default:
+                                Console.WriteLine("================================"); 
+                                Console.WriteLine(" Invalid choice! Please re-enter your option.");
+                                break;
                         }
-                        else
+
+                        if (endProfession == true)
                         {
-                            news.Profession = Profession;
                             break;
                         }
                     }
                     break;
-                case "R":
+                case "R" or "r":
                     DisplaySearchedCVs(ViewAppliedCV(news.NewsID), RecruiterID);
                     break;
                 case "0":
@@ -2440,7 +2645,7 @@ public class Menu
             {
                 break;
             }
-            }
+        }
         
     }
 
@@ -2470,7 +2675,7 @@ public class Menu
                     DisplaySearchedCVs(SearchCVViaAddress(RecruiterID), RecruiterID);
                     break;
                 case "3":
-                    DisplaySearchedCVs(SearchCVViaJobPosition(), RecruiterID);
+                    DisplaySearchedCVs(SearchCVViaJobPosition(RecruiterID), RecruiterID);
                     break;
                 case "0":
                     end = true;
@@ -2487,52 +2692,21 @@ public class Menu
         }
     }   
 
-    public List<CV> SearchCVViaJobPosition() 
+    public List<CV> SearchCVViaJobPosition(int? RecruiterID) 
     {
         while (true)
         {
-            // bool endsearch = false;
             Console.WriteLine("================================\n");
             Console.WriteLine("       SEARCH JOB POSITION");
             Console.WriteLine("\n================================");
-            Console.WriteLine(" 1) Staff");
-            Console.WriteLine(" 2) Leader");
-            Console.WriteLine(" 3) Deputy of Department");
-            Console.WriteLine(" 4) Head of Department");
-            Console.WriteLine(" 5) Vice Director");
-            Console.WriteLine(" 6) Director");
-            Console.WriteLine(" 7) CEO");
-            // Console.WriteLine(" 0) Back to search menu");
-            Console.WriteLine("================================");
-            Console.Write(" Enter the option number: ");
-            switch (GetUserInput())
-            {
-                case "1":
-                    return candidateBL.GetCVByJobPosition("Staff");
-                case "2":
-                    return candidateBL.GetCVByJobPosition("Leader");
-                case "3":
-                    return candidateBL.GetCVByJobPosition("Deputy of Department");
-                case "4":
-                    return candidateBL.GetCVByJobPosition("Head of Department");
-                case "5":
-                    return candidateBL.GetCVByJobPosition("Vice Director");
-                case "6":
-                    return candidateBL.GetCVByJobPosition("Director");
-                case "7":
-                    return candidateBL.GetCVByJobPosition("CEO");
-                // case "0":
-                //     endsearch = true;
-                //     break;
-                default:
-                    Console.WriteLine("================================"); 
-                    Console.WriteLine(" Invalid choice! Please re-enter your option.");
-                    break;
+            Console.Write("Enter the key word: ");
+            string? keyword = GetUserInput();
+            if (keyword == "0"){
+                    SearchCVs(RecruiterID);
             }
-            // if (endsearch == true)
-            // {
-            //     break;
-            // }
+            else {
+                return candidateBL.GetCVByJobPosition(keyword);
+            }
         }
     }
 
@@ -2560,13 +2734,13 @@ public class Menu
             Console.WriteLine("================================\n");
             Console.WriteLine("         SEARCH ADDRESS");
             Console.WriteLine("\n================================");
-            Console.Write("Enter the key word: ");
+            Console.Write("Enter the key word or press 0 to back to search menu: ");
             string? keyword = GetUserInput();
             if (keyword == "0"){
                     SearchCVs(RecruiterID);
             }
             else {
-                return candidateBL.GetCVByAddress(GetUserInput());
+                return candidateBL.GetCVByAddress(keyword);
             }
         }
     }
@@ -2740,8 +2914,8 @@ public class Menu
             Console.WriteLine(" 2,PhoneNum           : {0}", recruiter.PhoneNum);
             Console.WriteLine(" 3,Position           : {0}", recruiter.Position);
             Console.WriteLine(" 4,CompanyDescription : {0}", recruiter.CompanyDescription);
-            Console.WriteLine(" 5,Bussiness Size     : {0}", recruiter.BusinessSize);
-            Console.WriteLine(" 6,Bussiness Field    : {0}", recruiter.BusinessField);
+            Console.WriteLine(" 5,Business Size     : {0}", recruiter.BusinessSize);
+            Console.WriteLine(" 6,Business Field    : {0}", recruiter.BusinessField);
             Console.WriteLine(" 7,Company Address    : {0}", recruiter.CompanyAddress);
             Console.Write(" Enter the option number to change the details or 0 to return: ");
             
@@ -2821,14 +2995,25 @@ public class Menu
                     {
                         Console.Write(" Phone Number     : ");
                         string PhoneNum = GetUserInput();
-                        if(PhoneNum.Length > 100)
+                        if(PhoneNum.Length > 10)
                         {
-                            Console.WriteLine("\n Phone Number is too long. Maximum characters allowed is 100\n");
+                            Console.WriteLine("\n Phone Number is too long. Maximum characters allowed is 10\n");
+                        }
+                        else if (string.IsNullOrEmpty(PhoneNum))
+                        {
+                            Console.WriteLine("\n Phone Number can't be left empty.\n");
                         }
                         else
                         {
-                            recruiter.PhoneNum = PhoneNum;
-                            break;
+                            if (NumericRegex.IsMatch(PhoneNum))
+                            {
+                                recruiter.PhoneNum = PhoneNum;
+                                break;
+                            }
+                            else
+                            {
+                                Console.WriteLine("\n Phone number is numbers only.\n");
+                            }
                         }
                     }
                     break;
@@ -2838,9 +3023,9 @@ public class Menu
                     {
                         Console.Write(" Company Description       : ");
                         string CompanyDescription = GetUserInput();
-                        if(CompanyDescription.Length > 100)
+                        if(CompanyDescription.Length > 5000)
                         {
-                            Console.WriteLine("\n Company Description is too long. Maximum characters allowed is 100\n");
+                            Console.WriteLine("\n Company Description is too long. Maximum characters allowed is 5000\n");
                         }
                         else
                         {
@@ -2849,36 +3034,36 @@ public class Menu
                         }
                     }
                     break;
-                case "5": // BussinessSize
+                case "5": // BusinessSize
                     Console.WriteLine("================================");
                     while (true)
                     {
-                        Console.Write(" Bussiness Size       : ");
-                        string BussinessSize = GetUserInput();
-                        if(BussinessSize.Length > 100)
+                        Console.Write(" Business Size       : ");
+                        string BusinessSize = GetUserInput();
+                        if(BusinessSize.Length > 50)
                         {
-                            Console.WriteLine("\n Bussiness Size is too long. Maximum characters allowed is 100\n");
+                            Console.WriteLine("\n Business Size is too long. Maximum characters allowed is 50\n");
                         }
                         else
                         {
-                            recruiter.BusinessSize = BussinessSize;
+                            recruiter.BusinessSize = BusinessSize;
                             break;
                         }
                     }
                     break;
-                case "6": // BussinessField
+                case "6": // BusinessField
                     Console.WriteLine("================================");
                     while (true)
                     {
-                        Console.Write(" Bussiness Field       : ");
-                        string BussinessField = GetUserInput();
-                        if(BussinessField.Length > 100)
+                        Console.Write(" Business Field       : ");
+                        string BusinessField = GetUserInput();
+                        if(BusinessField.Length > 100)
                         {
-                            Console.WriteLine("\n Bussiness Field is too long. Maximum characters allowed is 100\n");
+                            Console.WriteLine("\n Business Field is too long. Maximum characters allowed is 100\n");
                         }
                         else
                         {
-                            recruiter.BusinessField = BussinessField;
+                            recruiter.BusinessField = BusinessField;
                             break;
                         }
                     }

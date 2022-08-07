@@ -40,8 +40,8 @@ public class RecruiterDAL
         if (!reader.IsDBNull(reader.GetOrdinal("Position"))) recruiter.Position = reader.GetString("Position");
         if (!reader.IsDBNull(reader.GetOrdinal("CompanyName"))) recruiter.CompanyName = reader.GetString("CompanyName");
         if (!reader.IsDBNull(reader.GetOrdinal("CompanyDescription"))) recruiter.CompanyDescription = reader.GetString("CompanyDescription");
-        if (!reader.IsDBNull(reader.GetOrdinal("BussinessSize"))) recruiter.BusinessSize = reader.GetString("BussinessSize");
-        if (!reader.IsDBNull(reader.GetOrdinal("BussinessField"))) recruiter.BusinessField = reader.GetString("BussinessField");
+        if (!reader.IsDBNull(reader.GetOrdinal("BusinessSize"))) recruiter.BusinessSize = reader.GetString("BusinessSize");
+        if (!reader.IsDBNull(reader.GetOrdinal("BusinessField"))) recruiter.BusinessField = reader.GetString("BusinessField");
         if (!reader.IsDBNull(reader.GetOrdinal("CompanyAddress"))) recruiter.CompanyAddress = reader.GetString("CompanyAddress");
 
         return recruiter;
@@ -155,6 +155,7 @@ public class RecruiterDAL
         if (!reader.IsDBNull(reader.GetOrdinal("CityAddress"))) recruitNews.CityAddress = reader.GetString("CityAddress");
         if (!reader.IsDBNull(reader.GetOrdinal("Profession"))) recruitNews.Profession = reader.GetString("Profession");
         if (!reader.IsDBNull(reader.GetOrdinal("RecruiterID"))) recruitNews.RecruiterID = reader.GetInt32("RecruiterID");
+        if (!reader.IsDBNull(reader.GetOrdinal("IsOpen"))) recruitNews.IsOpen = reader.GetBoolean("IsOpen");
         return recruitNews;
     }
     // NCT 
@@ -177,16 +178,16 @@ public class RecruiterDAL
             cmd.Parameters["@CompanyDescription"].Direction = System.Data.ParameterDirection.Input;
             cmd.Parameters.AddWithValue("@CompanyAddress", profile.CompanyAddress);
             cmd.Parameters["@CompanyAddress"].Direction = System.Data.ParameterDirection.Input;
-            cmd.Parameters.AddWithValue("@BussinessSize", profile.BusinessSize);
-            cmd.Parameters["@BussinessSize"].Direction = System.Data.ParameterDirection.Input;
-            cmd.Parameters.AddWithValue("@BussinessField", profile.BusinessField);
-            cmd.Parameters["@BussinessField"].Direction = System.Data.ParameterDirection.Input;
+            cmd.Parameters.AddWithValue("@BusinessSize", profile.BusinessSize);
+            cmd.Parameters["@BusinessSize"].Direction = System.Data.ParameterDirection.Input;
+            cmd.Parameters.AddWithValue("@BusinessField", profile.BusinessField);
+            cmd.Parameters["@BusinessField"].Direction = System.Data.ParameterDirection.Input;
             cmd.Parameters.AddWithValue("@ProfileID", MySqlDbType.Int32);
             cmd.Parameters["@ProfileID"].Direction = System.Data.ParameterDirection.Output;
             cmd.ExecuteNonQuery();
             ProfileID = (int) cmd.Parameters["@ProfileID"].Value;
         }
-        catch (Exception e){throw e;}
+        catch {}
         finally
         {
             DBHelper.CloseConnection();
@@ -267,8 +268,6 @@ public class RecruiterDAL
             cmd.Parameters["@HiringPosition"].Direction = System.Data.ParameterDirection.Input;
             cmd.Parameters.AddWithValue("@RequiredExp", news.RequiredExp);
             cmd.Parameters["@RequiredExp"].Direction = System.Data.ParameterDirection.Input;
-            cmd.Parameters.AddWithValue("@IsOpen", news.IsOpen);
-            cmd.Parameters["@IsOpen"].Direction = System.Data.ParameterDirection.Input;
             cmd.Parameters.AddWithValue("@SalaryRange", news.SalaryRange);
             cmd.Parameters["@SalaryRange"].Direction = System.Data.ParameterDirection.Input;
             cmd.Parameters.AddWithValue("@CityAddress", news.CityAddress); 
@@ -280,7 +279,7 @@ public class RecruiterDAL
             cmd.ExecuteNonQuery();
             NewsID = (int) cmd.Parameters["@NewsID"].Value;
         }
-        catch (Exception e){throw e;}
+        catch {}
         finally
         {
             DBHelper.CloseConnection();
@@ -319,7 +318,7 @@ public class RecruiterDAL
             cmd.Parameters["@Profession"].Direction = System.Data.ParameterDirection.Input;
             cmd.ExecuteNonQuery();
         }
-        catch (Exception e){throw e;}
+        catch {return false;}
         finally
         {
             DBHelper.CloseConnection();
@@ -345,13 +344,13 @@ public class RecruiterDAL
             cmd.Parameters["@CompanyDescription"].Direction = System.Data.ParameterDirection.Input;
             cmd.Parameters.AddWithValue("@CompanyAddress", recruiter.CompanyAddress);
             cmd.Parameters["@CompanyAddress"].Direction = System.Data.ParameterDirection.Input;
-            cmd.Parameters.AddWithValue("@BussinessSize", recruiter.BusinessSize);
-            cmd.Parameters["@BussinessSize"].Direction = System.Data.ParameterDirection.Input;
-            cmd.Parameters.AddWithValue("@BussinessField", recruiter.BusinessField);
-            cmd.Parameters["@BussinessField"].Direction = System.Data.ParameterDirection.Input;
+            cmd.Parameters.AddWithValue("@BusinessSize", recruiter.BusinessSize);
+            cmd.Parameters["@BusinessSize"].Direction = System.Data.ParameterDirection.Input;
+            cmd.Parameters.AddWithValue("@BusinessField", recruiter.BusinessField);
+            cmd.Parameters["@BusinessField"].Direction = System.Data.ParameterDirection.Input;
             cmd.ExecuteNonQuery();
         }
-        catch (Exception e){throw e;}
+        catch {return false;}
         finally
         {
             DBHelper.CloseConnection();

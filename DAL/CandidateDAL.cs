@@ -324,7 +324,7 @@ public class CandidateDAL
     //NCT
     public List<CV> GetCVByJobPosition(string JobPosition)
     {
-        query = @"select a.* from CVs a, CVDetails b where a.CVID = b.CVID and b.JobPosition = '" + JobPosition + "'";
+        query = @"select a.* from CVs a, CVDetails b where a.CVID = b.CVID and b.JobPosition like '%" + JobPosition + "%'";
         List<CV> cv = null!;
         
         try
@@ -342,12 +342,11 @@ public class CandidateDAL
                 cv.Add(GetCVInfo(reader));
             }
         }
-        catch (Exception e){throw e;}
-        // catch
-        // {
-        //     Console.WriteLine("================================"); 
-        //     Console.WriteLine(" Unexpected problems might have occurred to the connection to the database. Couldn't retrieve recruitment news.");
-        // }
+        catch
+        {
+            Console.WriteLine("================================"); 
+            Console.WriteLine(" Unexpected problems might have occurred to the connection to the database. Couldn't retrieve CVs.");
+        }
         
         DBHelper.CloseConnection();
 
@@ -377,7 +376,7 @@ public class CandidateDAL
         catch
         {
             Console.WriteLine("================================"); 
-            Console.WriteLine(" Unexpected problems might have occurred to the connection to the database. Couldn't retrieve recruitment news.");
+            Console.WriteLine(" Unexpected problems might have occurred to the connection to the database. Couldn't retrieve CVs.");
         }
         
         DBHelper.CloseConnection();
@@ -387,7 +386,7 @@ public class CandidateDAL
     
     public List<CV> GetCVByAddress(string Address)
     {
-        query = @"select * from CVs where Address like '%" + Address + "%'";
+        query = @"select * from CVs where PersonalAddress like '%" + Address + "%'";
         List<CV> cv = null!;
         
         try
@@ -408,7 +407,7 @@ public class CandidateDAL
         catch
         {
             Console.WriteLine("================================"); 
-            Console.WriteLine(" Unexpected problems might have occurred to the connection to the database. Couldn't retrieve recruitment news.");
+            Console.WriteLine(" Unexpected problems might have occurred to the connection to the database. Couldn't retrieve CVs.");
         }
         DBHelper.CloseConnection();
         return cv;
@@ -434,12 +433,11 @@ public class CandidateDAL
                 cv.Add(GetCVInfo(reader));
             }
         }
-        catch (Exception e){throw e;}
-        // catch
-        // {
-        //     Console.WriteLine("================================"); 
-        //     Console.WriteLine(" Unexpected problems might have occurred to the connection to the database. Couldn't retrieve recruitment news.");
-        // }
+        catch
+        {
+            Console.WriteLine("================================"); 
+            Console.WriteLine(" Unexpected problems might have occurred to the connection to the database. Couldn't retrieve CVs.");
+        }
         
         DBHelper.CloseConnection();
 

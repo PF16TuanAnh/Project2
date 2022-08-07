@@ -23,7 +23,7 @@ public class RecruitNews
     }
 
     public RecruitNews(string? _NewsName, string? _DeadLine,  string?_FormOfEmploy, string? _Gender, string? _HiringAmount, 
-    string? _HiringPosition, string? _RequiredExp, bool _IsOpen, string? _SalaryRange,string? _CityAddress, string? _Profession)  
+    string? _HiringPosition, string? _RequiredExp, string? _SalaryRange,string? _CityAddress, string? _Profession)  
     { 
         this.NewsName = _NewsName;
         this.DeadLine = _DeadLine;
@@ -35,7 +35,6 @@ public class RecruitNews
         this.RequiredExp = _RequiredExp;
         this.CityAddress = _CityAddress;
         this.Profession = _Profession;
-        this.IsOpen = _IsOpen;
         this.SalaryRange = _SalaryRange;
         this.CityAddress = _CityAddress;
         this.Profession = _Profession;
