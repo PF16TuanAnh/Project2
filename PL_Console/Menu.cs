@@ -96,6 +96,8 @@ public class Menu
                 if (password == user.Password)
                 {
                     int? CandidateID = userBL.GetCandidateIDByEmail(email);
+                    int? RecruiterID = userBL.GetRecruiterIDByEmail(email);
+                    string? username = userBL.GetUsernameByEmailForRecruiter(email);
                     if (CandidateID != null)
                     {
                         Console.WriteLine("================================");
@@ -107,6 +109,7 @@ public class Menu
                     {
                         Console.WriteLine("================================");
                         Console.WriteLine(" Logged in as a Recruiter.");
+                        RecruiterMenu(RecruiterID, username);
                         break;
                     }
                 }
@@ -281,7 +284,7 @@ public class Menu
             {
                 Console.WriteLine("================================");
                 Console.WriteLine(" Logged in as a Recruiter.");
-                // RecruiterMenu(ID)
+                RecruiterMenu(ID, username);
             }
             else
             {
@@ -346,47 +349,6 @@ public class Menu
                 break;
             }
             
-        }
-    }
-
-     public void RecruiterMenu(int? RecruiterID)
-    {
-        string username = "temp";
-        while (true)
-        {
-            Console.WriteLine("================================\n");
-            Console.WriteLine(" Username: {0}", username);
-            Console.WriteLine("\n================================");
-            Console.WriteLine(" 1) View Personal Information");
-            Console.WriteLine(" 2) Add Recruitment News");
-            Console.WriteLine(" 3) View Your Recruitment News");
-            Console.WriteLine(" 4) Search CVs");
-            Console.WriteLine(" 0) Exit");
-            Console.WriteLine("================================");
-            Console.Write(" Enter the option number: ");
-            switch (GetUserInput())
-            {
-                case "1":
-                    
-                    break;
-                case "2":
-                    
-                    break;
-                case "3":
-                    
-                    break;
-                case "4":
-                    
-                    break;
-                case "0":
-                    Console.WriteLine("================================"); 
-                    System.Environment.Exit(0);
-                    break;
-                default:
-                    Console.WriteLine("================================"); 
-                    Console.WriteLine(" Invalid choice! Please re-enter your option.");
-                    break;
-            }
         }
     }
 
@@ -1710,5 +1672,1273 @@ public class Menu
         }
 
         return CVDetails;
+    }
+
+    // NCT
+        public void RecruiterMenu(int? RecruiterID, string? username)   
+    {
+        while (true)
+        {
+            Recruiter recruiter = recruiterBL.GetRecruiterByID(RecruiterID);
+            // RecruitNews recruitnew = recruiterBL.GetRecruitNewByID(RecruiterID);
+            if(recruiter != null)
+            {
+            Console.WriteLine("================================\n");
+            Console.WriteLine(" Username: {0}", username);
+            Console.WriteLine("\n================================");
+            if (recruiter.PhoneNum != null)
+                {
+                    Console.WriteLine(" 1) View Personal Information");
+                }
+            else
+                {
+                    Console.WriteLine(" 1) Insert Personal Information");
+                }
+            Console.WriteLine(" 2) Add Recruitment News");
+            Console.WriteLine(" 3) View Your Recruitment News");
+            Console.WriteLine(" 4) Search CVs");
+            Console.WriteLine(" 0) Exit");
+            Console.WriteLine("================================");
+            Console.Write(" Enter the option number: ");
+            switch (GetUserInput())
+            {
+                case "1":
+                if (recruiter.PhoneNum != null)
+                {
+                    ViewProfileInformation(RecruiterID);
+                }
+                else
+                {
+                    CreateNewProfileInformation(RecruiterID);
+                }  
+                    break;
+                case "2":
+                    AddRecruitmentNews(RecruiterID);
+                    break;
+                case "3":
+                    DisplayNewsForRecruter(recruiterBL.GetRecruitNewByID(RecruiterID), RecruiterID);
+                    // ViewYourMenuRecruitmentNews(RecruiterID);
+                    break;
+                case "4":
+                    SearchCVs(RecruiterID);
+                    break;
+                case "0":
+                    Console.WriteLine("================================"); 
+                    System.Environment.Exit(0);
+                    break;
+                default:
+                    Console.WriteLine("================================"); 
+                    Console.WriteLine(" Invalid choice! Please re-enter your option.");
+                    break;
+            }
+        }
+            else
+            {
+                Console.WriteLine("================================"); 
+                Console.WriteLine(" Couldn't retrieve the user info. Unexpected problems might have occurred to the connection to the database.");
+                break;
+            }
+        }
+    }
+    public void CreateNewProfileInformation(int? RecruiterID) 
+    {
+        string? CompanyName;
+        string? PhoneNum;
+        string? Position = "staff";
+        string? CompanyDescription;
+        string? BussinessSize;
+        string? BussinessField;
+        string? CompanyAddress;
+
+
+        Console.WriteLine("================================\n");
+        Console.WriteLine(" View Your Personal Information");
+        Console.WriteLine("\n================================");
+
+        while (true) // PhoneNum
+        {
+            Console.Write(" Phone Number       : ");
+            PhoneNum = GetUserInput();
+            if(PhoneNum.Length > 100)
+            {
+                Console.WriteLine("\n Phone Number is too long. Maximum characters allowed is 100\n");
+            }
+            else
+            {
+                break;
+            }
+        }
+        while (true) // CompanyName
+        {
+            Console.Write(" Company Name       : ");
+            CompanyName = GetUserInput();
+            if(CompanyName.Length > 100)
+            {
+                Console.WriteLine("\n Company Name is too long. Maximum characters allowed is 100\n");
+            }
+            else
+            {
+                break;
+            }
+        }
+        while (true) // CompanyAddress
+        {
+            Console.Write(" Company Address    : ");
+            CompanyAddress = GetUserInput();
+            if(CompanyAddress.Length > 100)
+            {
+                Console.WriteLine("\n Company Address is too long. Maximum characters allowed is 100\n");
+            }
+            else
+            {
+                break;
+            }
+        }
+        while (true) // Position
+        {
+            bool end = true;
+            Console.WriteLine("================================");
+            Console.WriteLine("  YOUR POSITION IN THE COMPANY");
+            Console.WriteLine("================================");
+            Console.WriteLine(" 1) Staff");
+            Console.WriteLine(" 2) Leader");
+            Console.WriteLine(" 3) Deputy of Department");
+            Console.WriteLine(" 4) Head of Department");
+            Console.WriteLine(" 5) Vice Director");
+            Console.WriteLine(" 6) Director");
+            Console.WriteLine(" 7) CEO");
+            Console.WriteLine("================================");
+            Console.Write(" Enter only number here (1-7): ");
+            switch (GetUserInput())
+            {
+                case "1":
+                    Position = "Staff";
+                    break;
+                case "2":
+                    Position = "Leader";
+                    break;
+                case "3":
+                    Position = "Deputy of Department";
+                    break;
+                case "4":
+                    Position = "Head of Department";
+                    break;
+                case "5":
+                    Position = "Vice Director";
+                    break;
+                case "6":
+                    Position = "Director";
+                    break;
+                case "7":
+                    Position = "CEO";
+                    break;
+                default:
+                    Console.WriteLine("================================"); 
+                    Console.WriteLine(" Invalid choice! Please re-enter your option.");
+                    end = false;
+                    break;
+            }
+            if (end == true)
+            {
+                break;
+            }
+        }
+        while (true) // CompanyDescription
+        {
+            Console.Write(" Company Description: ");
+            CompanyDescription = GetUserInput();
+            if(CompanyDescription.Length > 100)
+            {
+                Console.WriteLine("\n Company Description is too long. Maximum characters allowed is 100\n");
+            }
+            else
+            {
+                break;
+            }
+        }
+        while (true) // BussinessSize
+        {
+            Console.Write(" Bussiness Size     : ");
+            BussinessSize = GetUserInput();
+            if(BussinessSize.Length > 100)
+            {
+                Console.WriteLine("\n Bussiness Size is too long. Maximum characters allowed is 100\n");
+            }
+            else
+            {
+                break;
+            }
+        }
+        while (true) // BussinessField
+        {
+            Console.Write(" Bussiness Field    : ");
+            BussinessField = GetUserInput();
+            if(BussinessField.Length > 100)
+            {
+                Console.WriteLine("\n Bussiness Field is too long. Maximum characters allowed is 100\n");
+            }
+            else
+            {
+                break;
+            }
+        }
+        
+        Recruiter newProfile = new Recruiter(PhoneNum, Position, CompanyName, CompanyAddress, CompanyDescription, BussinessSize, BussinessField);
+        recruiterBL.CreateNewProfile(newProfile, RecruiterID);
+        
+    }
+    
+    public void DisplayNewsForRecruter(List<RecruitNews> recruitNews, int? RecruiterID)
+    {  
+        if (recruitNews != null)
+        {
+            while (true)
+            {
+                var table = new ConsoleTable("Pos", "Name");
+
+                int count = 0;
+                Console.WriteLine("================================\n");
+                Console.WriteLine("       YOUR RECRUITMENT NEWS");
+                Console.WriteLine("\n================================");
+                foreach (RecruitNews news in recruitNews)
+                {
+                    table.AddRow(++count, news.NewsName);
+                }
+                table.Write(Format.Alternative);
+                Console.WriteLine("================================");
+                Console.Write(" Enter the position of news you like to view or 0 to return: ");
+                string choice = GetUserInput();
+
+                if(choice == "0")
+                {
+                    break;
+                }
+
+                bool success = int.TryParse(choice, out int position);
+                if(success)
+                {
+                    ViewYourRecruitmentNews(recruitNews[position - 1], RecruiterID);
+                }
+                else
+                {
+                    Console.WriteLine("================================");
+                    Console.WriteLine(" Invalid choice! Please re-enter your option.");
+                }
+            }
+        }
+        else
+        {
+            Console.WriteLine("================================"); 
+            Console.WriteLine(" No results!");
+        }
+    }
+
+    public void AddRecruitmentNews(int? RecruiterID){ 
+
+        string? NewsName;
+        string? DeadLine;
+        string? SalaryRange;
+        string? FormOfEmploy;
+        string? Gender;
+        string? HiringAmount;
+        string? HiringPosition = "Staff";
+        string? RequiredExp;
+        string? CityAddress;
+        string? Profession;
+        bool IsOpen = true;
+        bool end = false;
+        
+        Console.WriteLine("================================\n");
+        Console.WriteLine("      CREATE RECRUITMENT NEW");
+        Console.WriteLine("\n================================");
+
+        while (true) // NewsName
+        {
+            Console.Write(" New Name         : ");
+            NewsName = GetUserInput();
+            if(NewsName.Length > 100)
+            {
+                Console.WriteLine("\n Name is too long. Maximum characters allowed is 100\n");
+            }
+            else
+            {
+                break;
+            }
+        }
+        while (true) // DeadLine
+        {
+            Console.Write(" Deadline         : ");
+            DeadLine = GetUserInput();
+            if(DeadLine.Length > 100)
+            {
+                Console.WriteLine("\n Deadline is too long. Maximum characters allowed is 100\n");
+            }
+            else
+            {
+                break;
+            }
+        }
+        while (true) // SalaryRange
+        {
+            Console.Write(" Salary Range     : ");
+            SalaryRange = GetUserInput();
+            if(SalaryRange.Length > 100)
+            {
+                Console.WriteLine("\n Salary Range is too long. Maximum characters allowed is 100\n");
+            }
+            else
+            {
+                break;
+            }
+        }
+        while (true) // FormOfEmploy
+        {
+            Console.Write(" Form Of Employ   : ");
+            FormOfEmploy = GetUserInput();
+            if(FormOfEmploy.Length > 100)
+            {
+                Console.WriteLine("\n Form Of Employ is too long. Maximum characters allowed is 100\n");
+            }
+            else
+            {
+                break;
+            }
+        }
+        while (true) // Gender
+        {
+            Console.Write(" Gender           : ");
+            Gender = GetUserInput();
+            if(Gender.Length > 100)
+            {
+                Console.WriteLine("\n Gender is too long. Maximum characters allowed is 100\n");
+            }
+            else
+            {
+                break;
+            }
+        }
+        while (true) // HiringAmount
+        {
+            Console.Write(" Hiring Amount    : ");
+            HiringAmount = GetUserInput();
+            if(HiringAmount.Length > 100)
+            {
+                Console.WriteLine("\n Hiring Amount is too long. Maximum characters allowed is 100\n");
+            }
+            else
+            {
+                break;
+            }
+        }
+        while (true) // HiringPosition
+        {
+            Console.WriteLine("================================");
+            Console.WriteLine("          Hiring Position");
+            Console.WriteLine("================================");
+            Console.WriteLine(" 1) Staff");
+            Console.WriteLine(" 2) Leader");
+            Console.WriteLine(" 3) Deputy of Department");
+            Console.WriteLine(" 4) Head of Department");
+            Console.WriteLine(" 5) Vice Director");
+            Console.WriteLine(" 6) Director");
+            Console.WriteLine(" 7) CEO");
+            Console.WriteLine("================================");
+            Console.Write(" Enter the option number: ");
+            switch (GetUserInput()) 
+            {
+                case "1":
+                    HiringPosition = "Staff";
+                    end = true;
+                    break;
+                case "2":
+                    HiringPosition = "Leader";
+                    end = true;
+                    break;
+                case "3":
+                    HiringPosition = "Deputy of Department";
+                    end = true;
+                    break;
+                case "4":
+                    HiringPosition = "Head of Department";
+                    end = true;
+                    break;
+                case "5":
+                    HiringPosition = "Vice Director";
+                    end = true;
+                    break;
+                case "6":
+                    HiringPosition = "Director";
+                    end = true;
+                    break;
+                case "7":
+                    HiringPosition = "CEO";
+                    end = true;
+                    break;
+                default:
+                    Console.WriteLine("================================"); 
+                    Console.WriteLine(" Invalid choice! Please re-enter your option.");
+                    break;
+            }
+
+            if (end == true)
+            {
+                break;
+            }
+        }
+        while (true) // RequiredExp
+        {
+            Console.Write(" Required Exp     : ");
+
+            RequiredExp = GetUserInput();
+            if(RequiredExp.Length > 100)
+            {
+                Console.WriteLine("\n Required Exp is too long. Maximum characters allowed is 100\n");
+            }
+            else
+            {
+                break;
+            }
+        }
+        while (true) // CityAddress
+        {
+            Console.Write(" City Address     : ");
+            CityAddress = GetUserInput();
+            if(CityAddress.Length > 100)
+            {
+                Console.WriteLine("\n City Address is too long. Maximum characters allowed is 100\n");
+            }
+            else
+            {
+                break;
+            }
+        }
+        while (true) // Profession
+        {
+            Console.Write(" Profession       : ");
+
+            Profession = GetUserInput();
+            if(Profession.Length > 100)
+            {
+                Console.WriteLine("\n Profession is too long. Maximum characters allowed is 100\n");
+            }
+            else
+            {
+                break;
+            }
+        }
+    
+        RecruitNews News = new RecruitNews(NewsName, DeadLine, FormOfEmploy, Gender, HiringAmount, 
+                                            HiringPosition, RequiredExp, IsOpen, SalaryRange, CityAddress, Profession);
+        recruiterBL.CreateRecruitment(News, RecruiterID);
+    }
+
+    public void ViewYourRecruitmentNews(RecruitNews news, int? RecruiterID){  
+        // RecruitNews recruitnew = recruiterBL.GetRecruitNewByID(RecruiterID);
+        bool end = false;
+        while (true)
+        {
+            Console.WriteLine("================================\n");
+            Console.WriteLine("        YOUR RECRUITMENT NEW");
+            Console.WriteLine("\n================================");
+            Console.WriteLine(" 1,News Name            : {0}", news.NewsName);
+            Console.WriteLine(" 2,Deadline             : {0}", news.DeadLine);
+            Console.WriteLine(" 3,FormOfEmploy         : {0}", news.FormOfEmploy);
+            Console.WriteLine(" 4,Gender               : {0}", news.Gender);
+            Console.WriteLine(" 5,Hiring Amount        : {0}", news.HiringAmount);
+            Console.WriteLine(" 6,Hiring Position      : {0}", news.HiringPosition);
+            Console.WriteLine(" 7,Required Experiences : {0}", news.RequiredExp);
+            Console.WriteLine(" 8,Open Status          : {0}", news.IsOpen);
+            Console.WriteLine(" 9,Salary Range         : {0}", news.SalaryRange);
+            Console.WriteLine(" 10,City Address        : {0}", news.CityAddress);
+            Console.WriteLine(" 11,Profession          : {0}", news.Profession);
+            Console.WriteLine(" R, View Applied CV ");
+            Console.WriteLine(" 0, Return ");
+            Console.Write(" Enter the option number to change the details: ");
+            
+            switch (GetUserInput())
+            {
+                case "1": //NewsName
+                    Console.WriteLine("================================");
+                    while (true)
+                    {
+                        Console.Write(" News Name       : ");
+                        string NewsName = GetUserInput();
+                        if(NewsName.Length > 100)
+                        {
+                            Console.WriteLine("\n News Name is too long. Maximum characters allowed is 100\n");
+                        }
+                        else
+                        {
+                            news.NewsName = NewsName;
+                            break;
+                        }
+                    }
+                    break;
+                case "2": //DeadLine
+                    Console.WriteLine("================================");
+                    while (true)
+                    {
+                        Console.Write(" Deadline       : ");
+                        string DeadLine = GetUserInput();
+                        if(DeadLine.Length > 100)
+                        {
+                            Console.WriteLine("\n News Name is too long. Maximum characters allowed is 100\n");
+                        }
+                        else
+                        {
+                            news.DeadLine = DeadLine;
+                            break;
+                        }
+                    }
+                    break;
+                case "3": //FormOfEmploy
+                    Console.WriteLine("================================");
+                    while (true)
+                    {
+                        Console.Write(" Form Of Employ       : ");
+                        string FormOfEmploy = GetUserInput();
+                        if(FormOfEmploy.Length > 100)
+                        {
+                            Console.WriteLine("\n Form Of Employ is too long. Maximum characters allowed is 100\n");
+                        }
+                        else
+                        {
+                            news.FormOfEmploy = FormOfEmploy;
+                            break;
+                        }
+                    }
+                    break;
+                case "4": //Gender
+                    Console.WriteLine("================================");
+                    while (true)
+                    {
+                        Console.Write(" Gender       : ");
+                        string Gender = GetUserInput();
+                        if(Gender.Length > 100)
+                        {
+                            Console.WriteLine("\n Gender is too long. Maximum characters allowed is 100\n");
+                        }
+                        else
+                        {
+                            news.Gender = Gender;
+                            break;
+                        }
+                    }
+                    break;
+                case "5": //HiringAmount
+                    Console.WriteLine("================================");
+                    while (true)
+                    {
+                        Console.Write(" Hiring Amount       : ");
+                        string HiringAmount = GetUserInput();
+                        if(HiringAmount.Length > 100)
+                        {
+                            Console.WriteLine("\n Hiring Amount is too long. Maximum characters allowed is 100\n");
+                        }
+                        else
+                        {
+                            news.HiringAmount = HiringAmount;
+                            break;
+                        }
+                    }
+                    break;
+                case "6": //HiringPosition
+                    while (true) 
+                    {
+                        Console.WriteLine("================================");
+                        Console.WriteLine("          Hiring Position");
+                        Console.WriteLine("================================");
+                        Console.WriteLine(" 1) Staff");
+                        Console.WriteLine(" 2) Leader");
+                        Console.WriteLine(" 3) Deputy of Department");
+                        Console.WriteLine(" 4) Head of Department");
+                        Console.WriteLine(" 5) Vice Director");
+                        Console.WriteLine(" 6) Director");
+                        Console.WriteLine(" 7) CEO");
+                        Console.WriteLine("================================");
+                        Console.Write(" Enter the option number: ");
+                        switch (GetUserInput()) 
+                        {
+                            case "1":
+                                news.HiringPosition = "Staff";
+                                end = true;
+                                break;
+                            case "2":
+                                news.HiringPosition = "Leader";
+                                end = true;
+                                break;
+                            case "3":
+                                news.HiringPosition = "Deputy of Department";
+                                end = true;
+                                break;
+                            case "4":
+                                news.HiringPosition = "Head of Department";
+                                end = true;
+                                break;
+                            case "5":
+                                news.HiringPosition = "Vice Director";
+                                end = true;
+                                break;
+                            case "6":
+                                news.HiringPosition = "Director";
+                                end = true;
+                                break;
+                            case "7":
+                                news.HiringPosition = "CEO";
+                                end = true;
+                                break;
+                            default:
+                                Console.WriteLine("================================"); 
+                                Console.WriteLine(" Invalid choice! Please re-enter your option.");
+                                break;
+                        }
+
+                        if (end == true)
+                        {
+                            break;
+                        }
+                    }
+                    break;
+                case "7": //RequiredExp
+                    Console.WriteLine("================================");
+                    while (true)
+                    {
+                        Console.Write(" Required Experiences       : ");
+                        string RequiredExp = GetUserInput();
+                        if(RequiredExp.Length > 100)
+                        {
+                            Console.WriteLine("\n Required Experiences is too long. Maximum characters allowed is 100\n");
+                        }
+                        else
+                        {
+                            news.RequiredExp = RequiredExp;
+                            break;
+                        }
+                    }
+                    break;
+                case "8": //IsOpen
+                    Console.WriteLine("================================");                
+                    while (true)
+                    {
+                        bool endStatus = true;
+                        Console.WriteLine("             STATUS");
+                        Console.WriteLine("================================");
+                        Console.WriteLine(" 1, IsOpen  ");
+                        Console.WriteLine(" 2, IsClose  ");
+                        Console.WriteLine("================================");
+                        Console.Write(" Enter only number here (1-2): ");
+                            switch (GetUserInput())
+                            {
+                                case "1":
+                                    news.IsOpen = true;
+                                    break;
+                                case "2":
+                                    news.IsOpen = false;
+                                    break;
+                                default:
+                                    Console.WriteLine("================================"); 
+                                    Console.WriteLine(" Invalid choice! Please re-enter your option.");
+                                    endStatus = false;
+                                    break;
+                            }
+                            if (endStatus == true)
+                                {
+                                    break;
+                                }
+                    }       
+                    break;
+                case "9": //SalaryRange
+                    Console.WriteLine("================================");
+                    while (true)
+                    {
+                        Console.Write(" Salary Range       : ");
+                        string SalaryRange = GetUserInput();
+                        if(SalaryRange.Length > 100)
+                        {
+                            Console.WriteLine("\n Salary Range is too long. Maximum characters allowed is 100\n");
+                        }
+                        else
+                        {
+                            news.SalaryRange = SalaryRange;
+                            break;
+                        }
+                    }
+                    break;
+                case "10": //CityAddress
+                    Console.WriteLine("================================");
+                    while (true)
+                    {
+                        Console.Write(" City Address      : ");
+                        string CityAddress = GetUserInput();
+                        if(CityAddress.Length > 100)
+                        {
+                            Console.WriteLine("\n City Address is too long. Maximum characters allowed is 100\n");
+                        }
+                        else
+                        {
+                            news.CityAddress = CityAddress;
+                            break;
+                        }
+                    }
+                    break;
+                case "11": //Profession
+                    Console.WriteLine("================================");
+                    while (true)
+                    {
+                        Console.Write(" Profession       : ");
+                        string Profession = GetUserInput();
+                        if(Profession.Length > 100)
+                        {
+                            Console.WriteLine("\n Profession is too long. Maximum characters allowed is 100\n");
+                        }
+                        else
+                        {
+                            news.Profession = Profession;
+                            break;
+                        }
+                    }
+                    break;
+                case "R":
+                    DisplaySearchedCVs(ViewAppliedCV(news.NewsID), RecruiterID);
+                    break;
+                case "0":
+                    while(true)
+                    {    
+                        Console.WriteLine("================================");
+                        Console.WriteLine(" 1) Confirm changes");
+                        Console.WriteLine(" 0) Cancel");
+                        Console.WriteLine("================================");
+                        Console.Write(" Enter the option number: ");
+                        switch (GetUserInput())
+                        {
+                            case "1":
+                                recruiterBL.UpdateNewsInfo(news);
+                                end = true;
+                                break;
+                            case "0":
+                                end = true;
+                                break;
+                            default:
+                                Console.WriteLine("================================");
+                                Console.WriteLine(" Invalid choice! Please re-enter your option.");
+                                break;
+                        }
+
+                        if (end == true)
+                        {
+                            break;
+                        }
+                    }
+                    break;
+                default:
+                    Console.WriteLine("================================");
+                    Console.WriteLine(" Invalid choice! Please re-enter your option.");
+                    break;
+            }
+
+            if (end == true)
+            {
+                break;
+            }
+            }
+        
+    }
+
+    public List<CV> ViewAppliedCV (int NewsID){
+        return candidateBL.GetCVAppliedInNews(NewsID);
+    }
+
+    public void SearchCVs(int? RecruiterID){
+        bool end = false;
+        while (true)
+        {
+            Console.WriteLine("================================\n");
+            Console.WriteLine("          SEARCH CV");
+            Console.WriteLine("\n================================");
+            Console.WriteLine(" 1) CareerTitle");
+            Console.WriteLine(" 2) Address");
+            Console.WriteLine(" 3) Job Position");
+            Console.WriteLine(" 0) Exit");
+            Console.WriteLine("================================");
+            Console.Write(" Enter the option number: ");
+            switch (GetUserInput())
+            {
+                case "1":
+                    DisplaySearchedCVs(SearchCVViaCareerTitle(RecruiterID), RecruiterID);
+                    break;
+                case "2":
+                    DisplaySearchedCVs(SearchCVViaAddress(RecruiterID), RecruiterID);
+                    break;
+                case "3":
+                    DisplaySearchedCVs(SearchCVViaJobPosition(), RecruiterID);
+                    break;
+                case "0":
+                    end = true;
+                    break;
+                default:
+                    Console.WriteLine("================================"); 
+                    Console.WriteLine(" Invalid choice! Please re-enter your option.");
+                    break;
+            }
+            if (end == true)
+            {
+                break;
+            }
+        }
+    }   
+
+    public List<CV> SearchCVViaJobPosition() 
+    {
+        while (true)
+        {
+            // bool endsearch = false;
+            Console.WriteLine("================================\n");
+            Console.WriteLine("       SEARCH JOB POSITION");
+            Console.WriteLine("\n================================");
+            Console.WriteLine(" 1) Staff");
+            Console.WriteLine(" 2) Leader");
+            Console.WriteLine(" 3) Deputy of Department");
+            Console.WriteLine(" 4) Head of Department");
+            Console.WriteLine(" 5) Vice Director");
+            Console.WriteLine(" 6) Director");
+            Console.WriteLine(" 7) CEO");
+            // Console.WriteLine(" 0) Back to search menu");
+            Console.WriteLine("================================");
+            Console.Write(" Enter the option number: ");
+            switch (GetUserInput())
+            {
+                case "1":
+                    return candidateBL.GetCVByJobPosition("Staff");
+                case "2":
+                    return candidateBL.GetCVByJobPosition("Leader");
+                case "3":
+                    return candidateBL.GetCVByJobPosition("Deputy of Department");
+                case "4":
+                    return candidateBL.GetCVByJobPosition("Head of Department");
+                case "5":
+                    return candidateBL.GetCVByJobPosition("Vice Director");
+                case "6":
+                    return candidateBL.GetCVByJobPosition("Director");
+                case "7":
+                    return candidateBL.GetCVByJobPosition("CEO");
+                // case "0":
+                //     endsearch = true;
+                //     break;
+                default:
+                    Console.WriteLine("================================"); 
+                    Console.WriteLine(" Invalid choice! Please re-enter your option.");
+                    break;
+            }
+            // if (endsearch == true)
+            // {
+            //     break;
+            // }
+        }
+    }
+
+    public List<CV> SearchCVViaCareerTitle(int? RecruiterID){
+        while (true)
+        {
+            Console.WriteLine("================================\n");
+            Console.WriteLine("       SEARCH CAREER TITLE");
+            Console.WriteLine("\n================================");
+            Console.Write("Enter the key word or press 0 to back to search menu: ");
+            string? keyword = GetUserInput();
+            if (keyword == "0"){
+                    SearchCVs(RecruiterID);
+            }
+            else {
+                return candidateBL.GetCVByCareerTitle(keyword);
+            }
+            
+        }
+    }
+    
+    public List<CV> SearchCVViaAddress(int? RecruiterID){ 
+        while (true)
+        {
+            Console.WriteLine("================================\n");
+            Console.WriteLine("         SEARCH ADDRESS");
+            Console.WriteLine("\n================================");
+            Console.Write("Enter the key word: ");
+            string? keyword = GetUserInput();
+            if (keyword == "0"){
+                    SearchCVs(RecruiterID);
+            }
+            else {
+                return candidateBL.GetCVByAddress(GetUserInput());
+            }
+        }
+    }
+
+    public void DisplaySearchedCVs(List<CV> cv, int? RecruiterID)
+    {  
+        if (cv != null)
+        {
+            while (true)
+            {
+                var table = new ConsoleTable("Pos", "Name");
+
+                int count = 0;
+                Console.WriteLine("================================\n");
+                Console.WriteLine("                CV");
+                Console.WriteLine("\n================================");
+                foreach (CV cvs in cv)
+                {
+                    table.AddRow(++count, cvs.FullName);
+                }
+                table.Write(Format.Alternative);
+                Console.WriteLine("================================");
+                Console.Write(" Enter the position of news you like to view or 0 to return: ");
+                string choice = GetUserInput();
+
+                if(choice == "0")
+                {
+                    break;
+                }
+
+                bool success = int.TryParse(choice, out int position);
+                if(success)
+                {
+                    SearchedCVInformation(cv[position - 1], RecruiterID);
+                }
+                else
+                {
+                    Console.WriteLine("================================");
+                    Console.WriteLine(" Invalid choice! Please re-enter your option.");
+                }
+            }
+        }
+        else
+        {
+            Console.WriteLine("================================"); 
+            Console.WriteLine(" No results!");
+        }
+    }
+
+    public void SearchedCVInformation(CV cv, int? RecruiterID)
+    {
+        bool end = false;
+        if (cv != null)
+        {
+            while (true)
+            {
+            Console.WriteLine("================================\n");
+            Console.WriteLine("            YOUR CV");
+            Console.WriteLine("\n================================");
+            Console.WriteLine(" Full Name       : {0}", cv.FullName);
+            Console.WriteLine(" Career Title    : {0}", cv.CareerTitle);
+            Console.WriteLine(" Career Objective: {0}", cv.CareerObjective);
+            Console.WriteLine(" Date of Birth   : {0}", cv.BirthDate);
+            Console.WriteLine(" Phone Number    : {0}", cv.PhoneNum);
+            Console.WriteLine(" Email           : {0}", cv.Email);
+            Console.WriteLine(" Social Media    : {0}", cv.SocialMedia);
+            Console.WriteLine(" Address         : {0}", cv.PersonalAddress);
+            Console.WriteLine(" \n Skills:\n");
+            if(cv.CVDetails != null)
+            {
+                var table = new ConsoleTable("Job Position", "From", "To", "Association", "Description");
+                foreach (CVDetails detail in cv.CVDetails)
+                {
+                    if(detail.Title == "Skill")
+                    {
+                        table.AddRow(detail.JobPosition, detail.FromDate, detail.ToDate, detail.Association, detail.Description);  
+                    }
+                }
+                table.Write(Format.Alternative);
+            }
+            Console.WriteLine(" Work Experiences:\n");
+            if(cv.CVDetails != null)
+            {
+                var table = new ConsoleTable("Job Position", "From", "To", "Association", "Description");
+                foreach (CVDetails detail in cv.CVDetails)
+                {
+                    if(detail.Title == "Work Experience")
+                    {
+                        table.AddRow(detail.JobPosition, detail.FromDate, detail.ToDate, detail.Association, detail.Description);  
+                    }
+                }
+                table.Write(Format.Alternative);
+            }
+            Console.WriteLine(" Educations:\n");
+            if(cv.CVDetails != null)
+            {
+                var table = new ConsoleTable("Job Position", "From", "To", "Association", "Description");
+                foreach (CVDetails detail in cv.CVDetails)
+                {
+                    if(detail.Title == "Education")
+                    {
+                        table.AddRow(detail.JobPosition, detail.FromDate, detail.ToDate, detail.Association, detail.Description);  
+                    }
+                }
+                table.Write(Format.Alternative);
+            }
+            Console.WriteLine(" Activities:\n");
+            if(cv.CVDetails != null)
+            {
+                var table = new ConsoleTable("Job Position", "From", "To", "Association", "Description");
+                foreach (CVDetails detail in cv.CVDetails)
+                {
+                    if(detail.Title == "Activity")
+                    {
+                        table.AddRow(detail.JobPosition, detail.FromDate, detail.ToDate, detail.Association, detail.Description);  
+                    }
+                }
+                table.Write(Format.Alternative);
+            }
+            Console.WriteLine(" Certifications:\n");
+            if(cv.CVDetails != null)
+            {
+                var table = new ConsoleTable("Job Position", "From", "To", "Association", "Description");
+                foreach (CVDetails detail in cv.CVDetails)
+                {
+                    if(detail.Title == "Certificate")
+                    {
+                        table.AddRow(detail.JobPosition, detail.FromDate, detail.ToDate, detail.Association, detail.Description);  
+                    }
+                }
+                table.Write(Format.Alternative);
+            }
+            Console.WriteLine("================================");
+                Console.WriteLine(" 0) Exit");
+                Console.WriteLine("================================");
+                Console.Write(" Press 0 to exit: ");
+                switch (GetUserInput())
+                {
+                    case "0":
+                        Console.WriteLine("================================"); 
+                        end = true;
+                        break;
+                    default:
+                        Console.WriteLine("================================"); 
+                        Console.WriteLine(" Invalid choice! Please re-enter your option.");
+                        break;
+                }
+
+                if (end == true)
+                {
+                    break;
+                }
+            }
+        }
+        else
+        {
+            Console.WriteLine("================================"); 
+            Console.WriteLine(" Unexpected problems might have occurred to the connection to the database. Couldn't retrieve all details of the recruitment news.");
+        }
+    }
+
+    public void ViewProfileInformation(int? RecruiterID){ 
+        Recruiter recruiter = recruiterBL.GetRecruiterByID(RecruiterID);
+        bool end = false;
+        while (true)
+        {
+            Console.WriteLine("================================\n");
+            Console.WriteLine("        PERSONAL INFORMATION   ");
+            Console.WriteLine("\n================================");
+            Console.WriteLine(" 1,CompanyName        : {0}", recruiter.CompanyName);
+            Console.WriteLine(" 2,PhoneNum           : {0}", recruiter.PhoneNum);
+            Console.WriteLine(" 3,Position           : {0}", recruiter.Position);
+            Console.WriteLine(" 4,CompanyDescription : {0}", recruiter.CompanyDescription);
+            Console.WriteLine(" 5,Bussiness Size     : {0}", recruiter.BusinessSize);
+            Console.WriteLine(" 6,Bussiness Field    : {0}", recruiter.BusinessField);
+            Console.WriteLine(" 7,Company Address    : {0}", recruiter.CompanyAddress);
+            Console.Write(" Enter the option number to change the details or 0 to return: ");
+            
+            switch (GetUserInput())
+            {
+                case "1": // CompanyName
+                    Console.WriteLine("================================");
+                    while (true)
+                    {
+                        Console.Write(" Company Name       : ");
+                        string CompanyName = GetUserInput();
+                        if(CompanyName.Length > 100)
+                        {
+                            Console.WriteLine("\n Company Name is too long. Maximum characters allowed is 100\n");
+                        }
+                        else
+                        {
+                            recruiter.CompanyName = CompanyName;
+                            break;
+                        }
+                    }
+                    break;
+                case "2": //Postion
+                    while (true) 
+                        {
+                            bool endUpdate = true;
+                            Console.WriteLine("================================\n");
+                            Console.WriteLine("          UPDATE POSITION");
+                            Console.WriteLine("\n================================");
+                            Console.WriteLine(" 1) Staff");
+                            Console.WriteLine(" 2) Leader");
+                            Console.WriteLine(" 3) Deputy of Department");
+                            Console.WriteLine(" 4) Head of Department");
+                            Console.WriteLine(" 5) Vice Director");
+                            Console.WriteLine(" 6) Director");
+                            Console.WriteLine(" 7) CEO");
+                            Console.WriteLine("================================");
+                            Console.Write(" Enter the option number: ");
+                            switch (GetUserInput())
+                            {
+                                case "1":
+                                    recruiter.Position = "Staff";;
+                                    break;
+                                case "2":
+                                    recruiter.Position = "Leader";
+                                    break;
+                                case "3":
+                                    recruiter.Position = "Deputy of Department";
+                                    break;
+                                case "4":
+                                    recruiter.Position = "Head of Department";
+                                    break;
+                                case "5":
+                                    recruiter.Position = "Vice Director";
+                                    break;
+                                case "6":
+                                    recruiter.Position = "Director";
+                                    break;
+                                case "7":
+                                    recruiter.Position = "CEO";
+                                    break;
+                                default:
+                                    Console.WriteLine("================================"); 
+                                    Console.WriteLine(" Invalid choice! Please re-enter your option.");
+                                    endUpdate = false;
+                                    break;
+                            }
+                            if (endUpdate == true)
+                            {
+                                break;
+                            }
+                        }
+                    break;
+                case "3": // PhoneNum
+                    Console.WriteLine("================================");
+                    while (true)
+                    {
+                        Console.Write(" Phone Number     : ");
+                        string PhoneNum = GetUserInput();
+                        if(PhoneNum.Length > 100)
+                        {
+                            Console.WriteLine("\n Phone Number is too long. Maximum characters allowed is 100\n");
+                        }
+                        else
+                        {
+                            recruiter.PhoneNum = PhoneNum;
+                            break;
+                        }
+                    }
+                    break;
+                case "4": // CompanyDescription
+                    Console.WriteLine("================================");
+                    while (true)
+                    {
+                        Console.Write(" Company Description       : ");
+                        string CompanyDescription = GetUserInput();
+                        if(CompanyDescription.Length > 100)
+                        {
+                            Console.WriteLine("\n Company Description is too long. Maximum characters allowed is 100\n");
+                        }
+                        else
+                        {
+                            recruiter.CompanyDescription = CompanyDescription;
+                            break;
+                        }
+                    }
+                    break;
+                case "5": // BussinessSize
+                    Console.WriteLine("================================");
+                    while (true)
+                    {
+                        Console.Write(" Bussiness Size       : ");
+                        string BussinessSize = GetUserInput();
+                        if(BussinessSize.Length > 100)
+                        {
+                            Console.WriteLine("\n Bussiness Size is too long. Maximum characters allowed is 100\n");
+                        }
+                        else
+                        {
+                            recruiter.BusinessSize = BussinessSize;
+                            break;
+                        }
+                    }
+                    break;
+                case "6": // BussinessField
+                    Console.WriteLine("================================");
+                    while (true)
+                    {
+                        Console.Write(" Bussiness Field       : ");
+                        string BussinessField = GetUserInput();
+                        if(BussinessField.Length > 100)
+                        {
+                            Console.WriteLine("\n Bussiness Field is too long. Maximum characters allowed is 100\n");
+                        }
+                        else
+                        {
+                            recruiter.BusinessField = BussinessField;
+                            break;
+                        }
+                    }
+                    break;
+                case "7": // CompanyAddress
+                    Console.WriteLine("================================");
+                    while (true)
+                    {
+                        Console.Write(" Company Address       : ");
+                        string CompanyAddress = GetUserInput();
+                        if(CompanyAddress.Length > 100)
+                        {
+                            Console.WriteLine("\n Company Address is too long. Maximum characters allowed is 100\n");
+                        }
+                        else
+                        {
+                            recruiter.CompanyAddress = CompanyAddress;
+                            break;
+                        }
+                    }
+                    break;
+                case "0":
+                    while(true)
+                    {    
+                        Console.WriteLine("================================");
+                        Console.WriteLine(" 1) Confirm changes");
+                        Console.WriteLine(" 0) Cancel");
+                        Console.WriteLine("================================");
+                        Console.Write(" Enter the option number: ");
+                        switch (GetUserInput())
+                        {
+                            case "1":
+                                recruiterBL.UpdatePersonalRecruitInfo(recruiter);
+                                end = true;
+                                break;
+                            case "0":
+                                end = true;
+                                break;
+                            default:
+                                Console.WriteLine("================================");
+                                Console.WriteLine(" Invalid choice! Please re-enter your option.");
+                                break;
+                        }
+
+                        if (end == true)
+                        {
+                            break;
+                        }
+                    }
+                    break;
+                default:
+                    Console.WriteLine("================================");
+                    Console.WriteLine(" Invalid choice! Please re-enter your option.");
+                    break;
+            }
+            if (end == true)
+            {
+                break;
+            }
+            }
+        
     }
 }

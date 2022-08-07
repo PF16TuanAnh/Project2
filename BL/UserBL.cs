@@ -58,4 +58,17 @@ public class UserBL
 
         return sb.ToString();
     }
+    //NCT 
+    public int? GetRecruiterIDByEmail(string email)
+    {
+        email = email!.ToUpper();
+        email = GetHashString(email);
+        return userDAL.GetRecruiterIDByEmail(email);
+    }
+    public string? GetUsernameByEmailForRecruiter (string email)
+    {
+        email = email!.ToUpper();
+        email = GetHashString(email);
+        return userDAL.GetRecruiterUsernameByEmail(email);
+    }
 }

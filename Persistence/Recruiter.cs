@@ -16,10 +16,9 @@ public class Recruiter : User
 
     }
 
-    public Recruiter(string? _Username, string? _PhoneNum, string? _Position, string? _CompanyName, 
+    public Recruiter(string? _PhoneNum, string? _Position, string? _CompanyName, 
     string? _CompanyDescription, string? _CompanyAddress,string? _BusinessSize, string? _BusinessField)
     {   
-        this.Username = _Username;
         this.PhoneNum = _PhoneNum;
         this.Position = _Position;
         this.CompanyName = _CompanyName;

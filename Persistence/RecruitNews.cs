@@ -9,20 +9,22 @@ public class RecruitNews
     public string? SalaryRange{get; set;}
     public string? FormOfEmploy{get; set;}
     public string? Gender{get; set;}
+    public bool IsOpen{get; set;} // them
     public string? HiringAmount{get; set;}
     public string? HiringPosition{get; set;}
     public string? RequiredExp{get; set;}
     public string? CityAddress{get; set;}
     public string? Profession{get; set;}
 
+
     public RecruitNews()
     {
 
     }
 
-    public RecruitNews(string? _NewsName, string? _DeadLine, string? _SalaryRange, string? _FormOfEmploy, string? _Gender, string? _HiringAmount,
-    string? _HiringPosition, string? _RequiredExp, string? _CityAddress, string? _Profession)
-    {
+    public RecruitNews(string? _NewsName, string? _DeadLine,  string?_FormOfEmploy, string? _Gender, string? _HiringAmount, 
+    string? _HiringPosition, string? _RequiredExp, bool _IsOpen, string? _SalaryRange,string? _CityAddress, string? _Profession)  
+    { 
         this.NewsName = _NewsName;
         this.DeadLine = _DeadLine;
         this.SalaryRange = _SalaryRange;
@@ -31,6 +33,10 @@ public class RecruitNews
         this.HiringAmount = _HiringAmount;
         this.HiringPosition = _HiringPosition;
         this.RequiredExp = _RequiredExp;
+        this.CityAddress = _CityAddress;
+        this.Profession = _Profession;
+        this.IsOpen = _IsOpen;
+        this.SalaryRange = _SalaryRange;
         this.CityAddress = _CityAddress;
         this.Profession = _Profession;
     }

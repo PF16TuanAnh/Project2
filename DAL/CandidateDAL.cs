@@ -320,4 +320,130 @@ public class CandidateDAL
 
         return IsApplied;
     }
+
+    //NCT
+    public List<CV> GetCVByJobPosition(string JobPosition)
+    {
+        query = @"select a.* from CVs a, CVDetails b where a.CVID = b.CVID and b.JobPosition = '" + JobPosition + "'";
+        List<CV> cv = null!;
+        
+        try
+        {
+            DBHelper.OpenConnection();
+        
+            reader = DBHelper.ExecQuery(query);
+
+            while (reader.Read())
+            {
+                if(cv == null)
+                {
+                    cv = new List<CV>();
+                }
+                cv.Add(GetCVInfo(reader));
+            }
+        }
+        catch (Exception e){throw e;}
+        // catch
+        // {
+        //     Console.WriteLine("================================"); 
+        //     Console.WriteLine(" Unexpected problems might have occurred to the connection to the database. Couldn't retrieve recruitment news.");
+        // }
+        
+        DBHelper.CloseConnection();
+
+        return cv;
+    }
+    
+    public List<CV> GetCVByCareerTitle(string CareerTitle)
+    {
+        query = @"select * from CVs where CareerTitle like '%" + CareerTitle + "%'";
+        List<CV> cv = null!;
+        
+        try
+        {
+            DBHelper.OpenConnection();
+        
+            reader = DBHelper.ExecQuery(query);
+
+            while (reader.Read())
+            {
+                if(cv == null)
+                {
+                    cv = new List<CV>();
+                }
+                cv.Add(GetCVInfo(reader));
+            }
+        }
+        catch
+        {
+            Console.WriteLine("================================"); 
+            Console.WriteLine(" Unexpected problems might have occurred to the connection to the database. Couldn't retrieve recruitment news.");
+        }
+        
+        DBHelper.CloseConnection();
+
+        return cv;
+    }
+    
+    public List<CV> GetCVByAddress(string Address)
+    {
+        query = @"select * from CVs where Address like '%" + Address + "%'";
+        List<CV> cv = null!;
+        
+        try
+        {
+            DBHelper.OpenConnection();
+        
+            reader = DBHelper.ExecQuery(query);
+
+            while (reader.Read())
+            {
+                if(cv == null)
+                {
+                    cv = new List<CV>();
+                }
+                cv.Add(GetCVInfo(reader));
+            }
+        }
+        catch
+        {
+            Console.WriteLine("================================"); 
+            Console.WriteLine(" Unexpected problems might have occurred to the connection to the database. Couldn't retrieve recruitment news.");
+        }
+        DBHelper.CloseConnection();
+        return cv;
+    }
+    public List<CV> GetCVAppliedInNews(int NewsID) 
+    {
+        query = @"select c.* from CVs c, ApplyCandidates a 
+        where  a.CandidateID = c.CandidateID and  a.NewsID ='" + NewsID + "'";
+        List<CV> cv = null!;
+        
+        try
+        {
+            DBHelper.OpenConnection();
+        
+            reader = DBHelper.ExecQuery(query);
+
+            while (reader.Read())
+            {
+                if(cv == null)
+                {
+                    cv = new List<CV>();
+                }
+                cv.Add(GetCVInfo(reader));
+            }
+        }
+        catch (Exception e){throw e;}
+        // catch
+        // {
+        //     Console.WriteLine("================================"); 
+        //     Console.WriteLine(" Unexpected problems might have occurred to the connection to the database. Couldn't retrieve recruitment news.");
+        // }
+        
+        DBHelper.CloseConnection();
+
+        return cv;
+    }
+
 }

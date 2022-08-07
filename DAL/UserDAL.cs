@@ -138,4 +138,63 @@ public class UserDAL
 
         return user;
     }
+
+    //NCT 
+    public int? GetRecruiterIDByEmail(string email)
+    {
+        query = @"select c.RecruiterID from Recruiters c inner join Users u on c.UserID = u.UserID where Email = '" + email + "'";
+        int? RecruiterID = null;
+        
+        try
+        {
+            DBHelper.OpenConnection();
+        
+            reader = DBHelper.ExecQuery(query);
+
+            if (reader.Read())
+            {
+                RecruiterID = reader.GetInt32("RecruiterID");
+            }
+        }
+        catch (Exception)
+        {
+            Console.WriteLine("================================"); 
+            Console.WriteLine(" Unexpected errors occurred to the connection to the database! Closing out.");
+            System.Environment.Exit(0);
+        }
+        
+
+        DBHelper.CloseConnection();
+
+        return RecruiterID;
+    }
+
+    public string? GetRecruiterUsernameByEmail(string email)
+    {
+        query = @"select u.Username from Recruiters c inner join Users u on c.UserID = u.UserID where Email = '" + email + "'";
+        string? Username = null;
+        
+        try
+        {
+            DBHelper.OpenConnection();
+        
+            reader = DBHelper.ExecQuery(query);
+
+            if (reader.Read())
+            {
+                Username = reader.GetString("Username");
+            }
+        }
+        catch (Exception)
+        {
+            Console.WriteLine("================================"); 
+            Console.WriteLine(" Unexpected errors occurred to the connection to the database! Closing out.");
+            System.Environment.Exit(0);
+        }
+        
+
+        DBHelper.CloseConnection();
+
+        return Username;
+    }
 }
