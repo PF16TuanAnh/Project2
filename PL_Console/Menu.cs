@@ -155,7 +155,14 @@ public class Menu
             {
                 if (IsValidEmail(email))
                 {
-                    break;
+                    if (userBL.GetUserByEmail(email) == null)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        Console.WriteLine("\n Email has been used.\n");
+                    }
                 }
                 else
                 {
