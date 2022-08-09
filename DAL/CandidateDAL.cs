@@ -32,7 +32,7 @@ public class CandidateDAL
         return candidate;
     }
 
-    private Candidate GetCandidateInfo(MySqlDataReader reader)
+    public Candidate GetCandidateInfo(MySqlDataReader reader)
     {
         Candidate candidate = new Candidate();
         if (!reader.IsDBNull(reader.GetOrdinal("CandidateID"))) candidate.CandidateID = reader.GetInt32("CandidateID");
@@ -224,7 +224,7 @@ public class CandidateDAL
         return success;
     }
 
-    private CV GetCVInfo(MySqlDataReader reader)
+    public static CV GetCVInfo(MySqlDataReader reader)
     {
         CV cv = new CV();
         if (!reader.IsDBNull(reader.GetOrdinal("CVID"))) cv.CVID = reader.GetInt32("CVID");
@@ -241,13 +241,13 @@ public class CandidateDAL
         return cv;
     }
 
-    public List<CVDetails> GetCVDetailsByCVID(int CVID)
+    public static List<CVDetails> GetCVDetailsByCVID(int CVID)
     {
-        query = @"select * from CVDetails where CVID = " + CVID;
+        string query = @"select * from CVDetails where CVID = " + CVID;
         
         DBHelper.CloseConnection();
         DBHelper.OpenConnection();
-        reader = DBHelper.ExecQuery(query);
+        MySqlDataReader reader = DBHelper.ExecQuery(query);
 
         List<CVDetails> CVDetails = null!;
         while (reader.Read())
@@ -262,7 +262,7 @@ public class CandidateDAL
         return CVDetails!;
     }
 
-    private CVDetails GetCVDetailsInfo(MySqlDataReader reader)
+    public static CVDetails GetCVDetailsInfo(MySqlDataReader reader)
     {
         CVDetails cVDetails = new CVDetails();
         if (!reader.IsDBNull(reader.GetOrdinal("DetailID"))) cVDetails.DetailsID = reader.GetInt32("DetailID");
@@ -437,128 +437,4 @@ public class CandidateDAL
 
         return recruitNews;
     }
-
-    //NCT
-    public List<CV> GetCVByJobPosition(string JobPosition)
-    {
-        query = @"select a.* from CVs a, CVDetails b where a.CVID = b.CVID and b.JobPosition like '%" + JobPosition + "%'";
-        List<CV> cv = null!;
-        
-        try
-        {
-            DBHelper.OpenConnection();
-        
-            reader = DBHelper.ExecQuery(query);
-
-            while (reader.Read())
-            {
-                if(cv == null)
-                {
-                    cv = new List<CV>();
-                }
-                cv.Add(GetCVInfo(reader));
-            }
-        }
-        catch
-        {
-            Console.WriteLine("================================"); 
-            Console.WriteLine(" Unexpected problems might have occurred to the connection to the database. Couldn't retrieve CVs.");
-        }
-        
-        DBHelper.CloseConnection();
-
-        return cv;
-    }
-    
-    public List<CV> GetCVByCareerTitle(string CareerTitle)
-    {
-        query = @"select * from CVs where CareerTitle like '%" + CareerTitle + "%'";
-        List<CV> cv = null!;
-        
-        try
-        {
-            DBHelper.OpenConnection();
-        
-            reader = DBHelper.ExecQuery(query);
-
-            while (reader.Read())
-            {
-                if(cv == null)
-                {
-                    cv = new List<CV>();
-                }
-                cv.Add(GetCVInfo(reader));
-            }
-        }
-        catch
-        {
-            Console.WriteLine("================================"); 
-            Console.WriteLine(" Unexpected problems might have occurred to the connection to the database. Couldn't retrieve CVs.");
-        }
-        
-        DBHelper.CloseConnection();
-
-        return cv;
-    }
-    
-    public List<CV> GetCVByAddress(string Address)
-    {
-        query = @"select * from CVs where PersonalAddress like '%" + Address + "%'";
-        List<CV> cv = null!;
-        
-        try
-        {
-            DBHelper.OpenConnection();
-        
-            reader = DBHelper.ExecQuery(query);
-
-            while (reader.Read())
-            {
-                if(cv == null)
-                {
-                    cv = new List<CV>();
-                }
-                cv.Add(GetCVInfo(reader));
-            }
-        }
-        catch
-        {
-            Console.WriteLine("================================"); 
-            Console.WriteLine(" Unexpected problems might have occurred to the connection to the database. Couldn't retrieve CVs.");
-        }
-        DBHelper.CloseConnection();
-        return cv;
-    }
-    public List<CV> GetCVAppliedInNews(int NewsID) 
-    {
-        query = @"select c.* from CVs c, ApplyCandidates a 
-        where  a.CandidateID = c.CandidateID and  a.NewsID ='" + NewsID + "'";
-        List<CV> cv = null!;
-        
-        try
-        {
-            DBHelper.OpenConnection();
-        
-            reader = DBHelper.ExecQuery(query);
-
-            while (reader.Read())
-            {
-                if(cv == null)
-                {
-                    cv = new List<CV>();
-                }
-                cv.Add(GetCVInfo(reader));
-            }
-        }
-        catch
-        {
-            Console.WriteLine("================================"); 
-            Console.WriteLine(" Unexpected problems might have occurred to the connection to the database. Couldn't retrieve CVs.");
-        }
-        
-        DBHelper.CloseConnection();
-
-        return cv;
-    }
-
 }

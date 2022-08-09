@@ -55,4 +55,21 @@ public class RecruiterBL
             Console.WriteLine(" Couldn't update your information. Unexpected problems might have occurred to the connection to the database.");
         }
     }
+
+    public List<CV> GetCVByJobPosition(string JobPosition)
+    {
+        return recruiterDAL.GetCVByJobPosition(JobPosition);
+    }
+    public List<CV> GetCVByCareerTitle(string CareerTitle)
+    {
+        return recruiterDAL.GetCVByCareerTitle(CareerTitle);
+    }
+    public List<CV> GetCVByAddress(string CareerTitle)
+    {
+        return recruiterDAL.GetCVByAddress(CareerTitle);
+    }  
+    public List<CV> GetCVAppliedInNews(int NewsID)
+    {
+        return recruiterDAL.GetCVAppliedInNews(NewsID);
+    }
 }

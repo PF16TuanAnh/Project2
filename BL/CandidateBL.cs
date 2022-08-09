@@ -74,22 +74,4 @@ public class CandidateBL
     {
         return candidateDAL.GetRecruiterByNewsID(NewsID);
     }
-    
-    //NCT 
-    public List<CV> GetCVByJobPosition(string JobPosition)
-    {
-        return candidateDAL.GetCVByJobPosition(JobPosition);
-    }
-    public List<CV> GetCVByCareerTitle(string CareerTitle)
-    {
-        return candidateDAL.GetCVByCareerTitle(CareerTitle);
-    }
-    public List<CV> GetCVByAddress(string CareerTitle)
-    {
-        return candidateDAL.GetCVByAddress(CareerTitle);
-    }  
-    public List<CV> GetCVAppliedInNews(int NewsID)
-    {
-        return candidateDAL.GetCVAppliedInNews(NewsID);
-    }
 }

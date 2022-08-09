@@ -54,17 +54,18 @@ public class UserController
                 if (password == user.Password)
                 {
                     int? CandidateID = userBL.GetCandidateIDByEmail(email);
+                    int? RecruiterID = userBL.GetRecruiterIDByEmail(email);
                     if (CandidateID != null)
                     {
                         Console.WriteLine("================================");
                         Console.WriteLine(" Logged in as a Candidate.");
                         Menu.PrintMainMenu(2, CandidateID);
                     }
-                    else
+                    else if (RecruiterID != null)
                     {
                         Console.WriteLine("================================");
                         Console.WriteLine(" Logged in as a Recruiter.");
-                        break;
+                        Menu.PrintMainMenu(3, RecruiterID);
                     }
                 }
                 else

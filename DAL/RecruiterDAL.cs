@@ -51,6 +51,8 @@ public class RecruiterDAL
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@RecruiterID", RecruiterID);
             cmd.Parameters["@RecruiterID"].Direction = System.Data.ParameterDirection.Input;
+            cmd.Parameters.AddWithValue("@Username", profile.Username);
+            cmd.Parameters["@Username"].Direction = System.Data.ParameterDirection.Input;
             cmd.Parameters.AddWithValue("@PhoneNum", profile.PhoneNum);
             cmd.Parameters["@PhoneNum"].Direction = System.Data.ParameterDirection.Input;
             cmd.Parameters.AddWithValue("@Position", profile.Position);
@@ -79,7 +81,7 @@ public class RecruiterDAL
     }
     public Recruiter GetRecruiterByID(int? RecruiterID)
     {
-        query = @"select * from Recruiters c inner join Users u on c.UserID = u.UserID where RecruiterID = " + RecruiterID;
+        query = @"select u.Username, c.* from Recruiters c inner join Users u on c.UserID = u.UserID where RecruiterID = " + RecruiterID;
         Recruiter recruiter = null!;
         
         try
@@ -111,19 +113,19 @@ public class RecruiterDAL
             reader = DBHelper.ExecQuery(query);
 
             while (reader.Read())
-        {
-            if(recruiternew == null)
             {
-                recruiternew = new List<RecruitNews>();
+                if(recruiternew == null)
+                {
+                    recruiternew = new List<RecruitNews>();
+                }
+                recruiternew.Add(GetRecruitNewsInfo(reader));
             }
-            recruiternew.Add(GetRecruitNewsInfo(reader));
         }
-            // if (reader.Read())
-            // {
-            //     recruiternew = GetRecruitNewsInfo(reader);
-            // }
+        catch (Exception)
+        {
+            Console.WriteLine("================================"); 
+            Console.WriteLine(" Couldn't retrieve recruitment news. Unexpected problems might have occurred to the connection to the database.");
         }
-        catch{}
         
         DBHelper.CloseConnection();
         return recruiternew;
@@ -239,5 +241,127 @@ public class RecruiterDAL
             DBHelper.CloseConnection();
         }
         return true;
+    }
+
+    public List<CV> GetCVByJobPosition(string JobPosition)
+    {
+        query = @"select a.* from CVs a, CVDetails b where a.CVID = b.CVID and b.JobPosition like '%" + JobPosition + "%'";
+        List<CV> cv = null!;
+        
+        try
+        {
+            DBHelper.OpenConnection();
+        
+            reader = DBHelper.ExecQuery(query);
+
+            while (reader.Read())
+            {
+                if(cv == null)
+                {
+                    cv = new List<CV>();
+                }
+                cv.Add(CandidateDAL.GetCVInfo(reader));
+            }
+        }
+        catch (Exception)
+        {
+            Console.WriteLine("================================"); 
+            Console.WriteLine(" Unexpected problems might have occurred to the connection to the database. Couldn't retrieve CVs.");
+        }
+        
+        DBHelper.CloseConnection();
+
+        return cv;
+    }
+    
+    public List<CV> GetCVByCareerTitle(string CareerTitle)
+    {
+        query = @"select * from CVs where CareerTitle like '%" + CareerTitle + "%'";
+        List<CV> cv = null!;
+        
+        try
+        {
+            DBHelper.OpenConnection();
+        
+            reader = DBHelper.ExecQuery(query);
+
+            while (reader.Read())
+            {
+                if(cv == null)
+                {
+                    cv = new List<CV>();
+                }
+                cv.Add(CandidateDAL.GetCVInfo(reader));
+            }
+        }
+        catch
+        {
+            Console.WriteLine("================================"); 
+            Console.WriteLine(" Unexpected problems might have occurred to the connection to the database. Couldn't retrieve CVs.");
+        }
+        
+        DBHelper.CloseConnection();
+
+        return cv;
+    }
+    
+    public List<CV> GetCVByAddress(string Address)
+    {
+        query = @"select * from CVs where PersonalAddress like '%" + Address + "%'";
+        List<CV> cv = null!;
+        
+        try
+        {
+            DBHelper.OpenConnection();
+        
+            reader = DBHelper.ExecQuery(query);
+
+            while (reader.Read())
+            {
+                if(cv == null)
+                {
+                    cv = new List<CV>();
+                }
+                cv.Add(CandidateDAL.GetCVInfo(reader));
+            }
+        }
+        catch
+        {
+            Console.WriteLine("================================"); 
+            Console.WriteLine(" Unexpected problems might have occurred to the connection to the database. Couldn't retrieve CVs.");
+        }
+        DBHelper.CloseConnection();
+        return cv;
+    }
+    public List<CV> GetCVAppliedInNews(int NewsID) 
+    {
+        query = @"select c.* from CVs c, ApplyCandidates a 
+        where  a.CandidateID = c.CandidateID and  a.NewsID ='" + NewsID + "'";
+        List<CV> cv = null!;
+        
+        try
+        {
+            DBHelper.OpenConnection();
+        
+            reader = DBHelper.ExecQuery(query);
+
+            while (reader.Read())
+            {
+                if(cv == null)
+                {
+                    cv = new List<CV>();
+                }
+                cv.Add(CandidateDAL.GetCVInfo(reader));
+            }
+        }
+        catch
+        {
+            Console.WriteLine("================================"); 
+            Console.WriteLine(" Unexpected problems might have occurred to the connection to the database. Couldn't retrieve CVs.");
+        }
+        
+        DBHelper.CloseConnection();
+
+        return cv;
     }
 }

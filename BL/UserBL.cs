@@ -65,10 +65,4 @@ public class UserBL
         email = GetHashString(email);
         return userDAL.GetRecruiterIDByEmail(email);
     }
-    public string? GetUsernameByEmailForRecruiter (string email)
-    {
-        email = email!.ToUpper();
-        email = GetHashString(email);
-        return userDAL.GetRecruiterUsernameByEmail(email);
-    }
 }
