@@ -353,95 +353,7 @@ public class CandidateController
 
         while (true)
         {
-            Console.WriteLine("================================\n");
-            Console.WriteLine("            YOUR CV");
-            Console.WriteLine("\n================================");
-            Console.WriteLine(" Full Name       : {0}", cv.FullName);
-            Console.WriteLine(" Career Title    : {0}", cv.CareerTitle);
-            Console.WriteLine(" Career Objective: {0}", cv.CareerObjective);
-            Console.WriteLine(" Date of Birth   : {0}", cv.BirthDate);
-            Console.WriteLine(" Phone Number    : {0}", cv.PhoneNum);
-            Console.WriteLine(" Email           : {0}", cv.Email);
-            Console.WriteLine(" Social Media    : {0}", cv.SocialMedia);
-            Console.WriteLine(" Address         : {0}", cv.PersonalAddress);
-            Console.WriteLine(" \n Skills:\n");
-            if(cv.CVDetails != null)
-            {
-                var table = new ConsoleTable("Job Position", "From", "To", "Association", "Description");
-                foreach (CVDetails detail in cv.CVDetails)
-                {
-                    if(detail.Title == "Skill")
-                    {
-                        table.AddRow(detail.JobPosition, detail.FromDate, detail.ToDate, detail.Association, detail.Description);  
-                    }
-                }
-                table.Write(Format.Alternative);
-            }
-            Console.WriteLine(" Work Experiences:\n");
-            if(cv.CVDetails != null)
-            {
-                var table = new ConsoleTable("Job Position", "From", "To", "Association", "Description");
-                foreach (CVDetails detail in cv.CVDetails)
-                {
-                    if(detail.Title == "Work Experience")
-                    {
-                        table.AddRow(detail.JobPosition, detail.FromDate, detail.ToDate, detail.Association, detail.Description);  
-                    }
-                }
-                table.Write(Format.Alternative);
-            }
-            Console.WriteLine(" Educations:\n");
-            if(cv.CVDetails != null)
-            {
-                var table = new ConsoleTable("Job Position", "From", "To", "Association", "Description");
-                foreach (CVDetails detail in cv.CVDetails)
-                {
-                    if(detail.Title == "Education")
-                    {
-                        table.AddRow(detail.JobPosition, detail.FromDate, detail.ToDate, detail.Association, detail.Description);  
-                    }
-                }
-                table.Write(Format.Alternative);
-            }
-            Console.WriteLine(" Activities:\n");
-            if(cv.CVDetails != null)
-            {
-                var table = new ConsoleTable("Job Position", "From", "To", "Association", "Description");
-                foreach (CVDetails detail in cv.CVDetails)
-                {
-                    if(detail.Title == "Activity")
-                    {
-                        table.AddRow(detail.JobPosition, detail.FromDate, detail.ToDate, detail.Association, detail.Description);  
-                    }
-                }
-                table.Write(Format.Alternative);
-            }
-            Console.WriteLine(" Certifications:\n");
-            if(cv.CVDetails != null)
-            {
-                var table = new ConsoleTable("Job Position", "From", "To", "Association", "Description");
-                foreach (CVDetails detail in cv.CVDetails)
-                {
-                    if(detail.Title == "Certificate")
-                    {
-                        table.AddRow(detail.JobPosition, detail.FromDate, detail.ToDate, detail.Association, detail.Description);  
-                    }
-                }
-                table.Write(Format.Alternative);
-            }
-            Console.WriteLine("================================");
-            Console.WriteLine(" 1) FullName");
-            Console.WriteLine(" 2) Career Title");
-            Console.WriteLine(" 3) Career Objective");
-            Console.WriteLine(" 4) Date of Birth");
-            Console.WriteLine(" 5) Phone Number");
-            Console.WriteLine(" 6) Email");
-            Console.WriteLine(" 7) Social Media");
-            Console.WriteLine(" 8) Address");
-            Console.WriteLine(" 9) Skills, Work Experiences, Educations, Activities, Certifications");
-            Console.WriteLine(" 0) Return");
-            Console.WriteLine("================================");
-            Console.Write(" Enter the option number to change the details or to return: ");
+            Menu.PrintSubMenu(1, cv);
             switch (UserController.GetUserInput())
             {
                 case "1":
@@ -652,79 +564,7 @@ public class CandidateController
         while (true)
         {
             bool done = false;
-            Console.WriteLine("================================"); 
-            Console.WriteLine(" Skills:\n");
-            if(CVDetails != null)
-            {
-                var table = new ConsoleTable("Job Position", "From", "To", "Association", "Description");
-                foreach (CVDetails detail in CVDetails)
-                {
-                    if(detail.Title == "Skill")
-                    {
-                        table.AddRow(detail.JobPosition, detail.FromDate, detail.ToDate, detail.Association, detail.Description);  
-                    }
-                }
-                table.Write(Format.Alternative);
-            }
-            Console.WriteLine(" Work Experiences:\n");
-            if(CVDetails != null)
-            {
-                var table = new ConsoleTable("Job Position", "From", "To", "Association", "Description");
-                foreach (CVDetails detail in CVDetails)
-                {
-                    if(detail.Title == "Work Experience")
-                    {
-                        table.AddRow(detail.JobPosition, detail.FromDate, detail.ToDate, detail.Association, detail.Description);  
-                    }
-                }
-                table.Write(Format.Alternative);
-            }
-            Console.WriteLine(" Educations:\n");
-            if(CVDetails != null)
-            {
-                var table = new ConsoleTable("Job Position", "From", "To", "Association", "Description");
-                foreach (CVDetails detail in CVDetails)
-                {
-                    if(detail.Title == "Education")
-                    {
-                        table.AddRow(detail.JobPosition, detail.FromDate, detail.ToDate, detail.Association, detail.Description);  
-                    }
-                }
-                table.Write(Format.Alternative);
-            }
-            Console.WriteLine(" Activities:\n");
-            if(CVDetails != null)
-            {
-                var table = new ConsoleTable("Job Position", "From", "To", "Association", "Description");
-                foreach (CVDetails detail in CVDetails)
-                {
-                    if(detail.Title == "Activity")
-                    {
-                        table.AddRow(detail.JobPosition, detail.FromDate, detail.ToDate, detail.Association, detail.Description);  
-                    }
-                }
-                table.Write(Format.Alternative);
-            }
-            Console.WriteLine(" Certifications:\n");
-            if(CVDetails != null)
-            {
-                var table = new ConsoleTable("Job Position", "From", "To", "Association", "Description");
-                foreach (CVDetails detail in CVDetails)
-                {
-                    if(detail.Title == "Certificate")
-                    {
-                        table.AddRow(detail.JobPosition, detail.FromDate, detail.ToDate, detail.Association, detail.Description);  
-                    }
-                }
-                table.Write(Format.Alternative);
-            }
-            Console.WriteLine("================================");
-            Console.WriteLine(" 1) Add");
-            Console.WriteLine(" 2) Change");
-            Console.WriteLine(" 3) Delete");
-            Console.WriteLine(" 0) Done");
-            Console.WriteLine("================================");
-            Console.Write(" Enter the option number: ");
+            Menu.PrintSubMenu(2, CVDetails);
             switch (UserController.GetUserInput())
             {
                 case "1": // Add more CVDetails
@@ -1193,19 +1033,7 @@ public class CandidateController
         {
             while (true)
             {
-                var table = new ConsoleTable("Pos", "Name");
-
-                int count = 0;
-                Console.WriteLine("================================\n");
-                Console.WriteLine("       RECRUITMENT NEWS");
-                Console.WriteLine("\n================================");
-                foreach (RecruitNews news in recruitNews)
-                {
-                    table.AddRow(++count, news.NewsName);
-                }
-                table.Write(Format.Alternative);
-                Console.WriteLine("================================");
-                Console.Write(" Enter the position of news you like to view or 0 to return: ");
+                Menu.PrintSubMenu(3, recruitNews);
                 string choice = UserController.GetUserInput();
 
                 if(choice == "0")

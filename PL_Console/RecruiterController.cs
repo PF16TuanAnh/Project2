@@ -185,19 +185,7 @@ public class RecruiterController
         {
             while (true)
             {
-                var table = new ConsoleTable("Pos", "Name");
-
-                int count = 0;
-                Console.WriteLine("================================\n");
-                Console.WriteLine("       YOUR RECRUITMENT NEWS");
-                Console.WriteLine("\n================================");
-                foreach (RecruitNews news in recruitNews)
-                {
-                    table.AddRow(++count, news.NewsName);
-                }
-                table.Write(Format.Alternative);
-                Console.WriteLine("================================");
-                Console.Write(" Enter the position of news you like to view or 0 to return: ");
+                Menu.PrintSubMenu(4, recruitNews);
                 string choice = UserController.GetUserInput();
 
                 if(choice == "0")
@@ -1027,19 +1015,7 @@ public class RecruiterController
         {
             while (true)
             {
-                var table = new ConsoleTable("Pos", "Name");
-
-                int count = 0;
-                Console.WriteLine("================================\n");
-                Console.WriteLine("                CV");
-                Console.WriteLine("\n================================");
-                foreach (CV cvs in cv)
-                {
-                    table.AddRow(++count, cvs.FullName);
-                }
-                table.Write(Format.Alternative);
-                Console.WriteLine("================================");
-                Console.Write(" Enter the position of news you like to view or 0 to return: ");
+                Menu.PrintSubMenu(6, cv);
                 string choice = UserController.GetUserInput();
 
                 if(choice == "0")
@@ -1178,22 +1154,11 @@ public class RecruiterController
         }
     }
 
-    public void ViewProfileInformation(int? RecruiterID){ 
-        Recruiter recruiter = recruiterBL.GetRecruiterByID(RecruiterID);
+    public void ViewProfileInformation(Recruiter recruiter){ 
         bool end = false;
         while (true)
         {
-            Console.WriteLine("================================\n");
-            Console.WriteLine("        PERSONAL INFORMATION   ");
-            Console.WriteLine("\n================================");
-            Console.WriteLine(" 1,CompanyName        : {0}", recruiter.CompanyName);
-            Console.WriteLine(" 2,PhoneNum           : {0}", recruiter.PhoneNum);
-            Console.WriteLine(" 3,Position           : {0}", recruiter.Position);
-            Console.WriteLine(" 4,CompanyDescription : {0}", recruiter.CompanyDescription);
-            Console.WriteLine(" 5,Business Size     : {0}", recruiter.BusinessSize);
-            Console.WriteLine(" 6,Business Field    : {0}", recruiter.BusinessField);
-            Console.WriteLine(" 7,Company Address    : {0}", recruiter.CompanyAddress);
-            Console.Write(" Enter the option number to change the details or 0 to return: ");
+            Menu.PrintSubMenu(5, recruiter);
             
             switch (UserController.GetUserInput())
             {

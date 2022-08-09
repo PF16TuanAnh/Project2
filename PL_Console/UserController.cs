@@ -100,11 +100,16 @@ public class UserController
         Console.WriteLine("\n================================");
         while (true)
         {
+            Console.WriteLine(" You can Enter 0 on email to turn back.");
             Console.Write(" Email: ");
             email = GetUserInput();
             if(email.Length > 100)
             {
                 Console.WriteLine("\n Email is too long. Maximum characters allowed is 100\n");
+            }
+            else if (email == "0")
+            {
+                break;
             }
             else
             {
@@ -125,134 +130,142 @@ public class UserController
                 }
             }
         }
-
-        while (true)
-        {
-            Console.Write(" Password: ");
-            password = GetUserInput();
-            if(password.Length > 100)
-            {
-                Console.WriteLine("\n Password is too long. Maximum characters allowed is 100\n");
-            }
-            else
-            {
-                break;
-            }
-        }  
-
-        while (true)
-        {
-            Console.Write(" Username: ");
-            username = GetUserInput();
-            if(username.Length > 50)
-            {
-                Console.WriteLine("\n Username is too long. Maximum characters allowed is 50\n");
-            }
-            else
-            {
-                break;
-            }
-        }  
         
-
-        while (true)
+        if (email != "0")
         {
-            Console.WriteLine("================================\n");
-            Console.WriteLine("          Your Gender");
-            Console.WriteLine("\n================================");
-            Console.WriteLine(" 1) Male");
-            Console.WriteLine(" 2) Female");
-            Console.WriteLine(" 3) Other");
-            Console.WriteLine("================================");
-            Console.Write(" Enter the option number: ");
-            switch (GetUserInput())
+            while (true)
             {
-                case "1":
-                    gender = "Male";
-                    end = true;
+                Console.WriteLine(" You can Enter 0 on password to turn back.");
+                Console.Write(" Password: ");
+                password = GetUserInput();
+                if(password.Length > 100)
+                {
+                    Console.WriteLine("\n Password is too long. Maximum characters allowed is 100\n");
+                }
+                else
+                {
                     break;
-                case "2":
-                    gender = "Female";
-                    end = true;
-                    break;
-                case "3":
-                    gender = "Other";
-                    end = true;
-                    break;
-                default:
-                    Console.WriteLine("================================"); 
-                    Console.WriteLine(" Invalid choice! Please re-enter your option.");
-                    break;
-            }
+                }
+            }  
 
-            if (end == true)
+            if(password != "0")
             {
-                break;
+                while (true)
+                {
+                    Console.Write(" Username: ");
+                    username = GetUserInput();
+                    if(username.Length > 50)
+                    {
+                        Console.WriteLine("\n Username is too long. Maximum characters allowed is 50\n");
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }  
+                
+
+                while (true)
+                {
+                    Console.WriteLine("================================\n");
+                    Console.WriteLine("          Your Gender");
+                    Console.WriteLine("\n================================");
+                    Console.WriteLine(" 1) Male");
+                    Console.WriteLine(" 2) Female");
+                    Console.WriteLine(" 3) Other");
+                    Console.WriteLine("================================");
+                    Console.Write(" Enter the option number: ");
+                    switch (GetUserInput())
+                    {
+                        case "1":
+                            gender = "Male";
+                            end = true;
+                            break;
+                        case "2":
+                            gender = "Female";
+                            end = true;
+                            break;
+                        case "3":
+                            gender = "Other";
+                            end = true;
+                            break;
+                        default:
+                            Console.WriteLine("================================"); 
+                            Console.WriteLine(" Invalid choice! Please re-enter your option.");
+                            break;
+                    }
+
+                    if (end == true)
+                    {
+                        break;
+                    }
+                }
+
+                while (true)
+                {
+                    Console.WriteLine("================================\n");
+                    Console.WriteLine("          Register As");
+                    Console.WriteLine("\n================================");
+                    Console.WriteLine(" 1) Candidate");
+                    Console.WriteLine(" 2) Recruiter");
+                    Console.WriteLine("================================");
+                    Console.Write(" Enter the option number: ");
+                    switch (GetUserInput())
+                    {
+                        case "1":
+                            role = 1;
+                            end = true;
+                            break;
+                        case "2":
+                            role = 2;
+                            end = true;
+                            break;
+                        default:
+                            Console.WriteLine("================================"); 
+                            Console.WriteLine(" Invalid choice! Please re-enter your option.");
+                            break;
+                    }
+
+                    if (end == true)
+                    {
+                        break;
+                    }
+                }
+
+                User newAccount = new User(username, email, password, gender);
+                int? ID = userBL.InsertNewUser(newAccount, role);
+
+                if(role == 1)
+                {
+                    if(ID != null)
+                    {
+                        Console.WriteLine("================================");
+                        Console.WriteLine(" Logged in as a Candidate.");
+                        Menu.PrintMainMenu(2, ID);
+                    }
+                    else
+                    {
+                        Console.WriteLine("================================"); 
+                        Console.WriteLine(" System Error! Couldn't log in.");
+                    }
+                }
+                else
+                {
+                    if(ID != null)
+                    {
+                        Console.WriteLine("================================");
+                        Console.WriteLine(" Logged in as a Recruiter.");
+                        Menu.PrintMainMenu(3, ID);
+                    }
+                    else
+                    {
+                        Console.WriteLine("================================"); 
+                        Console.WriteLine(" System Error! Couldn't log in.");
+                    }
+                }
             }
         }
-
-        while (true)
-        {
-            Console.WriteLine("================================\n");
-            Console.WriteLine("          Register As");
-            Console.WriteLine("\n================================");
-            Console.WriteLine(" 1) Candidate");
-            Console.WriteLine(" 2) Recruiter");
-            Console.WriteLine("================================");
-            Console.Write(" Enter the option number: ");
-            switch (GetUserInput())
-            {
-                case "1":
-                    role = 1;
-                    end = true;
-                    break;
-                case "2":
-                    role = 2;
-                    end = true;
-                    break;
-                default:
-                    Console.WriteLine("================================"); 
-                    Console.WriteLine(" Invalid choice! Please re-enter your option.");
-                    break;
-            }
-
-            if (end == true)
-            {
-                break;
-            }
-        }
-
-        User newAccount = new User(username, email, password, gender);
-        int? ID = userBL.InsertNewUser(newAccount, role);
-
-        if(role == 1)
-        {
-            if(ID != null)
-            {
-                Console.WriteLine("================================");
-                Console.WriteLine(" Logged in as a Candidate.");
-                Menu.PrintMainMenu(2, ID);
-            }
-            else
-            {
-                Console.WriteLine("================================"); 
-                Console.WriteLine(" System Error! Couldn't log in.");
-            }
-        }
-        else
-        {
-            if(ID != null)
-            {
-                Console.WriteLine("================================");
-                Console.WriteLine(" Logged in as a Recruiter.");
-                Menu.PrintMainMenu(3, ID);
-            }
-            else
-            {
-                Console.WriteLine("================================"); 
-                Console.WriteLine(" System Error! Couldn't log in.");
-            }
-        }
+        
     }
 
     public static bool IsValidEmail(string email)
