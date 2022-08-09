@@ -8,18 +8,47 @@ namespace BL;
 public class UserBL
 {
     private UserDAL userDAL;
+    private string? EmailToCheck;
+    private string? PasswordToCheck;
 
     public UserBL()
     {
         userDAL = new UserDAL();
     }
 
-    public User GetUserByEmail(string email)
+    public bool VerifyEmail(string email)
     {
         email = email!.ToUpper();
         email = GetHashString(email);
-        User user = userDAL.GetUserByEmail(email);
-        return user;
+        if (EmailToCheck == null)
+        {
+            User user = userDAL.GetUserByEmail(email);
+            EmailToCheck = user.Email;
+            PasswordToCheck = user.Password;
+        }
+
+        if (EmailToCheck != null)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public bool VerifyPassword(string password)
+    {
+        if (PasswordToCheck == GetHashString(password))
+        {
+            EmailToCheck = null;
+            PasswordToCheck = null;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     public int? GetCandidateIDByEmail(string email)

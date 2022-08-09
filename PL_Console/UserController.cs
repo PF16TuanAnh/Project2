@@ -25,8 +25,6 @@ public class UserController
         Console.WriteLine(" You can Enter 0 on email or password to turn back.");
         Console.Write(" Email: ");
         email = GetUserInput();
-        Console.Write(" Password: ");
-        password = GetUserInput();
 
         while (true)
         {
@@ -35,23 +33,17 @@ public class UserController
                 break;
             }
 
-            if (password == "0")
+            
+            if (userBL.VerifyEmail(email))
             {
-                break;
-            }
-
-            User user = userBL.GetUserByEmail(email);
-
-            if (user != null)
-            {
+                Console.Write(" Password: ");
+                password = GetUserInput();
                 if (password == "0")
                 {
                     break;
                 }
 
-                password = userBL.GetHashString(password);
-
-                if (password == user.Password)
+                if (userBL.VerifyPassword(password))
                 {
                     int? CandidateID = userBL.GetCandidateIDByEmail(email);
                     int? RecruiterID = userBL.GetRecruiterIDByEmail(email);
@@ -72,8 +64,6 @@ public class UserController
                 {
                     Console.WriteLine("================================");
                     Console.WriteLine(" Password is incorrect! Please re-enter your password.");
-                    Console.Write(" Password: ");
-                    password = GetUserInput();
                 }
             }
             else
@@ -115,7 +105,7 @@ public class UserController
             {
                 if (IsValidEmail(email))
                 {
-                    if (userBL.GetUserByEmail(email) == null)
+                    if (!userBL.VerifyEmail(email))
                     {
                         break;
                     }
