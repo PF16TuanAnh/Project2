@@ -11,24 +11,4 @@ public class RecruiterBL
     {
         recruiterDAL = new RecruiterDAL();
     }
-
-    public List<RecruitNews> GetNewsByProfession(string Profession)
-    {
-        return recruiterDAL.GetNewsByProfession(Profession);
-    }
-
-    public List<RecruitNews> GetNewsBySalaryRange(string SalaryRange)
-    {
-        return recruiterDAL.GetNewsBySalaryRange(SalaryRange);
-    }
-
-    public List<RecruitNews> GetNewsByCityAddress(string CityAddress)
-    {
-        return recruiterDAL.GetNewsByCityAddress(CityAddress);
-    }
-
-    public Recruiter GetRecruiterByNewsID(int NewsID)
-    {
-        return recruiterDAL.GetRecruiterByNewsID(NewsID);
-    }
 }

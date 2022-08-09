@@ -1,4 +1,3 @@
 ﻿using Pl_Console;
 
-Menu menu = new Menu();
-menu.StartMenu();
+Menu.PrintMainMenu(1, null);

@@ -54,4 +54,24 @@ public class CandidateBL
     {
         return candidateDAL.GetApplyStatusByNewsID(CandidateID, NewsID);
     }
+
+    public List<RecruitNews> GetNewsByProfession(string Profession)
+    {
+        return candidateDAL.GetNewsByProfession(Profession);
+    }
+
+    public List<RecruitNews> GetNewsBySalaryRange(string SalaryRange)
+    {
+        return candidateDAL.GetNewsBySalaryRange(SalaryRange);
+    }
+
+    public List<RecruitNews> GetNewsByCityAddress(string CityAddress)
+    {
+        return candidateDAL.GetNewsByCityAddress(CityAddress);
+    }
+
+    public Recruiter GetRecruiterByNewsID(int NewsID)
+    {
+        return candidateDAL.GetRecruiterByNewsID(NewsID);
+    }
 }

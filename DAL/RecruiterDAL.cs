@@ -8,31 +8,7 @@ public class RecruiterDAL
     private string? query;
     private MySqlDataReader? reader;
 
-    public Recruiter GetRecruiterByNewsID(int NewsID)
-    {
-        query = @"select r.*, u.Username from Recruiters r inner join RecruitNews rn on r.RecruiterID = rn.RecruiterID inner join Users u on r.UserID = u.UserID where NewsID = " + NewsID;
-        Recruiter recruiter = null!;
-        
-        try
-        {
-            DBHelper.OpenConnection();
-        
-            reader = DBHelper.ExecQuery(query);
-            
-            if (reader.Read())
-            {
-                recruiter = GetRecruiterInfo(reader);
-            }
-        }
-        catch{}
-        
-
-        DBHelper.CloseConnection();
-
-        return recruiter;
-    }
-
-    private Recruiter GetRecruiterInfo(MySqlDataReader reader)
+    public static Recruiter GetRecruiterInfo(MySqlDataReader reader)
     {
         Recruiter recruiter = new Recruiter();
         if (!reader.IsDBNull(reader.GetOrdinal("RecruiterID"))) recruiter.RecruiterID = reader.GetInt32("RecruiterID");
@@ -47,100 +23,7 @@ public class RecruiterDAL
         return recruiter;
     }
 
-    public List<RecruitNews> GetNewsBySalaryRange(string SalaryRange)
-    {
-        query = @"select * from RecruitNews where SalaryRange = '" + SalaryRange + "'" + " and IsOpen = true";
-        List<RecruitNews> recruitNews = null!;
-        
-        try
-        {
-            DBHelper.OpenConnection();
-        
-            reader = DBHelper.ExecQuery(query);
-
-            while (reader.Read())
-            {
-                if(recruitNews == null)
-                {
-                    recruitNews = new List<RecruitNews>();
-                }
-                recruitNews.Add(GetRecruitNewsInfo(reader));
-            }
-        }
-        catch
-        {
-            Console.WriteLine("================================"); 
-            Console.WriteLine(" Unexpected problems might have occurred to the connection to the database. Couldn't retrieve recruitment news.");
-        }
-        
-        DBHelper.CloseConnection();
-
-        return recruitNews;
-    }
-
-    public List<RecruitNews> GetNewsByCityAddress(string CityAddress)
-    {
-        query = @"select * from RecruitNews where CityAddress = '" + CityAddress + "'" + " and IsOpen = true";
-        List<RecruitNews> recruitNews = null!;
-        
-        try
-        {
-            DBHelper.OpenConnection();
-        
-            reader = DBHelper.ExecQuery(query);
-
-            while (reader.Read())
-            {
-                if(recruitNews == null)
-                {
-                    recruitNews = new List<RecruitNews>();
-                }
-                recruitNews.Add(GetRecruitNewsInfo(reader));
-            }
-        }
-        catch
-        {
-            Console.WriteLine("================================"); 
-            Console.WriteLine(" Unexpected problems might have occurred to the connection to the database. Couldn't retrieve recruitment news.");
-        }
-        
-        DBHelper.CloseConnection();
-
-        return recruitNews;
-    }
-
-    public List<RecruitNews> GetNewsByProfession(string Profession)
-    {
-        query = @"select * from RecruitNews where Profession = '" + Profession + "'" + " and IsOpen = true";
-        List<RecruitNews> recruitNews = null!;
-        
-        try
-        {
-            DBHelper.OpenConnection();
-        
-            reader = DBHelper.ExecQuery(query);
-
-            while (reader.Read())
-            {
-                if(recruitNews == null)
-                {
-                    recruitNews = new List<RecruitNews>();
-                }
-                recruitNews.Add(GetRecruitNewsInfo(reader));
-            }
-        }
-        catch
-        {
-            Console.WriteLine("================================"); 
-            Console.WriteLine(" Unexpected problems might have occurred to the connection to the database. Couldn't retrieve recruitment news.");
-        }
-        
-        DBHelper.CloseConnection();
-
-        return recruitNews;
-    }
-
-    private RecruitNews GetRecruitNewsInfo(MySqlDataReader reader)
+    public static RecruitNews GetRecruitNewsInfo(MySqlDataReader reader)
     {
         RecruitNews recruitNews = new RecruitNews();
         if (!reader.IsDBNull(reader.GetOrdinal("NewsID"))) recruitNews.NewsID = reader.GetInt32("NewsID");
