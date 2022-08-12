@@ -23,8 +23,11 @@ public class UserBL
         if (EmailToCheck == null)
         {
             User user = userDAL.GetUserByEmail(email);
-            EmailToCheck = user.Email;
-            PasswordToCheck = user.Password;
+            if (user != null)
+            {
+                EmailToCheck = user.Email;
+                PasswordToCheck = user.Password;
+            }
         }
 
         if (EmailToCheck != null)
