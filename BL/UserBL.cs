@@ -8,7 +8,6 @@ namespace BL;
 public class UserBL
 {
     private UserDAL userDAL;
-    private string? EmailToCheck;
     private string? PasswordToCheck;
 
     public UserBL()
@@ -20,18 +19,11 @@ public class UserBL
     {
         email = email!.ToUpper();
         email = GetHashString(email);
-        if (EmailToCheck == null)
+        
+        User user = userDAL.GetUserByEmail(email);
+        if (user != null)
         {
-            User user = userDAL.GetUserByEmail(email);
-            if (user != null)
-            {
-                EmailToCheck = user.Email;
-                PasswordToCheck = user.Password;
-            }
-        }
-
-        if (EmailToCheck != null)
-        {
+            PasswordToCheck = user.Password;
             return true;
         }
         else
@@ -44,7 +36,6 @@ public class UserBL
     {
         if (PasswordToCheck == GetHashString(password))
         {
-            EmailToCheck = null;
             PasswordToCheck = null;
             return true;
         }
