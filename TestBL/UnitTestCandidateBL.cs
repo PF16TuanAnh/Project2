@@ -104,4 +104,41 @@ public class UnitTestCandidateBL : IDisposable
             Assert.False(candidateBL.IsApplied(CandidateID, NewsID));
         }
     }
+    //NCT
+     
+    public void PassingGetCVByJobPosition()
+    {
+        List<CV> cv = candidateBL.GetCVByJobPosition("staff");
+        Assert.IsType<CV>(cv[0]);
+    }
+    public void FailingGetCVByJobPosition()
+    {
+        Assert.Null(candidateBL.GetCVByJobPosition(""));
+    }
+    public void PassingGetCVByCareerTitle()
+    {
+        List<CV> cv = candidateBL.GetCVByCareerTitle("Computer");
+        Assert.IsType<CV>(cv[0]);
+    }
+    public void FailingGetCVByCareerTitle()
+    {
+         Assert.Null(candidateBL.GetCVByCareerTitle(""));
+    }public void PassingGetCVByAddress ()
+    {
+        List<CV> cv = candidateBL.GetCVByAddress("Ha Noi");
+        Assert.IsType<CV>(cv[0]);
+    }
+    public void FailingGetCVByAddress ()
+    {
+        Assert.Null(candidateBL.GetCVByAddress(""));
+    }
+    public void PassingGetCVAppliedInNews()
+    {
+        List<CV> cv = candidateBL.GetCVAppliedInNews(1);
+        Assert.IsType<CV>(cv[0]);
+    }
+    public void FailingGetCVByAddress ()
+    {
+        Assert.Null(candidateBL.GetCVAppliedInNews(0));
+    }
 }
