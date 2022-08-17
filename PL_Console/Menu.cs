@@ -90,6 +90,7 @@ public class Menu
 
     private static void CandidateMenu(int? CandidateID)
     {
+        bool end = false;
         while (true)
         {
             Candidate candidate = candidateController.GetCandidate(CandidateID);
@@ -126,13 +127,17 @@ public class Menu
                         candidateController.SearchRecruitNews(CandidateID);
                         break;
                     case "0":
-                        Console.WriteLine("================================"); 
-                        System.Environment.Exit(0);
+                        end = true;
                         break;
                     default:
                         Console.WriteLine("================================"); 
                         Console.WriteLine(" Invalid choice! Please re-enter your option.");
                         break;
+                }
+
+                if (end == true)
+                {
+                    break;
                 }
             }
             else
@@ -148,6 +153,7 @@ public class Menu
     // NCT
     private static void RecruiterMenu(int? RecruiterID)   
     {
+        bool end = false;
         while (true)
         {
             Recruiter recruiter = recruiterController.GetRecruiter(RecruiterID);
@@ -165,44 +171,48 @@ public class Menu
                 {
                     Console.WriteLine(" 1) Insert Personal Information");
                 }
-            Console.WriteLine(" 2) Add Recruitment News");
-            Console.WriteLine(" 3) View Your Recruitment News");
-            Console.WriteLine(" 4) Search CVs");
-            Console.WriteLine(" 0) Exit");
-            Console.WriteLine("================================");
-            Console.Write(" Enter the option number: ");
-            switch (UserController.GetUserInput())
-            {
-                case "1":
-                if (recruiter.PhoneNum != null)
+                Console.WriteLine(" 2) Add Recruitment News");
+                Console.WriteLine(" 3) View Your Recruitment News");
+                Console.WriteLine(" 4) Search CVs");
+                Console.WriteLine(" 0) Exit");
+                Console.WriteLine("================================");
+                Console.Write(" Enter the option number: ");
+                switch (UserController.GetUserInput())
                 {
-                    recruiterController.ViewProfileInformation(recruiter);
+                    case "1":
+                    if (recruiter.PhoneNum != null)
+                    {
+                        recruiterController.ViewProfileInformation(recruiter);
+                    }
+                    else
+                    {
+                        recruiterController.CreateNewProfileInformation(RecruiterID);
+                    }  
+                        break;
+                    case "2":
+                        recruiterController.AddRecruitmentNews(RecruiterID);
+                        break;
+                    case "3":
+                        recruiterController.DisplayNewsForRecruter(RecruiterID);
+                        // ViewYourMenuRecruitmentNews(RecruiterID);
+                        break;
+                    case "4":
+                        recruiterController.SearchCVs(RecruiterID);
+                        break;
+                    case "0":
+                        end = true;
+                        break;
+                    default:
+                        Console.WriteLine("================================"); 
+                        Console.WriteLine(" Invalid choice! Please re-enter your option.");
+                        break;
                 }
-                else
+
+                if (end == true)
                 {
-                    recruiterController.CreateNewProfileInformation(RecruiterID);
-                }  
                     break;
-                case "2":
-                    recruiterController.AddRecruitmentNews(RecruiterID);
-                    break;
-                case "3":
-                    recruiterController.DisplayNewsForRecruter(RecruiterID);
-                    // ViewYourMenuRecruitmentNews(RecruiterID);
-                    break;
-                case "4":
-                    recruiterController.SearchCVs(RecruiterID);
-                    break;
-                case "0":
-                    Console.WriteLine("================================"); 
-                    System.Environment.Exit(0);
-                    break;
-                default:
-                    Console.WriteLine("================================"); 
-                    Console.WriteLine(" Invalid choice! Please re-enter your option.");
-                    break;
+                }
             }
-        }
             else
             {
                 Console.WriteLine("================================"); 

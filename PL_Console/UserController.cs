@@ -52,12 +52,20 @@ public class UserController
                         Console.WriteLine("================================");
                         Console.WriteLine(" Logged in as a Candidate.");
                         Menu.PrintMainMenu(2, CandidateID);
+                        break;
                     }
                     else if (RecruiterID != null)
                     {
                         Console.WriteLine("================================");
                         Console.WriteLine(" Logged in as a Recruiter.");
                         Menu.PrintMainMenu(3, RecruiterID);
+                        break;
+                    }
+                    else
+                    {
+                        Console.WriteLine("================================"); 
+                        Console.WriteLine(" Unexpected errors occurred! Couldn't retrieve user info.");
+                        break;
                     }
                 }
                 else
