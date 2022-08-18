@@ -38,6 +38,10 @@ public class CandidateDAL
         if (!reader.IsDBNull(reader.GetOrdinal("CandidateID"))) candidate.CandidateID = reader.GetInt32("CandidateID");
         if (!reader.IsDBNull(reader.GetOrdinal("Username"))) candidate.Username = reader.GetString("Username");
         candidate.CandidateCV = GetCVByCandidateID(candidate.CandidateID);
+        if (candidate.CandidateCV != null)
+        {
+            candidate.CandidateCV.CVDetails = GetCVDetailsByCVID(candidate.CandidateCV.CVID);
+        }
 
         return candidate;
     }
@@ -236,7 +240,6 @@ public class CandidateDAL
         if (!reader.IsDBNull(reader.GetOrdinal("Email"))) cv.Email = reader.GetString("Email");
         if (!reader.IsDBNull(reader.GetOrdinal("SocialMedia"))) cv.SocialMedia = reader.GetString("SocialMedia");
         if (!reader.IsDBNull(reader.GetOrdinal("PersonalAddress"))) cv.PersonalAddress = reader.GetString("PersonalAddress");
-        cv.CVDetails = GetCVDetailsByCVID(cv.CVID);
 
         return cv;
     }

@@ -19,6 +19,7 @@ public class RecruiterDAL
         if (!reader.IsDBNull(reader.GetOrdinal("BusinessSize"))) recruiter.BusinessSize = reader.GetString("BusinessSize");
         if (!reader.IsDBNull(reader.GetOrdinal("BusinessField"))) recruiter.BusinessField = reader.GetString("BusinessField");
         if (!reader.IsDBNull(reader.GetOrdinal("CompanyAddress"))) recruiter.CompanyAddress = reader.GetString("CompanyAddress");
+        if (!reader.IsDBNull(reader.GetOrdinal("Username"))) recruiter.Username = reader.GetString("Username");
 
         return recruiter;
     }
@@ -262,6 +263,14 @@ public class RecruiterDAL
                 }
                 cv.Add(CandidateDAL.GetCVInfo(reader));
             }
+
+            if (cv != null)
+            {
+                foreach (CV item in cv)
+                {
+                    item.CVDetails = CandidateDAL.GetCVDetailsByCVID(item.CVID);
+                }
+            }
         }
         catch (Exception)
         {
@@ -271,7 +280,7 @@ public class RecruiterDAL
         
         DBHelper.CloseConnection();
 
-        return cv;
+        return cv!;
     }
     
     public List<CV> GetCVByCareerTitle(string CareerTitle)
@@ -293,6 +302,14 @@ public class RecruiterDAL
                 }
                 cv.Add(CandidateDAL.GetCVInfo(reader));
             }
+
+            if (cv != null)
+            {
+                foreach (CV item in cv)
+                {
+                    item.CVDetails = CandidateDAL.GetCVDetailsByCVID(item.CVID);
+                }
+            }
         }
         catch
         {
@@ -302,7 +319,7 @@ public class RecruiterDAL
         
         DBHelper.CloseConnection();
 
-        return cv;
+        return cv!;
     }
     
     public List<CV> GetCVByAddress(string Address)
@@ -324,6 +341,14 @@ public class RecruiterDAL
                 }
                 cv.Add(CandidateDAL.GetCVInfo(reader));
             }
+
+            if (cv != null)
+            {
+                foreach (CV item in cv)
+                {
+                    item.CVDetails = CandidateDAL.GetCVDetailsByCVID(item.CVID);
+                }
+            }
         }
         catch
         {
@@ -331,7 +356,7 @@ public class RecruiterDAL
             Console.WriteLine(" Unexpected problems might have occurred to the connection to the database. Couldn't retrieve CVs.");
         }
         DBHelper.CloseConnection();
-        return cv;
+        return cv!;
     }
     public List<CV> GetCVAppliedInNews(int NewsID) 
     {
@@ -353,6 +378,14 @@ public class RecruiterDAL
                 }
                 cv.Add(CandidateDAL.GetCVInfo(reader));
             }
+
+            if (cv != null)
+            {
+                foreach (CV item in cv)
+                {
+                    item.CVDetails = CandidateDAL.GetCVDetailsByCVID(item.CVID);
+                }
+            }
         }
         catch
         {
@@ -362,6 +395,6 @@ public class RecruiterDAL
         
         DBHelper.CloseConnection();
 
-        return cv;
+        return cv!;
     }
 }
