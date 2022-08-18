@@ -19,7 +19,7 @@ public class RecruiterDAL
         if (!reader.IsDBNull(reader.GetOrdinal("BusinessSize"))) recruiter.BusinessSize = reader.GetString("BusinessSize");
         if (!reader.IsDBNull(reader.GetOrdinal("BusinessField"))) recruiter.BusinessField = reader.GetString("BusinessField");
         if (!reader.IsDBNull(reader.GetOrdinal("CompanyAddress"))) recruiter.CompanyAddress = reader.GetString("CompanyAddress");
-        if (!reader.IsDBNull(reader.GetOrdinal("Username"))) recruiter.Username = reader.GetString("Username");
+        if (!reader.IsDBNull(reader.GetOrdinal("Name"))) recruiter.Name = reader.GetString("Name");
 
         return recruiter;
     }
@@ -52,8 +52,8 @@ public class RecruiterDAL
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@RecruiterID", RecruiterID);
             cmd.Parameters["@RecruiterID"].Direction = System.Data.ParameterDirection.Input;
-            cmd.Parameters.AddWithValue("@Username", profile.Username);
-            cmd.Parameters["@Username"].Direction = System.Data.ParameterDirection.Input;
+            cmd.Parameters.AddWithValue("@Name", profile.Name);
+            cmd.Parameters["@Name"].Direction = System.Data.ParameterDirection.Input;
             cmd.Parameters.AddWithValue("@PhoneNum", profile.PhoneNum);
             cmd.Parameters["@PhoneNum"].Direction = System.Data.ParameterDirection.Input;
             cmd.Parameters.AddWithValue("@Position", profile.Position);

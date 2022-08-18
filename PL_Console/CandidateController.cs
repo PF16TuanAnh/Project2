@@ -2,7 +2,6 @@ namespace Pl_Console;
 using BL;
 using Persistence;
 using System.Text.RegularExpressions;
-using ConsoleTables;
 
 public class CandidateController
 {
@@ -134,7 +133,7 @@ public class CandidateController
                 }
                 else
                 {
-                    Console.WriteLine("\n Invalid email format! Please re-enter your emai.\n");
+                    Console.WriteLine("\n Invalid email format! Please re-enter your email.\n");
                 }
             }
         }
@@ -279,7 +278,7 @@ public class CandidateController
             JobPosition = UserController.GetUserInput();
             if(JobPosition.Length > 100)
             {
-                Console.WriteLine("\n Job Position is too long. Maximum characters allowed is 100\n");
+                Console.WriteLine("\n The name is too long. Maximum characters allowed is 100\n");
             }
             else
             {
@@ -472,7 +471,7 @@ public class CandidateController
                             }
                             else
                             {
-                                Console.WriteLine("\n Invalid email format! Please re-enter your emai.\n");
+                                Console.WriteLine("\n Invalid email format! Please re-enter your email.\n");
                             }
                         }
                     }
@@ -1075,7 +1074,7 @@ public class CandidateController
                 Console.WriteLine("\n================================");
                 Console.WriteLine(" Name: {0}", news.NewsName);
                 Console.WriteLine(" Deadline: {0}", news.DeadLine);
-                Console.WriteLine(" Recruiter: {0}", recruiter.Username);
+                Console.WriteLine(" Recruiter: {0}", recruiter.Name);
                 Console.WriteLine(" Recruiter's Number: {0}", recruiter.PhoneNum);
                 Console.WriteLine(" SalaryRange: {0}", news.SalaryRange);
                 Console.WriteLine(" Form of Employment: {0}", news.FormOfEmploy);

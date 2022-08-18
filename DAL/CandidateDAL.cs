@@ -36,7 +36,7 @@ public class CandidateDAL
     {
         Candidate candidate = new Candidate();
         if (!reader.IsDBNull(reader.GetOrdinal("CandidateID"))) candidate.CandidateID = reader.GetInt32("CandidateID");
-        if (!reader.IsDBNull(reader.GetOrdinal("Username"))) candidate.Username = reader.GetString("Username");
+        if (!reader.IsDBNull(reader.GetOrdinal("Name"))) candidate.Name = reader.GetString("Name");
         candidate.CandidateCV = GetCVByCandidateID(candidate.CandidateID);
         if (candidate.CandidateCV != null)
         {

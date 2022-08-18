@@ -1,6 +1,6 @@
 namespace Pl_Console;
 using Persistence;
-using ConsoleTables;
+using Spectre.Console;
 public class Menu
 {
     public static Dictionary<int, Delegate> MainMenus = new Dictionary<int, Delegate>()
@@ -97,7 +97,7 @@ public class Menu
             if(candidate != null)
             {
                 Console.WriteLine("================================\n");
-                Console.WriteLine(" Username: {0}", candidate.Username);
+                Console.WriteLine(" User: {0}", candidate.Name);
                 Console.WriteLine("\n================================");
                 if (candidate.CandidateCV != null)
                 {
@@ -161,7 +161,7 @@ public class Menu
             if(recruiter != null)
             {
             Console.WriteLine("================================\n");
-            Console.WriteLine(" Username: {0}", recruiter.Username);
+            Console.WriteLine(" User: {0}", recruiter.Name);
             Console.WriteLine("\n================================");
             if (recruiter.PhoneNum != null)
                 {
@@ -235,70 +235,135 @@ public class Menu
         Console.WriteLine(" Email           : {0}", cv.Email);
         Console.WriteLine(" Social Media    : {0}", cv.SocialMedia);
         Console.WriteLine(" Address         : {0}", cv.PersonalAddress);
-        Console.WriteLine(" \n Skills:\n");
         if(cv.CVDetails != null)
         {
-            var table = new ConsoleTable("Job Position", "From", "To", "Association", "Description");
+            int i = 0;
+            var table = new Table();
+            table.AddColumn("[blue]Pos[/]");
+            table.AddColumn("[red]Skill[/]");
+            table.AddColumn("[red]From[/]");
+            table.AddColumn("[red]To[/]");
+            table.AddColumn("[red]Association[/]");
+            table.AddColumn("[red]Description[/]");
+            table.Columns[0].Width(4).Centered();
+            table.Columns[1].Width(20);
+            table.Columns[2].Width(10);
+            table.Columns[3].Width(10);
+            table.Columns[4].Width(20);
+            table.Columns[5].Width(30);
             foreach (CVDetails detail in cv.CVDetails)
             {
                 if(detail.Title == "Skill")
                 {
-                    table.AddRow(detail.JobPosition, detail.FromDate, detail.ToDate, detail.Association, detail.Description);  
+                    i += 1;
+                    table.AddRow("[green]" + i.ToString() + "[/]", detail.JobPosition ?? "", detail.FromDate ?? "", detail.ToDate ?? "", detail.Association ?? "", detail.Description ?? "");  
                 }
             }
-            table.Write(Format.Alternative);
+            table.LeftAligned();
+            AnsiConsole.Write(table);
+            
         }
-        Console.WriteLine(" Work Experiences:\n");
+        
         if(cv.CVDetails != null)
         {
-            var table = new ConsoleTable("Job Position", "From", "To", "Association", "Description");
+            int i = 0;
+            var table = new Table();
+            table.AddColumn("[blue]Pos[/]");
+            table.AddColumn("[red]Work Experience[/]");
+            table.AddColumn("[red]From[/]");
+            table.AddColumn("[red]To[/]");
+            table.AddColumn("[red]Association[/]");
+            table.AddColumn("[red]Description[/]");
+            table.Columns[0].Width(4).Centered();
+            table.Columns[1].Width(20);
+            table.Columns[2].Width(10);
+            table.Columns[3].Width(10);
+            table.Columns[4].Width(20);
+            table.Columns[5].Width(30);
             foreach (CVDetails detail in cv.CVDetails)
             {
                 if(detail.Title == "Work Experience")
                 {
-                    table.AddRow(detail.JobPosition, detail.FromDate, detail.ToDate, detail.Association, detail.Description);  
+                    table.AddRow("[green]" + i.ToString() + "[/]", detail.JobPosition ?? "", detail.FromDate ?? "", detail.ToDate ?? "", detail.Association ?? "", detail.Description ?? "");  
                 }
             }
-            table.Write(Format.Alternative);
+            table.LeftAligned();
+            AnsiConsole.Write(table);
         }
-        Console.WriteLine(" Educations:\n");
+        
         if(cv.CVDetails != null)
         {
-            var table = new ConsoleTable("Job Position", "From", "To", "Association", "Description");
+            int i = 0;
+            var table = new Table();
+            table.AddColumn("[blue]Pos[/]");
+            table.AddColumn("[red]Education[/]");
+            table.AddColumn("[red]From[/]");
+            table.AddColumn("[red]To[/]");
+            table.AddColumn("[red]Association[/]");
+            table.AddColumn("[red]Description[/]");
+            table.Columns[0].Width(4).Centered();
+            table.Columns[1].Width(20);
+            table.Columns[2].Width(10);
+            table.Columns[3].Width(10);
+            table.Columns[4].Width(20);
+            table.Columns[5].Width(30);
             foreach (CVDetails detail in cv.CVDetails)
             {
                 if(detail.Title == "Education")
                 {
-                    table.AddRow(detail.JobPosition, detail.FromDate, detail.ToDate, detail.Association, detail.Description);  
+                    table.AddRow("[green]" + i.ToString() + "[/]", detail.JobPosition ?? "", detail.FromDate ?? "", detail.ToDate ?? "", detail.Association ?? "", detail.Description ?? "");  
                 }
             }
-            table.Write(Format.Alternative);
+            table.LeftAligned();
+            AnsiConsole.Write(table);
         }
-        Console.WriteLine(" Activities:\n");
+        
         if(cv.CVDetails != null)
         {
-            var table = new ConsoleTable("Job Position", "From", "To", "Association", "Description");
+            int i = 0;
+            var table = new Table();
+            table.AddColumn("[blue]Pos[/]");
+            table.AddColumn("[red]Education[/]");
+            table.AddColumn("[red]From[/]");
+            table.AddColumn("[red]To[/]");
+            table.AddColumn("[red]Association[/]");
+            table.AddColumn("[red]Description[/]");
+            table.Columns[0].Width(4).Centered();
+            table.Columns[1].Width(20);
+            table.Columns[2].Width(10);
+            table.Columns[3].Width(10);
+            table.Columns[4].Width(20);
+            table.Columns[5].Width(30);
             foreach (CVDetails detail in cv.CVDetails)
             {
                 if(detail.Title == "Activity")
                 {
-                    table.AddRow(detail.JobPosition, detail.FromDate, detail.ToDate, detail.Association, detail.Description);  
+                    table.AddRow("[green]" + i.ToString() + "[/]", detail.JobPosition ?? "", detail.FromDate ?? "", detail.ToDate ?? "", detail.Association ?? "", detail.Description ?? "");  
                 }
             }
-            table.Write(Format.Alternative);
+            table.LeftAligned();
+            AnsiConsole.Write(table);
         }
-        Console.WriteLine(" Certifications:\n");
+        
         if(cv.CVDetails != null)
         {
-            var table = new ConsoleTable("Job Position", "From", "To", "Association", "Description");
+            int i = 0;
+            var table = new Table();
+            table.AddColumn("[blue]Pos[/]");
+            table.AddColumn("[red]Certificate[/]");
+            table.AddColumn("[red]Date[/]");
+            table.Columns[0].Width(4).Centered();
+            table.Columns[1].Width(20);
+            table.Columns[2].Width(10);
             foreach (CVDetails detail in cv.CVDetails)
             {
                 if(detail.Title == "Certificate")
                 {
-                    table.AddRow(detail.JobPosition, detail.FromDate, detail.ToDate, detail.Association, detail.Description);  
+                    table.AddRow("[green]" + i.ToString() + "[/]", detail.JobPosition ?? "", detail.FromDate ?? "");  
                 }
             }
-            table.Write(Format.Alternative);
+            table.LeftAligned();
+            AnsiConsole.Write(table);
         }
         Console.WriteLine("================================");
         Console.WriteLine(" 1) FullName");
@@ -317,71 +382,136 @@ public class Menu
 
     private static void UpdateCVDetailsMenu(List<CVDetails>? CVDetails)
     {
-        Console.WriteLine("================================"); 
-        Console.WriteLine(" Skills:\n");
+        Console.WriteLine("================================");
         if(CVDetails != null)
         {
-            var table = new ConsoleTable("Job Position", "From", "To", "Association", "Description");
+            int i = 0;
+            var table = new Table();
+            table.AddColumn("[blue]Pos[/]");
+            table.AddColumn("[red]Skill[/]");
+            table.AddColumn("[red]From[/]");
+            table.AddColumn("[red]To[/]");
+            table.AddColumn("[red]Association[/]");
+            table.AddColumn("[red]Description[/]");
+            table.Columns[0].Width(4).Centered();
+            table.Columns[1].Width(20);
+            table.Columns[2].Width(10);
+            table.Columns[3].Width(10);
+            table.Columns[4].Width(20);
+            table.Columns[5].Width(30);
             foreach (CVDetails detail in CVDetails)
             {
                 if(detail.Title == "Skill")
                 {
-                    table.AddRow(detail.JobPosition, detail.FromDate, detail.ToDate, detail.Association, detail.Description);  
+                    i += 1;
+                    table.AddRow("[green]" + i.ToString() + "[/]", detail.JobPosition ?? "", detail.FromDate ?? "", detail.ToDate ?? "", detail.Association ?? "", detail.Description ?? "");  
                 }
             }
-            table.Write(Format.Alternative);
+            table.LeftAligned();
+            AnsiConsole.Write(table);
+            
         }
-        Console.WriteLine(" Work Experiences:\n");
+        
         if(CVDetails != null)
         {
-            var table = new ConsoleTable("Job Position", "From", "To", "Association", "Description");
+            int i = 0;
+            var table = new Table();
+            table.AddColumn("[blue]Pos[/]");
+            table.AddColumn("[red]Work Experience[/]");
+            table.AddColumn("[red]From[/]");
+            table.AddColumn("[red]To[/]");
+            table.AddColumn("[red]Association[/]");
+            table.AddColumn("[red]Description[/]");
+            table.Columns[0].Width(4).Centered();
+            table.Columns[1].Width(20);
+            table.Columns[2].Width(10);
+            table.Columns[3].Width(10);
+            table.Columns[4].Width(20);
+            table.Columns[5].Width(30);
             foreach (CVDetails detail in CVDetails)
             {
                 if(detail.Title == "Work Experience")
                 {
-                    table.AddRow(detail.JobPosition, detail.FromDate, detail.ToDate, detail.Association, detail.Description);  
+                    table.AddRow("[green]" + i.ToString() + "[/]", detail.JobPosition ?? "", detail.FromDate ?? "", detail.ToDate ?? "", detail.Association ?? "", detail.Description ?? "");  
                 }
             }
-            table.Write(Format.Alternative);
+            table.LeftAligned();
+            AnsiConsole.Write(table);
         }
-        Console.WriteLine(" Educations:\n");
+        
         if(CVDetails != null)
         {
-            var table = new ConsoleTable("Job Position", "From", "To", "Association", "Description");
+            int i = 0;
+            var table = new Table();
+            table.AddColumn("[blue]Pos[/]");
+            table.AddColumn("[red]Education[/]");
+            table.AddColumn("[red]From[/]");
+            table.AddColumn("[red]To[/]");
+            table.AddColumn("[red]Association[/]");
+            table.AddColumn("[red]Description[/]");
+            table.Columns[0].Width(4).Centered();
+            table.Columns[1].Width(20);
+            table.Columns[2].Width(10);
+            table.Columns[3].Width(10);
+            table.Columns[4].Width(20);
+            table.Columns[5].Width(30);
             foreach (CVDetails detail in CVDetails)
             {
                 if(detail.Title == "Education")
                 {
-                    table.AddRow(detail.JobPosition, detail.FromDate, detail.ToDate, detail.Association, detail.Description);  
+                    table.AddRow("[green]" + i.ToString() + "[/]", detail.JobPosition ?? "", detail.FromDate ?? "", detail.ToDate ?? "", detail.Association ?? "", detail.Description ?? "");  
                 }
             }
-            table.Write(Format.Alternative);
+            table.LeftAligned();
+            AnsiConsole.Write(table);
         }
-        Console.WriteLine(" Activities:\n");
+        
         if(CVDetails != null)
         {
-            var table = new ConsoleTable("Job Position", "From", "To", "Association", "Description");
+            int i = 0;
+            var table = new Table();
+            table.AddColumn("[blue]Pos[/]");
+            table.AddColumn("[red]Education[/]");
+            table.AddColumn("[red]From[/]");
+            table.AddColumn("[red]To[/]");
+            table.AddColumn("[red]Association[/]");
+            table.AddColumn("[red]Description[/]");
+            table.Columns[0].Width(4).Centered();
+            table.Columns[1].Width(20);
+            table.Columns[2].Width(10);
+            table.Columns[3].Width(10);
+            table.Columns[4].Width(20);
+            table.Columns[5].Width(30);
             foreach (CVDetails detail in CVDetails)
             {
                 if(detail.Title == "Activity")
                 {
-                    table.AddRow(detail.JobPosition, detail.FromDate, detail.ToDate, detail.Association, detail.Description);  
+                    table.AddRow("[green]" + i.ToString() + "[/]", detail.JobPosition ?? "", detail.FromDate ?? "", detail.ToDate ?? "", detail.Association ?? "", detail.Description ?? "");  
                 }
             }
-            table.Write(Format.Alternative);
+            table.LeftAligned();
+            AnsiConsole.Write(table);
         }
-        Console.WriteLine(" Certifications:\n");
+        
         if(CVDetails != null)
         {
-            var table = new ConsoleTable("Job Position", "From", "To", "Association", "Description");
+            int i = 0;
+            var table = new Table();
+            table.AddColumn("[blue]Pos[/]");
+            table.AddColumn("[red]Certificate[/]");
+            table.AddColumn("[red]Date[/]");
+            table.Columns[0].Width(4).Centered();
+            table.Columns[1].Width(20);
+            table.Columns[2].Width(10);
             foreach (CVDetails detail in CVDetails)
             {
                 if(detail.Title == "Certificate")
                 {
-                    table.AddRow(detail.JobPosition, detail.FromDate, detail.ToDate, detail.Association, detail.Description);  
+                    table.AddRow("[green]" + i.ToString() + "[/]", detail.JobPosition ?? "", detail.FromDate ?? "");  
                 }
             }
-            table.Write(Format.Alternative);
+            table.LeftAligned();
+            AnsiConsole.Write(table);
         }
         Console.WriteLine("================================");
         Console.WriteLine(" 1) Add");
@@ -394,7 +524,11 @@ public class Menu
 
     private static void SearchedRecruitNewsMenu(List<RecruitNews> recruitNews)
     {
-        var table = new ConsoleTable("Pos", "Name");
+        var table = new Table();
+        table.AddColumn("[blue]Pos[/]");
+        table.AddColumn("[red]Name[/]");
+        table.Columns[0].Width(4).Centered();
+        table.Columns[1].Width(40);
 
         int count = 0;
         Console.WriteLine("================================\n");
@@ -402,16 +536,22 @@ public class Menu
         Console.WriteLine("\n================================");
         foreach (RecruitNews news in recruitNews)
         {
-            table.AddRow(++count, news.NewsName);
+            count = ++count;
+            table.AddRow("[green]" + count.ToString() + "[/]", news.NewsName ?? "");
         }
-        table.Write(Format.Alternative);
+        table.LeftAligned();
+        AnsiConsole.Write(table);
         Console.WriteLine("================================");
         Console.Write(" Enter the position of news you like to view or 0 to return: ");
     }
 
     private static void ViewAddedNewsMenu(List<RecruitNews> recruitNews)
     {
-        var table = new ConsoleTable("Pos", "Name");
+        var table = new Table();
+        table.AddColumn("[blue]Pos[/]");
+        table.AddColumn("[red]Name[/]");
+        table.Columns[0].Width(4).Centered();
+        table.Columns[1].Width(40);
 
         int count = 0;
         Console.WriteLine("================================\n");
@@ -419,9 +559,11 @@ public class Menu
         Console.WriteLine("\n================================");
         foreach (RecruitNews news in recruitNews)
         {
-            table.AddRow(++count, news.NewsName);
+            count = ++count;
+            table.AddRow("[green]" + count.ToString() + "[/]", news.NewsName ?? "");
         }
-        table.Write(Format.Alternative);
+        table.LeftAligned();
+        AnsiConsole.Write(table);
         Console.WriteLine("================================");
         Console.Write(" Enter the position of news you like to view or 0 to return: ");
     }
@@ -435,15 +577,19 @@ public class Menu
         Console.WriteLine(" 2,PhoneNum           : {0}", recruiter.PhoneNum);
         Console.WriteLine(" 3,Position           : {0}", recruiter.Position);
         Console.WriteLine(" 4,CompanyDescription : {0}", recruiter.CompanyDescription);
-        Console.WriteLine(" 5,Business Size     : {0}", recruiter.BusinessSize);
-        Console.WriteLine(" 6,Business Field    : {0}", recruiter.BusinessField);
+        Console.WriteLine(" 5,Business Size      : {0}", recruiter.BusinessSize);
+        Console.WriteLine(" 6,Business Field     : {0}", recruiter.BusinessField);
         Console.WriteLine(" 7,Company Address    : {0}", recruiter.CompanyAddress);
         Console.Write(" Enter the option number to change the details or 0 to return: ");
     }
 
     private static void SearchedCVsMenu(List<CV> cv)
     {
-        var table = new ConsoleTable("Pos", "Name");
+        var table = new Table();
+        table.AddColumn("[blue]Pos[/]");
+        table.AddColumn("[red]Name[/]");
+        table.Columns[0].Width(4).Centered();
+        table.Columns[1].Width(40);
 
         int count = 0;
         Console.WriteLine("================================\n");
@@ -451,9 +597,11 @@ public class Menu
         Console.WriteLine("\n================================");
         foreach (CV cvs in cv)
         {
-            table.AddRow(++count, cvs.FullName);
+            count = ++count;
+            table.AddRow("[green]" + count.ToString() + "[/]", cvs.FullName ?? "");
         }
-        table.Write(Format.Alternative);
+        table.LeftAligned();
+        AnsiConsole.Write(table);
         Console.WriteLine("================================");
         Console.Write(" Enter the position of news you like to view or 0 to return: ");
     }

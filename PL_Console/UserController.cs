@@ -124,7 +124,7 @@ public class UserController
                 }
                 else
                 {
-                    Console.WriteLine("\n Invalid email format! Please re-enter your emai.\n");
+                    Console.WriteLine("\n Invalid email format! Please re-enter your email.\n");
                 }
             }
         }
@@ -150,11 +150,11 @@ public class UserController
             {
                 while (true)
                 {
-                    Console.Write(" Username: ");
+                    Console.Write(" Name: ");
                     username = GetUserInput();
                     if(username.Length > 50)
                     {
-                        Console.WriteLine("\n Username is too long. Maximum characters allowed is 50\n");
+                        Console.WriteLine("\n Name is too long. Maximum characters allowed is 50\n");
                     }
                     else
                     {

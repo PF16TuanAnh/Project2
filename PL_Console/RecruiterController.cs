@@ -2,7 +2,7 @@ namespace Pl_Console;
 using BL;
 using Persistence;
 using System.Text.RegularExpressions;
-using ConsoleTables;
+using Spectre.Console;
 
 public class RecruiterController
 {
@@ -1050,7 +1050,7 @@ public class RecruiterController
             while (true)
             {
             Console.WriteLine("================================\n");
-            Console.WriteLine("            YOUR CV");
+            Console.WriteLine("           SELECTED CV");
             Console.WriteLine("\n================================");
             Console.WriteLine(" Full Name       : {0}", cv.FullName);
             Console.WriteLine(" Career Title    : {0}", cv.CareerTitle);
@@ -1062,68 +1062,134 @@ public class RecruiterController
             Console.WriteLine(" Address         : {0}", cv.PersonalAddress);
             Console.WriteLine(" \n Skills:\n");
             if(cv.CVDetails != null)
+        {
+            int i = 0;
+            var table = new Table();
+            table.AddColumn("[blue]Pos[/]");
+            table.AddColumn("[red]Skill[/]");
+            table.AddColumn("[red]From[/]");
+            table.AddColumn("[red]To[/]");
+            table.AddColumn("[red]Association[/]");
+            table.AddColumn("[red]Description[/]");
+            table.Columns[0].Width(4).Centered();
+            table.Columns[1].Width(20);
+            table.Columns[2].Width(10);
+            table.Columns[3].Width(10);
+            table.Columns[4].Width(20);
+            table.Columns[5].Width(30);
+            foreach (CVDetails detail in cv.CVDetails)
             {
-                var table = new ConsoleTable("Job Position", "From", "To", "Association", "Description");
-                foreach (CVDetails detail in cv.CVDetails)
+                if(detail.Title == "Skill")
                 {
-                    if(detail.Title == "Skill")
-                    {
-                        table.AddRow(detail.JobPosition, detail.FromDate, detail.ToDate, detail.Association, detail.Description);  
-                    }
+                    i += 1;
+                    table.AddRow("[green]" + i.ToString() + "[/]", detail.JobPosition ?? "", detail.FromDate ?? "", detail.ToDate ?? "", detail.Association ?? "", detail.Description ?? "");  
                 }
-                table.Write(Format.Alternative);
             }
-            Console.WriteLine(" Work Experiences:\n");
+            table.LeftAligned();
+            AnsiConsole.Write(table);
+            
+        }
+        
+        if(cv.CVDetails != null)
+        {
+            int i = 0;
+            var table = new Table();
+            table.AddColumn("[blue]Pos[/]");
+            table.AddColumn("[red]Work Experience[/]");
+            table.AddColumn("[red]From[/]");
+            table.AddColumn("[red]To[/]");
+            table.AddColumn("[red]Association[/]");
+            table.AddColumn("[red]Description[/]");
+            table.Columns[0].Width(4).Centered();
+            table.Columns[1].Width(20);
+            table.Columns[2].Width(10);
+            table.Columns[3].Width(10);
+            table.Columns[4].Width(20);
+            table.Columns[5].Width(30);
+            foreach (CVDetails detail in cv.CVDetails)
+            {
+                if(detail.Title == "Work Experience")
+                {
+                    table.AddRow("[green]" + i.ToString() + "[/]", detail.JobPosition ?? "", detail.FromDate ?? "", detail.ToDate ?? "", detail.Association ?? "", detail.Description ?? "");  
+                }
+            }
+            table.LeftAligned();
+            AnsiConsole.Write(table);
+        }
+        
+        if(cv.CVDetails != null)
+        {
+            int i = 0;
+            var table = new Table();
+            table.AddColumn("[blue]Pos[/]");
+            table.AddColumn("[red]Education[/]");
+            table.AddColumn("[red]From[/]");
+            table.AddColumn("[red]To[/]");
+            table.AddColumn("[red]Association[/]");
+            table.AddColumn("[red]Description[/]");
+            table.Columns[0].Width(4).Centered();
+            table.Columns[1].Width(20);
+            table.Columns[2].Width(10);
+            table.Columns[3].Width(10);
+            table.Columns[4].Width(20);
+            table.Columns[5].Width(30);
+            foreach (CVDetails detail in cv.CVDetails)
+            {
+                if(detail.Title == "Education")
+                {
+                    table.AddRow("[green]" + i.ToString() + "[/]", detail.JobPosition ?? "", detail.FromDate ?? "", detail.ToDate ?? "", detail.Association ?? "", detail.Description ?? "");  
+                }
+            }
+            table.LeftAligned();
+            AnsiConsole.Write(table);
+            }
+            
             if(cv.CVDetails != null)
             {
-                var table = new ConsoleTable("Job Position", "From", "To", "Association", "Description");
-                foreach (CVDetails detail in cv.CVDetails)
-                {
-                    if(detail.Title == "Work Experience")
-                    {
-                        table.AddRow(detail.JobPosition, detail.FromDate, detail.ToDate, detail.Association, detail.Description);  
-                    }
-                }
-                table.Write(Format.Alternative);
-            }
-            Console.WriteLine(" Educations:\n");
-            if(cv.CVDetails != null)
-            {
-                var table = new ConsoleTable("Job Position", "From", "To", "Association", "Description");
-                foreach (CVDetails detail in cv.CVDetails)
-                {
-                    if(detail.Title == "Education")
-                    {
-                        table.AddRow(detail.JobPosition, detail.FromDate, detail.ToDate, detail.Association, detail.Description);  
-                    }
-                }
-                table.Write(Format.Alternative);
-            }
-            Console.WriteLine(" Activities:\n");
-            if(cv.CVDetails != null)
-            {
-                var table = new ConsoleTable("Job Position", "From", "To", "Association", "Description");
+                int i = 0;
+                var table = new Table();
+                table.AddColumn("[blue]Pos[/]");
+                table.AddColumn("[red]Education[/]");
+                table.AddColumn("[red]From[/]");
+                table.AddColumn("[red]To[/]");
+                table.AddColumn("[red]Association[/]");
+                table.AddColumn("[red]Description[/]");
+                table.Columns[0].Width(4).Centered();
+                table.Columns[1].Width(20);
+                table.Columns[2].Width(10);
+                table.Columns[3].Width(10);
+                table.Columns[4].Width(20);
+                table.Columns[5].Width(30);
                 foreach (CVDetails detail in cv.CVDetails)
                 {
                     if(detail.Title == "Activity")
                     {
-                        table.AddRow(detail.JobPosition, detail.FromDate, detail.ToDate, detail.Association, detail.Description);  
+                        table.AddRow("[green]" + i.ToString() + "[/]", detail.JobPosition ?? "", detail.FromDate ?? "", detail.ToDate ?? "", detail.Association ?? "", detail.Description ?? "");  
                     }
                 }
-                table.Write(Format.Alternative);
+                table.LeftAligned();
+                AnsiConsole.Write(table);
             }
-            Console.WriteLine(" Certifications:\n");
+            
             if(cv.CVDetails != null)
             {
-                var table = new ConsoleTable("Job Position", "From", "To", "Association", "Description");
+                int i = 0;
+                var table = new Table();
+                table.AddColumn("[blue]Pos[/]");
+                table.AddColumn("[red]Certificate[/]");
+                table.AddColumn("[red]Date[/]");
+                table.Columns[0].Width(4).Centered();
+                table.Columns[1].Width(20);
+                table.Columns[2].Width(10);
                 foreach (CVDetails detail in cv.CVDetails)
                 {
                     if(detail.Title == "Certificate")
                     {
-                        table.AddRow(detail.JobPosition, detail.FromDate, detail.ToDate, detail.Association, detail.Description);  
+                        table.AddRow("[green]" + i.ToString() + "[/]", detail.JobPosition ?? "", detail.FromDate ?? "");  
                     }
                 }
-                table.Write(Format.Alternative);
+                table.LeftAligned();
+                AnsiConsole.Write(table);
             }
             Console.WriteLine("================================");
                 Console.WriteLine(" 0) Exit");

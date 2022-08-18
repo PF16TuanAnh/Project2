@@ -74,8 +74,8 @@ public class UserDAL
         try
         {   
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@Username", user.Username);
-            cmd.Parameters["@Username"].Direction = System.Data.ParameterDirection.Input;
+            cmd.Parameters.AddWithValue("@Name", user.Name);
+            cmd.Parameters["@Name"].Direction = System.Data.ParameterDirection.Input;
             cmd.Parameters.AddWithValue("@Email", user.Email);
             cmd.Parameters["@Email"].Direction = System.Data.ParameterDirection.Input;
             cmd.Parameters.AddWithValue("@UserPassword", user.Password);
@@ -104,8 +104,8 @@ public class UserDAL
         try
         {   
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@Username", user.Username);
-            cmd.Parameters["@Username"].Direction = System.Data.ParameterDirection.Input;
+            cmd.Parameters.AddWithValue("@Name", user.Name);
+            cmd.Parameters["@Name"].Direction = System.Data.ParameterDirection.Input;
             cmd.Parameters.AddWithValue("@Email", user.Email);
             cmd.Parameters["@Email"].Direction = System.Data.ParameterDirection.Input;
             cmd.Parameters.AddWithValue("@UserPassword", user.Password);
@@ -130,7 +130,7 @@ public class UserDAL
     {
         User user = new User();
         user.UserID = reader.GetInt32("UserID");
-        user.Username = reader.GetString("Username");
+        user.Name = reader.GetString("Name");
         user.Password = reader.GetString("UserPassword");
         user.Email = reader.GetString("Email");
         user.Gender = reader.GetString("Gender");
