@@ -16,6 +16,7 @@ public class UserController
 
     public void LogIn()
     {
+        Console.Clear();
         string email;
         string password;
 
@@ -49,35 +50,39 @@ public class UserController
                     int? RecruiterID = userBL.GetRecruiterIDByEmail(email);
                     if (CandidateID != null)
                     {
-                        Console.WriteLine("================================");
-                        Console.WriteLine(" Logged in as a Candidate.");
+                        Console.Clear();
                         Menu.PrintMainMenu(2, CandidateID);
                         break;
                     }
                     else if (RecruiterID != null)
                     {
-                        Console.WriteLine("================================");
-                        Console.WriteLine(" Logged in as a Recruiter.");
+                        Console.Clear();
                         Menu.PrintMainMenu(3, RecruiterID);
                         break;
                     }
                     else
                     {
+                        Console.Clear();
                         Console.WriteLine("================================"); 
-                        Console.WriteLine(" Unexpected errors occurred! Couldn't retrieve user info.");
+                        Console.WriteLine(" Unexpected errors occurred! Couldn't retrieve the user info.");
                         break;
                     }
                 }
                 else
                 {
-                    Console.WriteLine("================================");
+                    Console.Clear();
+                    Console.WriteLine("================================\n");
+                    Console.WriteLine("            LOG IN");
+                    Console.WriteLine("\n================================");
                     Console.WriteLine(" Password is incorrect! Please re-enter your password.");
                 }
             }
             else
             {
-                Console.WriteLine("================================");
-                Console.WriteLine(" Email doesn't exist! Please re-enter your email.");
+                Console.WriteLine("================================\n");
+                Console.WriteLine("            LOG IN");
+                Console.WriteLine("\n================================");
+                Console.WriteLine(" Incorrect email! Please re-enter your email.");
                 Console.Write(" Email: ");
                 email = GetUserInput();
             }
@@ -86,6 +91,7 @@ public class UserController
         
     public void Register()
     {
+        Console.Clear();
         string email;
         string password;
         string username;
@@ -103,10 +109,17 @@ public class UserController
             email = GetUserInput();
             if(email.Length > 100)
             {
-                Console.WriteLine("\n Email is too long. Maximum characters allowed is 100\n");
+                Console.Clear();
+                Console.WriteLine("================================");
+                Console.WriteLine("  Email is too long. Maximum characters allowed is 100.");
+                Console.WriteLine("================================\n");
+                Console.WriteLine("            REGISTER");
+                Console.WriteLine("\n================================");
+                
             }
             else if (email == "0")
             {
+                Console.Clear();
                 break;
             }
             else
@@ -119,26 +132,41 @@ public class UserController
                     }
                     else
                     {
-                        Console.WriteLine("\n Email has been used.\n");
+                        Console.Clear();
+                        Console.WriteLine("================================");
+                        Console.WriteLine(" Email has been used.");
+                        Console.WriteLine("================================\n");
+                        Console.WriteLine("            REGISTER");
+                        Console.WriteLine("\n================================");
                     }
                 }
                 else
                 {
-                    Console.WriteLine("\n Invalid email format! Please re-enter your email.\n");
+                    Console.Clear();
+                    Console.WriteLine("================================");
+                    Console.WriteLine(" Invalid email format! Please re-enter your email.");
+                    Console.WriteLine("================================\n");
+                    Console.WriteLine("            REGISTER");
+                    Console.WriteLine("\n================================");
                 }
             }
         }
         
         if (email != "0")
         {
+            Console.Clear();
             while (true)
             {
+                Console.WriteLine("================================\n");
+                Console.WriteLine("            REGISTER");
+                Console.WriteLine("\n================================");
                 Console.WriteLine(" You can Enter 0 on password to turn back.");
                 Console.Write(" Password: ");
                 password = GetUserInput();
                 if(password.Length > 100)
                 {
-                    Console.WriteLine("\n Password is too long. Maximum characters allowed is 100\n");
+                    Console.Clear();
+                    Console.WriteLine(" Password is too long. Maximum characters allowed is 100.");
                 }
                 else
                 {
@@ -148,13 +176,18 @@ public class UserController
 
             if(password != "0")
             {
+                Console.Clear();
                 while (true)
                 {
+                    Console.WriteLine("================================\n");
+                    Console.WriteLine("            REGISTER");
+                    Console.WriteLine("\n================================");
                     Console.Write(" Name: ");
                     username = GetUserInput();
                     if(username.Length > 50)
                     {
-                        Console.WriteLine("\n Name is too long. Maximum characters allowed is 50\n");
+                        Console.Clear();
+                        Console.WriteLine(" Name is too long. Maximum characters allowed is 50.");
                     }
                     else
                     {
@@ -162,7 +195,7 @@ public class UserController
                     }
                 }  
                 
-
+                Console.Clear();
                 while (true)
                 {
                     Console.WriteLine("================================\n");
@@ -188,6 +221,7 @@ public class UserController
                             end = true;
                             break;
                         default:
+                            Console.Clear();
                             Console.WriteLine("================================"); 
                             Console.WriteLine(" Invalid choice! Please re-enter your option.");
                             break;
@@ -199,6 +233,7 @@ public class UserController
                     }
                 }
 
+                Console.Clear();
                 while (true)
                 {
                     Console.WriteLine("================================\n");
@@ -219,6 +254,7 @@ public class UserController
                             end = true;
                             break;
                         default:
+                            Console.Clear();
                             Console.WriteLine("================================"); 
                             Console.WriteLine(" Invalid choice! Please re-enter your option.");
                             break;
@@ -237,30 +273,32 @@ public class UserController
                 {
                     if(ID != null)
                     {
-                        Console.WriteLine("================================");
-                        Console.WriteLine(" Logged in as a Candidate.");
                         Menu.PrintMainMenu(2, ID);
                     }
                     else
                     {
+                        Console.Clear();
                         Console.WriteLine("================================"); 
-                        Console.WriteLine(" System Error! Couldn't log in.");
+                        Console.WriteLine(" System Error! Returning to main menu.");
                     }
                 }
                 else
                 {
                     if(ID != null)
                     {
-                        Console.WriteLine("================================");
-                        Console.WriteLine(" Logged in as a Recruiter.");
                         Menu.PrintMainMenu(3, ID);
                     }
                     else
                     {
+                        Console.Clear();
                         Console.WriteLine("================================"); 
-                        Console.WriteLine(" System Error! Couldn't log in.");
+                        Console.WriteLine(" System Error! Returning to main menu.");
                     }
                 }
+            }
+            else
+            {
+                Console.Clear();
             }
         }
         

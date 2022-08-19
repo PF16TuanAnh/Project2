@@ -2,6 +2,7 @@ namespace Pl_Console;
 using BL;
 using Persistence;
 using System.Text.RegularExpressions;
+using Spectre.Console;
 
 public class CandidateController
 {
@@ -32,31 +33,41 @@ public class CandidateController
         string? PersonalAddress;
         List<CVDetails>? CVDetails = null;
 
-        Console.WriteLine("================================\n");
-        Console.WriteLine("           CREATE CV");
-        Console.WriteLine("\n================================");
-
         while (true)
         {
+            Console.WriteLine("================================\n");
+            Console.WriteLine("           CREATE CV");
+            Console.WriteLine("\n================================");
             Console.Write(" Full Name       : ");
             FullName = UserController.GetUserInput();
             if(FullName.Length > 100)
             {
-                Console.WriteLine("\n Full Name is too long. Maximum characters allowed is 100\n");
+                Console.Clear();
+                Console.WriteLine("================================");
+                Console.WriteLine(" Full Name is too long. Maximum characters allowed is 100.");
+            }
+            else if (String.IsNullOrEmpty(FullName))
+            {
+                Console.Clear();
+                Console.WriteLine("================================");
+                Console.WriteLine(" Full Name cannot be left empty.");
             }
             else
             {
                 break;
             }
         }
-        
+
+        Console.Clear();
         while (true)
         {
             Console.Write(" Career Title    : ");
             CareerTitle = UserController.GetUserInput();
             if(CareerTitle.Length > 50)
             {
-                Console.WriteLine("\n Career Title is too long. Maximum characters allowed is 50\n");
+                Console.Clear();
+                Console.WriteLine("================================");
+                Console.WriteLine(" Career Title is too long. Maximum characters allowed is 50.");
             }
             else
             {
@@ -64,13 +75,25 @@ public class CandidateController
             }
         }
         
+        Console.Clear();
         while (true)
         {
+            Console.WriteLine("================================\n");
+            Console.WriteLine("           CREATE CV");
+            Console.WriteLine("\n================================");
             Console.Write(" Career Objective: ");
             CareerObjective = UserController.GetUserInput();
             if(CareerObjective.Length > 5000)
             {
-                Console.WriteLine("\n Career Objective is too long. Maximum characters allowed is 5000\n");
+                Console.Clear();
+                Console.WriteLine("================================");
+                Console.WriteLine(" Career Objective is too long. Maximum characters allowed is 5000.");
+            }
+            else if (String.IsNullOrEmpty(CareerObjective))
+            {
+                Console.Clear();
+                Console.WriteLine("================================");
+                Console.WriteLine(" Career Objective cannot be left empty.");
             }
             else
             {
@@ -78,13 +101,19 @@ public class CandidateController
             }
         }
         
+        Console.Clear();
         while (true)
         {
+            Console.WriteLine("================================\n");
+            Console.WriteLine("           CREATE CV");
+            Console.WriteLine("\n================================");
             Console.Write(" Date of Birth   : ");
             BirthDate = UserController.GetUserInput();
             if(BirthDate.Length > 20)
             {
-                Console.WriteLine("\n Date of Birth is too long. Maximum characters allowed is 20\n");
+                Console.Clear();
+                Console.WriteLine("================================");
+                Console.WriteLine(" Date of Birth is too long. Maximum characters allowed is 20.");
             }
             else
             {
@@ -92,17 +121,26 @@ public class CandidateController
             }
         }
         
+        Console.Clear();
         while (true)
         {
+            Console.WriteLine("================================\n");
+            Console.WriteLine("           CREATE CV");
+            Console.WriteLine("\n================================");
             Console.Write(" Phone Number    : ");
             PhoneNum = UserController.GetUserInput();
-            if(PhoneNum.Length > 10)
+            
+            if (string.IsNullOrEmpty(PhoneNum))
             {
-                Console.WriteLine("\n Phone Number is too long. Maximum characters allowed is 10.\n");
+                Console.Clear();
+                Console.WriteLine("================================");
+                Console.WriteLine(" Phone Number can't be left empty.");
             }
-            else if (string.IsNullOrEmpty(PhoneNum))
+            else if(PhoneNum.Length != 10)
             {
-                Console.WriteLine("\n Phone Number can't be left empty.\n");
+                Console.Clear();
+                Console.WriteLine("================================");
+                Console.WriteLine(" Phone Number must be 10 characters long.");
             }
             else
             {
@@ -112,18 +150,32 @@ public class CandidateController
                 }
                 else
                 {
-                    Console.WriteLine("\n Phone Number is numbers only.\n");
+                    Console.Clear();
+                    Console.WriteLine("================================");
+                    Console.WriteLine(" Phone Number must be numbers only.");
                 }
             }
         }
         
+        Console.Clear();
         while (true)
         {
+            Console.WriteLine("================================\n");
+            Console.WriteLine("           CREATE CV");
+            Console.WriteLine("\n================================");
             Console.Write(" Email           : ");
             Email = UserController.GetUserInput();
             if(Email.Length > 100)
             {
-                Console.WriteLine("\n Email is too long. Maximum characters allowed is 100\n");
+                Console.Clear();
+                Console.WriteLine("================================");
+                Console.WriteLine(" Email is too long. Maximum characters allowed is 100.");
+            }
+            else if (String.IsNullOrEmpty(Email))
+            {
+                Console.Clear();
+                Console.WriteLine("================================");
+                Console.WriteLine(" Email can't be left empty.");
             }
             else
             {
@@ -133,18 +185,26 @@ public class CandidateController
                 }
                 else
                 {
-                    Console.WriteLine("\n Invalid email format! Please re-enter your email.\n");
+                    Console.Clear();
+                    Console.WriteLine("================================");
+                    Console.WriteLine(" Invalid email format! Please re-enter your email.");
                 }
             }
         }
 
+        Console.Clear();
         while (true)
         {
+            Console.WriteLine("================================\n");
+            Console.WriteLine("           CREATE CV");
+            Console.WriteLine("\n================================");
             Console.Write(" Social Media    : ");
             SocialMedia = UserController.GetUserInput();
             if(SocialMedia.Length > 2000)
             {
-                Console.WriteLine("\n Social Media is too long. Maximum characters allowed is 2000\n");
+                Console.Clear();
+                Console.WriteLine("================================");
+                Console.WriteLine(" Social Media is too long. Maximum characters allowed is 2000.");
             }
             else
             {
@@ -152,30 +212,43 @@ public class CandidateController
             }
         }
         
+        Console.Clear();
         while (true)
         {
+            Console.WriteLine("================================\n");
+            Console.WriteLine("           CREATE CV");
+            Console.WriteLine("\n================================");
             Console.Write(" Address         : ");
             PersonalAddress = UserController.GetUserInput();
             if(PersonalAddress.Length > 5000)
             {
-                Console.WriteLine("\n Address is too long. Maximum characters allowed is 5000\n");
+                Console.Clear();
+                Console.WriteLine("================================");
+                Console.WriteLine(" Address is too long. Maximum characters allowed is 5000.");
+            }
+            else if (String.IsNullOrEmpty(PersonalAddress))
+            {
+                Console.Clear();
+                Console.WriteLine("================================");
+                Console.WriteLine(" Address can't be left empty.");
             }
             else
             {
                 break;
             }
         }
-            
+
+        Console.Clear();
         while (true)
         {
             Console.WriteLine("================================\n");
-            Console.WriteLine("              ADD");
+            Console.WriteLine("           CREATE CV");
             Console.WriteLine("\n================================");
-            Console.WriteLine(" 1) A Skill");
-            Console.WriteLine(" 2) A Work Experience");
-            Console.WriteLine(" 3) An Education");
-            Console.WriteLine(" 4) An Activity");
-            Console.WriteLine(" 5) A Certificate");
+            Console.WriteLine(" 1) Add a Skill");
+            Console.WriteLine(" 2) Add a Work Experience");
+            Console.WriteLine(" 3) Add an Education");
+            Console.WriteLine(" 4) Add an Activity");
+            Console.WriteLine(" 5) Add a Certification");
             Console.WriteLine(" 0) Done");
             Console.WriteLine("================================");
             Console.Write(" Enter the option number: ");
@@ -187,6 +260,7 @@ public class CandidateController
                         CVDetails = new List<CVDetails>();
                     }
                     CVDetails.Add(AddCVDetails(1));
+                    Console.Clear();
                     break;
                 case "2":
                     if (CVDetails == null)
@@ -194,6 +268,7 @@ public class CandidateController
                         CVDetails = new List<CVDetails>();
                     }
                     CVDetails.Add(AddCVDetails(2));
+                    Console.Clear();
                     break;
                 case "3":
                     if (CVDetails == null)
@@ -201,6 +276,7 @@ public class CandidateController
                         CVDetails = new List<CVDetails>();
                     }
                     CVDetails.Add(AddCVDetails(3));
+                    Console.Clear();
                     break;
                 case "4":
                     if (CVDetails == null)
@@ -208,6 +284,7 @@ public class CandidateController
                         CVDetails = new List<CVDetails>();
                     }
                     CVDetails.Add(AddCVDetails(4));
+                    Console.Clear();
                     break;
                 case "5":
                     if (CVDetails == null)
@@ -215,11 +292,13 @@ public class CandidateController
                         CVDetails = new List<CVDetails>();
                     }
                     CVDetails.Add(AddCVDetails(5));
+                    Console.Clear();
                     break;
                 case "0":
                     end = true;
                     break;
                 default:
+                    Console.Clear();
                     Console.WriteLine("================================"); 
                     Console.WriteLine(" Invalid choice! Please re-enter your option.");
                     break;
@@ -227,6 +306,7 @@ public class CandidateController
 
             if (end == true)
             {
+                Console.Clear();
                 break;
             }
         }
@@ -237,112 +317,263 @@ public class CandidateController
 
     public CVDetails AddCVDetails(int type)
     {
+        Console.Clear();
         string Title = "Skill";
         string? JobPosition;
-        string? FromDate;
-        string? ToDate;
-        string? Association;
-        string? Description;
-
-        Console.WriteLine("================================\n");
+        string? FromDate = null;
+        string? ToDate = null;
+        string? Association = null;
+        string? Description = null;
+        
         switch (type)
         {
             case 1:
-                Console.WriteLine("             Skill");
                 Title = "Skill";
                 break;
             case 2:
-                Console.WriteLine("        Work Experience");
                 Title = "Work Experience";
                 break;
             case 3:
-                Console.WriteLine("           Education");
                 Title = "Education";
                 break;
             case 4:
-                Console.WriteLine("            Activity");
                 Title = "Activity";
                 break;
             case 5:
-                Console.WriteLine("          Certificate");
                 Title = "Certificate";
                 break;
             default:
                 break;
         }
-        Console.WriteLine("\n================================");
 
-        while (true)
+        if(Title == "Skill" || Title == "Certificate")
         {
-            Console.Write(" Job Position: ");
-            JobPosition = UserController.GetUserInput();
-            if(JobPosition.Length > 100)
+            if (Title == "Skill")
             {
-                Console.WriteLine("\n The name is too long. Maximum characters allowed is 100\n");
-            }
-            else
-            {
-                break;
-            }
-        }
-        
-        while (true)
-        {
-            Console.Write(" From        : ");
-            FromDate = UserController.GetUserInput();
-            if(FromDate.Length > 50)
-            {
-                Console.WriteLine("\n From Date is too long. Maximum characters allowed is 50\n");
-            }
-            else
-            {
-                break;
-            }
-        }
-        
-        while (true)
-        {
-            Console.Write(" To          : ");
-            ToDate = UserController.GetUserInput();
-            if(ToDate.Length > 50)
-            {
-                Console.WriteLine("\n To Date is too long. Maximum characters allowed is 50\n");
-            }
-            else
-            {
-                break;
-            }
-        }
-        
-        while (true)
-        {
-            Console.Write(" Association : ");
-            Association = UserController.GetUserInput();
-            if(Association.Length > 100)
-            {
-                Console.WriteLine("\n Association is too long. Maximum characters allowed is 100\n");
-            }
-            else
-            {
-                break;
-            }
-        }
-        
-        while (true)
-        {
-            Console.Write(" Description : ");
-            Description = UserController.GetUserInput();
-            if(Description.Length > 5000)
-            {
-                Console.WriteLine("\n Description is too long. Maximum characters allowed is 5000\n");
-            }
-            else
-            {
-                break;
-            }
-        }
-        
+                while (true)
+                {
+                    Console.WriteLine("================================\n");
+                    Console.WriteLine("              ADD");
+                    Console.WriteLine("\n================================");
+                    Console.Write(" Skill Group Name: ");
+                    JobPosition = UserController.GetUserInput();
+                    if(JobPosition.Length > 100)
+                    {
+                        Console.Clear();
+                        Console.WriteLine("================================");
+                        Console.WriteLine(" The name is too long. Maximum characters allowed is 100.");
+                    }
+                    else if (String.IsNullOrEmpty(JobPosition))
+                    {
+                        Console.Clear();
+                        Console.WriteLine("================================");
+                        Console.WriteLine(" You cannot left the name empty.");
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
 
+                Console.Clear();
+                while (true)
+                {
+                    Console.WriteLine("================================\n");
+                    Console.WriteLine("              ADD");
+                    Console.WriteLine("\n================================");
+                    Console.Write(" Skill Description: ");
+                    Description = UserController.GetUserInput();
+                    if(Description.Length > 5000)
+                    {
+                        Console.Clear();
+                        Console.WriteLine("================================");
+                        Console.WriteLine(" Description is too long. Maximum characters allowed is 5000.");
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                while (true)
+                {
+                    Console.WriteLine("================================\n");
+                    Console.WriteLine("              ADD");
+                    Console.WriteLine("\n================================");
+                    Console.Write(" Time: ");
+                    FromDate = UserController.GetUserInput();
+                    if(FromDate.Length > 50)
+                    {
+                        Console.Clear();
+                        Console.WriteLine("================================");
+                        Console.WriteLine(" Time is too long. Maximum characters allowed is 50.");
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+
+                Console.Clear();
+                while (true)
+                {
+                    Console.WriteLine("================================\n");
+                    Console.WriteLine("              ADD");
+                    Console.WriteLine("\n================================");
+                    Console.Write(" Certification Name: ");
+                    JobPosition = UserController.GetUserInput();
+                    if(JobPosition.Length > 100)
+                    {
+                        Console.Clear();
+                        Console.WriteLine("================================");
+                        Console.WriteLine(" The name is too long. Maximum characters allowed is 100.");
+                    }
+                    else if (String.IsNullOrEmpty(JobPosition))
+                    {
+                        Console.Clear();
+                        Console.WriteLine("================================");
+                        Console.WriteLine(" You cannot left the name empty.");
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+            }
+        }
+        else
+        {
+            while (true)
+            {
+                Console.WriteLine("================================\n");
+                Console.WriteLine("              ADD");
+                Console.WriteLine("\n================================");
+                if(Title == "Work Experience")
+                {
+                    Console.Write(" Title / Position: ");
+                }
+                else if (Title == "Education")
+                {
+                    Console.Write(" Degree / Study Field: ");
+                }
+                else
+                {
+                    Console.Write(" Title / Role: ");
+                }
+                
+                JobPosition = UserController.GetUserInput();
+                if(JobPosition.Length > 100)
+                {
+                    Console.Clear();
+                    Console.WriteLine("================================");
+                    Console.WriteLine(" The name is too long. Maximum characters allowed is 100.");
+                }
+                else if (String.IsNullOrEmpty(JobPosition))
+                {
+                    Console.Clear();
+                    Console.WriteLine("================================");
+                    Console.WriteLine(" You cannot left the name empty.");
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            Console.Clear();
+            while (true)
+            {
+                Console.WriteLine("================================\n");
+                Console.WriteLine("              ADD");
+                Console.WriteLine("\n================================");
+                Console.Write(" From: ");
+                FromDate = UserController.GetUserInput();
+                if(FromDate.Length > 50)
+                {
+                    Console.Clear();
+                    Console.WriteLine("================================");
+                    Console.WriteLine(" From Date is too long. Maximum characters allowed is 50.");
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            Console.Clear();
+            while (true)
+            {
+                Console.WriteLine("================================\n");
+                Console.WriteLine("              ADD");
+                Console.WriteLine("\n================================");
+                Console.Write(" To: ");
+                ToDate = UserController.GetUserInput();
+                if(ToDate.Length > 50)
+                {
+                    Console.Clear();
+                    Console.WriteLine("================================");
+                    Console.WriteLine(" To Date is too long. Maximum characters allowed is 50.");
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            Console.Clear();
+            while (true)
+            {
+                Console.WriteLine("================================\n");
+                Console.WriteLine("              ADD");
+                Console.WriteLine("\n================================");
+                if(Title == "Work Experience")
+                {
+                    Console.Write(" Company Name: ");
+                }
+                else if (Title == "Education")
+                {
+                    Console.Write(" School Name: ");
+                }
+                else
+                {
+                    Console.Write(" Organization Name: ");
+                }
+                Association = UserController.GetUserInput();
+                if(Association.Length > 100)
+                {
+                    Console.Clear();
+                    Console.WriteLine("================================");
+                    Console.WriteLine(" The name is too long. Maximum characters allowed is 100.");
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            Console.Clear();
+            while (true)
+            {
+                Console.WriteLine("================================\n");
+                Console.WriteLine("              ADD");
+                Console.WriteLine("\n================================");
+                Console.Write(" Description: ");
+                Description = UserController.GetUserInput();
+                if(Description.Length > 5000)
+                {
+                    Console.Clear();
+                    Console.WriteLine("================================");
+                    Console.WriteLine(" Description is too long. Maximum characters allowed is 5000.");
+                }
+                else
+                {
+                    break;
+                }
+            }
+        }
+        
         return new CVDetails(Title, JobPosition, FromDate, ToDate, Association, Description);
     }
 
@@ -350,188 +581,40 @@ public class CandidateController
     {
         bool end = false;
 
-        while (true)
+        while(true)
         {
             Menu.PrintSubMenu(1, cv);
+            Console.Write(" Enter 1 to edit your CV or 0 to return: ");
             switch (UserController.GetUserInput())
             {
                 case "1":
-                    Console.WriteLine("================================");
-                    while (true)
-                    {
-                        Console.Write(" Full Name       : ");
-                        string FullName = UserController.GetUserInput();
-                        if(FullName.Length > 100)
-                        {
-                            Console.WriteLine("\n Full Name is too long. Maximum characters allowed is 100\n");
-                        }
-                        else
-                        {
-                            cv.FullName = FullName;
-                            break;
-                        }
-                    }
-                    break;
-                case "2":
-                    Console.WriteLine("================================");
-                    while (true)
-                    {
-                        Console.Write(" Career Title       : ");
-                        string CareerTitle = UserController.GetUserInput();
-                        if(CareerTitle.Length > 50)
-                        {
-                            Console.WriteLine("\n Career Title is too long. Maximum characters allowed is 50\n");
-                        }
-                        else
-                        {
-                            cv.CareerTitle = CareerTitle;
-                            break;
-                        }
-                    }
-                    break;
-                case "3":
-                    Console.WriteLine("================================");
-                    while (true)
-                    {
-                        Console.Write(" Career Objective: ");
-                        string CareerObjective = UserController.GetUserInput();
-                        if(CareerObjective.Length > 5000)
-                        {
-                            Console.WriteLine("\n Career Objective is too long. Maximum characters allowed is 5000\n");
-                        }
-                        else
-                        {
-                            cv.CareerObjective = CareerObjective;
-                            break;
-                        }
-                    }
-                    break;
-                case "4":
-                    Console.WriteLine("================================");
-                    while (true)
-                    {
-                        Console.Write(" Date of Birth   : ");
-                        string BirthDate = UserController.GetUserInput();
-                        if(BirthDate.Length > 20)
-                        {
-                            Console.WriteLine("\n Date of Birth is too long. Maximum characters allowed is 20\n");
-                        }
-                        else
-                        {
-                            cv.BirthDate = BirthDate;
-                            break;
-                        }
-                    }
-                    break;
-                case "5":
-                    Console.WriteLine("================================");
-                    while (true)
-                    {
-                        Console.Write(" Phone Number    : ");
-                        string? _PhoneNum = UserController.GetUserInput();
-
-                        if(_PhoneNum.Length > 10)
-                        {
-                            Console.WriteLine("\n Phone Number is too long. Maximum characters allowed is 10\n");
-                        }
-                        else if (string.IsNullOrEmpty(_PhoneNum))
-                        {
-                            Console.WriteLine("\n Phone Number can't be left empty.\n");
-                        }
-                        else
-                        {
-                            if (NumericRegex.IsMatch(_PhoneNum))
-                            {
-                                cv.PhoneNum = _PhoneNum;
-                                break;
-                            }
-                            else
-                            {
-                                Console.WriteLine("\n Phone number is numbers only.\n");
-                            }
-                        }
-                    }
-                    break;
-                case "6":
-                    Console.WriteLine("================================");
-                    while (true)
-                    {
-                        Console.Write(" Email           : ");
-                        string Email = UserController.GetUserInput();
-                        if(Email.Length > 100)
-                        {
-                            Console.WriteLine("\n Email is too long. Maximum characters allowed is 100\n");
-                        }
-                        else
-                        {
-                            if (UserController.IsValidEmail(Email))
-                            {
-                                cv.Email = Email;
-                                break;
-                            }
-                            else
-                            {
-                                Console.WriteLine("\n Invalid email format! Please re-enter your email.\n");
-                            }
-                        }
-                    }
-                    break;
-                case "7":
-                    Console.WriteLine("================================");
-                    while (true)
-                    {
-                        Console.Write(" Social Media    : ");
-                        string SocialMedia = UserController.GetUserInput();
-                        if(SocialMedia.Length > 2000)
-                        {
-                            Console.WriteLine("\n Social Media is too long. Maximum characters allowed is 2000\n");
-                        }
-                        else
-                        {
-                            cv.SocialMedia = SocialMedia;
-                            break;
-                        }
-                    }
-                    break;
-                case "8":
-                    Console.WriteLine("================================");
-                    while (true)
-                    {
-                        Console.Write(" Address         : ");
-                        string PersonalAddress = UserController.GetUserInput();
-                        if(PersonalAddress.Length > 5000)
-                        {
-                            Console.WriteLine("\n Address is too long. Maximum characters allowed is 5000\n");
-                        }
-                        else
-                        {
-                            cv.PersonalAddress = PersonalAddress;
-                            break;
-                        }
-                    }
-                    break;
-                case "9":
-                    cv.CVDetails = UpdateCVDetails(cv.CVDetails);
+                    UpdateCV(cv);
                     break;
                 case "0":
+                    Console.Clear();
                     while(true)
                     {
-                        
-                        Console.WriteLine("================================");
-                        Console.WriteLine(" 1) Confirm changes");
+                        Console.WriteLine("================================\n");
+                        Console.WriteLine("        CONFIRM DETAILS");
+                        Console.WriteLine("\n================================");
+                        Console.WriteLine(" If there are changes, you can choose Confirm to save them.");
+                        Console.WriteLine(" 1) Confirm");
                         Console.WriteLine(" 0) Cancel");
                         Console.WriteLine("================================");
                         Console.Write(" Enter the option number: ");
                         switch (UserController.GetUserInput())
                         {
                             case "1":
+                                Console.Clear();
                                 candidateBL.UpdateCVInfo(cv);
                                 end = true;
                                 break;
                             case "0":
+                                Console.Clear();
                                 end = true;
                                 break;
                             default:
+                                Console.Clear();
                                 Console.WriteLine("================================");
                                 Console.WriteLine(" Invalid choice! Please re-enter your option.");
                                 break;
@@ -544,6 +627,286 @@ public class CandidateController
                     }
                     break;
                 default:
+                    Console.Clear();
+                    Console.WriteLine("============================================="); 
+                    Console.WriteLine(" Invalid choice! Please re-enter your option.");
+                    Console.WriteLine("============================================="); 
+                    break;
+            }
+
+            if (end == true)
+            {
+                break;
+            }
+        }
+        
+    }
+
+    public void UpdateCV(CV cv)
+    {
+        Console.Clear();
+        bool end = false;
+
+        while (true)
+        {
+            Console.WriteLine("================================\n");
+            Console.WriteLine("           UPDATE CV");
+            Console.WriteLine("\n================================");
+            Console.WriteLine(" 1) FullName");
+            Console.WriteLine(" 2) Career Title");
+            Console.WriteLine(" 3) Career Objective");
+            Console.WriteLine(" 4) Date of Birth");
+            Console.WriteLine(" 5) Phone Number");
+            Console.WriteLine(" 6) Email");
+            Console.WriteLine(" 7) Social Media");
+            Console.WriteLine(" 8) Address");
+            Console.WriteLine(" 9) Skills, Work Experiences, Educations, Activities, Certifications");
+            Console.WriteLine(" 0) Return");
+            Console.WriteLine("================================");
+            Console.Write(" Enter the option number to change the details or to return: ");
+            switch (UserController.GetUserInput())
+            {
+                case "1":
+                    Console.Clear();
+                    while (true)
+                    {
+                        Console.WriteLine("================================\n");
+                        Console.WriteLine("           UPDATE CV");
+                        Console.WriteLine("\n================================");
+                        Console.Write(" Full Name       : ");
+                        string FullName = UserController.GetUserInput();
+                        if(FullName.Length > 100)
+                        {
+                            Console.Clear();
+                            Console.WriteLine("================================");
+                            Console.WriteLine(" Full Name is too long. Maximum characters allowed is 100.");
+                        }
+                        else if (String.IsNullOrEmpty(FullName))
+                        {
+                            Console.Clear();
+                            Console.WriteLine("================================");
+                            Console.WriteLine(" Full Name cannot be left empty.");
+                        }
+                        else
+                        {
+                            cv.FullName = FullName;
+                            break;
+                        }
+                    }
+                    Console.Clear();
+                    break;
+                case "2":
+                    Console.Clear();
+                    while (true)
+                    {
+                        Console.WriteLine("================================\n");
+                        Console.WriteLine("           UPDATE CV");
+                        Console.WriteLine("\n================================");
+                        Console.Write(" Career Title       : ");
+                        string CareerTitle = UserController.GetUserInput();
+                        if(CareerTitle.Length > 50)
+                        {
+                            Console.Clear();
+                            Console.WriteLine("================================");
+                            Console.WriteLine(". Career Title is too long. Maximum characters allowed is 50.");
+                        }
+                        else
+                        {
+                            cv.CareerTitle = CareerTitle;
+                            break;
+                        }
+                    }
+                    Console.Clear();
+                    break;
+                case "3":
+                    Console.Clear();
+                    while (true)
+                    {
+                        Console.WriteLine("================================\n");
+                        Console.WriteLine("           UPDATE CV");
+                        Console.WriteLine("\n================================");
+                        Console.Write(" Career Objective: ");
+                        string CareerObjective = UserController.GetUserInput();
+                        if(CareerObjective.Length > 5000)
+                        {
+                            Console.Clear();
+                            Console.WriteLine("================================");
+                            Console.WriteLine(" Career Objective is too long. Maximum characters allowed is 5000.");
+                        }
+                        else if (String.IsNullOrEmpty(CareerObjective))
+                        {
+                            Console.Clear();
+                            Console.WriteLine("================================");
+                            Console.WriteLine(" Career Objective be left empty.");
+                        }
+                        else
+                        {
+                            cv.CareerObjective = CareerObjective;
+                            break;
+                        }
+                    }
+                    Console.Clear();
+                    break;
+                case "4":
+                    Console.Clear();
+                    while (true)
+                    {
+                        Console.WriteLine("================================\n");
+                        Console.WriteLine("           UPDATE CV");
+                        Console.WriteLine("\n================================");
+                        Console.Write(" Date of Birth   : ");
+                        string BirthDate = UserController.GetUserInput();
+                        if(BirthDate.Length > 20)
+                        {
+                            Console.Clear();
+                            Console.WriteLine("================================");
+                            Console.WriteLine(" Date of Birth is too long. Maximum characters allowed is 20.");
+                        }
+                        else
+                        {
+                            cv.BirthDate = BirthDate;
+                            break;
+                        }
+                    }
+                    Console.Clear();
+                    break;
+                case "5":
+                    Console.Clear();
+                    while (true)
+                    {
+                        Console.WriteLine("================================\n");
+                        Console.WriteLine("           UPDATE CV");
+                        Console.WriteLine("\n================================");
+                        Console.Write(" Phone Number    : ");
+                        string? _PhoneNum = UserController.GetUserInput();
+
+                        if (string.IsNullOrEmpty(_PhoneNum))
+                        {
+                            Console.Clear();
+                            Console.WriteLine("================================");
+                            Console.WriteLine(" Phone Number can't be left empty.");
+                        }
+                        else if(_PhoneNum.Length != 10)
+                        {
+                            Console.Clear();
+                            Console.WriteLine("================================");
+                            Console.WriteLine(" Phone Number is too long. Maximum characters allowed is 10.");
+                        }
+                        else
+                        {
+                            if (NumericRegex.IsMatch(_PhoneNum))
+                            {
+                                cv.PhoneNum = _PhoneNum;
+                                break;
+                            }
+                            else
+                            {
+                                Console.Clear();
+                                Console.WriteLine("================================");
+                                Console.WriteLine(" Phone number must be numbers only.");
+                            }
+                        }
+                    }
+                    Console.Clear();
+                    break;
+                case "6":
+                    Console.Clear();
+                    while (true)
+                    {
+                        Console.WriteLine("================================\n");
+                        Console.WriteLine("           UPDATE CV");
+                        Console.WriteLine("\n================================");
+                        Console.Write(" Email           : ");
+                        string Email = UserController.GetUserInput();
+                        if(Email.Length > 100)
+                        {
+                            Console.Clear();
+                            Console.WriteLine("================================");
+                            Console.WriteLine(" Email is too long. Maximum characters allowed is 100");
+                        }
+                        else if (String.IsNullOrEmpty(Email))
+                        {
+                            Console.Clear();
+                            Console.WriteLine("================================");
+                            Console.WriteLine(" Email cannot be left empty.");
+                        }
+                        else
+                        {
+                            if (UserController.IsValidEmail(Email))
+                            {
+                                cv.Email = Email;
+                                break;
+                            }
+                            else
+                            {
+                                Console.Clear();
+                                Console.WriteLine("================================");
+                                Console.WriteLine(" Invalid email format! Please re-enter your email.");
+                            }
+                        }
+                    }
+                    Console.Clear();
+                    break;
+                case "7":
+                    Console.Clear();
+                    while (true)
+                    {
+                        Console.WriteLine("================================\n");
+                        Console.WriteLine("           UPDATE CV");
+                        Console.WriteLine("\n================================");
+                        Console.Write(" Social Media    : ");
+                        string SocialMedia = UserController.GetUserInput();
+                        if(SocialMedia.Length > 2000)
+                        {
+                            Console.Clear();
+                            Console.WriteLine("================================");
+                            Console.WriteLine(" Social Media is too long. Maximum characters allowed is 2000.");
+                        }
+                        else
+                        {
+                            cv.SocialMedia = SocialMedia;
+                            break;
+                        }
+                    }
+                    break;
+                case "8":
+                    Console.Clear();
+                    while (true)
+                    {
+                        Console.WriteLine("================================\n");
+                        Console.WriteLine("           UPDATE CV");
+                        Console.WriteLine("\n================================");
+                        Console.Write(" Address         : ");
+                        string PersonalAddress = UserController.GetUserInput();
+                        if(PersonalAddress.Length > 5000)
+                        {
+                            Console.Clear();
+                            Console.WriteLine("================================");
+                            Console.WriteLine(" Address is too long. Maximum characters allowed is 5000.");
+                        }
+                        else if (String.IsNullOrEmpty(PersonalAddress))
+                        {
+                            Console.Clear();
+                            Console.WriteLine("================================");
+                            Console.WriteLine(" Address cannot be left empty.");
+                        }
+                        else
+                        {
+                            cv.PersonalAddress = PersonalAddress;
+                            break;
+                        }
+                    }
+                    Console.Clear();
+                    break;
+                case "9":
+                    Console.Clear();
+                    cv.CVDetails = UpdateCVDetails(cv.CVDetails);
+                    break;
+                case "0":
+                    Console.Clear();
+                    end = true;
+                    break;
+                default:
                     Console.WriteLine("================================");
                     Console.WriteLine(" Invalid choice! Please re-enter your option.");
                     break;
@@ -551,6 +914,7 @@ public class CandidateController
 
             if (end == true)
             {
+                Console.Clear();
                 break;
             }
         }
@@ -563,10 +927,22 @@ public class CandidateController
         while (true)
         {
             bool done = false;
-            Menu.PrintSubMenu(2, CVDetails);
+
+            Console.WriteLine("================================");
+            Console.WriteLine(" 1) View ");
+            Console.WriteLine(" 2) Add");
+            Console.WriteLine(" 3) Change");
+            Console.WriteLine(" 4) Delete");
+            Console.WriteLine(" 0) Done");
+            Console.WriteLine("================================");
+            Console.Write(" Enter the option number: ");
             switch (UserController.GetUserInput())
             {
-                case "1": // Add more CVDetails
+                case "1":
+                    Menu.PrintSubMenu(2, CVDetails);
+                    break;
+                case "2": // Add more CVDetails
+                    Console.Clear();
                     while (true)
                     {
                         Console.WriteLine("================================\n");
@@ -576,7 +952,7 @@ public class CandidateController
                         Console.WriteLine(" 2) A Work Experience");
                         Console.WriteLine(" 3) An Education");
                         Console.WriteLine(" 4) An Activity");
-                        Console.WriteLine(" 5) A Certificate");
+                        Console.WriteLine(" 5) A Certification");
                         Console.WriteLine(" 0) Done");
                         Console.WriteLine("================================");
                         Console.Write(" Enter the option number: ");
@@ -588,6 +964,7 @@ public class CandidateController
                                     CVDetails = new List<CVDetails>();
                                 }
                                 CVDetails.Add(AddCVDetails(1));
+                                Console.Clear();
                                 break;
                             case "2":
                                 if (CVDetails == null)
@@ -595,6 +972,7 @@ public class CandidateController
                                     CVDetails = new List<CVDetails>();
                                 }
                                 CVDetails.Add(AddCVDetails(2));
+                                Console.Clear();
                                 break;
                             case "3":
                                 if (CVDetails == null)
@@ -602,6 +980,7 @@ public class CandidateController
                                     CVDetails = new List<CVDetails>();
                                 }
                                 CVDetails.Add(AddCVDetails(3));
+                                Console.Clear();
                                 break;
                             case "4":
                                 if (CVDetails == null)
@@ -609,6 +988,7 @@ public class CandidateController
                                     CVDetails = new List<CVDetails>();
                                 }
                                 CVDetails.Add(AddCVDetails(4));
+                                Console.Clear();
                                 break;
                             case "5":
                                 if (CVDetails == null)
@@ -616,12 +996,13 @@ public class CandidateController
                                     CVDetails = new List<CVDetails>();
                                 }
                                 CVDetails.Add(AddCVDetails(5));
+                                Console.Clear();
                                 break;
                             case "0":
-                                Console.WriteLine("================================"); 
                                 done = true;
                                 break;
                             default:
+                                Console.Clear();
                                 Console.WriteLine("================================"); 
                                 Console.WriteLine(" Invalid choice! Please re-enter your option.");
                                 break;
@@ -629,11 +1010,12 @@ public class CandidateController
 
                         if (done == true)
                         {
+                            Console.Clear();
                             break;
                         }
                     }
                     break;
-                case "2": // Change info of different CVDetails
+                case "3": // Change info of different CVDetails
                     if(CVDetails != null)
                     {
                         while (true)
@@ -645,7 +1027,7 @@ public class CandidateController
                             Console.WriteLine(" 2) A Work Experience");
                             Console.WriteLine(" 3) An Education");
                             Console.WriteLine(" 4) An Activity");
-                            Console.WriteLine(" 5) A Certificate");
+                            Console.WriteLine(" 5) A Certification");
                             Console.WriteLine(" 0) Done");
                             Console.WriteLine("================================");
                             Console.Write(" Enter the option number: ");
@@ -667,10 +1049,10 @@ public class CandidateController
                                     CVDetails = ChangeCVDetails(CVDetails, "Certificate");
                                     break;
                                 case "0":
-                                    Console.WriteLine("================================"); 
                                     done = true;
                                     break;
                                 default:
+                                    Console.Clear();
                                     Console.WriteLine("================================"); 
                                     Console.WriteLine(" Invalid choice! Please re-enter your option.");
                                     break;
@@ -678,19 +1060,22 @@ public class CandidateController
 
                             if (done == true)
                             {
+                                Console.Clear();
                                 break;
                             }
                         }
                     }
                     else
                     {
+                        Console.Clear();
                         Console.WriteLine("================================"); 
                         Console.WriteLine(" There's nothing to change!");
                     }
                     break;
-                case "3": // 'Delete' CVDetails
+                case "4": // 'Delete' CVDetails
                     if(CVDetails != null)
                     {
+                        Console.Clear();
                         while (true)
                         {
                             Console.WriteLine("================================\n");
@@ -700,7 +1085,7 @@ public class CandidateController
                             Console.WriteLine(" 2) A Work Experience");
                             Console.WriteLine(" 3) An Education");
                             Console.WriteLine(" 4) An Activity");
-                            Console.WriteLine(" 5) A Certificate");
+                            Console.WriteLine(" 5) A Certification");
                             Console.WriteLine(" 0) Done");
                             Console.WriteLine("================================");
                             Console.Write(" Enter the option number: ");
@@ -723,10 +1108,10 @@ public class CandidateController
                                     CVDetails = DeleteCVDetails(CVDetails, "Certificate");
                                     break;
                                 case "0":
-                                    Console.WriteLine("================================"); 
                                     done = true;
                                     break;
                                 default:
+                                    Console.Clear();
                                     Console.WriteLine("================================"); 
                                     Console.WriteLine(" Invalid choice! Please re-enter your option.");
                                     break;
@@ -734,12 +1119,14 @@ public class CandidateController
 
                             if (done == true)
                             {
+                                Console.Clear();
                                 break;
                             }
                         }
                     }
                     else
                     {
+                        Console.Clear();
                         Console.WriteLine("================================"); 
                         Console.WriteLine(" There's nothing to delete!");
                     }
@@ -748,6 +1135,7 @@ public class CandidateController
                     end = true;
                     break;
                 default:
+                    Console.Clear();
                     Console.WriteLine("================================"); 
                     Console.WriteLine(" Invalid choice! Please re-enter your option.");
                     break;
@@ -755,6 +1143,7 @@ public class CandidateController
 
             if (end == true)
             {
+                Console.Clear();
                 break;
             }
         }
@@ -764,8 +1153,11 @@ public class CandidateController
 
     public List<CVDetails> ChangeCVDetails(List<CVDetails> CVDetails, string type)
     {
+        Console.Clear();
         int count = 0;
-        Console.WriteLine("================================");
+        Console.WriteLine("================================\n");
+        Console.WriteLine("            CHANGE");
+        Console.WriteLine("\n================================");
         Console.Write(" Enter the number position of the {0}: ", type);
         string choice = UserController.GetUserInput();
         
@@ -778,74 +1170,155 @@ public class CandidateController
             
             if(int.TryParse(choice, out int pos) && count == pos && detail.Title == type)
             {
-                Console.WriteLine("================================");
+                Console.Clear();
                 while (true)
                 {
-                    Console.Write(" Job Position: ");
+                    Console.WriteLine("================================\n");
+                    Console.WriteLine("            CHANGE");
+                    Console.WriteLine("\n================================");
+                    if(type == "Work Experience")
+                    {
+                        Console.Write(" Title / Position: ");
+                    }
+                    else if (type == "Education")
+                    {
+                        Console.Write(" Degree / Study Field: ");
+                    }
+                    else if (type == "Activity")
+                    {
+                        Console.Write(" Title / Role: ");
+                    }
+                    else if (type == "Skill")
+                    {
+                        Console.Write(" Skill Group Name: ");
+                    }
+                    else
+                    {
+                        Console.Write(" Certification Name: ");
+                    }
                     detail.JobPosition = UserController.GetUserInput();
                     if(detail.JobPosition.Length > 100)
                     {
-                        Console.WriteLine("\n Job Position is too long. Maximum characters allowed is 100\n");
+                        Console.Clear();
+                        Console.WriteLine("================================");
+                        Console.WriteLine(" The name is too long. Maximum characters allowed is 100.");
+                    }
+                    else if (String.IsNullOrEmpty(detail.JobPosition))
+                    {
+                        Console.Clear();
+                        Console.WriteLine("================================");
+                        Console.WriteLine(" You cannot left the name empty.");
                     }
                     else
                     {
                         break;
                     }
                 }
-                
-                while (true)
+
+                if(type != "Skill")
                 {
-                    Console.Write(" From        : ");
-                    detail.FromDate = UserController.GetUserInput();
-                    if(detail.FromDate.Length > 50)
+                    Console.Clear();
+                    while (true)
                     {
-                        Console.WriteLine("\n From Date is too long. Maximum characters allowed is 50\n");
-                    }
-                    else
-                    {
-                        break;
+                        Console.WriteLine("================================\n");
+                        Console.WriteLine("            CHANGE");
+                        Console.WriteLine("\n================================");
+                        if (type == "Certificate")
+                        {
+                            Console.Write(" Time: ");
+                        }
+                        else
+                        {
+                            Console.Write(" From: ");
+                        }
+                        detail.FromDate = UserController.GetUserInput();
+                        if(detail.FromDate.Length > 50)
+                        {
+                            Console.Clear();
+                            Console.WriteLine("================================");
+                            Console.WriteLine(" From Date is too long. Maximum characters allowed is 50.");
+                        }
+                        else
+                        {
+                            break;
+                        }
                     }
                 }
-                
-                while (true)
+
+                if (type != "Skill" && type != "Certificate")
                 {
-                    Console.Write(" To          : ");
-                    detail.ToDate = UserController.GetUserInput();
-                    if(detail.ToDate.Length > 50)
+                    Console.Clear();
+                    while (true)
                     {
-                        Console.WriteLine("\n To Date is too long. Maximum characters allowed is 50\n");
+                        Console.WriteLine("================================\n");
+                        Console.WriteLine("            CHANGE");
+                        Console.WriteLine("\n================================");
+                        Console.Write(" To: ");
+                        detail.ToDate = UserController.GetUserInput();
+                        if(detail.ToDate.Length > 50)
+                        {
+                            Console.Clear();
+                            Console.WriteLine("================================");
+                            Console.WriteLine(" To Date is too long. Maximum characters allowed is 50.");
+                        }
+                        else
+                        {
+                            break;
+                        }
                     }
-                    else
+
+                    Console.Clear();
+                    while (true)
                     {
-                        break;
+                        Console.WriteLine("================================\n");
+                        Console.WriteLine("            CHANGE");
+                        Console.WriteLine("\n================================");
+                        if(detail.Title == "Work Experience")
+                        {
+                            Console.Write(" Company Name: ");
+                        }
+                        else if (detail.Title == "Education")
+                        {
+                            Console.Write(" School Name: ");
+                        }
+                        else
+                        {
+                            Console.Write(" Organization Name: ");
+                        }
+                        detail.Association = UserController.GetUserInput();
+                        if(detail.Association.Length > 100)
+                        {
+                            Console.Clear();
+                            Console.WriteLine("================================");
+                            Console.WriteLine(" The name is too long. Maximum characters allowed is 100.");
+                        }
+                        else
+                        {
+                            break;
+                        }
                     }
                 }
-                
-                while (true)
+
+                if (type != "Certificate")
                 {
-                    Console.Write(" Association : ");
-                    detail.Association = UserController.GetUserInput();
-                    if(detail.Association.Length > 100)
+                    Console.Clear();
+                    while (true)
                     {
-                        Console.WriteLine("\n Association is too long. Maximum characters allowed is 100\n");
-                    }
-                    else
-                    {
-                        break;
-                    }
-                }
-                
-                while (true)
-                {
-                    Console.Write(" Description : ");
-                    detail.Description = UserController.GetUserInput();
-                    if(detail.Description.Length > 5000)
-                    {
-                        Console.WriteLine("\n Description is too long. Maximum characters allowed is 5000\n");
-                    }
-                    else
-                    {
-                        break;
+                        Console.WriteLine("================================\n");
+                        Console.WriteLine("            CHANGE");
+                        Console.WriteLine("\n================================");
+                        Console.Write(" Description: ");
+                        detail.Description = UserController.GetUserInput();
+                        if(detail.Description.Length > 5000)
+                        {
+                            Console.Clear();
+                            Console.WriteLine("================================");
+                            Console.WriteLine(" Description is too long. Maximum characters allowed is 5000.");
+                        }
+                        else
+                        {
+                            break;
+                        }
                     }
                 }
             }
@@ -856,8 +1329,12 @@ public class CandidateController
 
     public List<CVDetails> DeleteCVDetails(List<CVDetails> CVDetails, string type)
     {
+        Console.Clear();
+        bool isDeleted = false; 
         int count = 0;
-        Console.WriteLine("================================");
+        Console.WriteLine("================================\n");
+        Console.WriteLine("             DELETE");
+        Console.WriteLine("\n================================");
         Console.Write(" Enter the number position of the {0}: ", type);
         string choice = UserController.GetUserInput();
         
@@ -876,9 +1353,22 @@ public class CandidateController
                 detail.ToDate = "";
                 detail.Association = "";
                 detail.Description = "";
+
+                isDeleted = true;
             }
         }
 
+        if (isDeleted == false)
+        {
+            Console.Clear();
+            Console.WriteLine("================================");
+            Console.WriteLine(" Couldn't find the target to delete.");
+        }
+        else
+        {
+            Console.Clear();
+        }
+        
         return CVDetails;
     }
 
@@ -900,18 +1390,23 @@ public class CandidateController
             switch (UserController.GetUserInput())
             {
                 case "1":
+                    Console.Clear();
                     DisplaySearchedNews(SearchRecruitNewsViaProfession(), CandidateID);
                     break;
                 case "2":
+                    Console.Clear();
                     DisplaySearchedNews(SearchRecruitNewsViaSalaryRange(), CandidateID);
                     break;
                 case "3":
+                    Console.Clear();
                     DisplaySearchedNews(SearchRecruitNewsViaCity(), CandidateID);
                     break;
                 case "0":
+                    Console.Clear();
                     end = true;
                     break;
                 default:
+                    Console.Clear();
                     Console.WriteLine("================================"); 
                     Console.WriteLine(" Invalid choice! Please re-enter your option.");
                     break;
@@ -1028,6 +1523,7 @@ public class CandidateController
 
     public void DisplaySearchedNews(List<RecruitNews> recruitNews, int? CandidateID)
     {  
+        Console.Clear();
         if (recruitNews != null)
         {
             while (true)
@@ -1037,16 +1533,19 @@ public class CandidateController
 
                 if(choice == "0")
                 {
+                    Console.Clear();
                     break;
                 }
 
                 bool success = int.TryParse(choice, out int position);
                 if(success)
                 {
+                    Console.Clear();
                     SearchedNewsDetails(recruitNews[position - 1], CandidateID);
                 }
                 else
                 {
+                    Console.Clear();
                     Console.WriteLine("================================");
                     Console.WriteLine(" Invalid choice! Please re-enter your option.");
                 }
@@ -1066,27 +1565,49 @@ public class CandidateController
         Recruiter recruiter = candidateBL.GetRecruiterByNewsID(news.NewsID);
         if (recruiter != null)
         {
+            // Create table to hold all details of the news
+            var newsTable = new Table();
+            newsTable.Title("Recruitment News");
+            newsTable.HideHeaders();
+            newsTable.AddColumn("Title");
+            newsTable.AddColumn(new TableColumn("Content"));
+            newsTable.Columns[0].Width(20);
+            newsTable.LeftAligned();
+            newsTable.Columns[1].Width(40);
+            newsTable.AddRow("Name", news.NewsName);
+            newsTable.AddRow("--------------------", "----------------------------------------");
+            newsTable.AddRow("Recruiter", recruiter.Name);
+            newsTable.AddRow("--------------------", "----------------------------------------");
+            newsTable.AddRow("Recruiter's Number", recruiter.PhoneNum);
+            newsTable.AddRow("--------------------", "----------------------------------------");
+            newsTable.AddRow("Deadline", news.DeadLine);
+            newsTable.AddRow("--------------------", "----------------------------------------");
+            newsTable.AddRow("Salary Range", news.SalaryRange);
+            newsTable.AddRow("--------------------", "----------------------------------------");
+            newsTable.AddRow("Form of Employment", news.FormOfEmploy ?? "");
+            newsTable.AddRow("--------------------", "----------------------------------------");
+            newsTable.AddRow("Gender", news.Gender ?? "");
+            newsTable.AddRow("--------------------", "----------------------------------------");
+            newsTable.AddRow("Hiring Amount", news.HiringAmount);
+            newsTable.AddRow("--------------------", "----------------------------------------");
+            newsTable.AddRow("Hiring Position", news.HiringPosition);
+            newsTable.AddRow("--------------------", "----------------------------------------");
+            newsTable.AddRow("Required Experience", news.RequiredExp ?? "");
+            newsTable.AddRow("--------------------", "----------------------------------------");
+            newsTable.AddRow("City Address", news.CityAddress);
+            newsTable.AddRow("--------------------", "----------------------------------------");
+            newsTable.AddRow("Company", recruiter.CompanyName);
+            newsTable.AddRow("--------------------", "----------------------------------------");
+            newsTable.AddRow("Business Field", recruiter.BusinessField);
+            newsTable.AddRow("--------------------", "----------------------------------------");
+            newsTable.AddRow("Business Size", recruiter.BusinessSize);
+
             while (true)
             {
-                bool IsApplied = candidateBL.IsApplied(CandidateID, news.NewsID);
-                Console.WriteLine("================================\n");
-                Console.WriteLine("          NEWS DETAILS");
-                Console.WriteLine("\n================================");
-                Console.WriteLine(" Name: {0}", news.NewsName);
-                Console.WriteLine(" Deadline: {0}", news.DeadLine);
-                Console.WriteLine(" Recruiter: {0}", recruiter.Name);
-                Console.WriteLine(" Recruiter's Number: {0}", recruiter.PhoneNum);
-                Console.WriteLine(" SalaryRange: {0}", news.SalaryRange);
-                Console.WriteLine(" Form of Employment: {0}", news.FormOfEmploy);
-                Console.WriteLine(" Gender: {0}", news.Gender);
-                Console.WriteLine(" Hiring Amount: {0}", news.HiringAmount);
-                Console.WriteLine(" Hiring Position: {0}", news.HiringPosition);
-                Console.WriteLine(" Required Experience: {0}", news.RequiredExp);
-                Console.WriteLine(" City Address: {0}", news.CityAddress);
-                Console.WriteLine(" Company: {0}", recruiter.CompanyName);
-                Console.WriteLine(" Business Field: {0}", recruiter.BusinessField);
+                AnsiConsole.Write(newsTable);
 
                 Console.WriteLine("================================");
+                bool IsApplied = candidateBL.IsApplied(CandidateID, news.NewsID);
                 if(IsApplied)
                 {
                     Console.WriteLine(" Applied!");
@@ -1103,16 +1624,19 @@ public class CandidateController
                     case "1":
                         if(!IsApplied)
                         {
+                            Console.Clear();
                             candidateBL.ApplyToNews(CandidateID, news.NewsID);
                         }
                         break;
                     case "0":
-                        Console.WriteLine("================================"); 
+                        Console.Clear();
                         end = true;
                         break;
                     default:
+                        Console.Clear();
                         Console.WriteLine("================================"); 
                         Console.WriteLine(" Invalid choice! Please re-enter your option.");
+                        Console.WriteLine("================================"); 
                         break;
                 }
 
@@ -1124,8 +1648,9 @@ public class CandidateController
         }
         else
         {
+            Console.Clear();
             Console.WriteLine("================================"); 
-            Console.WriteLine(" Unexpected problems might have occurred to the connection to the database. Couldn't retrieve all details of the recruitment news.");
+            Console.WriteLine(" Unexpected problems might have occurred. Couldn't retrieve all details of the recruitment news.");
         }
     }
 }

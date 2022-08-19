@@ -316,7 +316,11 @@ public class CandidateDAL
                 IsApplied = true;
             }
         }
-        catch{}
+        catch (Exception)
+        {
+            Console.WriteLine("Unexpected problems might have occurred. Couldn't check whether the user has applied or not.");
+            Console.WriteLine("================================");
+        }
         
 
         DBHelper.CloseConnection();
@@ -326,7 +330,7 @@ public class CandidateDAL
     
     public Recruiter GetRecruiterByNewsID(int NewsID)
     {
-        query = @"select r.*, u.Username from Recruiters r inner join RecruitNews rn on r.RecruiterID = rn.RecruiterID inner join Users u on r.UserID = u.UserID where NewsID = " + NewsID;
+        query = @"select r.*, u.Name from Recruiters r inner join RecruitNews rn on r.RecruiterID = rn.RecruiterID inner join Users u on r.UserID = u.UserID where NewsID = " + NewsID;
         Recruiter recruiter = null!;
         
         try
@@ -371,7 +375,7 @@ public class CandidateDAL
         catch
         {
             Console.WriteLine("================================"); 
-            Console.WriteLine(" Unexpected problems might have occurred to the connection to the database. Couldn't retrieve recruitment news.");
+            Console.WriteLine(" Unexpected problems might have occurred. Couldn't retrieve recruitment news.");
         }
         
         DBHelper.CloseConnection();

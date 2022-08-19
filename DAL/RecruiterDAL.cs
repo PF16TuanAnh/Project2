@@ -82,7 +82,7 @@ public class RecruiterDAL
     }
     public Recruiter GetRecruiterByID(int? RecruiterID)
     {
-        query = @"select u.Username, c.* from Recruiters c inner join Users u on c.UserID = u.UserID where RecruiterID = " + RecruiterID;
+        query = @"select u.Name, c.* from Recruiters c inner join Users u on c.UserID = u.UserID where RecruiterID = " + RecruiterID;
         Recruiter recruiter = null!;
         
         try

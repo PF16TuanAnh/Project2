@@ -5,6 +5,7 @@ namespace DAL;
 
 public class UserDAL
 {
+    bool success = true;
     private string? query;
     private MySqlDataReader? reader;
 
@@ -28,8 +29,15 @@ public class UserDAL
         }
         catch (Exception)
         {
+            success = false;
+            Console.Clear();
             Console.WriteLine("================================"); 
             Console.WriteLine(" Unexpected errors occurred to the connection to the database! Couldn't retrieve user login info.");
+        }
+
+        if (success == false)
+        {
+            Console.Clear();
         }
         
 
@@ -54,13 +62,8 @@ public class UserDAL
                 CandidateID = reader.GetInt32("CandidateID");
             }
         }
-        catch (Exception)
-        {
-            Console.WriteLine("================================"); 
-            Console.WriteLine(" Unexpected errors occurred to the connection to the database!");
-        }
+        catch{}
         
-
         DBHelper.CloseConnection();
 
         return CandidateID;

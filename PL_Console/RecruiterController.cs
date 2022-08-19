@@ -2,7 +2,6 @@ namespace Pl_Console;
 using BL;
 using Persistence;
 using System.Text.RegularExpressions;
-using Spectre.Console;
 
 public class RecruiterController
 {
@@ -21,6 +20,7 @@ public class RecruiterController
 
     public void CreateNewProfileInformation(int? RecruiterID) 
     {
+        Console.Clear();
         string? CompanyName;
         string? PhoneNum;
         string? Position = "staff";
@@ -38,13 +38,17 @@ public class RecruiterController
         {
             Console.Write(" Phone Number    : ");
             PhoneNum = UserController.GetUserInput();
-            if(PhoneNum.Length > 10)
+            if (string.IsNullOrEmpty(PhoneNum))
             {
-                Console.WriteLine("\n Phone Number is too long. Maximum characters allowed is 10.\n");
+                Console.Clear();
+                Console.WriteLine("================================");
+                Console.WriteLine(" Phone Number can't be left empty.");
             }
-            else if (string.IsNullOrEmpty(PhoneNum))
+            else if(PhoneNum.Length != 10)
             {
-                Console.WriteLine("\n Phone Number can't be left empty.\n");
+                Console.Clear();
+                Console.WriteLine("================================");
+                Console.WriteLine(" Phone Number must be 10 characters long.");
             }
             else
             {
@@ -180,6 +184,7 @@ public class RecruiterController
     
     public void DisplayNewsForRecruter(int? RecruiterID)
     {  
+        Console.Clear();
         List<RecruitNews> recruitNews = recruiterBL.GetRecruitNewByID(RecruiterID);
         if (recruitNews != null)
         {
@@ -212,8 +217,9 @@ public class RecruiterController
         }
     }
 
-    public void AddRecruitmentNews(int? RecruiterID){ 
-
+    public void AddRecruitmentNews(int? RecruiterID)
+    { 
+        Console.Clear();
         string? NewsName;
         string? DeadLine;
         string? SalaryRange = "Below 3 million";
@@ -917,7 +923,9 @@ public class RecruiterController
         
     }
 
-    public void SearchCVs(int? RecruiterID){
+    public void SearchCVs(int? RecruiterID)
+    {
+        Console.Clear();
         bool end = false;
         while (true)
         {
@@ -1026,7 +1034,7 @@ public class RecruiterController
                 bool success = int.TryParse(choice, out int position);
                 if(success)
                 {
-                    SearchedCVInformation(cv[position - 1], RecruiterID);
+                    Menu.PrintSubMenu(7, cv[position - 1]);
                 }
                 else
                 {
@@ -1042,185 +1050,9 @@ public class RecruiterController
         }
     }
 
-    public void SearchedCVInformation(CV cv, int? RecruiterID)
-    {
-        bool end = false;
-        if (cv != null)
-        {
-            while (true)
-            {
-            Console.WriteLine("================================\n");
-            Console.WriteLine("           SELECTED CV");
-            Console.WriteLine("\n================================");
-            Console.WriteLine(" Full Name       : {0}", cv.FullName);
-            Console.WriteLine(" Career Title    : {0}", cv.CareerTitle);
-            Console.WriteLine(" Career Objective: {0}", cv.CareerObjective);
-            Console.WriteLine(" Date of Birth   : {0}", cv.BirthDate);
-            Console.WriteLine(" Phone Number    : {0}", cv.PhoneNum);
-            Console.WriteLine(" Email           : {0}", cv.Email);
-            Console.WriteLine(" Social Media    : {0}", cv.SocialMedia);
-            Console.WriteLine(" Address         : {0}", cv.PersonalAddress);
-            Console.WriteLine(" \n Skills:\n");
-            if(cv.CVDetails != null)
-        {
-            int i = 0;
-            var table = new Table();
-            table.AddColumn("[blue]Pos[/]");
-            table.AddColumn("[red]Skill[/]");
-            table.AddColumn("[red]From[/]");
-            table.AddColumn("[red]To[/]");
-            table.AddColumn("[red]Association[/]");
-            table.AddColumn("[red]Description[/]");
-            table.Columns[0].Width(4).Centered();
-            table.Columns[1].Width(20);
-            table.Columns[2].Width(10);
-            table.Columns[3].Width(10);
-            table.Columns[4].Width(20);
-            table.Columns[5].Width(30);
-            foreach (CVDetails detail in cv.CVDetails)
-            {
-                if(detail.Title == "Skill")
-                {
-                    i += 1;
-                    table.AddRow("[green]" + i.ToString() + "[/]", detail.JobPosition ?? "", detail.FromDate ?? "", detail.ToDate ?? "", detail.Association ?? "", detail.Description ?? "");  
-                }
-            }
-            table.LeftAligned();
-            AnsiConsole.Write(table);
-            
-        }
-        
-        if(cv.CVDetails != null)
-        {
-            int i = 0;
-            var table = new Table();
-            table.AddColumn("[blue]Pos[/]");
-            table.AddColumn("[red]Work Experience[/]");
-            table.AddColumn("[red]From[/]");
-            table.AddColumn("[red]To[/]");
-            table.AddColumn("[red]Association[/]");
-            table.AddColumn("[red]Description[/]");
-            table.Columns[0].Width(4).Centered();
-            table.Columns[1].Width(20);
-            table.Columns[2].Width(10);
-            table.Columns[3].Width(10);
-            table.Columns[4].Width(20);
-            table.Columns[5].Width(30);
-            foreach (CVDetails detail in cv.CVDetails)
-            {
-                if(detail.Title == "Work Experience")
-                {
-                    table.AddRow("[green]" + i.ToString() + "[/]", detail.JobPosition ?? "", detail.FromDate ?? "", detail.ToDate ?? "", detail.Association ?? "", detail.Description ?? "");  
-                }
-            }
-            table.LeftAligned();
-            AnsiConsole.Write(table);
-        }
-        
-        if(cv.CVDetails != null)
-        {
-            int i = 0;
-            var table = new Table();
-            table.AddColumn("[blue]Pos[/]");
-            table.AddColumn("[red]Education[/]");
-            table.AddColumn("[red]From[/]");
-            table.AddColumn("[red]To[/]");
-            table.AddColumn("[red]Association[/]");
-            table.AddColumn("[red]Description[/]");
-            table.Columns[0].Width(4).Centered();
-            table.Columns[1].Width(20);
-            table.Columns[2].Width(10);
-            table.Columns[3].Width(10);
-            table.Columns[4].Width(20);
-            table.Columns[5].Width(30);
-            foreach (CVDetails detail in cv.CVDetails)
-            {
-                if(detail.Title == "Education")
-                {
-                    table.AddRow("[green]" + i.ToString() + "[/]", detail.JobPosition ?? "", detail.FromDate ?? "", detail.ToDate ?? "", detail.Association ?? "", detail.Description ?? "");  
-                }
-            }
-            table.LeftAligned();
-            AnsiConsole.Write(table);
-            }
-            
-            if(cv.CVDetails != null)
-            {
-                int i = 0;
-                var table = new Table();
-                table.AddColumn("[blue]Pos[/]");
-                table.AddColumn("[red]Education[/]");
-                table.AddColumn("[red]From[/]");
-                table.AddColumn("[red]To[/]");
-                table.AddColumn("[red]Association[/]");
-                table.AddColumn("[red]Description[/]");
-                table.Columns[0].Width(4).Centered();
-                table.Columns[1].Width(20);
-                table.Columns[2].Width(10);
-                table.Columns[3].Width(10);
-                table.Columns[4].Width(20);
-                table.Columns[5].Width(30);
-                foreach (CVDetails detail in cv.CVDetails)
-                {
-                    if(detail.Title == "Activity")
-                    {
-                        table.AddRow("[green]" + i.ToString() + "[/]", detail.JobPosition ?? "", detail.FromDate ?? "", detail.ToDate ?? "", detail.Association ?? "", detail.Description ?? "");  
-                    }
-                }
-                table.LeftAligned();
-                AnsiConsole.Write(table);
-            }
-            
-            if(cv.CVDetails != null)
-            {
-                int i = 0;
-                var table = new Table();
-                table.AddColumn("[blue]Pos[/]");
-                table.AddColumn("[red]Certificate[/]");
-                table.AddColumn("[red]Date[/]");
-                table.Columns[0].Width(4).Centered();
-                table.Columns[1].Width(20);
-                table.Columns[2].Width(10);
-                foreach (CVDetails detail in cv.CVDetails)
-                {
-                    if(detail.Title == "Certificate")
-                    {
-                        table.AddRow("[green]" + i.ToString() + "[/]", detail.JobPosition ?? "", detail.FromDate ?? "");  
-                    }
-                }
-                table.LeftAligned();
-                AnsiConsole.Write(table);
-            }
-            Console.WriteLine("================================");
-                Console.WriteLine(" 0) Exit");
-                Console.WriteLine("================================");
-                Console.Write(" Press 0 to exit: ");
-                switch (UserController.GetUserInput())
-                {
-                    case "0":
-                        Console.WriteLine("================================"); 
-                        end = true;
-                        break;
-                    default:
-                        Console.WriteLine("================================"); 
-                        Console.WriteLine(" Invalid choice! Please re-enter your option.");
-                        break;
-                }
-
-                if (end == true)
-                {
-                    break;
-                }
-            }
-        }
-        else
-        {
-            Console.WriteLine("================================"); 
-            Console.WriteLine(" Unexpected problems might have occurred to the connection to the database. Couldn't retrieve all details of the recruitment news.");
-        }
-    }
-
-    public void ViewProfileInformation(Recruiter recruiter){ 
+    public void ViewProfileInformation(Recruiter recruiter)
+    { 
+        Console.Clear();
         bool end = false;
         while (true)
         {
@@ -1302,13 +1134,17 @@ public class RecruiterController
                     {
                         Console.Write(" Phone Number     : ");
                         string PhoneNum = UserController.GetUserInput();
-                        if(PhoneNum.Length > 10)
+                        if (string.IsNullOrEmpty(PhoneNum))
                         {
-                            Console.WriteLine("\n Phone Number is too long. Maximum characters allowed is 10\n");
+                            Console.Clear();
+                            Console.WriteLine("================================");
+                            Console.WriteLine(" Phone Number can't be left empty.");
                         }
-                        else if (string.IsNullOrEmpty(PhoneNum))
+                        else if(PhoneNum.Length != 10)
                         {
-                            Console.WriteLine("\n Phone Number can't be left empty.\n");
+                            Console.Clear();
+                            Console.WriteLine("================================");
+                            Console.WriteLine(" Phone Number must be 10 characters long.");
                         }
                         else
                         {

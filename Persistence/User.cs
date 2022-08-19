@@ -2,17 +2,20 @@
 public class User
 {
     public int UserID{get; set;}
-    public string? Name{get; set;}
-    public string? Email{get; set;}
-    public string? Password{get; set;}
-    public string? Gender{get; set;}
+    public string Name{get; set;}
+    public string Email{get; set;}
+    public string Password{get; set;}
+    public string Gender{get; set;}
 
     public User()
     {
-
+        this.Name = "";
+        this.Email = "";
+        this.Password = "";
+        this.Gender = "";
     }
 
-    public User(string? _Name, string? _Email, string? _Password, string? _Gender)
+    public User(string _Name, string _Email, string _Password, string _Gender)
     {
         this.Name = _Name;
         this.Email = _Email;
