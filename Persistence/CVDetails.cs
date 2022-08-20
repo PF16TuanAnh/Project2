@@ -6,8 +6,8 @@ public class CVDetails
     public int CVID{get; set;}
     public string Title{get; set;}
     public string JobPosition{get; set;}
-    public string? FromDate{get; set;}
-    public string? ToDate{get; set;}
+    public DateTime? FromDate{get; set;}
+    public DateTime? ToDate{get; set;}
     public string? Association{get; set;}
     public string? Description{get; set;}
 
@@ -17,7 +17,7 @@ public class CVDetails
         this.JobPosition = "";
     }
 
-    public CVDetails(string _Title, string _JobPosition, string? _FromDate, string? _ToDate, string? _Association, string? _Description)
+    public CVDetails(string _Title, string _JobPosition, DateTime? _FromDate, DateTime? _ToDate, string? _Association, string? _Description)
     {
         this.Title = _Title;
         this.JobPosition = _JobPosition;

@@ -2,6 +2,7 @@ namespace Pl_Console;
 using BL;
 using Persistence;
 using System.Text.RegularExpressions;
+using System.Globalization;
 
 public class RecruiterController
 {
@@ -265,7 +266,18 @@ public class RecruiterController
                 bool success = int.TryParse(choice, out int position);
                 if(success)
                 {
-                    ViewRecruitmentNews(recruitNews[position - 1], RecruiterID);
+                    if((position - 1) < recruitNews.Count() && position > 0)
+                    {
+                        Console.Clear();
+                        ViewRecruitmentNews(recruitNews[position - 1], RecruiterID);
+                    }
+                    else
+                    {
+                        Console.Clear();
+                        Console.WriteLine("================================");
+                        Console.WriteLine(" Your chosen target doesn't exist.");
+                        Console.WriteLine("================================");
+                    }
                 }
                 else
                 {
@@ -282,7 +294,7 @@ public class RecruiterController
     { 
         Console.Clear();
         string? NewsName;
-        string? DeadLine;
+        DateTime DeadLine;
         string? SalaryRange = "Below 3 million";
         string? FormOfEmploy = "Working full-time";
         string? Gender;
@@ -324,23 +336,18 @@ public class RecruiterController
             Console.WriteLine("================================\n");
             Console.WriteLine("      CREATE RECRUITMENT NEW");
             Console.WriteLine("\n================================");
-            Console.Write(" Deadline: ");
-            DeadLine = UserController.GetUserInput();
-            if(DeadLine.Length > 50)
+            Console.Write(" Deadline(Day/Month/Year): ");
+            string _DeadLine = UserController.GetUserInput();
+            try
             {
-                Console.Clear();
-                Console.WriteLine("================================");
-                Console.WriteLine(" Deadline is too long. Maximum characters allowed is 50.");
-            }
-            else if (String.IsNullOrEmpty(DeadLine))
-            {
-                Console.Clear();
-                Console.WriteLine("================================");
-                Console.WriteLine(" Deadline cannot be left empty.");
-            }
-            else
-            {
+                DeadLine = DateTime.ParseExact(_DeadLine, "d/M/yyyy", CultureInfo.InvariantCulture);
                 break;
+            }
+            catch (Exception)
+            {
+                Console.Clear();
+                Console.WriteLine("================================");
+                Console.WriteLine(" The correct formart is Day/Month/Year.");
             }
         }
 
@@ -675,7 +682,7 @@ public class RecruiterController
         while(true)
         {
             Menu.PrintSubMenu(8, news);
-            Console.Write(" Enter 1 to update your Profile or 0 to return: ");
+            Console.Write(" Enter 1 to Update the details or View applied candidates, 0 to return: ");
             switch (UserController.GetUserInput())
             {
                 case "1":
@@ -795,24 +802,18 @@ public class RecruiterController
                         Console.WriteLine("================================\n");
                         Console.WriteLine("             UPDATE");
                         Console.WriteLine("\n================================");
-                        Console.Write(" Deadline: ");
+                        Console.Write(" Deadline(Day/Month/Year): ");
                         string DeadLine = UserController.GetUserInput();
-                        if(DeadLine.Length > 50)
+                        try
                         {
-                            Console.Clear();
-                            Console.WriteLine("================================");
-                            Console.WriteLine(" Deadline is too long. Maximum characters allowed is 50.");
-                        }
-                        else if (String.IsNullOrEmpty(DeadLine))
-                        {
-                            Console.Clear();
-                            Console.WriteLine("================================");
-                            Console.WriteLine(" Deadline cannot be left empty.");
-                        }
-                        else
-                        {
-                            news.DeadLine = DeadLine;
+                            news.DeadLine = DateTime.ParseExact(DeadLine, "d/M/yyyy", CultureInfo.InvariantCulture);
                             break;
+                        }
+                        catch (Exception)
+                        {
+                            Console.Clear();
+                            Console.WriteLine("================================");
+                            Console.WriteLine(" The correct formart is Day/Month/Year.");
                         }
                     }
                     Console.Clear();
@@ -1009,8 +1010,8 @@ public class RecruiterController
                         Console.WriteLine("================================\n");
                         Console.WriteLine("             STATUS");
                         Console.WriteLine("\n================================");
-                        Console.WriteLine(" 1, Open");
-                        Console.WriteLine(" 2, Closed");
+                        Console.WriteLine(" 1) Open");
+                        Console.WriteLine(" 2) Closed");
                         Console.WriteLine("================================");
                         Console.Write(" Enter option number: ");
                             switch (UserController.GetUserInput())
@@ -1305,7 +1306,17 @@ public class RecruiterController
                 bool success = int.TryParse(choice, out int position);
                 if(success)
                 {
-                    Menu.PrintSubMenu(7, cv[position - 1]);
+                    if((position - 1) < cv.Count() && position > 0)
+                    {
+                        Menu.PrintSubMenu(7, cv[position - 1]);
+                    }
+                    else
+                    {
+                        Console.Clear();
+                        Console.WriteLine("================================");
+                        Console.WriteLine(" Your chosen target doesn't exist.");
+                        Console.WriteLine("================================");
+                    }
                 }
                 else
                 {
@@ -1593,7 +1604,7 @@ public class RecruiterController
         while(true)
         {
             Menu.PrintSubMenu(5, recruiter);
-            Console.Write(" Enter 1 to find options to Update your profile and View applied candidates or 0 to return: ");
+            Console.Write(" Enter 1 to Update your profile or 0 to return: ");
             switch (UserController.GetUserInput())
             {
                 case "1":

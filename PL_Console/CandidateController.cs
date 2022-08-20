@@ -3,6 +3,7 @@ using BL;
 using Persistence;
 using System.Text.RegularExpressions;
 using Spectre.Console;
+using System.Globalization;
 
 public class CandidateController
 {
@@ -26,7 +27,7 @@ public class CandidateController
         string? FullName;
         string? CareerTitle;
         string? CareerObjective;
-        string? BirthDate;
+        DateTime? BirthDate = null;
         string? PhoneNum;
         string? Email;
         string? SocialMedia;
@@ -38,7 +39,7 @@ public class CandidateController
             Console.WriteLine("================================\n");
             Console.WriteLine("           CREATE CV");
             Console.WriteLine("\n================================");
-            Console.Write(" Full Name       : ");
+            Console.Write(" Full Name: ");
             FullName = UserController.GetUserInput();
             if(FullName.Length > 100)
             {
@@ -64,7 +65,7 @@ public class CandidateController
             Console.WriteLine("================================\n");
             Console.WriteLine("           CREATE CV");
             Console.WriteLine("\n================================");
-            Console.Write(" Career Title    : ");
+            Console.Write(" Career Title: ");
             CareerTitle = UserController.GetUserInput();
             if(CareerTitle.Length > 50)
             {
@@ -110,17 +111,24 @@ public class CandidateController
             Console.WriteLine("================================\n");
             Console.WriteLine("           CREATE CV");
             Console.WriteLine("\n================================");
-            Console.Write(" Date of Birth   : ");
-            BirthDate = UserController.GetUserInput();
-            if(BirthDate.Length > 20)
+            Console.Write(" Date of Birth(Day/Month/Year): ");
+            string _BirthDate = UserController.GetUserInput();
+
+            if(String.IsNullOrEmpty(_BirthDate))
+            {
+                break;
+            }
+
+            try
+            {
+                BirthDate = DateTime.ParseExact(_BirthDate, "d/M/yyyy", CultureInfo.InvariantCulture);
+                break;
+            }
+            catch (Exception)
             {
                 Console.Clear();
                 Console.WriteLine("================================");
-                Console.WriteLine(" Date of Birth is too long. Maximum characters allowed is 20.");
-            }
-            else
-            {
-                break;
+                Console.WriteLine(" The correct formart is Day/Month/Year.");
             }
         }
         
@@ -130,7 +138,7 @@ public class CandidateController
             Console.WriteLine("================================\n");
             Console.WriteLine("           CREATE CV");
             Console.WriteLine("\n================================");
-            Console.Write(" Phone Number    : ");
+            Console.Write(" Phone Number: ");
             PhoneNum = UserController.GetUserInput();
             
             if (string.IsNullOrEmpty(PhoneNum))
@@ -166,7 +174,7 @@ public class CandidateController
             Console.WriteLine("================================\n");
             Console.WriteLine("           CREATE CV");
             Console.WriteLine("\n================================");
-            Console.Write(" Email           : ");
+            Console.Write(" Email: ");
             Email = UserController.GetUserInput();
             if(Email.Length > 100)
             {
@@ -201,7 +209,7 @@ public class CandidateController
             Console.WriteLine("================================\n");
             Console.WriteLine("           CREATE CV");
             Console.WriteLine("\n================================");
-            Console.Write(" Social Media    : ");
+            Console.Write(" Social Media ");
             SocialMedia = UserController.GetUserInput();
             if(SocialMedia.Length > 2000)
             {
@@ -221,7 +229,7 @@ public class CandidateController
             Console.WriteLine("================================\n");
             Console.WriteLine("           CREATE CV");
             Console.WriteLine("\n================================");
-            Console.Write(" Address         : ");
+            Console.Write(" Address: ");
             PersonalAddress = UserController.GetUserInput();
             if(PersonalAddress.Length > 5000)
             {
@@ -323,8 +331,8 @@ public class CandidateController
         Console.Clear();
         string Title = "Skill";
         string? JobPosition;
-        string? FromDate = null;
-        string? ToDate = null;
+        DateTime? FromDate = null;
+        DateTime? ToDate = null;
         string? Association = null;
         string? Description = null;
         
@@ -405,17 +413,24 @@ public class CandidateController
                     Console.WriteLine("================================\n");
                     Console.WriteLine("              ADD");
                     Console.WriteLine("\n================================");
-                    Console.Write(" Time: ");
-                    FromDate = UserController.GetUserInput();
-                    if(FromDate.Length > 50)
+                    Console.Write(" Time(Day/Month/Year): ");
+                    string _FromDate = UserController.GetUserInput();
+
+                    if(String.IsNullOrEmpty(_FromDate))
+                    {
+                        break;
+                    }
+
+                    try
+                    {
+                        FromDate = DateTime.ParseExact(_FromDate, "d/M/yyyy", CultureInfo.InvariantCulture);
+                        break;
+                    }
+                    catch (Exception)
                     {
                         Console.Clear();
                         Console.WriteLine("================================");
-                        Console.WriteLine(" Time is too long. Maximum characters allowed is 50.");
-                    }
-                    else
-                    {
-                        break;
+                        Console.WriteLine(" The correct formart is Day/Month/Year.");
                     }
                 }
 
@@ -491,17 +506,24 @@ public class CandidateController
                 Console.WriteLine("================================\n");
                 Console.WriteLine("              ADD");
                 Console.WriteLine("\n================================");
-                Console.Write(" From: ");
-                FromDate = UserController.GetUserInput();
-                if(FromDate.Length > 50)
+                Console.Write(" From(Day/Month/Year): ");
+                string _FromDate = UserController.GetUserInput();
+
+                if(String.IsNullOrEmpty(_FromDate))
+                {
+                    break;
+                }
+
+                try
+                {
+                    FromDate = DateTime.ParseExact(_FromDate, "d/M/yyyy", CultureInfo.InvariantCulture);
+                    break;
+                }
+                catch (Exception)
                 {
                     Console.Clear();
                     Console.WriteLine("================================");
-                    Console.WriteLine(" From Date is too long. Maximum characters allowed is 50.");
-                }
-                else
-                {
-                    break;
+                    Console.WriteLine(" The correct formart is Day/Month/Year.");
                 }
             }
 
@@ -511,17 +533,24 @@ public class CandidateController
                 Console.WriteLine("================================\n");
                 Console.WriteLine("              ADD");
                 Console.WriteLine("\n================================");
-                Console.Write(" To: ");
-                ToDate = UserController.GetUserInput();
-                if(ToDate.Length > 50)
+                Console.Write(" To(Day/Month/Year): ");
+                string _ToDate = UserController.GetUserInput();
+
+                if(String.IsNullOrEmpty(_ToDate))
+                {
+                    break;
+                }
+
+                try
+                {
+                    ToDate = DateTime.ParseExact(_ToDate, "d/M/yyyyy", CultureInfo.InvariantCulture);
+                    break;
+                }
+                catch (Exception)
                 {
                     Console.Clear();
                     Console.WriteLine("================================");
-                    Console.WriteLine(" To Date is too long. Maximum characters allowed is 50.");
-                }
-                else
-                {
-                    break;
+                    Console.WriteLine(" The correct formart is Day/Month/Year.");
                 }
             }
 
@@ -663,7 +692,7 @@ public class CandidateController
             Console.WriteLine(" 6) Email");
             Console.WriteLine(" 7) Social Media");
             Console.WriteLine(" 8) Address");
-            Console.WriteLine(" 9) Skills, Work Experiences, Educations, Activities, Certifications");
+            Console.WriteLine(" 9) Skills, Work Experience, Education, Activities, Certifications");
             Console.WriteLine(" 0) Return");
             Console.WriteLine("================================");
             Console.Write(" Enter the option number to change the details or to return: ");
@@ -676,7 +705,7 @@ public class CandidateController
                         Console.WriteLine("================================\n");
                         Console.WriteLine("           UPDATE CV");
                         Console.WriteLine("\n================================");
-                        Console.Write(" Full Name       : ");
+                        Console.Write(" Full Name: ");
                         string FullName = UserController.GetUserInput();
                         if(FullName.Length > 100)
                         {
@@ -705,7 +734,7 @@ public class CandidateController
                         Console.WriteLine("================================\n");
                         Console.WriteLine("           UPDATE CV");
                         Console.WriteLine("\n================================");
-                        Console.Write(" Career Title       : ");
+                        Console.Write(" Career Title: ");
                         string CareerTitle = UserController.GetUserInput();
                         if(CareerTitle.Length > 50)
                         {
@@ -757,18 +786,25 @@ public class CandidateController
                         Console.WriteLine("================================\n");
                         Console.WriteLine("           UPDATE CV");
                         Console.WriteLine("\n================================");
-                        Console.Write(" Date of Birth   : ");
+                        Console.Write(" Date of Birth(Day/Month/Year): ");
                         string BirthDate = UserController.GetUserInput();
-                        if(BirthDate.Length > 20)
+
+                        if(String.IsNullOrEmpty(BirthDate))
+                        {
+                            cv.BirthDate = null;
+                            break;
+                        }
+
+                        try
+                        {
+                            cv.BirthDate = DateTime.ParseExact(BirthDate, "d/M/yyyy", CultureInfo.InvariantCulture);
+                            break;
+                        }
+                        catch (Exception)
                         {
                             Console.Clear();
                             Console.WriteLine("================================");
-                            Console.WriteLine(" Date of Birth is too long. Maximum characters allowed is 20.");
-                        }
-                        else
-                        {
-                            cv.BirthDate = BirthDate;
-                            break;
+                            Console.WriteLine(" The correct formart is Day/Month/Year.");
                         }
                     }
                     Console.Clear();
@@ -780,7 +816,7 @@ public class CandidateController
                         Console.WriteLine("================================\n");
                         Console.WriteLine("           UPDATE CV");
                         Console.WriteLine("\n================================");
-                        Console.Write(" Phone Number    : ");
+                        Console.Write(" Phone Number: ");
                         string? _PhoneNum = UserController.GetUserInput();
 
                         if (string.IsNullOrEmpty(_PhoneNum))
@@ -819,7 +855,7 @@ public class CandidateController
                         Console.WriteLine("================================\n");
                         Console.WriteLine("           UPDATE CV");
                         Console.WriteLine("\n================================");
-                        Console.Write(" Email           : ");
+                        Console.Write(" Email: ");
                         string Email = UserController.GetUserInput();
                         if(Email.Length > 100)
                         {
@@ -857,7 +893,7 @@ public class CandidateController
                         Console.WriteLine("================================\n");
                         Console.WriteLine("           UPDATE CV");
                         Console.WriteLine("\n================================");
-                        Console.Write(" Social Media    : ");
+                        Console.Write(" Social Media: ");
                         string SocialMedia = UserController.GetUserInput();
                         if(SocialMedia.Length > 2000)
                         {
@@ -880,7 +916,7 @@ public class CandidateController
                         Console.WriteLine("================================\n");
                         Console.WriteLine("           UPDATE CV");
                         Console.WriteLine("\n================================");
-                        Console.Write(" Address         : ");
+                        Console.Write(" Address: ");
                         string PersonalAddress = UserController.GetUserInput();
                         if(PersonalAddress.Length > 5000)
                         {
@@ -932,8 +968,9 @@ public class CandidateController
         while (true)
         {
             bool done = false;
-
-            Console.WriteLine("================================");
+            Console.WriteLine("================================\n");
+            Console.WriteLine("           UPDATE CV");
+            Console.WriteLine("\n================================");
             Console.WriteLine(" 1) View ");
             Console.WriteLine(" 2) Add");
             Console.WriteLine(" 3) Change");
@@ -1021,6 +1058,7 @@ public class CandidateController
                     }
                     break;
                 case "3": // Change info of different CVDetails
+                    Console.Clear();
                     if(CVDetails != null)
                     {
                         while (true)
@@ -1078,6 +1116,7 @@ public class CandidateController
                     }
                     break;
                 case "4": // 'Delete' CVDetails
+                    Console.Clear();
                     if(CVDetails != null)
                     {
                         Console.Clear();
@@ -1159,6 +1198,7 @@ public class CandidateController
     public List<CVDetails> ChangeCVDetails(List<CVDetails> CVDetails, string type)
     {
         Console.Clear();
+        bool isFound = false;
         int count = 0;
         Console.WriteLine("================================\n");
         Console.WriteLine("            CHANGE");
@@ -1175,6 +1215,7 @@ public class CandidateController
             
             if(int.TryParse(choice, out int pos) && count == pos && detail.Title == type)
             {
+                isFound = true;
                 Console.Clear();
                 while (true)
                 {
@@ -1230,22 +1271,44 @@ public class CandidateController
                         Console.WriteLine("\n================================");
                         if (type == "Certificate")
                         {
-                            Console.Write(" Time: ");
+                            Console.Write(" Time(Day/Month/Year): ");
                         }
                         else
                         {
-                            Console.Write(" From: ");
+                            Console.Write(" From(Day/Month/Year): ");
                         }
-                        detail.FromDate = UserController.GetUserInput();
-                        if(detail.FromDate.Length > 50)
+                        string FromDate = UserController.GetUserInput();
+
+                        if(String.IsNullOrEmpty(FromDate))
+                        {
+                            detail.FromDate = null;
+                            break;
+                        }
+
+                        try
+                        {
+                            if (type == "Certificate")
+                            {
+                                detail.FromDate = DateTime.ParseExact(FromDate, "d/M/yyyy", CultureInfo.InvariantCulture);
+                            }
+                            else
+                            {
+                                detail.FromDate = DateTime.ParseExact(FromDate, "d/M/yyyy", CultureInfo.InvariantCulture);
+                            }
+                            break;
+                        }
+                        catch (Exception)
                         {
                             Console.Clear();
                             Console.WriteLine("================================");
-                            Console.WriteLine(" From Date is too long. Maximum characters allowed is 50.");
-                        }
-                        else
-                        {
-                            break;
+                            if (type == "Certificate")
+                            {
+                                Console.WriteLine(" The correct formart is Day/Month/Year.");
+                            }
+                            else
+                            {
+                                Console.WriteLine(" The correct formart is Day/Month/Year.");
+                            }
                         }
                     }
                 }
@@ -1258,17 +1321,25 @@ public class CandidateController
                         Console.WriteLine("================================\n");
                         Console.WriteLine("            CHANGE");
                         Console.WriteLine("\n================================");
-                        Console.Write(" To: ");
-                        detail.ToDate = UserController.GetUserInput();
-                        if(detail.ToDate.Length > 50)
+                        Console.Write(" To(Day/Month/Year): ");
+                        string ToDate = UserController.GetUserInput();
+
+                        if(String.IsNullOrEmpty(ToDate))
+                        {
+                            detail.ToDate = null;
+                            break;
+                        }
+
+                        try
+                        {
+                            detail.ToDate = DateTime.ParseExact(ToDate, "d/M/yyyy", CultureInfo.InvariantCulture);
+                            break;
+                        }
+                        catch (Exception)
                         {
                             Console.Clear();
                             Console.WriteLine("================================");
-                            Console.WriteLine(" To Date is too long. Maximum characters allowed is 50.");
-                        }
-                        else
-                        {
-                            break;
+                            Console.WriteLine(" The correct formart is Day/Month/Year.");
                         }
                     }
 
@@ -1329,6 +1400,17 @@ public class CandidateController
             }
         }
 
+        if (isFound != true)
+        {
+            Console.Clear();
+            Console.WriteLine("================================");
+            Console.WriteLine(" The target doesn't exist.");
+        }
+        else
+        {
+            Console.Clear();
+        }
+
         return CVDetails;
     }
 
@@ -1354,8 +1436,8 @@ public class CandidateController
             {
                 detail.JobPosition = "";
                 detail.Title = "";
-                detail.FromDate = "";
-                detail.ToDate = "";
+                detail.FromDate = null;
+                detail.ToDate = null;
                 detail.Association = "";
                 detail.Description = "";
 
@@ -1548,8 +1630,18 @@ public class CandidateController
                 bool success = int.TryParse(choice, out int position);
                 if(success)
                 {
-                    Console.Clear();
-                    SearchedNewsDetails(recruitNews[position - 1], CandidateID);
+                    if ((position - 1) < recruitNews.Count() && position > 0)
+                    {
+                        Console.Clear();
+                        SearchedNewsDetails(recruitNews[position - 1], CandidateID);
+                    }
+                    else
+                    {
+                        Console.Clear();
+                        Console.WriteLine("================================");
+                        Console.WriteLine(" Your chosen target doesn't exist.");
+                        Console.WriteLine("================================");
+                    }
                 }
                 else
                 {
@@ -1584,7 +1676,7 @@ public class CandidateController
             newsTable.AddRow("--------------------", "----------------------------------------");
             newsTable.AddRow("Recruiter's Number", recruiter.PhoneNum);
             newsTable.AddRow("--------------------", "----------------------------------------");
-            newsTable.AddRow("Deadline", news.DeadLine);
+            newsTable.AddRow("Deadline", news.DeadLine.ToString("d/MM/yyyy"));
             newsTable.AddRow("--------------------", "----------------------------------------");
             newsTable.AddRow("Salary Range", news.SalaryRange);
             newsTable.AddRow("--------------------", "----------------------------------------");
@@ -1634,6 +1726,7 @@ public class CandidateController
                         {
                             Console.Clear();
                             candidateBL.ApplyToNews(CandidateID, news.NewsID);
+
                         }
                         break;
                     case "0":

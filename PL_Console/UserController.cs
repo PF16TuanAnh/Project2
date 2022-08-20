@@ -18,7 +18,6 @@ public class UserController
     {
         Console.Clear();
         string email;
-        string password;
         bool correctEmail = false;
 
         while (true)
@@ -55,14 +54,34 @@ public class UserController
                 Console.WriteLine("            LOG IN");
                 Console.WriteLine("\n================================");
                 Console.Write(" Password: ");
-                password = GetUserInput();
-                if (password == "0")
+                // password = GetUserInput();
+
+                var pass = string.Empty;
+                ConsoleKey key;
+                do
+                {
+                    var keyInfo = Console.ReadKey(intercept: true);
+                    key = keyInfo.Key;
+
+                    if (key == ConsoleKey.Backspace && pass.Length > 0)
+                    {
+                        Console.Write("\b \b");
+                        pass = pass[0..^1];
+                    }
+                    else if (!char.IsControl(keyInfo.KeyChar))
+                    {
+                        Console.Write("*");
+                        pass += keyInfo.KeyChar;
+                    }
+                } while (key != ConsoleKey.Enter);
+
+                if (pass == "0")
                 {
                     Console.Clear();
                     break;
                 }
 
-                if (userBL.VerifyPassword(password))
+                if (userBL.VerifyPassword(pass))
                 {
                     int? CandidateID = userBL.GetCandidateIDByEmail(email);
                     int? RecruiterID = userBL.GetRecruiterIDByEmail(email);
@@ -99,7 +118,7 @@ public class UserController
     {
         Console.Clear();
         string email;
-        string password;
+        var pass = string.Empty;
         string username;
         string gender = "Other";
         int role = 1; // 1 = "Candidate", 2 = "Recruiter"
@@ -167,8 +186,25 @@ public class UserController
                 Console.WriteLine("\n================================");
                 Console.WriteLine(" You can Enter 0 on password to turn back.");
                 Console.Write(" Password: ");
-                password = GetUserInput();
-                if(password.Length > 100)
+                ConsoleKey key;
+                do
+                {
+                    var keyInfo = Console.ReadKey(intercept: true);
+                    key = keyInfo.Key;
+
+                    if (key == ConsoleKey.Backspace && pass.Length > 0)
+                    {
+                        Console.Write("\b \b");
+                        pass = pass[0..^1];
+                    }
+                    else if (!char.IsControl(keyInfo.KeyChar))
+                    {
+                        Console.Write("*");
+                        pass += keyInfo.KeyChar;
+                    }
+                } while (key != ConsoleKey.Enter);
+
+                if(pass.Length > 100)
                 {
                     Console.Clear();
                     Console.WriteLine(" Password is too long. Maximum characters allowed is 100.");
@@ -179,7 +215,7 @@ public class UserController
                 }
             }  
 
-            if(password != "0")
+            if(pass != "0")
             {
                 Console.Clear();
                 while (true)
@@ -271,7 +307,7 @@ public class UserController
                     }
                 }
 
-                User newAccount = new User(username, email, password, gender);
+                User newAccount = new User(username, email, pass, gender);
                 int? ID = userBL.InsertNewUser(newAccount, role);
 
                 if(role == 1)

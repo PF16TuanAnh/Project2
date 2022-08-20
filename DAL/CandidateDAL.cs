@@ -235,7 +235,7 @@ public class CandidateDAL
         if (!reader.IsDBNull(reader.GetOrdinal("FullName"))) cv.FullName = reader.GetString("FullName");
         if (!reader.IsDBNull(reader.GetOrdinal("CareerTitle"))) cv.CareerTitle = reader.GetString("CareerTitle");
         if (!reader.IsDBNull(reader.GetOrdinal("CareerObjective"))) cv.CareerObjective = reader.GetString("CareerObjective");
-        if (!reader.IsDBNull(reader.GetOrdinal("BirthDate"))) cv.BirthDate = reader.GetString("BirthDate");
+        if (!reader.IsDBNull(reader.GetOrdinal("BirthDate"))) cv.BirthDate = reader.GetDateTime("BirthDate");
         if (!reader.IsDBNull(reader.GetOrdinal("PhoneNum"))) cv.PhoneNum = reader.GetString("PhoneNum");
         if (!reader.IsDBNull(reader.GetOrdinal("Email"))) cv.Email = reader.GetString("Email");
         if (!reader.IsDBNull(reader.GetOrdinal("SocialMedia"))) cv.SocialMedia = reader.GetString("SocialMedia");
@@ -272,8 +272,8 @@ public class CandidateDAL
         if (!reader.IsDBNull(reader.GetOrdinal("CVID"))) cVDetails.CVID = reader.GetInt32("CVID");
         if (!reader.IsDBNull(reader.GetOrdinal("Title")))cVDetails.Title = reader.GetString("Title");
         if (!reader.IsDBNull(reader.GetOrdinal("JobPosition")))cVDetails.JobPosition = reader.GetString("JobPosition");
-        if (!reader.IsDBNull(reader.GetOrdinal("FromDate")))cVDetails.FromDate = reader.GetString("FromDate");
-        if (!reader.IsDBNull(reader.GetOrdinal("ToDate")))cVDetails.ToDate = reader.GetString("ToDate");
+        if (!reader.IsDBNull(reader.GetOrdinal("FromDate")))cVDetails.FromDate = reader.GetDateTime("FromDate");
+        if (!reader.IsDBNull(reader.GetOrdinal("ToDate")))cVDetails.ToDate = reader.GetDateTime("ToDate");
         if (!reader.IsDBNull(reader.GetOrdinal("Association"))) cVDetails.Association = reader.GetString("Association");
         if (!reader.IsDBNull(reader.GetOrdinal("Descriptions"))) cVDetails.Description = reader.GetString("Descriptions");
         return cVDetails;

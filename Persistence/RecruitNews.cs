@@ -5,7 +5,7 @@ public class RecruitNews
     public int NewsID{get; set;}
     public int RecruiterID{get; set;}
     public string NewsName{get; set;}
-    public string DeadLine{get; set;}
+    public DateTime DeadLine{get; set;}
     public string SalaryRange{get; set;}
     public string FormOfEmploy{get; set;}
     public string Gender{get; set;}
@@ -20,7 +20,7 @@ public class RecruitNews
     public RecruitNews()
     {
         this.NewsName = "";
-        this.DeadLine = "";
+        this.DeadLine = new DateTime();
         this.SalaryRange = "";
         this.HiringAmount = "";
         this.HiringPosition = "";
@@ -34,7 +34,7 @@ public class RecruitNews
         this.RequiredExp = "";
     }
 
-    public RecruitNews(string _NewsName, string _DeadLine,  string _FormOfEmploy, string _Gender, string _HiringAmount, 
+    public RecruitNews(string _NewsName, DateTime _DeadLine,  string _FormOfEmploy, string _Gender, string _HiringAmount, 
     string _HiringPosition, string _RequiredExp, string _SalaryRange,string _CityAddress, string _Profession)  
     { 
         this.NewsName = _NewsName;
