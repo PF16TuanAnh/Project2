@@ -171,7 +171,7 @@ public class Menu
                 Console.WriteLine("================================\n");
                 Console.WriteLine(" User: {0}", recruiter.Name);
                 Console.WriteLine("\n================================");
-                if (recruiter.PhoneNum != null)
+                if (!String.IsNullOrEmpty(recruiter.PhoneNum))
                 {
                     Console.WriteLine(" 1) View Personal Information");
                 }
@@ -188,7 +188,7 @@ public class Menu
                 switch (UserController.GetUserInput())
                 {
                     case "1":
-                        if (recruiter.PhoneNum != null)
+                        if (!String.IsNullOrEmpty(recruiter.PhoneNum))
                         {
                             recruiterController.ViewProfileInformation(recruiter);
                         }
@@ -672,17 +672,33 @@ public class Menu
 
     private static void ViewProfileMenu(Recruiter recruiter)
     {
-        Console.WriteLine("================================\n");
-        Console.WriteLine("        PERSONAL INFORMATION   ");
-        Console.WriteLine("\n================================");
-        Console.WriteLine(" 1,CompanyName        : {0}", recruiter.CompanyName);
-        Console.WriteLine(" 2,PhoneNum           : {0}", recruiter.PhoneNum);
-        Console.WriteLine(" 3,Position           : {0}", recruiter.Position);
-        Console.WriteLine(" 4,CompanyDescription : {0}", recruiter.CompanyDescription);
-        Console.WriteLine(" 5,Business Size      : {0}", recruiter.BusinessSize);
-        Console.WriteLine(" 6,Business Field     : {0}", recruiter.BusinessField);
-        Console.WriteLine(" 7,Company Address    : {0}", recruiter.CompanyAddress);
-        Console.Write(" Enter the option number to change the details or 0 to return: ");
+        Console.Clear();
+
+        var profileTable = new Table();
+        profileTable.Title("PERSONAL INFORMATION");
+        profileTable.HideHeaders();
+        profileTable.AddColumn("Title");
+        profileTable.AddColumn(new TableColumn("Content"));
+        profileTable.Columns[0].Width(20);
+        profileTable.LeftAligned();
+        profileTable.Columns[1].Width(40);
+        profileTable.AddRow("Name", recruiter.Name);
+        profileTable.AddRow("--------------------", "----------------------------------------");
+        profileTable.AddRow("Position", recruiter.Position);
+        profileTable.AddRow("--------------------", "----------------------------------------");
+        profileTable.AddRow("Phone Number", recruiter.PhoneNum);
+        profileTable.AddRow("--------------------", "----------------------------------------");
+        profileTable.AddRow("Company", recruiter.CompanyName);
+        profileTable.AddRow("--------------------", "----------------------------------------");
+        profileTable.AddRow("Company Address", recruiter.CompanyAddress);
+        profileTable.AddRow("--------------------", "----------------------------------------");
+        profileTable.AddRow("Business Field", recruiter.BusinessField);
+        profileTable.AddRow("--------------------", "----------------------------------------");
+        profileTable.AddRow("Business Size", recruiter.BusinessSize);
+        profileTable.AddRow("--------------------", "----------------------------------------");
+        profileTable.AddRow("Company Description", recruiter.CompanyDescription ?? "");
+
+        AnsiConsole.Write(profileTable);
     }
 
     private static void SearchedCVsMenu(List<CV> cv)

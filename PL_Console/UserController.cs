@@ -31,6 +31,7 @@ public class UserController
         {
             if (email == "0")
             {
+                Console.Clear();
                 break;
             }
 
@@ -41,6 +42,7 @@ public class UserController
                 password = GetUserInput();
                 if (password == "0")
                 {
+                    Console.Clear();
                     break;
                 }
 
@@ -79,6 +81,7 @@ public class UserController
             }
             else
             {
+                Console.Clear();
                 Console.WriteLine("================================\n");
                 Console.WriteLine("            LOG IN");
                 Console.WriteLine("\n================================");
@@ -223,7 +226,7 @@ public class UserController
                         default:
                             Console.Clear();
                             Console.WriteLine("================================"); 
-                            Console.WriteLine(" Invalid choice! Please re-enter your option.");
+                            Console.WriteLine(" Invalid input! Please re-enter your option.");
                             break;
                     }
 
@@ -256,7 +259,7 @@ public class UserController
                         default:
                             Console.Clear();
                             Console.WriteLine("================================"); 
-                            Console.WriteLine(" Invalid choice! Please re-enter your option.");
+                            Console.WriteLine(" Invalid input! Please re-enter your option.");
                             break;
                     }
 

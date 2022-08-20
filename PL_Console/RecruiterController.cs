@@ -29,14 +29,12 @@ public class RecruiterController
         string? BusinessField;
         string? CompanyAddress;
 
-
-        Console.WriteLine("================================\n");
-        Console.WriteLine(" View Your Personal Information");
-        Console.WriteLine("\n================================");
-
         while (true) // PhoneNum
         {
-            Console.Write(" Phone Number    : ");
+            Console.WriteLine("================================\n");
+            Console.WriteLine("        INSERT INFORMATION");
+            Console.WriteLine("\n================================");
+            Console.Write(" Phone Number: ");
             PhoneNum = UserController.GetUserInput();
             if (string.IsNullOrEmpty(PhoneNum))
             {
@@ -58,36 +56,66 @@ public class RecruiterController
                 }
                 else
                 {
-                    Console.WriteLine("\n Phone Number is numbers only.\n");
+                    Console.Clear();
+                    Console.WriteLine("================================");
+                    Console.WriteLine(" Phone Number must be numbers only.");
                 }
             }
         }
+
+        Console.Clear();
         while (true) // CompanyName
         {
-            Console.Write(" Company Name       : ");
+            Console.WriteLine("================================\n");
+            Console.WriteLine("        INSERT INFORMATION");
+            Console.WriteLine("\n================================");
+            Console.Write(" Company Name: ");
             CompanyName = UserController.GetUserInput();
             if(CompanyName.Length > 100)
             {
-                Console.WriteLine("\n Company Name is too long. Maximum characters allowed is 100\n");
+                Console.Clear();
+                Console.WriteLine("================================");
+                Console.WriteLine(" Company Name is too long. Maximum characters allowed is 100.");
+            }
+            else if (string.IsNullOrEmpty(CompanyName))
+            {
+                Console.Clear();
+                Console.WriteLine("================================");
+                Console.WriteLine(" Company Name can't be left empty.");
             }
             else
             {
                 break;
             }
         }
+
+        Console.Clear();
         while (true) // CompanyAddress
         {
-            Console.Write(" Company Address    : ");
+            Console.WriteLine("================================\n");
+            Console.WriteLine("        INSERT INFORMATION");
+            Console.WriteLine("\n================================");
+            Console.Write(" Company Address: ");
             CompanyAddress = UserController.GetUserInput();
             if(CompanyAddress.Length > 100)
             {
-                Console.WriteLine("\n Company Address is too long. Maximum characters allowed is 100\n");
+                Console.Clear();
+                Console.WriteLine("================================");
+                Console.WriteLine(" Company Address is too long. Maximum characters allowed is 100.");
+            }
+            else if (string.IsNullOrEmpty(CompanyAddress))
+            {
+                Console.Clear();
+                Console.WriteLine("================================");
+                Console.WriteLine(" Company Address can't be left empty.");
             }
             else
             {
                 break;
             }
         }
+
+        Console.Clear();
         while (true) // Position
         {
             bool end = true;
@@ -127,8 +155,9 @@ public class RecruiterController
                     Position = "CEO";
                     break;
                 default:
+                    Console.Clear();
                     Console.WriteLine("================================"); 
-                    Console.WriteLine(" Invalid choice! Please re-enter your option.");
+                    Console.WriteLine(" Invalid input! Please re-enter your option.");
                     end = false;
                     break;
             }
@@ -137,39 +166,72 @@ public class RecruiterController
                 break;
             }
         }
+
+        Console.Clear();
         while (true) // CompanyDescription
         {
+            Console.WriteLine("================================\n");
+            Console.WriteLine("        INSERT INFORMATION");
+            Console.WriteLine("\n================================");
             Console.Write(" Company Description: ");
             CompanyDescription = UserController.GetUserInput();
             if(CompanyDescription.Length > 5000)
             {
-                Console.WriteLine("\n Company Description is too long. Maximum characters allowed is 5000\n");
+                Console.Clear();
+                Console.WriteLine("================================"); 
+                Console.WriteLine(" Company Description is too long. Maximum characters allowed is 5000.");
             }
             else
             {
                 break;
             }
         }
+
+        Console.Clear();
         while (true) // BusinessSize
         {
-            Console.Write(" Business Size     : ");
+            Console.WriteLine("================================\n");
+            Console.WriteLine("        INSERT INFORMATION");
+            Console.WriteLine("\n================================");
+            Console.Write(" Business Size: ");
             BusinessSize = UserController.GetUserInput();
             if(BusinessSize.Length > 50)
             {
-                Console.WriteLine("\n Business Size is too long. Maximum characters allowed is 50\n");
+                Console.Clear();
+                Console.WriteLine("================================"); 
+                Console.WriteLine(" Business Size is too long. Maximum characters allowed is 50.");
+            }
+            else if (string.IsNullOrEmpty(BusinessSize))
+            {
+                Console.Clear();
+                Console.WriteLine("================================");
+                Console.WriteLine(" Business Size can't be left empty.");
             }
             else
             {
                 break;
             }
         }
+
+        Console.Clear();
         while (true) // BusinessField
         {
-            Console.Write(" Business Field    : ");
+            Console.WriteLine("================================\n");
+            Console.WriteLine("        INSERT INFORMATION");
+            Console.WriteLine("\n================================");
+            Console.Write(" Business Field: ");
             BusinessField = UserController.GetUserInput();
             if(BusinessField.Length > 100)
             {
-                Console.WriteLine("\n Business Field is too long. Maximum characters allowed is 100\n");
+                Console.Clear();
+                Console.WriteLine("================================"); 
+                Console.WriteLine(" Business Field is too long. Maximum characters allowed is 100.");
+            }
+            else if (string.IsNullOrEmpty(BusinessField))
+            {
+                Console.Clear();
+                Console.WriteLine("================================");
+                Console.WriteLine(" Business Field can't be left empty.");
             }
             else
             {
@@ -177,7 +239,7 @@ public class RecruiterController
             }
         }
         
-        Recruiter newProfile = new Recruiter(PhoneNum, Position, CompanyName, CompanyAddress, CompanyDescription, BusinessSize, BusinessField);
+        Recruiter newProfile = new Recruiter(PhoneNum, Position, CompanyName, CompanyDescription, CompanyAddress, BusinessSize, BusinessField);
         recruiterBL.CreateNewProfile(newProfile, RecruiterID);
         
     }
@@ -206,7 +268,7 @@ public class RecruiterController
                 else
                 {
                     Console.WriteLine("================================");
-                    Console.WriteLine(" Invalid choice! Please re-enter your option.");
+                    Console.WriteLine(" Invalid input! Please re-enter your option.");
                 }
             }
         }
@@ -299,7 +361,7 @@ public class RecruiterController
                     break;
                 default:
                     Console.WriteLine("================================"); 
-                    Console.WriteLine(" Invalid choice! Please re-enter your option.");
+                    Console.WriteLine(" Invalid input! Please re-enter your option.");
                     break;
             }
 
@@ -393,7 +455,7 @@ public class RecruiterController
                     break;
                 default:
                     Console.WriteLine("================================"); 
-                    Console.WriteLine(" Invalid choice! Please re-enter your option.");
+                    Console.WriteLine(" Invalid input! Please re-enter your option.");
                     break;
             }
 
@@ -454,7 +516,7 @@ public class RecruiterController
                     break;
                 default:
                     Console.WriteLine("================================"); 
-                    Console.WriteLine(" Invalid choice! Please re-enter your option.");
+                    Console.WriteLine(" Invalid input! Please re-enter your option.");
                     break;
             }
 
@@ -501,7 +563,7 @@ public class RecruiterController
                     break;
                 default:
                     Console.WriteLine("================================"); 
-                    Console.WriteLine(" Invalid choice! Please re-enter your option.");
+                    Console.WriteLine(" Invalid input! Please re-enter your option.");
                     break;
             }
 
@@ -673,7 +735,7 @@ public class RecruiterController
                                 break;
                             default:
                                 Console.WriteLine("================================"); 
-                                Console.WriteLine(" Invalid choice! Please re-enter your option.");
+                                Console.WriteLine(" Invalid input! Please re-enter your option.");
                                 break;
                         }
 
@@ -721,7 +783,7 @@ public class RecruiterController
                                     break;
                                 default:
                                     Console.WriteLine("================================"); 
-                                    Console.WriteLine(" Invalid choice! Please re-enter your option.");
+                                    Console.WriteLine(" Invalid input! Please re-enter your option.");
                                     endStatus = false;
                                     break;
                             }
@@ -769,7 +831,7 @@ public class RecruiterController
                                 break;
                             default:
                                 Console.WriteLine("================================"); 
-                                Console.WriteLine(" Invalid choice! Please re-enter your option.");
+                                Console.WriteLine(" Invalid input! Please re-enter your option.");
                                 break;
                         }
 
@@ -818,7 +880,7 @@ public class RecruiterController
                                 break;
                             default:
                                 Console.WriteLine("================================"); 
-                                Console.WriteLine(" Invalid choice! Please re-enter your option.");
+                                Console.WriteLine(" Invalid input! Please re-enter your option.");
                                 break;
                         }
 
@@ -867,7 +929,7 @@ public class RecruiterController
                                 break;
                             default:
                                 Console.WriteLine("================================"); 
-                                Console.WriteLine(" Invalid choice! Please re-enter your option.");
+                                Console.WriteLine(" Invalid input! Please re-enter your option.");
                                 break;
                         }
 
@@ -899,7 +961,7 @@ public class RecruiterController
                                 break;
                             default:
                                 Console.WriteLine("================================");
-                                Console.WriteLine(" Invalid choice! Please re-enter your option.");
+                                Console.WriteLine(" Invalid input! Please re-enter your option.");
                                 break;
                         }
 
@@ -911,7 +973,7 @@ public class RecruiterController
                     break;
                 default:
                     Console.WriteLine("================================");
-                    Console.WriteLine(" Invalid choice! Please re-enter your option.");
+                    Console.WriteLine(" Invalid input! Please re-enter your option.");
                     break;
             }
 
@@ -954,7 +1016,7 @@ public class RecruiterController
                     break;
                 default:
                     Console.WriteLine("================================"); 
-                    Console.WriteLine(" Invalid choice! Please re-enter your option.");
+                    Console.WriteLine(" Invalid input! Please re-enter your option.");
                     break;
             }
             if (end == true)
@@ -1039,7 +1101,7 @@ public class RecruiterController
                 else
                 {
                     Console.WriteLine("================================");
-                    Console.WriteLine(" Invalid choice! Please re-enter your option.");
+                    Console.WriteLine(" Invalid input! Please re-enter your option.");
                 }
             }
         }
@@ -1050,25 +1112,47 @@ public class RecruiterController
         }
     }
 
-    public void ViewProfileInformation(Recruiter recruiter)
+    public void UpdateProfileInformation(Recruiter recruiter)
     { 
         Console.Clear();
         bool end = false;
         while (true)
         {
-            Menu.PrintSubMenu(5, recruiter);
-            
+            Console.WriteLine("================================\n");
+            Console.WriteLine("             UPDATE");
+            Console.WriteLine("\n================================");
+            Console.WriteLine(" 1) CompanyName");
+            Console.WriteLine(" 2) PhoneNum");
+            Console.WriteLine(" 3) Position");
+            Console.WriteLine(" 4) CompanyDescription");
+            Console.WriteLine(" 5) Business Size");
+            Console.WriteLine(" 6) Business Field");
+            Console.WriteLine(" 7) Company Address");
+            Console.WriteLine(" 0) Return");
+            Console.WriteLine("================================");
+            Console.Write(" Enter the option number: ");
             switch (UserController.GetUserInput())
             {
                 case "1": // CompanyName
-                    Console.WriteLine("================================");
+                    Console.Clear();
                     while (true)
                     {
-                        Console.Write(" Company Name       : ");
+                        Console.WriteLine("================================\n");
+                        Console.WriteLine("             UPDATE");
+                        Console.WriteLine("\n================================");
+                        Console.Write(" Company Name: ");
                         string CompanyName = UserController.GetUserInput();
                         if(CompanyName.Length > 100)
                         {
-                            Console.WriteLine("\n Company Name is too long. Maximum characters allowed is 100\n");
+                            Console.Clear();
+                            Console.WriteLine("================================");
+                            Console.WriteLine(" Company Name is too long. Maximum characters allowed is 100.");
+                        }
+                        else if (string.IsNullOrEmpty(CompanyName))
+                        {
+                            Console.Clear();
+                            Console.WriteLine("================================");
+                            Console.WriteLine(" Company Name can't be left empty.");
                         }
                         else
                         {
@@ -1076,8 +1160,10 @@ public class RecruiterController
                             break;
                         }
                     }
+                    Console.Clear();
                     break;
                 case "2": //Postion
+                    Console.Clear();
                     while (true) 
                         {
                             bool endUpdate = true;
@@ -1117,8 +1203,9 @@ public class RecruiterController
                                     recruiter.Position = "CEO";
                                     break;
                                 default:
+                                    Console.Clear();
                                     Console.WriteLine("================================"); 
-                                    Console.WriteLine(" Invalid choice! Please re-enter your option.");
+                                    Console.WriteLine(" Invalid input! Please re-enter your option.");
                                     endUpdate = false;
                                     break;
                             }
@@ -1127,12 +1214,16 @@ public class RecruiterController
                                 break;
                             }
                         }
+                        Console.Clear();
                     break;
                 case "3": // PhoneNum
-                    Console.WriteLine("================================");
+                    Console.Clear();
                     while (true)
                     {
-                        Console.Write(" Phone Number     : ");
+                        Console.WriteLine("================================\n");
+                        Console.WriteLine("             UPDATE");
+                        Console.WriteLine("\n================================");
+                        Console.Write(" Phone Number: ");
                         string PhoneNum = UserController.GetUserInput();
                         if (string.IsNullOrEmpty(PhoneNum))
                         {
@@ -1155,20 +1246,28 @@ public class RecruiterController
                             }
                             else
                             {
-                                Console.WriteLine("\n Phone number is numbers only.\n");
+                                Console.Clear();
+                                Console.WriteLine("================================");
+                                Console.WriteLine(" Phone number must be numbers only.");
                             }
                         }
                     }
+                    Console.Clear();
                     break;
                 case "4": // CompanyDescription
-                    Console.WriteLine("================================");
+                    Console.Clear();
                     while (true)
                     {
-                        Console.Write(" Company Description       : ");
+                        Console.WriteLine("================================\n");
+                        Console.WriteLine("             UPDATE");
+                        Console.WriteLine("\n================================");
+                        Console.Write(" Company Description: ");
                         string CompanyDescription = UserController.GetUserInput();
                         if(CompanyDescription.Length > 5000)
                         {
-                            Console.WriteLine("\n Company Description is too long. Maximum characters allowed is 5000\n");
+                            Console.Clear();
+                            Console.WriteLine("================================");
+                            Console.WriteLine(" Company Description is too long. Maximum characters allowed is 5000.");
                         }
                         else
                         {
@@ -1176,16 +1275,28 @@ public class RecruiterController
                             break;
                         }
                     }
+                    Console.Clear();
                     break;
                 case "5": // BusinessSize
-                    Console.WriteLine("================================");
+                    Console.Clear();
                     while (true)
                     {
-                        Console.Write(" Business Size       : ");
+                        Console.WriteLine("================================\n");
+                        Console.WriteLine("             UPDATE");
+                        Console.WriteLine("\n================================");
+                        Console.Write(" Business Size: ");
                         string BusinessSize = UserController.GetUserInput();
                         if(BusinessSize.Length > 50)
                         {
-                            Console.WriteLine("\n Business Size is too long. Maximum characters allowed is 50\n");
+                            Console.Clear();
+                            Console.WriteLine("================================");
+                            Console.WriteLine(" Business Size is too long. Maximum characters allowed is 50.");
+                        }
+                        else if (string.IsNullOrEmpty(BusinessSize))
+                        {
+                            Console.Clear();
+                            Console.WriteLine("================================");
+                            Console.WriteLine(" Business Size can't be left empty.");
                         }
                         else
                         {
@@ -1193,16 +1304,28 @@ public class RecruiterController
                             break;
                         }
                     }
+                    Console.Clear();
                     break;
                 case "6": // BusinessField
-                    Console.WriteLine("================================");
+                    Console.Clear();
                     while (true)
                     {
-                        Console.Write(" Business Field       : ");
+                        Console.WriteLine("================================\n");
+                        Console.WriteLine("             UPDATE");
+                        Console.WriteLine("\n================================");
+                        Console.Write(" Business Field: ");
                         string BusinessField = UserController.GetUserInput();
                         if(BusinessField.Length > 100)
                         {
-                            Console.WriteLine("\n Business Field is too long. Maximum characters allowed is 100\n");
+                            Console.Clear();
+                            Console.WriteLine("================================");
+                            Console.WriteLine(" Business Field is too long. Maximum characters allowed is 100.");
+                        }
+                        else if (string.IsNullOrEmpty(BusinessField))
+                        {
+                            Console.Clear();
+                            Console.WriteLine("================================");
+                            Console.WriteLine(" Business Field can't be left empty.");
                         }
                         else
                         {
@@ -1210,16 +1333,28 @@ public class RecruiterController
                             break;
                         }
                     }
+                    Console.Clear();
                     break;
                 case "7": // CompanyAddress
-                    Console.WriteLine("================================");
+                    Console.Clear();
                     while (true)
                     {
-                        Console.Write(" Company Address       : ");
+                        Console.WriteLine("================================\n");
+                        Console.WriteLine("             UPDATE");
+                        Console.WriteLine("\n================================");
+                        Console.Write(" Company Address: ");
                         string CompanyAddress = UserController.GetUserInput();
                         if(CompanyAddress.Length > 100)
                         {
-                            Console.WriteLine("\n Company Address is too long. Maximum characters allowed is 100\n");
+                            Console.Clear();
+                            Console.WriteLine("================================");
+                            Console.WriteLine(" Company Address is too long. Maximum characters allowed is 100.");
+                        }
+                        else if (string.IsNullOrEmpty(CompanyAddress))
+                        {
+                            Console.Clear();
+                            Console.WriteLine("================================");
+                            Console.WriteLine(" Company Address can't be left empty.");
                         }
                         else
                         {
@@ -1227,27 +1362,64 @@ public class RecruiterController
                             break;
                         }
                     }
+                    Console.Clear();
                     break;
                 case "0":
+                    Console.Clear();
+                    end = true;
+                    break;
+                default:
+                    Console.Clear();
+                    Console.WriteLine("================================");
+                    Console.WriteLine(" Invalid input! Please re-enter your option.");
+                    break;
+            }
+            if (end == true)
+            {
+                break;
+            }
+        }
+    }
+
+    public void ViewProfileInformation(Recruiter recruiter)
+    {
+        bool end = false;
+        while(true)
+        {
+            Menu.PrintSubMenu(5, recruiter);
+            Console.Write(" Enter 1 to update your Profile or 0 to return: ");
+            switch (UserController.GetUserInput())
+            {
+                case "1":
+                    UpdateProfileInformation(recruiter);
+                    break;
+                case "0":
+                    Console.Clear();
                     while(true)
-                    {    
-                        Console.WriteLine("================================");
-                        Console.WriteLine(" 1) Confirm changes");
+                    {
+                        Console.WriteLine("================================\n");
+                        Console.WriteLine("        CONFIRM DETAILS");
+                        Console.WriteLine("\n================================");
+                        Console.WriteLine(" If there are changes, you can choose Confirm to save them.");
+                        Console.WriteLine(" 1) Confirm");
                         Console.WriteLine(" 0) Cancel");
                         Console.WriteLine("================================");
                         Console.Write(" Enter the option number: ");
                         switch (UserController.GetUserInput())
                         {
                             case "1":
+                                Console.Clear();
                                 recruiterBL.UpdatePersonalRecruitInfo(recruiter);
                                 end = true;
                                 break;
                             case "0":
+                                Console.Clear();
                                 end = true;
                                 break;
                             default:
+                                Console.Clear();
                                 Console.WriteLine("================================");
-                                Console.WriteLine(" Invalid choice! Please re-enter your option.");
+                                Console.WriteLine(" Invalid input! Please re-enter your option.");
                                 break;
                         }
 
@@ -1258,15 +1430,17 @@ public class RecruiterController
                     }
                     break;
                 default:
-                    Console.WriteLine("================================");
-                    Console.WriteLine(" Invalid choice! Please re-enter your option.");
+                    Console.Clear();
+                    Console.WriteLine("============================================="); 
+                    Console.WriteLine(" Invalid input! Please re-enter your option.");
+                    Console.WriteLine("============================================="); 
                     break;
             }
+
             if (end == true)
             {
                 break;
             }
         }
-        
     }
 }

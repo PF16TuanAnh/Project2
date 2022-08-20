@@ -61,6 +61,9 @@ public class CandidateController
         Console.Clear();
         while (true)
         {
+            Console.WriteLine("================================\n");
+            Console.WriteLine("           CREATE CV");
+            Console.WriteLine("\n================================");
             Console.Write(" Career Title    : ");
             CareerTitle = UserController.GetUserInput();
             if(CareerTitle.Length > 50)
@@ -300,7 +303,7 @@ public class CandidateController
                 default:
                     Console.Clear();
                     Console.WriteLine("================================"); 
-                    Console.WriteLine(" Invalid choice! Please re-enter your option.");
+                    Console.WriteLine(" Invalid input! Please re-enter your option.");
                     break;
             }
 
@@ -616,7 +619,7 @@ public class CandidateController
                             default:
                                 Console.Clear();
                                 Console.WriteLine("================================");
-                                Console.WriteLine(" Invalid choice! Please re-enter your option.");
+                                Console.WriteLine(" Invalid input! Please re-enter your option.");
                                 break;
                         }
 
@@ -629,7 +632,7 @@ public class CandidateController
                 default:
                     Console.Clear();
                     Console.WriteLine("============================================="); 
-                    Console.WriteLine(" Invalid choice! Please re-enter your option.");
+                    Console.WriteLine(" Invalid input! Please re-enter your option.");
                     Console.WriteLine("============================================="); 
                     break;
             }
@@ -908,7 +911,7 @@ public class CandidateController
                     break;
                 default:
                     Console.WriteLine("================================");
-                    Console.WriteLine(" Invalid choice! Please re-enter your option.");
+                    Console.WriteLine(" Invalid input! Please re-enter your option.");
                     break;
             }
 
@@ -1004,7 +1007,7 @@ public class CandidateController
                             default:
                                 Console.Clear();
                                 Console.WriteLine("================================"); 
-                                Console.WriteLine(" Invalid choice! Please re-enter your option.");
+                                Console.WriteLine(" Invalid input! Please re-enter your option.");
                                 break;
                         }
 
@@ -1054,7 +1057,7 @@ public class CandidateController
                                 default:
                                     Console.Clear();
                                     Console.WriteLine("================================"); 
-                                    Console.WriteLine(" Invalid choice! Please re-enter your option.");
+                                    Console.WriteLine(" Invalid input! Please re-enter your option.");
                                     break;
                             }
 
@@ -1113,7 +1116,7 @@ public class CandidateController
                                 default:
                                     Console.Clear();
                                     Console.WriteLine("================================"); 
-                                    Console.WriteLine(" Invalid choice! Please re-enter your option.");
+                                    Console.WriteLine(" Invalid input! Please re-enter your option.");
                                     break;
                             }
 
@@ -1137,7 +1140,7 @@ public class CandidateController
                 default:
                     Console.Clear();
                     Console.WriteLine("================================"); 
-                    Console.WriteLine(" Invalid choice! Please re-enter your option.");
+                    Console.WriteLine(" Invalid input! Please re-enter your option.");
                     break;
             }
 
@@ -1408,7 +1411,7 @@ public class CandidateController
                 default:
                     Console.Clear();
                     Console.WriteLine("================================"); 
-                    Console.WriteLine(" Invalid choice! Please re-enter your option.");
+                    Console.WriteLine(" Invalid input! Please re-enter your option.");
                     break;
             }
 
@@ -1447,7 +1450,7 @@ public class CandidateController
                     return candidateBL.GetNewsByProfession("Insurance");
                 default:
                     Console.WriteLine("================================"); 
-                    Console.WriteLine(" Invalid choice! Please re-enter your option.");
+                    Console.WriteLine(" Invalid input! Please re-enter your option.");
                     break;
             }
         }
@@ -1481,7 +1484,7 @@ public class CandidateController
                     return candidateBL.GetNewsBySalaryRange("Higher than 10 million");
                 default:
                     Console.WriteLine("================================"); 
-                    Console.WriteLine(" Invalid choice! Please re-enter your option.");
+                    Console.WriteLine(" Invalid input! Please re-enter your option.");
                     break;
             }
         }
@@ -1515,7 +1518,7 @@ public class CandidateController
                     return candidateBL.GetNewsByCityAddress("Dong Nai");
                 default:
                     Console.WriteLine("================================"); 
-                    Console.WriteLine(" Invalid choice! Please re-enter your option.");
+                    Console.WriteLine(" Invalid input! Please re-enter your option.");
                     break;
             }
         }
@@ -1547,7 +1550,7 @@ public class CandidateController
                 {
                     Console.Clear();
                     Console.WriteLine("================================");
-                    Console.WriteLine(" Invalid choice! Please re-enter your option.");
+                    Console.WriteLine(" Invalid input! Please re-enter your option.");
                 }
             }
         }
@@ -1598,9 +1601,13 @@ public class CandidateController
             newsTable.AddRow("--------------------", "----------------------------------------");
             newsTable.AddRow("Company", recruiter.CompanyName);
             newsTable.AddRow("--------------------", "----------------------------------------");
+            newsTable.AddRow("Company Address", recruiter.CompanyAddress);
+            newsTable.AddRow("--------------------", "----------------------------------------");
             newsTable.AddRow("Business Field", recruiter.BusinessField);
             newsTable.AddRow("--------------------", "----------------------------------------");
             newsTable.AddRow("Business Size", recruiter.BusinessSize);
+            newsTable.AddRow("--------------------", "----------------------------------------");
+            newsTable.AddRow("Company Description", recruiter.CompanyDescription ?? "");
 
             while (true)
             {
@@ -1635,7 +1642,7 @@ public class CandidateController
                     default:
                         Console.Clear();
                         Console.WriteLine("================================"); 
-                        Console.WriteLine(" Invalid choice! Please re-enter your option.");
+                        Console.WriteLine(" Invalid input! Please re-enter your option.");
                         Console.WriteLine("================================"); 
                         break;
                 }

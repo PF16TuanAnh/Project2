@@ -18,8 +18,13 @@ public class RecruiterBL
         int? ProfileID = recruiterDAL.InsertNewProfile(profile, RecruiterID);
         if(ProfileID == null)
         {
+            Console.Clear();
             Console.WriteLine("================================"); 
             Console.WriteLine(" Couldn't create new profile. Unexpected problems might have occurred to the connection to the database.");
+        }
+        else
+        {
+            Console.Clear();
         }
     }
     public void CreateRecruitment(RecruitNews news, int? RecruiterID)
