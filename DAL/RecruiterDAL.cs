@@ -105,7 +105,7 @@ public class RecruiterDAL
     }
     public List<RecruitNews> GetRecruitNewsByRecruterID(int? RecruiterID){
         query = @"select * from RecruitNews where RecruiterID = " + RecruiterID;
-        List<RecruitNews> recruiternew = null!;
+        List<RecruitNews> recruitNews = null!;
         try
         {
             DBHelper.CloseConnection();
@@ -115,21 +115,29 @@ public class RecruiterDAL
 
             while (reader.Read())
             {
-                if(recruiternew == null)
+                if(recruitNews == null)
                 {
-                    recruiternew = new List<RecruitNews>();
+                    recruitNews = new List<RecruitNews>();
                 }
-                recruiternew.Add(GetRecruitNewsInfo(reader));
+                recruitNews.Add(GetRecruitNewsInfo(reader));
+            }
+
+            if(recruitNews == null)
+            {
+                Console.Clear();
+                Console.WriteLine("================================"); 
+                Console.WriteLine(" No results!");
             }
         }
         catch (Exception)
         {
+            Console.Clear();
             Console.WriteLine("================================"); 
-            Console.WriteLine(" Couldn't retrieve recruitment news. Unexpected problems might have occurred to the connection to the database.");
+            Console.WriteLine(" Couldn't retrieve recruitment news. Unexpected problems might have occurred.");
         }
         
         DBHelper.CloseConnection();
-        return recruiternew;
+        return recruitNews!;
     }
     public int? InsertRecruitmentNew(RecruitNews news, int? RecruiterID) 
     {
@@ -246,7 +254,7 @@ public class RecruiterDAL
 
     public List<CV> GetCVByJobPosition(string JobPosition)
     {
-        query = @"select a.* from CVs a, CVDetails b where a.CVID = b.CVID and b.JobPosition like '%" + JobPosition + "%'";
+        query = @"select a.* from CVs a, CVDetails b where a.CVID = b.CVID and b.JobPosition like '%" + JobPosition + "%' and Title = 'Work Experience' group by CVID";
         List<CV> cv = null!;
         
         try
@@ -271,11 +279,19 @@ public class RecruiterDAL
                     item.CVDetails = CandidateDAL.GetCVDetailsByCVID(item.CVID);
                 }
             }
+
+            if(cv == null)
+            {
+                Console.Clear();
+                Console.WriteLine("================================"); 
+                Console.WriteLine(" No results!");
+            }
         }
         catch (Exception)
         {
+            Console.Clear();
             Console.WriteLine("================================"); 
-            Console.WriteLine(" Unexpected problems might have occurred to the connection to the database. Couldn't retrieve CVs.");
+            Console.WriteLine(" Unexpected problems might have occurred. Couldn't retrieve CVs.");
         }
         
         DBHelper.CloseConnection();
@@ -310,11 +326,19 @@ public class RecruiterDAL
                     item.CVDetails = CandidateDAL.GetCVDetailsByCVID(item.CVID);
                 }
             }
+
+            if(cv == null)
+            {
+                Console.Clear();
+                Console.WriteLine("================================"); 
+                Console.WriteLine(" No results!");
+            }
         }
         catch
         {
+            Console.Clear();
             Console.WriteLine("================================"); 
-            Console.WriteLine(" Unexpected problems might have occurred to the connection to the database. Couldn't retrieve CVs.");
+            Console.WriteLine(" Unexpected problems might have occurred. Couldn't retrieve CVs.");
         }
         
         DBHelper.CloseConnection();
@@ -349,11 +373,19 @@ public class RecruiterDAL
                     item.CVDetails = CandidateDAL.GetCVDetailsByCVID(item.CVID);
                 }
             }
+
+            if(cv == null)
+            {
+                Console.Clear();
+                Console.WriteLine("================================"); 
+                Console.WriteLine(" No results!");
+            }
         }
         catch
         {
+            Console.Clear();
             Console.WriteLine("================================"); 
-            Console.WriteLine(" Unexpected problems might have occurred to the connection to the database. Couldn't retrieve CVs.");
+            Console.WriteLine(" Unexpected problems might have occurred. Couldn't retrieve CVs.");
         }
         DBHelper.CloseConnection();
         return cv!;
@@ -386,11 +418,19 @@ public class RecruiterDAL
                     item.CVDetails = CandidateDAL.GetCVDetailsByCVID(item.CVID);
                 }
             }
+
+            if(cv == null)
+            {
+                Console.Clear();
+                Console.WriteLine("================================"); 
+                Console.WriteLine(" No results!");
+            }
         }
         catch
         {
+            Console.Clear();
             Console.WriteLine("================================"); 
-            Console.WriteLine(" Unexpected problems might have occurred to the connection to the database. Couldn't retrieve CVs.");
+            Console.WriteLine(" Unexpected problems might have occurred. Couldn't retrieve CVs.");
         }
         
         DBHelper.CloseConnection();

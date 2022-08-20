@@ -16,7 +16,7 @@ public class DBHelper
             // Create a file to write to.
             using (StreamWriter sw = File.CreateText(path))
             {
-                sw.WriteLine(@"server=localhost; user=root; password=Sieunhan159357; database=project;");
+                sw.WriteLine(@"server=localhost; user=root; password=36558136; database=project;");
             }
         }
 

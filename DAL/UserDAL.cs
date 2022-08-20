@@ -5,13 +5,12 @@ namespace DAL;
 
 public class UserDAL
 {
-    bool success = true;
     private string? query;
     private MySqlDataReader? reader;
 
     public User GetUserByEmail(string email)
     {
-        
+        bool success = true;
         query = @"select * from Users where Email = '" + email + "'";
         User user = null!;
 
@@ -32,10 +31,10 @@ public class UserDAL
             success = false;
             Console.Clear();
             Console.WriteLine("================================"); 
-            Console.WriteLine(" Unexpected errors occurred to the connection to the database! Couldn't retrieve user login info.");
+            Console.WriteLine(" Unexpected errors occurred! Please return to the main menu.");
         }
 
-        if (success == false)
+        if (success != false)
         {
             Console.Clear();
         }
@@ -158,11 +157,7 @@ public class UserDAL
                 RecruiterID = reader.GetInt32("RecruiterID");
             }
         }
-        catch (Exception)
-        {
-            Console.WriteLine("================================"); 
-            Console.WriteLine(" Unexpected errors occurred to the connection to the database!");
-        }
+        catch (Exception){}
         
 
         DBHelper.CloseConnection();

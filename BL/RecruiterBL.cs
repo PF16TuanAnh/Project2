@@ -20,7 +20,7 @@ public class RecruiterBL
         {
             Console.Clear();
             Console.WriteLine("================================"); 
-            Console.WriteLine(" Couldn't create new profile. Unexpected problems might have occurred to the connection to the database.");
+            Console.WriteLine(" Couldn't add profile information. Unexpected problems might have occurred.");
         }
         else
         {
@@ -32,8 +32,13 @@ public class RecruiterBL
         int? NewsID = recruiterDAL.InsertRecruitmentNew(news, RecruiterID);
         if(NewsID == null)
         {
+            Console.Clear();
             Console.WriteLine("================================"); 
-            Console.WriteLine(" Couldn't create the recruitment. Unexpected problems might have occurred to the connection to the database.");
+            Console.WriteLine(" Couldn't add the recruitment news. Unexpected problems might have occurred.");
+        }
+        else
+        {
+            Console.Clear();
         }
     }
     public Recruiter GetRecruiterByID(int? RecruiterID)
@@ -48,8 +53,13 @@ public class RecruiterBL
     {
         if(!recruiterDAL.UpdateNews(news))
         {
+            Console.Clear();
             Console.WriteLine("================================"); 
-            Console.WriteLine(" Couldn't update your News. Unexpected problems might have occurred to the connection to the database.");
+            Console.WriteLine(" Couldn't update your recruitment news. Unexpected problems might have occurred.");
+        }
+        else
+        {
+            Console.Clear();
         }
     }
     public void UpdatePersonalRecruitInfo(Recruiter recruiter)
@@ -57,13 +67,17 @@ public class RecruiterBL
         if(!recruiterDAL.UpdateRecruitInformation(recruiter))
         {
             Console.WriteLine("================================"); 
-            Console.WriteLine(" Couldn't update your information. Unexpected problems might have occurred to the connection to the database.");
+            Console.WriteLine(" Couldn't update your information. Unexpected problems might have occurred.");
+        }
+        else
+        {
+            Console.Clear();
         }
     }
 
-    public List<CV> GetCVByJobPosition(string JobPosition)
+    public List<CV> GetCVByJobPosition(string Name)
     {
-        return recruiterDAL.GetCVByJobPosition(JobPosition);
+        return recruiterDAL.GetCVByJobPosition(Name);
     }
     public List<CV> GetCVByCareerTitle(string CareerTitle)
     {

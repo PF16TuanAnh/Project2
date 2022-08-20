@@ -871,6 +871,7 @@ public class CandidateController
                             break;
                         }
                     }
+                    Console.Clear();
                     break;
                 case "8":
                     Console.Clear();
@@ -910,6 +911,7 @@ public class CandidateController
                     end = true;
                     break;
                 default:
+                    Console.Clear();
                     Console.WriteLine("================================");
                     Console.WriteLine(" Invalid input! Please re-enter your option.");
                     break;
@@ -1449,6 +1451,7 @@ public class CandidateController
                 case "5":
                     return candidateBL.GetNewsByProfession("Insurance");
                 default:
+                    Console.Clear();
                     Console.WriteLine("================================"); 
                     Console.WriteLine(" Invalid input! Please re-enter your option.");
                     break;
@@ -1483,6 +1486,7 @@ public class CandidateController
                 case "5":
                     return candidateBL.GetNewsBySalaryRange("Higher than 10 million");
                 default:
+                    Console.Clear();
                     Console.WriteLine("================================"); 
                     Console.WriteLine(" Invalid input! Please re-enter your option.");
                     break;
@@ -1517,6 +1521,7 @@ public class CandidateController
                 case "5":
                     return candidateBL.GetNewsByCityAddress("Dong Nai");
                 default:
+                    Console.Clear();
                     Console.WriteLine("================================"); 
                     Console.WriteLine(" Invalid input! Please re-enter your option.");
                     break;
@@ -1525,10 +1530,10 @@ public class CandidateController
     }
 
     public void DisplaySearchedNews(List<RecruitNews> recruitNews, int? CandidateID)
-    {  
-        Console.Clear();
+    {
         if (recruitNews != null)
         {
+            Console.Clear();
             while (true)
             {
                 Menu.PrintSubMenu(3, recruitNews);
@@ -1551,13 +1556,9 @@ public class CandidateController
                     Console.Clear();
                     Console.WriteLine("================================");
                     Console.WriteLine(" Invalid input! Please re-enter your option.");
+                    Console.WriteLine("================================");
                 }
             }
-        }
-        else
-        {
-            Console.WriteLine("================================"); 
-            Console.WriteLine(" No results!");
         }
     }
 

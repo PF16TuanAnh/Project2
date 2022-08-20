@@ -21,8 +21,9 @@ public class CandidateBL
     {
         if(!candidateDAL.UpdateCV(cv))
         {
+            Console.Clear();
             Console.WriteLine("================================"); 
-            Console.WriteLine(" Couldn't update your CV. Unexpected problems might have occurred to the connection to the database.");
+            Console.WriteLine(" Couldn't update your CV. Unexpected problems might have occurred.");
             return false;
         }
         return true;
@@ -33,8 +34,9 @@ public class CandidateBL
         int? CVID = candidateDAL.AddNewCV(cv, CandidateID);
         if(CVID == null)
         {
+            Console.Clear();
             Console.WriteLine("================================"); 
-            Console.WriteLine(" Couldn't create new CV. Unexpected problems might have occurred to the connection to the database.");
+            Console.WriteLine(" Couldn't create new CV. Unexpected problems.");
         }
         return CVID;
     }
@@ -43,8 +45,9 @@ public class CandidateBL
     {
         if (!candidateDAL.InsertToApplyCandidates(CandidateID, NewsID))
         {
+            Console.Clear();
             Console.WriteLine("================================"); 
-            Console.WriteLine(" Couldn't apply to the recruitment news. Unexpected problems might have occurred to the connection to the database.");
+            Console.WriteLine(" Couldn't apply to the recruitment news. Unexpected problems might have occurred.");
             return false;
         }
         return true;

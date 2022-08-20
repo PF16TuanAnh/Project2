@@ -371,16 +371,24 @@ public class CandidateDAL
                 }
                 recruitNews.Add(RecruiterDAL.GetRecruitNewsInfo(reader));
             }
+
+            if (recruitNews == null)
+            {
+                Console.Clear();
+                Console.WriteLine("================================"); 
+                Console.WriteLine(" No results!");
+            }
         }
         catch
         {
+            Console.Clear();
             Console.WriteLine("================================"); 
             Console.WriteLine(" Unexpected problems might have occurred. Couldn't retrieve recruitment news.");
         }
         
         DBHelper.CloseConnection();
 
-        return recruitNews;
+        return recruitNews!;
     }
 
     public List<RecruitNews> GetNewsByCityAddress(string CityAddress)
@@ -402,16 +410,24 @@ public class CandidateDAL
                 }
                 recruitNews.Add(RecruiterDAL.GetRecruitNewsInfo(reader));
             }
+
+            if (recruitNews == null)
+            {
+                Console.Clear();
+                Console.WriteLine("================================"); 
+                Console.WriteLine(" No results!");
+            }
         }
         catch
         {
+            Console.Clear();
             Console.WriteLine("================================"); 
-            Console.WriteLine(" Unexpected problems might have occurred to the connection to the database. Couldn't retrieve recruitment news.");
+            Console.WriteLine(" Unexpected problems might have occurred. Couldn't retrieve recruitment news.");
         }
         
         DBHelper.CloseConnection();
 
-        return recruitNews;
+        return recruitNews!;
     }
 
     public List<RecruitNews> GetNewsByProfession(string Profession)
@@ -433,15 +449,23 @@ public class CandidateDAL
                 }
                 recruitNews.Add(RecruiterDAL.GetRecruitNewsInfo(reader));
             }
+
+            if (recruitNews == null)
+            {
+                Console.Clear();
+                Console.WriteLine("================================"); 
+                Console.WriteLine(" No results!");
+            }
         }
         catch
         {
+            Console.Clear();
             Console.WriteLine("================================"); 
-            Console.WriteLine(" Unexpected problems might have occurred to the connection to the database. Couldn't retrieve recruitment news.");
+            Console.WriteLine(" Unexpected problems might have occurred. Couldn't retrieve recruitment news.");
         }
         
         DBHelper.CloseConnection();
 
-        return recruitNews;
+        return recruitNews!;
     }
 }

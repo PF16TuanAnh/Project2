@@ -19,25 +19,41 @@ public class UserController
         Console.Clear();
         string email;
         string password;
-
-        Console.WriteLine("================================\n");
-        Console.WriteLine("            LOG IN");
-        Console.WriteLine("\n================================");
-        Console.WriteLine(" You can Enter 0 on email or password to turn back.");
-        Console.Write(" Email: ");
-        email = GetUserInput();
+        bool correctEmail = false;
 
         while (true)
         {
+            Console.WriteLine("================================\n");
+            Console.WriteLine("            LOG IN");
+            Console.WriteLine("\n================================");
+            Console.WriteLine(" You can Enter 0 on email or password to turn back.");
+            Console.Write(" Email: ");
+            email = GetUserInput();
             if (email == "0")
             {
+                correctEmail = false;
                 Console.Clear();
                 break;
             }
-
-            
-            if (userBL.VerifyEmail(email))
+            else if (userBL.VerifyEmail(email))
             {
+                correctEmail = true;
+                break;
+            }
+            else
+            {
+                Console.WriteLine("================================");
+                Console.WriteLine(" Incorrect email! Please re-enter your email.");
+            }
+        }
+
+        if (correctEmail == true)
+        {
+            while(true)
+            {
+                Console.WriteLine("================================\n");
+                Console.WriteLine("            LOG IN");
+                Console.WriteLine("\n================================");
                 Console.Write(" Password: ");
                 password = GetUserInput();
                 if (password == "0")
@@ -73,21 +89,8 @@ public class UserController
                 else
                 {
                     Console.Clear();
-                    Console.WriteLine("================================\n");
-                    Console.WriteLine("            LOG IN");
-                    Console.WriteLine("\n================================");
                     Console.WriteLine(" Password is incorrect! Please re-enter your password.");
                 }
-            }
-            else
-            {
-                Console.Clear();
-                Console.WriteLine("================================\n");
-                Console.WriteLine("            LOG IN");
-                Console.WriteLine("\n================================");
-                Console.WriteLine(" Incorrect email! Please re-enter your email.");
-                Console.Write(" Email: ");
-                email = GetUserInput();
             }
         }
     }
@@ -157,7 +160,6 @@ public class UserController
         
         if (email != "0")
         {
-            Console.Clear();
             while (true)
             {
                 Console.WriteLine("================================\n");
