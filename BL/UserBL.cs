@@ -14,7 +14,7 @@ public class UserBL
         userDAL = new UserDAL();
     }
 
-    public bool VerifyEmailAndPassword(string email, string? password)
+    public bool VerifyEmailAndPassword(string email, string password)
     {
         email = email!.ToUpper();
         if (password != null)
@@ -49,6 +49,22 @@ public class UserBL
             Console.Clear();
             Console.WriteLine("================================");
             Console.WriteLine(" Incorrect email!");
+            return false;
+        }
+    }
+
+    public bool CheckIfEmailExisted(string email)
+    {
+        email = email!.ToUpper();
+        
+        User user = userDAL.GetUserByEmail(email);
+        if (user != null)
+        {
+            return true;
+        }
+        else
+        {
+            
             return false;
         }
     }

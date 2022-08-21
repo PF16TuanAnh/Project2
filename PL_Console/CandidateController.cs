@@ -368,6 +368,12 @@ public class CandidateController
                     Console.WriteLine("\n================================");
                     Console.Write(" Skill Group Name: ");
                     JobPosition = UserController.GetUserInput();
+                    
+                    if (JobPosition == "0")
+                    {
+                        break;
+                    }
+
                     if(JobPosition.Length > 100)
                     {
                         Console.Clear();
@@ -386,23 +392,26 @@ public class CandidateController
                     }
                 }
 
-                Console.Clear();
-                while (true)
+                if (JobPosition == "0")
                 {
-                    Console.WriteLine("================================\n");
-                    Console.WriteLine("              ADD");
-                    Console.WriteLine("\n================================");
-                    Console.Write(" Skill Description: ");
-                    Description = UserController.GetUserInput();
-                    if(Description.Length > 5000)
+                    Console.Clear();
+                    while (true)
                     {
-                        Console.Clear();
-                        Console.WriteLine("================================");
-                        Console.WriteLine(" Description is too long. Maximum characters allowed is 5000.");
-                    }
-                    else
-                    {
-                        break;
+                        Console.WriteLine("================================\n");
+                        Console.WriteLine("              ADD");
+                        Console.WriteLine("\n================================");
+                        Console.Write(" Skill Description: ");
+                        Description = UserController.GetUserInput();
+                        if(Description.Length > 5000)
+                        {
+                            Console.Clear();
+                            Console.WriteLine("================================");
+                            Console.WriteLine(" Description is too long. Maximum characters allowed is 5000.");
+                        }
+                        else
+                        {
+                            break;
+                        }
                     }
                 }
             }
@@ -415,6 +424,11 @@ public class CandidateController
                     Console.WriteLine("\n================================");
                     Console.Write(" Time (dd/MM/yyyy): ");
                     string _FromDate = UserController.GetUserInput();
+
+                    if (_FromDate == "0")
+                    {
+                        break;
+                    }
 
                     if(String.IsNullOrEmpty(_FromDate))
                     {
@@ -705,8 +719,16 @@ public class CandidateController
                         Console.WriteLine("================================\n");
                         Console.WriteLine("           UPDATE CV");
                         Console.WriteLine("\n================================");
+                        Console.WriteLine(" Enter 0 to cancel.");
+                        Console.WriteLine(" Full Name: {0}", cv.FullName);
                         Console.Write(" Full Name: ");
                         string FullName = UserController.GetUserInput();
+
+                        if (FullName == "0")
+                        {
+                            break;
+                        }
+
                         if(FullName.Length > 100)
                         {
                             Console.Clear();
@@ -734,8 +756,16 @@ public class CandidateController
                         Console.WriteLine("================================\n");
                         Console.WriteLine("           UPDATE CV");
                         Console.WriteLine("\n================================");
+                        Console.WriteLine(" Enter 0 to cancel.");
+                        Console.WriteLine(" Career Title: {0}", cv.CareerTitle);
                         Console.Write(" Career Title: ");
                         string CareerTitle = UserController.GetUserInput();
+                        
+                        if (CareerTitle == "0")
+                        {
+                            break;
+                        }
+
                         if(CareerTitle.Length > 50)
                         {
                             Console.Clear();
@@ -757,8 +787,17 @@ public class CandidateController
                         Console.WriteLine("================================\n");
                         Console.WriteLine("           UPDATE CV");
                         Console.WriteLine("\n================================");
+                        Console.WriteLine(" Enter 0 to cancel.");
+                        Console.WriteLine(" Career Objective: {0}", cv.CareerObjective);
                         Console.Write(" Career Objective: ");
                         string CareerObjective = UserController.GetUserInput();
+                        
+                        if (CareerObjective == "0")
+                        {
+                            break;
+                        }
+
+                        
                         if(CareerObjective.Length > 5000)
                         {
                             Console.Clear();
@@ -786,8 +825,15 @@ public class CandidateController
                         Console.WriteLine("================================\n");
                         Console.WriteLine("           UPDATE CV");
                         Console.WriteLine("\n================================");
+                        Console.WriteLine(" Enter 0 to cancel.");
+                        Console.WriteLine(" Date of Birth: {0}", cv.BirthDate);
                         Console.Write(" Date of Birth (dd/MM/yyyy): ");
                         string BirthDate = UserController.GetUserInput();
+
+                        if (BirthDate == "0")
+                        {
+                            break;
+                        }
 
                         if(String.IsNullOrEmpty(BirthDate))
                         {
@@ -816,8 +862,15 @@ public class CandidateController
                         Console.WriteLine("================================\n");
                         Console.WriteLine("           UPDATE CV");
                         Console.WriteLine("\n================================");
+                        Console.WriteLine(" Enter 0 to cancel.");
+                        Console.WriteLine(" Phone Number: {0}", cv.PhoneNum);
                         Console.Write(" Phone Number: ");
                         string? _PhoneNum = UserController.GetUserInput();
+
+                        if (_PhoneNum == "0")
+                        {
+                            break;
+                        }
 
                         if (string.IsNullOrEmpty(_PhoneNum))
                         {
@@ -855,8 +908,16 @@ public class CandidateController
                         Console.WriteLine("================================\n");
                         Console.WriteLine("           UPDATE CV");
                         Console.WriteLine("\n================================");
+                        Console.WriteLine(" Enter 0 to cancel.");
+                        Console.WriteLine(" Email: {0}", cv.Email);
                         Console.Write(" Email: ");
                         string Email = UserController.GetUserInput();
+                        
+                        if (Email == "0")
+                        {
+                            break;
+                        }
+
                         if(Email.Length > 100)
                         {
                             Console.Clear();
@@ -893,8 +954,16 @@ public class CandidateController
                         Console.WriteLine("================================\n");
                         Console.WriteLine("           UPDATE CV");
                         Console.WriteLine("\n================================");
+                        Console.WriteLine(" Enter 0 to cancel.");
+                        Console.WriteLine(" Social Media: {0}", cv.SocialMedia);
                         Console.Write(" Social Media: ");
                         string SocialMedia = UserController.GetUserInput();
+                        
+                        if (SocialMedia == "0")
+                        {
+                            break;
+                        }
+
                         if(SocialMedia.Length > 2000)
                         {
                             Console.Clear();
@@ -916,8 +985,16 @@ public class CandidateController
                         Console.WriteLine("================================\n");
                         Console.WriteLine("           UPDATE CV");
                         Console.WriteLine("\n================================");
+                        Console.WriteLine(" Enter 0 to cancel.");
+                        Console.WriteLine(" Address: {0}", cv.PersonalAddress);
                         Console.Write(" Address: ");
                         string PersonalAddress = UserController.GetUserInput();
+                        
+                        if (PersonalAddress == "0")
+                        {
+                            break;
+                        }
+
                         if(PersonalAddress.Length > 5000)
                         {
                             Console.Clear();
@@ -1005,7 +1082,11 @@ public class CandidateController
                                 {
                                     CVDetails = new List<CVDetails>();
                                 }
-                                CVDetails.Add(AddCVDetails(1));
+                                CVDetails temp = AddCVDetails(1);
+                                if (temp != null)
+                                {
+                                    CVDetails.Add(temp);
+                                }
                                 Console.Clear();
                                 break;
                             case "2":
@@ -1013,7 +1094,11 @@ public class CandidateController
                                 {
                                     CVDetails = new List<CVDetails>();
                                 }
-                                CVDetails.Add(AddCVDetails(2));
+                                CVDetails temp2 = AddCVDetails(2);
+                                if (temp2 != null)
+                                {
+                                    CVDetails.Add(temp2);
+                                }
                                 Console.Clear();
                                 break;
                             case "3":
@@ -1021,7 +1106,11 @@ public class CandidateController
                                 {
                                     CVDetails = new List<CVDetails>();
                                 }
-                                CVDetails.Add(AddCVDetails(3));
+                                CVDetails temp3 = AddCVDetails(3);
+                                if (temp3 != null)
+                                {
+                                    CVDetails.Add(temp3);
+                                }
                                 Console.Clear();
                                 break;
                             case "4":
@@ -1029,7 +1118,11 @@ public class CandidateController
                                 {
                                     CVDetails = new List<CVDetails>();
                                 }
-                                CVDetails.Add(AddCVDetails(4));
+                                CVDetails temp4 = AddCVDetails(4);
+                                if (temp4 != null)
+                                {
+                                    CVDetails.Add(temp4);
+                                }
                                 Console.Clear();
                                 break;
                             case "5":
@@ -1037,7 +1130,11 @@ public class CandidateController
                                 {
                                     CVDetails = new List<CVDetails>();
                                 }
-                                CVDetails.Add(AddCVDetails(5));
+                                CVDetails temp5 = AddCVDetails(5);
+                                if (temp5 != null)
+                                {
+                                    CVDetails.Add(temp5);
+                                }
                                 Console.Clear();
                                 break;
                             case "0":
@@ -1459,7 +1556,7 @@ public class CandidateController
         return CVDetails;
     }
 
-    public void SearchRecruitNews(int? CandidateID)
+    public void SearchRecruitNews(int? CandidateID, bool hasCV)
     {
         bool end = false;
 
@@ -1478,15 +1575,15 @@ public class CandidateController
             {
                 case "1":
                     Console.Clear();
-                    DisplaySearchedNews(SearchRecruitNewsViaProfession(), CandidateID);
+                    DisplaySearchedNews(SearchRecruitNewsViaProfession(), CandidateID, hasCV);
                     break;
                 case "2":
                     Console.Clear();
-                    DisplaySearchedNews(SearchRecruitNewsViaSalaryRange(), CandidateID);
+                    DisplaySearchedNews(SearchRecruitNewsViaSalaryRange(), CandidateID, hasCV);
                     break;
                 case "3":
                     Console.Clear();
-                    DisplaySearchedNews(SearchRecruitNewsViaCity(), CandidateID);
+                    DisplaySearchedNews(SearchRecruitNewsViaCity(), CandidateID, hasCV);
                     break;
                 case "0":
                     Console.Clear();
@@ -1611,7 +1708,7 @@ public class CandidateController
         }
     }
 
-    public void DisplaySearchedNews(List<RecruitNews> recruitNews, int? CandidateID)
+    public void DisplaySearchedNews(List<RecruitNews> recruitNews, int? CandidateID, bool hasCV)
     {
         if (recruitNews != null)
         {
@@ -1633,7 +1730,7 @@ public class CandidateController
                     if ((position - 1) < recruitNews.Count() && position > 0)
                     {
                         Console.Clear();
-                        SearchedNewsDetails(recruitNews[position - 1], CandidateID);
+                        SearchedNewsDetails(recruitNews[position - 1], CandidateID, hasCV);
                     }
                     else
                     {
@@ -1654,9 +1751,10 @@ public class CandidateController
         }
     }
 
-    public void SearchedNewsDetails(RecruitNews news, int? CandidateID)
+    public void SearchedNewsDetails(RecruitNews news, int? CandidateID, bool hasCV)
     {
         bool end = false;
+        bool IsApplied = false;
         
         Recruiter recruiter = candidateBL.GetRecruiterByNewsID(news.NewsID);
         if (recruiter != null)
@@ -1707,14 +1805,17 @@ public class CandidateController
                 AnsiConsole.Write(newsTable);
 
                 Console.WriteLine("================================");
-                bool IsApplied = candidateBL.IsApplied(CandidateID, news.NewsID);
-                if(IsApplied)
+                if (hasCV == true)
                 {
-                    Console.WriteLine(" Applied!");
-                }
-                else
-                {
-                    Console.WriteLine(" 1) Apply");
+                    IsApplied = candidateBL.IsApplied(CandidateID, news.NewsID);
+                    if(IsApplied)
+                    {
+                        Console.WriteLine(" Applied!");
+                    }
+                    else
+                    {
+                        Console.WriteLine(" 1) Apply");
+                    }
                 }
                 Console.WriteLine(" 0) Exit");
                 Console.WriteLine("================================");
@@ -1722,11 +1823,21 @@ public class CandidateController
                 switch (UserController.GetUserInput())
                 {
                     case "1":
-                        if(!IsApplied)
+                        if(hasCV == true)
+                        {
+                            if(!IsApplied)
+                            {
+                                Console.Clear();
+                                candidateBL.ApplyToNews(CandidateID, news.NewsID);
+                            }
+                            else
+                            {
+                                Console.Clear();
+                            }
+                        }
+                        else
                         {
                             Console.Clear();
-                            candidateBL.ApplyToNews(CandidateID, news.NewsID);
-
                         }
                         break;
                     case "0":

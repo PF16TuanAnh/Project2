@@ -125,9 +125,8 @@ public class UserController
             {
                 if (IsValidEmail(email))
                 {
-                    if (!userBL.VerifyEmailAndPassword(email, null))
+                    if (!userBL.CheckIfEmailExisted(email))
                     {
-                        Console.Clear();
                         break;
                     }
                     else

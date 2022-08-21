@@ -132,7 +132,14 @@ public class Menu
                         break;
                     case "2":
                         Console.Clear();
-                        candidateController.SearchRecruitNews(CandidateID);
+                        if(candidate.CandidateCV != null)
+                        {
+                            candidateController.SearchRecruitNews(CandidateID, true);
+                        }
+                        else
+                        {
+                            candidateController.SearchRecruitNews(CandidateID, false);
+                        }
                         break;
                     case "0":
                         end = true;
