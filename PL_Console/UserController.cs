@@ -18,7 +18,7 @@ public class UserController
     {
         Console.Clear();
         string email;
-        bool correctEmail = false;
+        ConsoleKey key;
 
         while (true)
         {
@@ -28,87 +28,61 @@ public class UserController
             Console.WriteLine(" You can Enter 0 on email or password to turn back.");
             Console.Write(" Email: ");
             email = GetUserInput();
+            Console.Write(" Password: ");
+            var pass = string.Empty;
+            
+            do
+            {
+                var keyInfo = Console.ReadKey(intercept: true);
+                key = keyInfo.Key;
+
+                if (key == ConsoleKey.Backspace && pass.Length > 0)
+                {
+                    Console.Write("\b \b");
+                    pass = pass[0..^1];
+                }
+                else if (!char.IsControl(keyInfo.KeyChar))
+                {
+                    Console.Write("*");
+                    pass += keyInfo.KeyChar;
+                }
+            } while (key != ConsoleKey.Enter);
+
             if (email == "0")
             {
-                correctEmail = false;
                 Console.Clear();
                 break;
             }
-            else if (userBL.VerifyEmail(email))
+
+            if (pass == "0")
             {
-                correctEmail = true;
+                Console.Clear();
                 break;
             }
-            else
+
+
+            if(userBL.VerifyEmailAndPassword(email, pass))
             {
-                Console.WriteLine("================================");
-                Console.WriteLine(" Incorrect email! Please re-enter your email.");
-            }
-        }
-
-        if (correctEmail == true)
-        {
-            while(true)
-            {
-                Console.WriteLine("================================\n");
-                Console.WriteLine("            LOG IN");
-                Console.WriteLine("\n================================");
-                Console.Write(" Password: ");
-                // password = GetUserInput();
-
-                var pass = string.Empty;
-                ConsoleKey key;
-                do
-                {
-                    var keyInfo = Console.ReadKey(intercept: true);
-                    key = keyInfo.Key;
-
-                    if (key == ConsoleKey.Backspace && pass.Length > 0)
-                    {
-                        Console.Write("\b \b");
-                        pass = pass[0..^1];
-                    }
-                    else if (!char.IsControl(keyInfo.KeyChar))
-                    {
-                        Console.Write("*");
-                        pass += keyInfo.KeyChar;
-                    }
-                } while (key != ConsoleKey.Enter);
-
-                if (pass == "0")
+                int? CandidateID = userBL.GetCandidateIDByEmail(email);
+                int? RecruiterID = userBL.GetRecruiterIDByEmail(email);
+                if (CandidateID != null)
                 {
                     Console.Clear();
+                    Menu.PrintMainMenu(2, CandidateID);
                     break;
                 }
-
-                if (userBL.VerifyPassword(pass))
+                else if (RecruiterID != null)
                 {
-                    int? CandidateID = userBL.GetCandidateIDByEmail(email);
-                    int? RecruiterID = userBL.GetRecruiterIDByEmail(email);
-                    if (CandidateID != null)
-                    {
-                        Console.Clear();
-                        Menu.PrintMainMenu(2, CandidateID);
-                        break;
-                    }
-                    else if (RecruiterID != null)
-                    {
-                        Console.Clear();
-                        Menu.PrintMainMenu(3, RecruiterID);
-                        break;
-                    }
-                    else
-                    {
-                        Console.Clear();
-                        Console.WriteLine("================================"); 
-                        Console.WriteLine(" Unexpected errors occurred! Couldn't retrieve the user info.");
-                        break;
-                    }
+                    Console.Clear();
+                    Menu.PrintMainMenu(3, RecruiterID);
+                    break;
                 }
                 else
                 {
                     Console.Clear();
-                    Console.WriteLine(" Password is incorrect! Please re-enter your password.");
+                    Console.WriteLine("================================"); 
+                    Console.WriteLine(" Unexpected errors occurred! Couldn't retrieve the user info.");
+                    break;
                 }
             }
         }
@@ -151,8 +125,9 @@ public class UserController
             {
                 if (IsValidEmail(email))
                 {
-                    if (!userBL.VerifyEmail(email))
+                    if (!userBL.VerifyEmailAndPassword(email, null))
                     {
+                        Console.Clear();
                         break;
                     }
                     else
@@ -247,7 +222,8 @@ public class UserController
                     Console.WriteLine(" 3) Other");
                     Console.WriteLine("================================");
                     Console.Write(" Enter the option number: ");
-                    switch (GetUserInput())
+                    string userInput = GetUserInput();
+                    switch (userInput)
                     {
                         case "1":
                             gender = "Male";
@@ -277,6 +253,7 @@ public class UserController
                 Console.Clear();
                 while (true)
                 {
+                    end = false;
                     Console.WriteLine("================================\n");
                     Console.WriteLine("          Register As");
                     Console.WriteLine("\n================================");
@@ -284,7 +261,8 @@ public class UserController
                     Console.WriteLine(" 2) Recruiter");
                     Console.WriteLine("================================");
                     Console.Write(" Enter the option number: ");
-                    switch (GetUserInput())
+                    string userInput = GetUserInput();
+                    switch (userInput)
                     {
                         case "1":
                             role = 1;

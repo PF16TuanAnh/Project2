@@ -111,7 +111,7 @@ public class CandidateController
             Console.WriteLine("================================\n");
             Console.WriteLine("           CREATE CV");
             Console.WriteLine("\n================================");
-            Console.Write(" Date of Birth(Day/Month/Year): ");
+            Console.Write(" Date of Birth (dd/MM/yyyy): ");
             string _BirthDate = UserController.GetUserInput();
 
             if(String.IsNullOrEmpty(_BirthDate))
@@ -121,14 +121,14 @@ public class CandidateController
 
             try
             {
-                BirthDate = DateTime.ParseExact(_BirthDate, "d/M/yyyy", CultureInfo.InvariantCulture);
+                BirthDate = DateTime.ParseExact(_BirthDate, "dd/MM/yyyy", CultureInfo.InvariantCulture);
                 break;
             }
             catch (Exception)
             {
                 Console.Clear();
                 Console.WriteLine("================================");
-                Console.WriteLine(" The correct formart is Day/Month/Year.");
+                Console.WriteLine(" The correct formart is dd/MM/yyyy.");
             }
         }
         
@@ -151,7 +151,7 @@ public class CandidateController
             {
                 Console.Clear();
                 Console.WriteLine("================================");
-                Console.WriteLine(" Phone Number must be 10 characters long.");
+                Console.WriteLine(" Phone Number must be 10 numerics.");
             }
             else
             {
@@ -209,7 +209,7 @@ public class CandidateController
             Console.WriteLine("================================\n");
             Console.WriteLine("           CREATE CV");
             Console.WriteLine("\n================================");
-            Console.Write(" Social Media ");
+            Console.Write(" Social Media:");
             SocialMedia = UserController.GetUserInput();
             if(SocialMedia.Length > 2000)
             {
@@ -413,7 +413,7 @@ public class CandidateController
                     Console.WriteLine("================================\n");
                     Console.WriteLine("              ADD");
                     Console.WriteLine("\n================================");
-                    Console.Write(" Time(Day/Month/Year): ");
+                    Console.Write(" Time (dd/MM/yyyy): ");
                     string _FromDate = UserController.GetUserInput();
 
                     if(String.IsNullOrEmpty(_FromDate))
@@ -423,14 +423,14 @@ public class CandidateController
 
                     try
                     {
-                        FromDate = DateTime.ParseExact(_FromDate, "d/M/yyyy", CultureInfo.InvariantCulture);
+                        FromDate = DateTime.ParseExact(_FromDate, "dd/MM/yyyy", CultureInfo.InvariantCulture);
                         break;
                     }
                     catch (Exception)
                     {
                         Console.Clear();
                         Console.WriteLine("================================");
-                        Console.WriteLine(" The correct formart is Day/Month/Year.");
+                        Console.WriteLine(" The correct formart is dd/MM/yyyy.");
                     }
                 }
 
@@ -506,7 +506,7 @@ public class CandidateController
                 Console.WriteLine("================================\n");
                 Console.WriteLine("              ADD");
                 Console.WriteLine("\n================================");
-                Console.Write(" From(Day/Month/Year): ");
+                Console.Write(" From Date (dd/MM/yyyy): ");
                 string _FromDate = UserController.GetUserInput();
 
                 if(String.IsNullOrEmpty(_FromDate))
@@ -516,14 +516,14 @@ public class CandidateController
 
                 try
                 {
-                    FromDate = DateTime.ParseExact(_FromDate, "d/M/yyyy", CultureInfo.InvariantCulture);
+                    FromDate = DateTime.ParseExact(_FromDate, "dd/MM/yyyy", CultureInfo.InvariantCulture);
                     break;
                 }
                 catch (Exception)
                 {
                     Console.Clear();
                     Console.WriteLine("================================");
-                    Console.WriteLine(" The correct formart is Day/Month/Year.");
+                    Console.WriteLine(" The correct formart is dd/MM/yyyy.");
                 }
             }
 
@@ -533,7 +533,7 @@ public class CandidateController
                 Console.WriteLine("================================\n");
                 Console.WriteLine("              ADD");
                 Console.WriteLine("\n================================");
-                Console.Write(" To(Day/Month/Year): ");
+                Console.Write(" To Date (dd/MM/yyyy): ");
                 string _ToDate = UserController.GetUserInput();
 
                 if(String.IsNullOrEmpty(_ToDate))
@@ -543,14 +543,14 @@ public class CandidateController
 
                 try
                 {
-                    ToDate = DateTime.ParseExact(_ToDate, "d/M/yyyyy", CultureInfo.InvariantCulture);
+                    ToDate = DateTime.ParseExact(_ToDate, "dd/MM/yyyy", CultureInfo.InvariantCulture);
                     break;
                 }
                 catch (Exception)
                 {
                     Console.Clear();
                     Console.WriteLine("================================");
-                    Console.WriteLine(" The correct formart is Day/Month/Year.");
+                    Console.WriteLine(" The correct formart is dd/MM/yyyy.");
                 }
             }
 
@@ -786,7 +786,7 @@ public class CandidateController
                         Console.WriteLine("================================\n");
                         Console.WriteLine("           UPDATE CV");
                         Console.WriteLine("\n================================");
-                        Console.Write(" Date of Birth(Day/Month/Year): ");
+                        Console.Write(" Date of Birth (dd/MM/yyyy): ");
                         string BirthDate = UserController.GetUserInput();
 
                         if(String.IsNullOrEmpty(BirthDate))
@@ -797,14 +797,14 @@ public class CandidateController
 
                         try
                         {
-                            cv.BirthDate = DateTime.ParseExact(BirthDate, "d/M/yyyy", CultureInfo.InvariantCulture);
+                            cv.BirthDate = DateTime.ParseExact(BirthDate, "dd/MM/yyyy", CultureInfo.InvariantCulture);
                             break;
                         }
                         catch (Exception)
                         {
                             Console.Clear();
                             Console.WriteLine("================================");
-                            Console.WriteLine(" The correct formart is Day/Month/Year.");
+                            Console.WriteLine(" The correct formart is dd/MM/yyyy.");
                         }
                     }
                     Console.Clear();
@@ -829,7 +829,7 @@ public class CandidateController
                         {
                             Console.Clear();
                             Console.WriteLine("================================");
-                            Console.WriteLine(" Phone Number is too long. Maximum characters allowed is 10.");
+                            Console.WriteLine(" Phone Number must be 10 numerics.");
                         }
                         else
                         {
@@ -1271,11 +1271,11 @@ public class CandidateController
                         Console.WriteLine("\n================================");
                         if (type == "Certificate")
                         {
-                            Console.Write(" Time(Day/Month/Year): ");
+                            Console.Write(" Time (dd/MM/yyyy): ");
                         }
                         else
                         {
-                            Console.Write(" From(Day/Month/Year): ");
+                            Console.Write(" From Date (dd/MM/yyyy): ");
                         }
                         string FromDate = UserController.GetUserInput();
 
@@ -1289,11 +1289,11 @@ public class CandidateController
                         {
                             if (type == "Certificate")
                             {
-                                detail.FromDate = DateTime.ParseExact(FromDate, "d/M/yyyy", CultureInfo.InvariantCulture);
+                                detail.FromDate = DateTime.ParseExact(FromDate, "dd/MM/yyyy", CultureInfo.InvariantCulture);
                             }
                             else
                             {
-                                detail.FromDate = DateTime.ParseExact(FromDate, "d/M/yyyy", CultureInfo.InvariantCulture);
+                                detail.FromDate = DateTime.ParseExact(FromDate, "dd/MM/yyyy", CultureInfo.InvariantCulture);
                             }
                             break;
                         }
@@ -1303,11 +1303,11 @@ public class CandidateController
                             Console.WriteLine("================================");
                             if (type == "Certificate")
                             {
-                                Console.WriteLine(" The correct formart is Day/Month/Year.");
+                                Console.WriteLine(" The correct formart is dd/MM/yyyy.");
                             }
                             else
                             {
-                                Console.WriteLine(" The correct formart is Day/Month/Year.");
+                                Console.WriteLine(" The correct formart is dd/MM/yyyy.");
                             }
                         }
                     }
@@ -1321,7 +1321,7 @@ public class CandidateController
                         Console.WriteLine("================================\n");
                         Console.WriteLine("            CHANGE");
                         Console.WriteLine("\n================================");
-                        Console.Write(" To(Day/Month/Year): ");
+                        Console.Write(" To Date (dd/MM/yyyy): ");
                         string ToDate = UserController.GetUserInput();
 
                         if(String.IsNullOrEmpty(ToDate))
@@ -1332,14 +1332,14 @@ public class CandidateController
 
                         try
                         {
-                            detail.ToDate = DateTime.ParseExact(ToDate, "d/M/yyyy", CultureInfo.InvariantCulture);
+                            detail.ToDate = DateTime.ParseExact(ToDate, "dd/MM/yyyy", CultureInfo.InvariantCulture);
                             break;
                         }
                         catch (Exception)
                         {
                             Console.Clear();
                             Console.WriteLine("================================");
-                            Console.WriteLine(" The correct formart is Day/Month/Year.");
+                            Console.WriteLine(" The correct formart is dd/MM/yyyy.");
                         }
                     }
 
@@ -1676,7 +1676,7 @@ public class CandidateController
             newsTable.AddRow("--------------------", "----------------------------------------");
             newsTable.AddRow("Recruiter's Number", recruiter.PhoneNum);
             newsTable.AddRow("--------------------", "----------------------------------------");
-            newsTable.AddRow("Deadline", news.DeadLine.ToString("d/MM/yyyy"));
+            newsTable.AddRow("Deadline", news.DeadLine.ToString("dd/MM/yyyy"));
             newsTable.AddRow("--------------------", "----------------------------------------");
             newsTable.AddRow("Salary Range", news.SalaryRange);
             newsTable.AddRow("--------------------", "----------------------------------------");

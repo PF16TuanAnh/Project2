@@ -47,7 +47,7 @@ public class RecruiterController
             {
                 Console.Clear();
                 Console.WriteLine("================================");
-                Console.WriteLine(" Phone Number must be 10 characters long.");
+                Console.WriteLine(" Phone Number must be 10 numerics.");
             }
             else
             {
@@ -336,18 +336,18 @@ public class RecruiterController
             Console.WriteLine("================================\n");
             Console.WriteLine("      CREATE RECRUITMENT NEW");
             Console.WriteLine("\n================================");
-            Console.Write(" Deadline(Day/Month/Year): ");
+            Console.Write(" Deadline (dd/MM/yyyy): ");
             string _DeadLine = UserController.GetUserInput();
             try
             {
-                DeadLine = DateTime.ParseExact(_DeadLine, "d/M/yyyy", CultureInfo.InvariantCulture);
+                DeadLine = DateTime.ParseExact(_DeadLine, "dd/MM/yyyy", CultureInfo.InvariantCulture);
                 break;
             }
             catch (Exception)
             {
                 Console.Clear();
                 Console.WriteLine("================================");
-                Console.WriteLine(" The correct formart is Day/Month/Year.");
+                Console.WriteLine(" The correct formart is dd/MM/yyyy.");
             }
         }
 
@@ -802,18 +802,18 @@ public class RecruiterController
                         Console.WriteLine("================================\n");
                         Console.WriteLine("             UPDATE");
                         Console.WriteLine("\n================================");
-                        Console.Write(" Deadline(Day/Month/Year): ");
+                        Console.Write(" Deadline (dd/MM/yyyy): ");
                         string DeadLine = UserController.GetUserInput();
                         try
                         {
-                            news.DeadLine = DateTime.ParseExact(DeadLine, "d/M/yyyy", CultureInfo.InvariantCulture);
+                            news.DeadLine = DateTime.ParseExact(DeadLine, "dd/MM/yyyy", CultureInfo.InvariantCulture);
                             break;
                         }
                         catch (Exception)
                         {
                             Console.Clear();
                             Console.WriteLine("================================");
-                            Console.WriteLine(" The correct formart is Day/Month/Year.");
+                            Console.WriteLine(" The correct formart is dd/MM/yyyy.");
                         }
                     }
                     Console.Clear();
@@ -1452,7 +1452,7 @@ public class RecruiterController
                         {
                             Console.Clear();
                             Console.WriteLine("================================");
-                            Console.WriteLine(" Phone Number must be 10 characters long.");
+                            Console.WriteLine(" Phone Number must be 10 numerics.");
                         }
                         else
                         {

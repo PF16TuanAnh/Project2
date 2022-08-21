@@ -258,7 +258,7 @@ public class Menu
         personalInfoTable.AddRow("--------------------", "-------------------------------------------------------------------------------");
         personalInfoTable.AddRow("Career Title", cv.CareerTitle ?? "");
         personalInfoTable.AddRow("--------------------", "-------------------------------------------------------------------------------");
-        personalInfoTable.AddRow("Date of Birth", cv.BirthDate?.ToString("d/M/yyyy") ?? "");
+        personalInfoTable.AddRow("Date of Birth", cv.BirthDate?.ToString("dd/MM/yyyy") ?? "");
         personalInfoTable.AddRow("--------------------", "-------------------------------------------------------------------------------");
         personalInfoTable.AddRow("Phone Number", cv.PhoneNum);
         personalInfoTable.AddRow("--------------------", "-------------------------------------------------------------------------------");
@@ -271,6 +271,7 @@ public class Menu
         // create table for Career's Objective
         var objectiveTable = new Table();
         objectiveTable.AddColumn("Career's Objective");
+        objectiveTable.HideHeaders();
         objectiveTable.Columns[0].Width(102);
         objectiveTable.AddRow(cv.CareerObjective ?? "");
         objectiveTable.LeftAligned();
@@ -366,7 +367,7 @@ public class Menu
                     {
                         certTable.AddRow("--------------------", "-------------------------------------------------------------------------------");
                     }
-                    certTable.AddRow(detail.FromDate?.ToString("d/M/yyyy") ?? "", detail.JobPosition ?? "");  
+                    certTable.AddRow(detail.FromDate?.ToString("dd/MM/yyyy") ?? "", detail.JobPosition ?? "");  
                 }
                 else if(detail.Title == "Work Experience")
                 {
@@ -375,7 +376,7 @@ public class Menu
                     {
                         expTable.AddRow("--------------------", "----------", "----------", "--------------------", "------------------------------");
                     }
-                    expTable.AddRow( detail.JobPosition ?? "", detail.FromDate?.ToString("d/M/yyyy") ?? "", detail.ToDate?.ToString("d/M/yyyy") ?? "", detail.Association ?? "", detail.Description ?? "");  
+                    expTable.AddRow( detail.JobPosition ?? "", detail.FromDate?.ToString("dd/MM/yyyy") ?? "", detail.ToDate?.ToString("dd/MM/yyyy") ?? "", detail.Association ?? "", detail.Description ?? "");  
                 }
                 else if(detail.Title == "Education")
                 {
@@ -384,7 +385,7 @@ public class Menu
                     {
                         eduTable.AddRow("--------------------", "----------", "----------", "--------------------", "------------------------------");
                     }
-                    eduTable.AddRow( detail.JobPosition ?? "", detail.FromDate?.ToString("d/M/yyyy") ?? "", detail.ToDate?.ToString("d/M/yyyy") ?? "", detail.Association ?? "", detail.Description ?? "");  
+                    eduTable.AddRow( detail.JobPosition ?? "", detail.FromDate?.ToString("dd/MM/yyyy") ?? "", detail.ToDate?.ToString("dd/MM/yyyy") ?? "", detail.Association ?? "", detail.Description ?? "");  
                 }
                 else if(detail.Title == "Activity")
                 {
@@ -393,7 +394,7 @@ public class Menu
                     {
                         actTable.AddRow("--------------------", "----------", "----------", "--------------------", "------------------------------");
                     }
-                    actTable.AddRow( detail.JobPosition ?? "", detail.FromDate?.ToString("d/M/yyyy") ?? "", detail.ToDate?.ToString("d/M/yyyy") ?? "", detail.Association ?? "", detail.Description ?? "");  
+                    actTable.AddRow( detail.JobPosition ?? "", detail.FromDate?.ToString("dd/MM/yyyy") ?? "", detail.ToDate?.ToString("dd/MM/yyyy") ?? "", detail.Association ?? "", detail.Description ?? "");  
                 }
             }
             
@@ -541,7 +542,7 @@ public class Menu
                     {
                         certTable.AddRow("----", "--------------------", "-------------------------------------------------------------------------------");
                     }
-                    certTable.AddRow(certNo.ToString(), detail.FromDate?.ToString("d/M/yyyy") ?? "",  detail.JobPosition ?? "");  
+                    certTable.AddRow(certNo.ToString(), detail.FromDate?.ToString("dd/MM/yyyy") ?? "",  detail.JobPosition ?? "");  
                 }
                 else if(detail.Title == "Work Experience")
                 {
@@ -550,7 +551,7 @@ public class Menu
                     {
                         expTable.AddRow("----", "--------------------", "----------", "----------", "--------------------", "------------------------------");
                     }
-                    expTable.AddRow(expNo.ToString(), detail.JobPosition ?? "",  detail.FromDate?.ToString("d/M/yyyy") ?? "", detail.ToDate?.ToString("d/M/yyyy") ?? "", detail.Association ?? "", detail.Description ?? "");  
+                    expTable.AddRow(expNo.ToString(), detail.JobPosition ?? "",  detail.FromDate?.ToString("dd/MM/yyyy") ?? "", detail.ToDate?.ToString("dd/MM/yyyy") ?? "", detail.Association ?? "", detail.Description ?? "");  
                 }
                 else if(detail.Title == "Education")
                 {
@@ -559,7 +560,7 @@ public class Menu
                     {
                         eduTable.AddRow("----", "--------------------", "----------", "----------", "--------------------", "------------------------------");
                     }
-                    eduTable.AddRow(eduNo.ToString(), detail.JobPosition ?? "",  detail.FromDate?.ToString("d/M/yyyy") ?? "", detail.ToDate?.ToString("d/M/yyyy") ?? "", detail.Association ?? "", detail.Description ?? "");  
+                    eduTable.AddRow(eduNo.ToString(), detail.JobPosition ?? "",  detail.FromDate?.ToString("dd/MM/yyyy") ?? "", detail.ToDate?.ToString("dd/MM/yyyy") ?? "", detail.Association ?? "", detail.Description ?? "");  
                 }
                 else if(detail.Title == "Activity")
                 {
@@ -568,7 +569,7 @@ public class Menu
                     {
                         actTable.AddRow("----", "--------------------", "----------", "----------", "--------------------", "------------------------------");
                     }
-                    actTable.AddRow(actNo.ToString(), detail.JobPosition ?? "",  detail.FromDate?.ToString("d/M/yyyy") ?? "", detail.ToDate?.ToString("d/M/yyyy") ?? "", detail.Association ?? "", detail.Description ?? "");  
+                    actTable.AddRow(actNo.ToString(), detail.JobPosition ?? "",  detail.FromDate?.ToString("dd/MM/yyyy") ?? "", detail.ToDate?.ToString("dd/MM/yyyy") ?? "", detail.Association ?? "", detail.Description ?? "");  
                 }
             }
             
@@ -679,7 +680,7 @@ public class Menu
         profileTable.Columns[1].Width(40);
         profileTable.AddRow("News Name", news.NewsName);
         profileTable.AddRow("--------------------", "----------------------------------------");
-        profileTable.AddRow("Deadline", news.DeadLine.ToString("d/M/yyyy"));
+        profileTable.AddRow("Deadline", news.DeadLine.ToString("dd/MM/yyyy"));
         profileTable.AddRow("--------------------", "----------------------------------------");
         profileTable.AddRow("Form Of Employment", news.FormOfEmploy);
         profileTable.AddRow("--------------------", "----------------------------------------");
@@ -788,7 +789,7 @@ public class Menu
         personalInfoTable.AddRow("--------------------", "-------------------------------------------------------------------------------");
         personalInfoTable.AddRow("Career Title", cv.CareerTitle ?? "");
         personalInfoTable.AddRow("--------------------", "-------------------------------------------------------------------------------");
-        personalInfoTable.AddRow("Date of Birth", cv.BirthDate?.ToString("d/M/yyyy") ?? "");
+        personalInfoTable.AddRow("Date of Birth", cv.BirthDate?.ToString("dd/MM/yyyy") ?? "");
         personalInfoTable.AddRow("--------------------", "-------------------------------------------------------------------------------");
         personalInfoTable.AddRow("Phone Number", cv.PhoneNum);
         personalInfoTable.AddRow("--------------------", "-------------------------------------------------------------------------------");
@@ -801,6 +802,7 @@ public class Menu
         // create table for Career's Objective
         var objectiveTable = new Table();
         objectiveTable.AddColumn("Career's Objective");
+        objectiveTable.HideHeaders();
         objectiveTable.Columns[0].Width(102);
         objectiveTable.AddRow(cv.CareerObjective ?? "");
         objectiveTable.LeftAligned();
@@ -896,7 +898,7 @@ public class Menu
                     {
                         certTable.AddRow("--------------------", "-------------------------------------------------------------------------------");
                     }
-                    certTable.AddRow(detail.FromDate?.ToString("d/M/yyyy") ?? "", detail.JobPosition ?? "");  
+                    certTable.AddRow(detail.FromDate?.ToString("dd/MM/yyyy") ?? "", detail.JobPosition ?? "");  
                 }
                 else if(detail.Title == "Work Experience")
                 {
@@ -905,7 +907,7 @@ public class Menu
                     {
                         expTable.AddRow("--------------------", "----------", "----------", "--------------------", "------------------------------");
                     }
-                    expTable.AddRow( detail.JobPosition ?? "", detail.FromDate?.ToString("d/M/yyyy") ?? "", detail.ToDate?.ToString("d/M/yyyy") ?? "", detail.Association ?? "", detail.Description ?? "");  
+                    expTable.AddRow( detail.JobPosition ?? "", detail.FromDate?.ToString("dd/MM/yyyy") ?? "", detail.ToDate?.ToString("dd/MM/yyyy") ?? "", detail.Association ?? "", detail.Description ?? "");  
                 }
                 else if(detail.Title == "Education")
                 {
@@ -914,7 +916,7 @@ public class Menu
                     {
                         eduTable.AddRow("--------------------", "----------", "----------", "--------------------", "------------------------------");
                     }
-                    eduTable.AddRow( detail.JobPosition ?? "", detail.FromDate?.ToString("d/M/yyyy") ?? "", detail.ToDate?.ToString("d/M/yyyy") ?? "", detail.Association ?? "", detail.Description ?? "");  
+                    eduTable.AddRow( detail.JobPosition ?? "", detail.FromDate?.ToString("dd/MM/yyyy") ?? "", detail.ToDate?.ToString("dd/MM/yyyy") ?? "", detail.Association ?? "", detail.Description ?? "");  
                 }
                 else if(detail.Title == "Activity")
                 {
@@ -923,7 +925,7 @@ public class Menu
                     {
                         actTable.AddRow("--------------------", "----------", "----------", "--------------------", "------------------------------");
                     }
-                    actTable.AddRow( detail.JobPosition ?? "", detail.FromDate?.ToString("d/M/yyyy") ?? "", detail.ToDate?.ToString("d/M/yyyy") ?? "", detail.Association ?? "", detail.Description ?? "");  
+                    actTable.AddRow( detail.JobPosition ?? "", detail.FromDate?.ToString("dd/MM/yyyy") ?? "", detail.ToDate?.ToString("dd/MM/yyyy") ?? "", detail.Association ?? "", detail.Description ?? "");  
                 }
             }
             
