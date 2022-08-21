@@ -206,7 +206,16 @@ public class Menu
                         }  
                         break;
                     case "2":
-                        recruiterController.AddRecruitmentNews(RecruiterID);
+                        if(!String.IsNullOrEmpty(recruiter.PhoneNum))
+                        {
+                            recruiterController.AddRecruitmentNews(RecruiterID);
+                        }
+                        else
+                        {
+                            Console.Clear();
+                            Console.WriteLine("================================"); 
+                            Console.WriteLine(" Please insert your personal information first.");
+                        }
                         break;
                     case "3":
                         recruiterController.DisplayNewsForRecruter(RecruiterID);

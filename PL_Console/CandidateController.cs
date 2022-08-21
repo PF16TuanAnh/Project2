@@ -863,7 +863,7 @@ public class CandidateController
                         Console.WriteLine("           UPDATE CV");
                         Console.WriteLine("\n================================");
                         Console.WriteLine(" Enter 0 to cancel.");
-                        Console.WriteLine(" Old Date of Birth: {0}", cv.BirthDate);
+                        Console.WriteLine(" Old Date of Birth: {0}", cv.BirthDate?.ToString("dd/MM/yyyy"));
                         Console.Write(" Date of Birth (dd/MM/yyyy): ");
                         string BirthDate = UserController.GetUserInput();
 
@@ -1448,12 +1448,12 @@ public class CandidateController
                             Console.WriteLine(" Enter 0 to cancel.");
                             if (type == "Certificate")
                             {
-                                Console.WriteLine(" Old Time: {0}", detail.FromDate);
+                                Console.WriteLine(" Old Time: {0}", detail.FromDate?.ToString("dd/MM/yyyy"));
                                 Console.Write(" Time (dd/MM/yyyy): ");
                             }
                             else
                             {
-                                Console.WriteLine(" Old From Date: {0}", detail.FromDate);
+                                Console.WriteLine(" Old From Date: {0}", detail.FromDate?.ToString("dd/MM/yyyy"));
                                 Console.Write(" From Date (dd/MM/yyyy): ");
                             }
                             FromDate = UserController.GetUserInput();
@@ -1494,7 +1494,7 @@ public class CandidateController
                                 Console.WriteLine("            CHANGE");
                                 Console.WriteLine("\n================================");
                                 Console.WriteLine(" Enter 0 to cancel.");
-                                Console.WriteLine(" Old To Date: {0}", detail.ToDate);
+                                Console.WriteLine(" Old To Date: {0}", detail.ToDate?.ToString("dd/MM/yyyy"));
                                 Console.Write(" To Date (dd/MM/yyyy): ");
                                 ToDate = UserController.GetUserInput();
                                 

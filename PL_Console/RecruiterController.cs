@@ -294,7 +294,7 @@ public class RecruiterController
     { 
         Console.Clear();
         string? NewsName;
-        DateTime DeadLine;
+        DateTime DeadLine = new DateTime();
         string? SalaryRange = "Below 3 million";
         string? FormOfEmploy = "Working full-time";
         string? Gender;
@@ -304,14 +304,23 @@ public class RecruiterController
         string? CityAddress = "Ha Noi";
         string? Profession = "Seller";
         bool end = false;
+
+        string _DeadLine;
         
         while (true) // NewsName
         {
             Console.WriteLine("================================\n");
             Console.WriteLine("      CREATE RECRUITMENT NEW");
             Console.WriteLine("\n================================");
+            Console.WriteLine(" Enter 0 to cancel.");
             Console.Write(" News Name: ");
             NewsName = UserController.GetUserInput();
+            
+            if (NewsName == "0")
+            {
+                break;
+            }
+
             if(NewsName.Length > 200)
             {
                 Console.Clear();
@@ -330,350 +339,473 @@ public class RecruiterController
             }
         }
 
-        Console.Clear();
-        while (true) // DeadLine
+        if(NewsName != "0")
         {
-            Console.WriteLine("================================\n");
-            Console.WriteLine("      CREATE RECRUITMENT NEW");
-            Console.WriteLine("\n================================");
-            Console.Write(" Deadline (dd/MM/yyyy): ");
-            string _DeadLine = UserController.GetUserInput();
-            try
+            Console.Clear();
+            while (true) // DeadLine
             {
-                DeadLine = DateTime.ParseExact(_DeadLine, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-                break;
-            }
-            catch (Exception)
-            {
-                Console.Clear();
-                Console.WriteLine("================================");
-                Console.WriteLine(" The correct formart is dd/MM/yyyy.");
-            }
-        }
+                Console.WriteLine("================================\n");
+                Console.WriteLine("      CREATE RECRUITMENT NEW");
+                Console.WriteLine("\n================================");
+                Console.WriteLine(" Enter 0 to cancel.");
+                Console.Write(" Deadline (dd/MM/yyyy): ");
+                _DeadLine = UserController.GetUserInput();
+                
+                if (_DeadLine == "0")
+                {
+                    break;
+                }
 
-        Console.Clear();
-        while (true) // SalaryRange
-        {
-            bool endSalaryRange = false;
-            Console.WriteLine("================================\n");
-            Console.WriteLine("            SALARY");
-            Console.WriteLine("\n================================");
-            Console.WriteLine(" 1) Below 3 million");
-            Console.WriteLine(" 2) 3 - 5 million");
-            Console.WriteLine(" 3) 5 - 7 million");
-            Console.WriteLine(" 4) 7 - 10 million");
-            Console.WriteLine(" 5) Higher than 10 million");
-            Console.WriteLine("================================");
-            Console.Write(" Enter the option number: ");
-            switch (UserController.GetUserInput())
-            {
-                case "1":
-                    SalaryRange = "Below 3 million";
-                    endSalaryRange = true;
+                try
+                {
+                    DeadLine = DateTime.ParseExact(_DeadLine, "dd/MM/yyyy", CultureInfo.InvariantCulture);
                     break;
-                case "2":
-                    SalaryRange = "3 - 5 million";
-                    endSalaryRange = true;
-                    break;
-                case "3":
-                    SalaryRange =  "5 - 7 million";
-                    endSalaryRange = true;
-                    break;
-                case "4":
-                    SalaryRange =  "7 - 10 million";
-                    endSalaryRange = true;
-                    break;
-                case "5":
-                    SalaryRange = "Higher than 10 million";
-                    endSalaryRange = true;
-                    break;
-                default:
+                }
+                catch (Exception)
+                {
                     Console.Clear();
-                    Console.WriteLine("================================"); 
-                    Console.WriteLine(" Invalid input! Please re-enter your option.");
-                    break;
-            }
-
-            if (endSalaryRange == true)
-            {
-                break;
+                    Console.WriteLine("================================");
+                    Console.WriteLine(" The correct formart is dd/MM/yyyy.");
+                }
             }
         }
-
-        Console.Clear();
-        while (true) // FormOfEmploy
+        else
         {
-            bool endForm = false;
-            Console.WriteLine("================================\n");
-            Console.WriteLine("        FORM OF EMPLOYMENT");
-            Console.WriteLine("\n================================");
-            Console.WriteLine(" 1) Working full-time");
-            Console.WriteLine(" 2) Working part-time");
-            Console.WriteLine("================================");
-            Console.Write(" Enter the option number: ");
-            switch (UserController.GetUserInput())
+            _DeadLine = "0";
+        }
+
+        if(_DeadLine != "0")
+        {
+            Console.Clear();
+            while (true) // SalaryRange
             {
-                case "1":
-                    FormOfEmploy = "Working full-time";
-                    endForm = true;
+                bool endSalaryRange = false;
+                Console.WriteLine("================================\n");
+                Console.WriteLine("            SALARY");
+                Console.WriteLine("\n================================");
+                Console.WriteLine(" 1) Below 3 million");
+                Console.WriteLine(" 2) 3 - 5 million");
+                Console.WriteLine(" 3) 5 - 7 million");
+                Console.WriteLine(" 4) 7 - 10 million");
+                Console.WriteLine(" 5) Higher than 10 million");
+                Console.WriteLine(" 0) Cancel");
+                Console.WriteLine("================================");
+                Console.Write(" Enter the option number: ");
+                switch (UserController.GetUserInput())
+                {
+                    case "1":
+                        SalaryRange = "Below 3 million";
+                        endSalaryRange = true;
+                        break;
+                    case "2":
+                        SalaryRange = "3 - 5 million";
+                        endSalaryRange = true;
+                        break;
+                    case "3":
+                        SalaryRange =  "5 - 7 million";
+                        endSalaryRange = true;
+                        break;
+                    case "4":
+                        SalaryRange =  "7 - 10 million";
+                        endSalaryRange = true;
+                        break;
+                    case "5":
+                        SalaryRange = "Higher than 10 million";
+                        endSalaryRange = true;
+                        break;
+                    case "0":
+                        SalaryRange = "0";
+                        endSalaryRange = true;
+                        break;
+                    default:
+                        Console.Clear();
+                        Console.WriteLine("================================"); 
+                        Console.WriteLine(" Invalid input! Please re-enter your option.");
+                        break;
+                }
+
+                if (endSalaryRange == true)
+                {
                     break;
-                case "2":
-                    FormOfEmploy = "Working part-time";
-                    endForm = true;
+                }
+            }
+        }
+        else
+        {
+            SalaryRange = "0";
+        }
+
+        if(SalaryRange != "0")
+        {
+            Console.Clear();
+            while (true) // FormOfEmploy
+            {
+                bool endForm = false;
+                Console.WriteLine("================================\n");
+                Console.WriteLine("        FORM OF EMPLOYMENT");
+                Console.WriteLine("\n================================");
+                Console.WriteLine(" 1) Working full-time");
+                Console.WriteLine(" 2) Working part-time");
+                Console.WriteLine(" 0) Cancel");
+                Console.WriteLine("================================");
+                Console.Write(" Enter the option number: ");
+                switch (UserController.GetUserInput())
+                {
+                    case "1":
+                        FormOfEmploy = "Working full-time";
+                        endForm = true;
+                        break;
+                    case "2":
+                        FormOfEmploy = "Working part-time";
+                        endForm = true;
+                        break;
+                    case "0":
+                        FormOfEmploy = "0";
+                        endForm = true;
+                        break;
+                    default:
+                        Console.Clear();
+                        Console.WriteLine("================================"); 
+                        Console.WriteLine(" Invalid input! Please re-enter your option.");
+                        break;
+                }
+
+                if (endForm == true)
+                {
                     break;
-                default:
+                }
+            }
+        }
+        else
+        {
+            FormOfEmploy = "0";
+        }
+
+        if(FormOfEmploy != "0")
+        {
+            Console.Clear();
+            while (true) // Gender
+            {
+                Console.WriteLine("================================\n");
+                Console.WriteLine("      CREATE RECRUITMENT NEW");
+                Console.WriteLine("\n================================");
+                Console.WriteLine(" Enter 0 to cancel.");
+                Console.Write(" Gender: ");
+                Gender = UserController.GetUserInput();
+                
+                if (Gender == "0")
+                {
+                    break;
+                }
+
+                if(Gender.Length > 50)
+                {
                     Console.Clear();
-                    Console.WriteLine("================================"); 
-                    Console.WriteLine(" Invalid input! Please re-enter your option.");
-                    break;
-            }
-
-            if (endForm == true)
-            {
-                break;
-            }
-        }
-
-        Console.Clear();
-        while (true) // Gender
-        {
-            Console.WriteLine("================================\n");
-            Console.WriteLine("      CREATE RECRUITMENT NEW");
-            Console.WriteLine("\n================================");
-            Console.Write(" Gender: ");
-            Gender = UserController.GetUserInput();
-            if(Gender.Length > 50)
-            {
-                Console.Clear();
-                Console.WriteLine("================================");
-                Console.WriteLine(" Gender is too long. Maximum characters allowed is 50.");
-            }
-            else if (String.IsNullOrEmpty(Gender))
-            {
-                Console.Clear();
-                Console.WriteLine("================================");
-                Console.WriteLine(" Gender cannot be left empty.");
-            }
-            else
-            {
-                break;
-            }
-        }
-
-        Console.Clear();
-        while (true) // HiringAmount
-        {
-            Console.WriteLine("================================\n");
-            Console.WriteLine("      CREATE RECRUITMENT NEW");
-            Console.WriteLine("\n================================");
-            Console.Write(" Hiring Amount: ");
-            HiringAmount = UserController.GetUserInput();
-            if(HiringAmount.Length > 30)
-            {
-                Console.Clear();
-                Console.WriteLine("================================");
-                Console.WriteLine(" Hiring Amount is too long. Maximum characters allowed is 30.");
-            }
-            else if (String.IsNullOrEmpty(HiringAmount))
-            {
-                Console.Clear();
-                Console.WriteLine("================================");
-                Console.WriteLine(" Hiring Amount cannot be left empty.");
-            }
-            else
-            {
-                break;
-            }
-        }
-
-        Console.Clear();
-        while (true) // HiringPosition
-        {
-            Console.WriteLine("================================");
-            Console.WriteLine("          Hiring Position");
-            Console.WriteLine("================================");
-            Console.WriteLine(" 1) Staff");
-            Console.WriteLine(" 2) Leader");
-            Console.WriteLine(" 3) Deputy of Department");
-            Console.WriteLine(" 4) Head of Department");
-            Console.WriteLine(" 5) Vice Director");
-            Console.WriteLine(" 6) Director");
-            Console.WriteLine(" 7) CEO");
-            Console.WriteLine("================================");
-            Console.Write(" Enter the option number: ");
-            switch (UserController.GetUserInput()) 
-            {
-                case "1":
-                    HiringPosition = "Staff";
-                    end = true;
-                    break;
-                case "2":
-                    HiringPosition = "Leader";
-                    end = true;
-                    break;
-                case "3":
-                    HiringPosition = "Deputy of Department";
-                    end = true;
-                    break;
-                case "4":
-                    HiringPosition = "Head of Department";
-                    end = true;
-                    break;
-                case "5":
-                    HiringPosition = "Vice Director";
-                    end = true;
-                    break;
-                case "6":
-                    HiringPosition = "Director";
-                    end = true;
-                    break;
-                case "7":
-                    HiringPosition = "CEO";
-                    end = true;
-                    break;
-                default:
+                    Console.WriteLine("================================");
+                    Console.WriteLine(" Gender is too long. Maximum characters allowed is 50.");
+                }
+                else if (String.IsNullOrEmpty(Gender))
+                {
                     Console.Clear();
-                    Console.WriteLine("================================"); 
-                    Console.WriteLine(" Invalid input! Please re-enter your option.");
+                    Console.WriteLine("================================");
+                    Console.WriteLine(" Gender cannot be left empty.");
+                }
+                else
+                {
                     break;
-            }
-
-            if (end == true)
-            {
-                break;
-            }
-        }
-
-        Console.Clear();
-        while (true) // RequiredExp
-        {
-            Console.WriteLine("================================\n");
-            Console.WriteLine("      CREATE RECRUITMENT NEW");
-            Console.WriteLine("\n================================");
-            Console.Write(" Required Experience: ");
-
-            RequiredExp = UserController.GetUserInput();
-            if(RequiredExp.Length > 200)
-            {
-                Console.Clear();
-                Console.WriteLine("================================");
-                Console.WriteLine(" Required Experience is too long. Maximum characters allowed is 200.");
-            }
-            else if (String.IsNullOrEmpty(RequiredExp))
-            {
-                Console.Clear();
-                Console.WriteLine("================================");
-                Console.WriteLine(" Required Experience cannot be left empty.");
-            }
-            else
-            {
-                break;
+                }
             }
         }
-
-        Console.Clear();
-        while (true) // CityAddress
+        else
         {
-            bool endAddress = false;
-            Console.WriteLine("================================\n");
-            Console.WriteLine("             CITY");
-            Console.WriteLine("\n================================");
-            Console.WriteLine(" 1) Ha Noi");
-            Console.WriteLine(" 2) Ho Chi Minh");
-            Console.WriteLine(" 3) Binh Duong");
-            Console.WriteLine(" 4) Bac Ninh");
-            Console.WriteLine(" 5) Dong Nai");
-            Console.WriteLine("================================");
-            Console.Write(" Enter the option number: ");
+            Gender = "0";
+        }
 
-            switch (UserController.GetUserInput())
+        if(Gender != "0")
+        {
+            Console.Clear();
+            while (true) // HiringAmount
             {
-                case "1":
-                    CityAddress = "Ha Noi";
-                    endAddress = true;
+                Console.WriteLine("================================\n");
+                Console.WriteLine("      CREATE RECRUITMENT NEW");
+                Console.WriteLine("\n================================");
+                Console.WriteLine(" Enter 0 to cancel.");
+                Console.Write(" Hiring Amount: ");
+                HiringAmount = UserController.GetUserInput();
+                
+                if (HiringAmount == "0")
+                {
                     break;
-                case "2":
-                    CityAddress = "Ho Chi Minh";
-                    endAddress = true;
-                    break;
-                case "3":
-                    CityAddress =  "Binh Duong";
-                    endAddress = true;
-                    break;
-                case "4":
-                    CityAddress =  "Bac Ninh";
-                    endAddress = true;
-                    break;
-                case "5":
-                    CityAddress = "Dong Nai";
-                    endAddress = true;
-                    break;
-                default:
+                }
+
+                if(HiringAmount.Length > 30)
+                {
                     Console.Clear();
-                    Console.WriteLine("================================"); 
-                    Console.WriteLine(" Invalid input! Please re-enter your option.");
-                    break;
-            }
-
-            if (endAddress == true)
-            {
-                break;
-            }
-        }
-
-        Console.Clear();
-        while (true) // Profession
-        {
-            bool endProfession = false;
-            Console.WriteLine("================================\n");
-            Console.WriteLine("          PROFESSION");
-            Console.WriteLine("\n================================");
-            Console.WriteLine(" 1) Seller");
-            Console.WriteLine(" 2) Translator");
-            Console.WriteLine(" 3) Journalist");
-            Console.WriteLine(" 4) Post and Telecommunications");
-            Console.WriteLine(" 5) Insurance");
-            Console.WriteLine("================================");
-            Console.Write(" Enter the option number: ");
-
-            switch (UserController.GetUserInput())
-            {
-                case "1":
-                    Profession = "Seller";
-                    endProfession = true;
-                    break;
-                case "2":
-                    Profession = "Translator";
-                    endProfession = true;
-                    break;
-                case "3":
-                    Profession =  "Journalist";
-                    endProfession = true;
-                    break;
-                case "4":
-                    Profession =  "Post and Telecommunications";
-                    endProfession = true;
-                    break;
-                case "5":
-                    Profession = "Insurance";
-                    endProfession = true;
-                    break;
-                default:
+                    Console.WriteLine("================================");
+                    Console.WriteLine(" Hiring Amount is too long. Maximum characters allowed is 30.");
+                }
+                else if (String.IsNullOrEmpty(HiringAmount))
+                {
                     Console.Clear();
-                    Console.WriteLine("================================"); 
-                    Console.WriteLine(" Invalid input! Please re-enter your option.");
+                    Console.WriteLine("================================");
+                    Console.WriteLine(" Hiring Amount cannot be left empty.");
+                }
+                else
+                {
                     break;
-            }
-
-            if (endProfession == true)
-            {
-                break;
+                }
             }
         }
-    
-        RecruitNews News = new RecruitNews(NewsName, DeadLine, FormOfEmploy, Gender, HiringAmount, 
+        else
+        {
+            HiringAmount = "0";
+        }
+
+        if(HiringAmount != "0")
+        {
+            Console.Clear();
+            while (true) // HiringPosition
+            {
+                Console.WriteLine("================================");
+                Console.WriteLine("          Hiring Position");
+                Console.WriteLine("================================");
+                Console.WriteLine(" 1) Staff");
+                Console.WriteLine(" 2) Leader");
+                Console.WriteLine(" 3) Deputy of Department");
+                Console.WriteLine(" 4) Head of Department");
+                Console.WriteLine(" 5) Vice Director");
+                Console.WriteLine(" 6) Director");
+                Console.WriteLine(" 7) CEO");
+                Console.WriteLine(" 0) Cancel");
+                Console.WriteLine("================================");
+                Console.Write(" Enter the option number: ");
+                switch (UserController.GetUserInput()) 
+                {
+                    case "1":
+                        HiringPosition = "Staff";
+                        end = true;
+                        break;
+                    case "2":
+                        HiringPosition = "Leader";
+                        end = true;
+                        break;
+                    case "3":
+                        HiringPosition = "Deputy of Department";
+                        end = true;
+                        break;
+                    case "4":
+                        HiringPosition = "Head of Department";
+                        end = true;
+                        break;
+                    case "5":
+                        HiringPosition = "Vice Director";
+                        end = true;
+                        break;
+                    case "6":
+                        HiringPosition = "Director";
+                        end = true;
+                        break;
+                    case "7":
+                        HiringPosition = "CEO";
+                        end = true;
+                        break;
+                    case "0":
+                        HiringPosition = "0";
+                        end = true;
+                        break;
+                    default:
+                        Console.Clear();
+                        Console.WriteLine("================================"); 
+                        Console.WriteLine(" Invalid input! Please re-enter your option.");
+                        break;
+                }
+
+                if (end == true)
+                {
+                    break;
+                }
+            }
+        }
+        else
+        {
+            HiringPosition = "0";
+        }
+
+        if(HiringPosition != "0")
+        {
+            Console.Clear();
+            while (true) // RequiredExp
+            {
+                Console.WriteLine("================================\n");
+                Console.WriteLine("      CREATE RECRUITMENT NEW");
+                Console.WriteLine("\n================================");
+                Console.WriteLine(" Enter 0 to cancel.");
+                Console.Write(" Required Experience: ");
+                RequiredExp = UserController.GetUserInput();
+                
+                if (RequiredExp == "0")
+                {
+                    break;
+                }
+
+                if(RequiredExp.Length > 200)
+                {
+                    Console.Clear();
+                    Console.WriteLine("================================");
+                    Console.WriteLine(" Required Experience is too long. Maximum characters allowed is 200.");
+                }
+                else if (String.IsNullOrEmpty(RequiredExp))
+                {
+                    Console.Clear();
+                    Console.WriteLine("================================");
+                    Console.WriteLine(" Required Experience cannot be left empty.");
+                }
+                else
+                {
+                    break;
+                }
+            }
+        }
+        else
+        {
+            RequiredExp = "0";
+        }
+
+        if(RequiredExp != "0")
+        {
+            Console.Clear();
+            while (true) // CityAddress
+            {
+                bool endAddress = false;
+                Console.WriteLine("================================\n");
+                Console.WriteLine("             CITY");
+                Console.WriteLine("\n================================");
+                Console.WriteLine(" 1) Ha Noi");
+                Console.WriteLine(" 2) Ho Chi Minh");
+                Console.WriteLine(" 3) Binh Duong");
+                Console.WriteLine(" 4) Bac Ninh");
+                Console.WriteLine(" 5) Dong Nai");
+                Console.WriteLine(" 0) Cancel");
+                Console.WriteLine("================================");
+                Console.Write(" Enter the option number: ");
+
+                switch (UserController.GetUserInput())
+                {
+                    case "1":
+                        CityAddress = "Ha Noi";
+                        endAddress = true;
+                        break;
+                    case "2":
+                        CityAddress = "Ho Chi Minh";
+                        endAddress = true;
+                        break;
+                    case "3":
+                        CityAddress =  "Binh Duong";
+                        endAddress = true;
+                        break;
+                    case "4":
+                        CityAddress =  "Bac Ninh";
+                        endAddress = true;
+                        break;
+                    case "5":
+                        CityAddress = "Dong Nai";
+                        endAddress = true;
+                        break;
+                    case "0":
+                        CityAddress = "0";
+                        endAddress = true;
+                        break;
+                    default:
+                        Console.Clear();
+                        Console.WriteLine("================================"); 
+                        Console.WriteLine(" Invalid input! Please re-enter your option.");
+                        break;
+                }
+
+                if (endAddress == true)
+                {
+                    break;
+                }
+            }
+        }
+        else
+        {
+            CityAddress = "0";
+        }
+
+        if(CityAddress != "0")
+        {
+            Console.Clear();
+            while (true) // Profession
+            {
+                bool endProfession = false;
+                Console.WriteLine("================================\n");
+                Console.WriteLine("          PROFESSION");
+                Console.WriteLine("\n================================");
+                Console.WriteLine(" 1) Seller");
+                Console.WriteLine(" 2) Translator");
+                Console.WriteLine(" 3) Journalist");
+                Console.WriteLine(" 4) Post and Telecommunications");
+                Console.WriteLine(" 5) Insurance");
+                Console.WriteLine(" 0) Cancel");
+                Console.WriteLine("================================");
+                Console.Write(" Enter the option number: ");
+
+                switch (UserController.GetUserInput())
+                {
+                    case "1":
+                        Profession = "Seller";
+                        endProfession = true;
+                        break;
+                    case "2":
+                        Profession = "Translator";
+                        endProfession = true;
+                        break;
+                    case "3":
+                        Profession =  "Journalist";
+                        endProfession = true;
+                        break;
+                    case "4":
+                        Profession =  "Post and Telecommunications";
+                        endProfession = true;
+                        break;
+                    case "5":
+                        Profession = "Insurance";
+                        endProfession = true;
+                        break;
+                    case "0":
+                        Profession = "0";
+                        endProfession = true;
+                        break;
+                    default:
+                        Console.Clear();
+                        Console.WriteLine("================================"); 
+                        Console.WriteLine(" Invalid input! Please re-enter your option.");
+                        break;
+                }
+
+                if (endProfession == true)
+                {
+                    break;
+                }
+            }
+        }
+        else
+        {
+            Profession = "0";
+        }
+
+        if (NewsName != "0" && _DeadLine != "0" && FormOfEmploy != "0" && Gender != "0" && HiringAmount != "0" && HiringPosition != "0" && RequiredExp != "0" &&
+         SalaryRange != "0" && CityAddress != "0" && Profession != "0")
+        {
+            RecruitNews News = new RecruitNews(NewsName, DeadLine, FormOfEmploy, Gender, HiringAmount, 
                                             HiringPosition, RequiredExp, SalaryRange, CityAddress, Profession);
         recruiterBL.CreateRecruitment(News, RecruiterID);
+        }
+        else
+        {
+            Console.Clear();
+        }
     }
 
     public void ViewRecruitmentNews(RecruitNews news, int? RecruiterID)
@@ -773,8 +905,16 @@ public class RecruiterController
                         Console.WriteLine("================================\n");
                         Console.WriteLine("             UPDATE");
                         Console.WriteLine("\n================================");
+                        Console.WriteLine(" Enter 0 to cancel.");
+                        Console.WriteLine(" Old News Name: {0}", news.NewsName);
                         Console.Write(" News Name: ");
                         string NewsName = UserController.GetUserInput();
+                        
+                        if (NewsName == "0")
+                        {
+                            break;
+                        }
+
                         if(NewsName.Length > 200)
                         {
                             Console.Clear();
@@ -802,8 +942,16 @@ public class RecruiterController
                         Console.WriteLine("================================\n");
                         Console.WriteLine("             UPDATE");
                         Console.WriteLine("\n================================");
+                        Console.WriteLine(" Enter 0 to cancel.");
+                        Console.WriteLine(" Old Deadline: {0}", news.DeadLine.ToString("dd/MM/yyyy"));
                         Console.Write(" Deadline (dd/MM/yyyy): ");
                         string DeadLine = UserController.GetUserInput();
+                        
+                        if (DeadLine == "0")
+                        {
+                            break;
+                        }
+
                         try
                         {
                             news.DeadLine = DateTime.ParseExact(DeadLine, "dd/MM/yyyy", CultureInfo.InvariantCulture);
@@ -826,8 +974,10 @@ public class RecruiterController
                         Console.WriteLine("================================\n");
                         Console.WriteLine("        FORM OF EMPLOYMENT");
                         Console.WriteLine("\n================================");
+                        Console.WriteLine(" Old Form Of Employment: {0}", news.FormOfEmploy);
                         Console.WriteLine(" 1) Working full-time");
                         Console.WriteLine(" 2) Working part-time");
+                        Console.WriteLine(" 0) Cancel");
                         Console.WriteLine("================================");
                         Console.Write(" Enter the option number: ");
                         switch (UserController.GetUserInput())
@@ -838,6 +988,9 @@ public class RecruiterController
                                 break;
                             case "2":
                                 news.FormOfEmploy = "Working part-time";
+                                endForm = true;
+                                break;
+                            case "0":
                                 endForm = true;
                                 break;
                             default:
@@ -861,8 +1014,16 @@ public class RecruiterController
                         Console.WriteLine("================================\n");
                         Console.WriteLine("             UPDATE");
                         Console.WriteLine("\n================================");
+                        Console.WriteLine(" Enter 0 to cancel.");
+                        Console.WriteLine(" Old Gender: {0}", news.Gender);
                         Console.Write(" Gender: ");
                         string Gender = UserController.GetUserInput();
+                        
+                        if (Gender == "0")
+                        {
+                            break;
+                        }
+
                         if(Gender.Length > 50)
                         {
                             Console.Clear();
@@ -890,8 +1051,16 @@ public class RecruiterController
                         Console.WriteLine("================================\n");
                         Console.WriteLine("             UPDATE");
                         Console.WriteLine("\n================================");
+                        Console.WriteLine(" Enter 0 to cancel.");
+                        Console.WriteLine(" Old Hiring Amount: {0}", news.HiringAmount);
                         Console.Write(" Hiring Amount: ");
                         string HiringAmount = UserController.GetUserInput();
+                        
+                        if (HiringAmount == "0")
+                        {
+                            break;
+                        }
+
                         if(HiringAmount.Length > 30)
                         {
                             Console.Clear();
@@ -920,6 +1089,7 @@ public class RecruiterController
                         Console.WriteLine("================================");
                         Console.WriteLine("          Hiring Position");
                         Console.WriteLine("================================");
+                        Console.WriteLine(" Old Hiring Positio: {0}", news.HiringPosition);
                         Console.WriteLine(" 1) Staff");
                         Console.WriteLine(" 2) Leader");
                         Console.WriteLine(" 3) Deputy of Department");
@@ -927,6 +1097,7 @@ public class RecruiterController
                         Console.WriteLine(" 5) Vice Director");
                         Console.WriteLine(" 6) Director");
                         Console.WriteLine(" 7) CEO");
+                        Console.WriteLine(" 0) Cancel");
                         Console.WriteLine("================================");
                         Console.Write(" Enter the option number: ");
                         switch (UserController.GetUserInput()) 
@@ -959,6 +1130,9 @@ public class RecruiterController
                                 news.HiringPosition = "CEO";
                                 endPos = true;
                                 break;
+                            case "0":
+                                endPos = true;
+                                break;
                             default:
                                 Console.Clear();
                                 Console.WriteLine("================================"); 
@@ -980,19 +1154,27 @@ public class RecruiterController
                         Console.WriteLine("================================\n");
                         Console.WriteLine("             UPDATE");
                         Console.WriteLine("\n================================");
-                        Console.Write(" Required Experiences: ");
+                        Console.WriteLine(" Enter 0 to cancel.");
+                        Console.WriteLine(" Old Required Experience: {0}", news.HiringAmount);
+                        Console.Write(" Required Experience: ");
                         string RequiredExp = UserController.GetUserInput();
+                        
+                        if (RequiredExp == "0")
+                        {
+                            break;
+                        }
+
                         if(RequiredExp.Length > 200)
                         {
                             Console.Clear();
                             Console.WriteLine("================================");
-                            Console.WriteLine(" Required Experiences is too long. Maximum characters allowed is 200.");
+                            Console.WriteLine(" Required Experience is too long. Maximum characters allowed is 200.");
                         }
                         else if (String.IsNullOrEmpty(RequiredExp))
                         {
                             Console.Clear();
                             Console.WriteLine("================================");
-                            Console.WriteLine(" Required Experiences cannot be left empty.");
+                            Console.WriteLine(" Required Experience cannot be left empty.");
                         }
                         else
                         {
@@ -1010,29 +1192,40 @@ public class RecruiterController
                         Console.WriteLine("================================\n");
                         Console.WriteLine("             STATUS");
                         Console.WriteLine("\n================================");
+                        if(news.IsOpen)
+                        {
+                            Console.WriteLine(" Old Status: Open");
+                        }
+                        else
+                        {
+                            Console.WriteLine(" Old Status: Closed");
+                        }
                         Console.WriteLine(" 1) Open");
                         Console.WriteLine(" 2) Closed");
+                        Console.WriteLine(" 0) Cancel");
                         Console.WriteLine("================================");
                         Console.Write(" Enter option number: ");
-                            switch (UserController.GetUserInput())
-                            {
-                                case "1":
-                                    news.IsOpen = true;
-                                    break;
-                                case "2":
-                                    news.IsOpen = false;
-                                    break;
-                                default:
-                                    Console.Clear();
-                                    Console.WriteLine("================================"); 
-                                    Console.WriteLine(" Invalid input! Please re-enter your option.");
-                                    endStatus = false;
-                                    break;
-                            }
-                            if (endStatus == true)
-                                {
-                                    break;
-                                }
+                        switch (UserController.GetUserInput())
+                        {
+                            case "1":
+                                news.IsOpen = true;
+                                break;
+                            case "2":
+                                news.IsOpen = false;
+                                break;
+                            case "0":
+                                break;
+                            default:
+                                Console.Clear();
+                                Console.WriteLine("================================"); 
+                                Console.WriteLine(" Invalid input! Please re-enter your option.");
+                                endStatus = false;
+                                break;
+                        }
+                        if (endStatus == true)
+                        {
+                            break;
+                        }
                     }
                     Console.Clear();      
                     break;
@@ -1044,11 +1237,13 @@ public class RecruiterController
                         Console.WriteLine("================================\n");
                         Console.WriteLine("            SALARY");
                         Console.WriteLine("\n================================");
+                        Console.WriteLine(" Old Salary Range: {0}", news.SalaryRange);
                         Console.WriteLine(" 1) Below 3 million");
                         Console.WriteLine(" 2) 3 - 5 million");
                         Console.WriteLine(" 3) 5 - 7 million");
                         Console.WriteLine(" 4) 7 - 10 million");
                         Console.WriteLine(" 5) Higher than 10 million");
+                        Console.WriteLine(" 0) Cancel");
                         Console.WriteLine("================================");
                         Console.Write(" Enter the option number: ");
                         switch (UserController.GetUserInput())
@@ -1073,6 +1268,9 @@ public class RecruiterController
                                 news.SalaryRange = "Higher than 10 million";
                                 endSalaryRange = true;
                                 break;
+                            case "0":
+                                endSalaryRange = true;
+                                break;
                             default:
                                 Console.Clear();
                                 Console.WriteLine("================================"); 
@@ -1095,11 +1293,13 @@ public class RecruiterController
                         Console.WriteLine("================================\n");
                         Console.WriteLine("             CITY");
                         Console.WriteLine("\n================================");
+                        Console.WriteLine(" Old City Address: {0}", news.CityAddress);
                         Console.WriteLine(" 1) Ha Noi");
                         Console.WriteLine(" 2) Ho Chi Minh");
                         Console.WriteLine(" 3) Binh Duong");
                         Console.WriteLine(" 4) Bac Ninh");
                         Console.WriteLine(" 5) Dong Nai");
+                        Console.WriteLine(" 0) Cancel");
                         Console.WriteLine("================================");
                         Console.Write(" Enter the option number: ");
 
@@ -1125,6 +1325,9 @@ public class RecruiterController
                                 news.CityAddress = "Dong Nai";
                                 endAddress = true;
                                 break;
+                            case "0":
+                                endAddress = true;
+                                break;
                             default:
                                 Console.Clear();
                                 Console.WriteLine("================================"); 
@@ -1147,11 +1350,13 @@ public class RecruiterController
                         Console.WriteLine("================================\n");
                         Console.WriteLine("          PROFESSION");
                         Console.WriteLine("\n================================");
+                        Console.WriteLine(" Old Profession: {0}", news.Profession);
                         Console.WriteLine(" 1) Seller");
                         Console.WriteLine(" 2) Translator");
                         Console.WriteLine(" 3) Journalist");
                         Console.WriteLine(" 4) Post and Telecommunications");
                         Console.WriteLine(" 5) Insurance");
+                        Console.WriteLine(" 0) Cancel");
                         Console.WriteLine("================================");
                         Console.Write(" Enter the option number: ");
 
@@ -1175,6 +1380,9 @@ public class RecruiterController
                                 break;
                             case "5":
                                 news.Profession = "Insurance";
+                                endProfession = true;
+                                break;
+                            case "0":
                                 endProfession = true;
                                 break;
                             default:
@@ -1357,8 +1565,16 @@ public class RecruiterController
                         Console.WriteLine("================================\n");
                         Console.WriteLine("             UPDATE");
                         Console.WriteLine("\n================================");
+                        Console.WriteLine(" Enter 0 to cancel.");
+                        Console.WriteLine(" Old Company Name: {0}", recruiter.CompanyName);
                         Console.Write(" Company Name: ");
                         string CompanyName = UserController.GetUserInput();
+                        
+                        if (CompanyName == "0")
+                        {
+                            break;
+                        }
+
                         if(CompanyName.Length > 100)
                         {
                             Console.Clear();
@@ -1387,6 +1603,7 @@ public class RecruiterController
                             Console.WriteLine("================================\n");
                             Console.WriteLine("          UPDATE POSITION");
                             Console.WriteLine("\n================================");
+                            Console.WriteLine(" Old Position: {0}", recruiter.Position);
                             Console.WriteLine(" 1) Staff");
                             Console.WriteLine(" 2) Leader");
                             Console.WriteLine(" 3) Deputy of Department");
@@ -1394,6 +1611,7 @@ public class RecruiterController
                             Console.WriteLine(" 5) Vice Director");
                             Console.WriteLine(" 6) Director");
                             Console.WriteLine(" 7) CEO");
+                            Console.WriteLine(" 0) Cancel");
                             Console.WriteLine("================================");
                             Console.Write(" Enter the option number: ");
                             switch (UserController.GetUserInput())
@@ -1419,6 +1637,8 @@ public class RecruiterController
                                 case "7":
                                     recruiter.Position = "CEO";
                                     break;
+                                case "0":
+                                    break;
                                 default:
                                     Console.Clear();
                                     Console.WriteLine("================================"); 
@@ -1440,8 +1660,16 @@ public class RecruiterController
                         Console.WriteLine("================================\n");
                         Console.WriteLine("             UPDATE");
                         Console.WriteLine("\n================================");
+                        Console.WriteLine(" Enter 0 to cancel.");
+                        Console.WriteLine(" Old Phone Number: {0}", recruiter.PhoneNum);
                         Console.Write(" Phone Number: ");
                         string PhoneNum = UserController.GetUserInput();
+                        
+                        if (PhoneNum == "0")
+                        {
+                            break;
+                        }
+
                         if (string.IsNullOrEmpty(PhoneNum))
                         {
                             Console.Clear();
@@ -1478,8 +1706,16 @@ public class RecruiterController
                         Console.WriteLine("================================\n");
                         Console.WriteLine("             UPDATE");
                         Console.WriteLine("\n================================");
+                        Console.WriteLine(" Enter 0 to cancel.");
+                        Console.WriteLine(" Old Company Description: {0}", recruiter.CompanyDescription);
                         Console.Write(" Company Description: ");
                         string CompanyDescription = UserController.GetUserInput();
+                        
+                        if (CompanyDescription == "0")
+                        {
+                            break;
+                        }
+
                         if(CompanyDescription.Length > 5000)
                         {
                             Console.Clear();
@@ -1501,8 +1737,16 @@ public class RecruiterController
                         Console.WriteLine("================================\n");
                         Console.WriteLine("             UPDATE");
                         Console.WriteLine("\n================================");
+                        Console.WriteLine(" Enter 0 to cancel.");
+                        Console.WriteLine(" Old Business Size: {0}", recruiter.BusinessSize);
                         Console.Write(" Business Size: ");
                         string BusinessSize = UserController.GetUserInput();
+                        
+                        if (BusinessSize == "0")
+                        {
+                            break;
+                        }
+
                         if(BusinessSize.Length > 50)
                         {
                             Console.Clear();
@@ -1530,8 +1774,16 @@ public class RecruiterController
                         Console.WriteLine("================================\n");
                         Console.WriteLine("             UPDATE");
                         Console.WriteLine("\n================================");
+                        Console.WriteLine(" Enter 0 to cancel.");
+                        Console.WriteLine(" Old Business Field: {0}", recruiter.BusinessField);
                         Console.Write(" Business Field: ");
                         string BusinessField = UserController.GetUserInput();
+                        
+                        if (BusinessField == "0")
+                        {
+                            break;
+                        }
+
                         if(BusinessField.Length > 100)
                         {
                             Console.Clear();
@@ -1559,8 +1811,16 @@ public class RecruiterController
                         Console.WriteLine("================================\n");
                         Console.WriteLine("             UPDATE");
                         Console.WriteLine("\n================================");
+                        Console.WriteLine(" Enter 0 to cancel.");
+                        Console.WriteLine(" Old Company Address: {0}", recruiter.CompanyAddress);
                         Console.Write(" Company Address: ");
                         string CompanyAddress = UserController.GetUserInput();
+                        
+                        if (CompanyAddress == "0")
+                        {
+                            break;
+                        }
+
                         if(CompanyAddress.Length > 100)
                         {
                             Console.Clear();
@@ -1600,6 +1860,7 @@ public class RecruiterController
 
     public void ViewProfileInformation(Recruiter recruiter)
     {
+        Console.Clear();
         bool end = false;
         while(true)
         {
