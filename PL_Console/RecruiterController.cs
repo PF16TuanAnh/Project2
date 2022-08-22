@@ -1432,7 +1432,7 @@ public class RecruiterController
             Console.WriteLine("\n================================");
             Console.WriteLine(" 1) CareerTitle");
             Console.WriteLine(" 2) Address");
-            Console.WriteLine(" 3) Job Position");
+            Console.WriteLine(" 3) Job Tilte / Position (Work Experience)");
             Console.WriteLine(" 0) Exit");
             Console.WriteLine("================================");
             Console.Write(" Enter the option number: ");
