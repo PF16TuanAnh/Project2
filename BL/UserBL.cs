@@ -28,7 +28,6 @@ public class UserBL
             }
             else
             {
-                Console.Clear();
                 Console.WriteLine("================================");
                 Console.WriteLine(" Incorrect password!");
                 return false;
@@ -36,7 +35,6 @@ public class UserBL
         }
         else
         {
-            Console.Clear();
             Console.WriteLine("================================");
             Console.WriteLine(" Incorrect email!");
             return false;

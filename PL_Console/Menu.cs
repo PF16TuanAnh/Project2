@@ -15,10 +15,10 @@ public class Menu
         // add functions to print sub menus here
         {1, new Action<CV>(ViewCVMenu)},
         {2, new Action<List<CVDetails>>(ViewCVDetailsMenu)},
-        {3, new Action<List<RecruitNews>>(SearchedRecruitNewsMenu)},
-        {4, new Action<List<RecruitNews>>(ViewAddedNewsMenu)},
+        {3, new Action<List<RecruitNews>, int>(SearchedRecruitNewsMenu)},
+        {4, new Action<List<RecruitNews>, int>(ViewAddedNewsMenu)},
         {5, new Action<Recruiter>(ViewProfileMenu)},
-        {6, new Action<List<CV>>(SearchedCVsMenu)},
+        {6, new Action<List<CV>, int>(SearchedCVsMenu)},
         {7, new Action<CV>(ViewSelectedCVMenu)},
         {8, new Action<RecruitNews>(AddedRecruitNewsMenu)}
     };
@@ -39,15 +39,19 @@ public class Menu
         
     }
 
-    public static void PrintSubMenu(int i, Object? obj)
+    public static void PrintSubMenu(int i, Object? obj, Object? obj2)
     {
-        if(obj == null)
+        if(obj == null && obj2 == null)
         {
             SubMenus[i].DynamicInvoke();
         }
-        else
+        if(obj2 == null)
         {
             SubMenus[i].DynamicInvoke(obj);
+        }
+        else
+        {
+            SubMenus[i].DynamicInvoke(obj, obj2);
         }
     }
 
@@ -637,9 +641,10 @@ public class Menu
         Console.Clear();
     }
 
-    private static void SearchedRecruitNewsMenu(List<RecruitNews> recruitNews)
+    private static void SearchedRecruitNewsMenu(List<RecruitNews> recruitNews, int page)
     {
         var table = new Table();
+        int maxRow = page * 5;
         table.AddColumn("Pos");
         table.AddColumn("Name");
         table.Title("RECRUITMENT NEWS");
@@ -650,20 +655,23 @@ public class Menu
         foreach (RecruitNews news in recruitNews)
         {
             count += 1;
-            if(count > 1)
+            if (count > (maxRow - 5) && count <= maxRow)
             {
-                table.AddRow("----", "----------------------------------------");
+                if(count > (maxRow - 4))
+                {
+                    table.AddRow("----", "----------------------------------------");
+                }
+                table.AddRow(count.ToString(), news.NewsName);
             }
-            table.AddRow(count.ToString(), news.NewsName);
         }
         table.LeftAligned();
         AnsiConsole.Write(table);
-        Console.Write(" Enter the position of news you like to view or 0 to return: ");
     }
 
-    private static void ViewAddedNewsMenu(List<RecruitNews> recruitNews)
+    private static void ViewAddedNewsMenu(List<RecruitNews> recruitNews, int page)
     {
         var table = new Table();
+        int maxRow = page * 5;
         table.AddColumn("Pos");
         table.AddColumn("Name");
         table.Title("YOUR RECRUITMENT NEWS");
@@ -674,11 +682,14 @@ public class Menu
         foreach (RecruitNews news in recruitNews)
         {
             count += 1;
-            if(count > 1)
+            if (count > (maxRow - 5) && count <= maxRow)
             {
-                table.AddRow("----", "----------------------------------------");
+                if(count > (maxRow - 4))
+                {
+                    table.AddRow("----", "----------------------------------------");
+                }
+                table.AddRow(count.ToString(), news.NewsName ?? "");
             }
-            table.AddRow(count.ToString(), news.NewsName ?? "");
         }
         table.LeftAligned();
         AnsiConsole.Write(table);
@@ -755,12 +766,13 @@ public class Menu
         AnsiConsole.Write(profileTable);
     }
 
-    private static void SearchedCVsMenu(List<CV> cv)
+    private static void SearchedCVsMenu(List<CV> cv, int page)
     {
         var table = new Table();
+        int maxRow = page * 5;
         table.AddColumn("Pos");
         table.AddColumn("Name");
-        table.Title("APPLIED CVs");
+        table.Title("CVs");
         table.Columns[0].Width(4).Centered();
         table.Columns[1].Width(40);
 
@@ -768,15 +780,17 @@ public class Menu
         foreach (CV cvs in cv)
         {
             count += 1;
-            if(count > 1)
+            if (count > (maxRow - 5) && count <= maxRow)
             {
-                table.AddRow("----", "----------------------------------------");
+                if(count > (maxRow - 4))
+                {
+                    table.AddRow("----", "----------------------------------------");
+                }
+                table.AddRow(count.ToString(), cvs.FullName ?? "");
             }
-            table.AddRow(count.ToString(), cvs.FullName ?? "");
         }
         table.LeftAligned();
         AnsiConsole.Write(table);
-        Console.Write(" Enter the position of news you like to view or 0 to return: ");
     }
 
     private static void ViewSelectedCVMenu(CV cv)

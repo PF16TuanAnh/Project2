@@ -666,7 +666,7 @@ public class CandidateController
 
         while(true)
         {
-            Menu.PrintSubMenu(1, cv);
+            Menu.PrintSubMenu(1, cv, null);
             Console.Write(" Enter 1 to edit your CV or 0 to return: ");
             switch (UserController.GetUserInput())
             {
@@ -1096,7 +1096,7 @@ public class CandidateController
             switch (UserController.GetUserInput())
             {
                 case "1":
-                    Menu.PrintSubMenu(2, CVDetails);
+                    Menu.PrintSubMenu(2, CVDetails, null);
                     break;
                 case "2": // Add more CVDetails
                     Console.Clear();
@@ -1829,10 +1829,25 @@ public class CandidateController
     {
         if (recruitNews != null)
         {
+            int maxPage = recruitNews.Count() / 5;
+            int currentPage = 1;
+            if((recruitNews.Count() % 5) > 0)
+            {
+                maxPage += 1;
+            }
             Console.Clear();
             while (true)
             {
-                Menu.PrintSubMenu(3, recruitNews);
+                Menu.PrintSubMenu(3, recruitNews, currentPage);
+                if(currentPage < maxPage)
+                {
+                    Console.WriteLine(" Enter > to see the next page.");
+                }
+                if(currentPage > 1)
+                {
+                    Console.WriteLine(" Enter < to see the previous page.");
+                }
+                Console.Write(" Enter the position of news you like to view or 0 to return: ");
                 string choice = UserController.GetUserInput();
 
                 if(choice == "0")
@@ -1842,7 +1857,17 @@ public class CandidateController
                 }
 
                 bool success = int.TryParse(choice, out int position);
-                if(success)
+                if(choice == ">" && currentPage < maxPage)
+                {
+                    currentPage += 1;
+                    Console.Clear();
+                }
+                else if (choice == "<" && currentPage > 1)
+                {
+                    currentPage -= 1;
+                    Console.Clear();
+                }
+                else if(success)
                 {
                     if ((position - 1) < recruitNews.Count() && position > 0)
                     {

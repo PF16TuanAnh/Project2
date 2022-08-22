@@ -60,7 +60,6 @@ public class UserController
                 break;
             }
 
-
             if(userBL.VerifyEmailAndPassword(email, pass))
             {
                 int? CandidateID = userBL.GetCandidateIDByEmail(email);

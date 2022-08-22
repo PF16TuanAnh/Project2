@@ -250,10 +250,24 @@ public class RecruiterController
         List<RecruitNews> recruitNews = recruiterBL.GetRecruitNewByID(RecruiterID);
         if (recruitNews != null)
         {
+            int maxPage = recruitNews.Count() / 5;
+            int currentPage = 1;
+            if((recruitNews.Count() % 5) > 0)
+            {
+                maxPage += 1;
+            }
             Console.Clear();
             while (true)
             {
-                Menu.PrintSubMenu(4, recruitNews);
+                Menu.PrintSubMenu(4, recruitNews, currentPage);
+                if(currentPage < maxPage)
+                {
+                    Console.WriteLine(" Enter > to see the next page.");
+                }
+                if(currentPage > 1)
+                {
+                    Console.WriteLine(" Enter < to see the previous page.");
+                }
                 Console.Write(" Enter the position of news you like to view or 0 to return: ");
                 string choice = UserController.GetUserInput();
 
@@ -264,7 +278,17 @@ public class RecruiterController
                 }
 
                 bool success = int.TryParse(choice, out int position);
-                if(success)
+                if(choice == ">" && currentPage < maxPage)
+                {
+                    currentPage += 1;
+                    Console.Clear();
+                }
+                else if (choice == "<" && currentPage > 1)
+                {
+                    currentPage -= 1;
+                    Console.Clear();
+                }
+                else if(success)
                 {
                     if((position - 1) < recruitNews.Count() && position > 0)
                     {
@@ -813,7 +837,7 @@ public class RecruiterController
         bool end = false;
         while(true)
         {
-            Menu.PrintSubMenu(8, news);
+            Menu.PrintSubMenu(8, news, null);
             Console.Write(" Enter 1 to Update the details or View applied candidates, 0 to return: ");
             switch (UserController.GetUserInput())
             {
@@ -1499,11 +1523,27 @@ public class RecruiterController
     {  
         if (cv != null)
         {
+            int maxPage = cv.Count() / 5;
+            int currentPage = 1;
+            if((cv.Count() % 5) > 0)
+            {
+                maxPage += 1;
+            }
             Console.Clear();
             while (true)
             {
-                Menu.PrintSubMenu(6, cv);
+                Menu.PrintSubMenu(6, cv, currentPage);
+                if(currentPage < maxPage)
+                {
+                    Console.WriteLine(" Enter > to see the next page.");
+                }
+                if(currentPage > 1)
+                {
+                    Console.WriteLine(" Enter < to see the previous page.");
+                }
+                Console.Write(" Enter the position of news you like to view or 0 to return: ");
                 string choice = UserController.GetUserInput();
+
 
                 if(choice == "0")
                 {
@@ -1512,11 +1552,21 @@ public class RecruiterController
                 }
 
                 bool success = int.TryParse(choice, out int position);
-                if(success)
+                if(choice == ">" && currentPage < maxPage)
+                {
+                    currentPage += 1;
+                    Console.Clear();
+                }
+                else if (choice == "<" && currentPage > 1)
+                {
+                    currentPage -= 1;
+                    Console.Clear();
+                }
+                else if(success)
                 {
                     if((position - 1) < cv.Count() && position > 0)
                     {
-                        Menu.PrintSubMenu(7, cv[position - 1]);
+                        Menu.PrintSubMenu(7, cv[position - 1], null);
                     }
                     else
                     {
@@ -1864,7 +1914,7 @@ public class RecruiterController
         bool end = false;
         while(true)
         {
-            Menu.PrintSubMenu(5, recruiter);
+            Menu.PrintSubMenu(5, recruiter, null);
             Console.Write(" Enter 1 to Update your profile or 0 to return: ");
             switch (UserController.GetUserInput())
             {

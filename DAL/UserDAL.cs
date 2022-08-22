@@ -25,6 +25,7 @@ public class UserDAL
             {
                 user = GetUserInfo(reader);
             }
+
         }
         catch (Exception)
         {
@@ -38,7 +39,6 @@ public class UserDAL
         {
             Console.Clear();
         }
-        
 
         DBHelper.CloseConnection();
 
