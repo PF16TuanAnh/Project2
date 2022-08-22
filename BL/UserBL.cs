@@ -17,31 +17,21 @@ public class UserBL
     public bool VerifyEmailAndPassword(string email, string password)
     {
         email = email!.ToUpper();
-        if (password != null)
-        {
-            password = GetHashString(password);
-        }
+        password = GetHashString(password);
         
         User user = userDAL.GetUserByEmail(email);
         if (user != null)
         {
-            if(password != null)
+            if(password == user.Password)
             {
-                if(password == user.Password)
-                {
-                    return true;
-                }
-                else
-                {
-                    Console.Clear();
-                    Console.WriteLine("================================");
-                    Console.WriteLine(" Incorrect password!");
-                    return false;
-                }
+                return true;
             }
             else
             {
-                return true;
+                Console.Clear();
+                Console.WriteLine("================================");
+                Console.WriteLine(" Incorrect password!");
+                return false;
             }
         }
         else
