@@ -75,9 +75,9 @@ public class RecruiterBL
         }
     }
 
-    public List<CV> GetCVByJobPosition(string Name)
+    public List<CV> GetCVByJobPosition(string JobPosition)
     {
-        return recruiterDAL.GetCVByJobPosition(Name);
+        return recruiterDAL.GetCVByJobPosition(JobPosition);
     }
     public List<CV> GetCVByCareerTitle(string CareerTitle)
     {
