@@ -83,9 +83,9 @@ public class RecruiterBL
     {
         return recruiterDAL.GetCVByCareerTitle(CareerTitle);
     }
-    public List<CV> GetCVByAddress(string CareerTitle)
+    public List<CV> GetCVByAddress(string Address)
     {
-        return recruiterDAL.GetCVByAddress(CareerTitle);
+        return recruiterDAL.GetCVByAddress(Address);
     }  
     public List<CV> GetCVAppliedInNews(int NewsID)
     {
