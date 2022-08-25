@@ -647,9 +647,15 @@ public class Menu
         int maxRow = page * 5;
         table.AddColumn("Pos");
         table.AddColumn("Name");
+        table.AddColumn("Profession");
+        table.AddColumn("City Address");
+        table.AddColumn("Salary Range");
         table.Title("RECRUITMENT NEWS");
         table.Columns[0].Width(4).Centered();
-        table.Columns[1].Width(40);
+        table.Columns[1].Width(25);
+        table.Columns[2].Width(20);
+        table.Columns[3].Width(20);
+        table.Columns[4].Width(20);
 
         int count = 0;
         foreach (RecruitNews news in recruitNews)
@@ -659,9 +665,9 @@ public class Menu
             {
                 if(count > (maxRow - 4))
                 {
-                    table.AddRow("----", "----------------------------------------");
+                    table.AddRow("----", "-------------------------", "--------------------", "--------------------", "--------------------");
                 }
-                table.AddRow(count.ToString(), news.NewsName);
+                table.AddRow(count.ToString(), news.NewsName, news.Profession, news.CityAddress, news.SalaryRange);
             }
         }
         table.LeftAligned();
@@ -674,9 +680,15 @@ public class Menu
         int maxRow = page * 5;
         table.AddColumn("Pos");
         table.AddColumn("Name");
+        table.AddColumn("Profession");
+        table.AddColumn("City Address");
+        table.AddColumn("Salary Range");
         table.Title("YOUR RECRUITMENT NEWS");
         table.Columns[0].Width(4).Centered();
-        table.Columns[1].Width(40);
+        table.Columns[1].Width(25);
+        table.Columns[2].Width(20);
+        table.Columns[3].Width(20);
+        table.Columns[4].Width(20);
 
         int count = 0;
         foreach (RecruitNews news in recruitNews)
@@ -686,9 +698,9 @@ public class Menu
             {
                 if(count > (maxRow - 4))
                 {
-                    table.AddRow("----", "----------------------------------------");
+                    table.AddRow("----", "-------------------------", "--------------------", "--------------------", "--------------------");
                 }
-                table.AddRow(count.ToString(), news.NewsName ?? "");
+                table.AddRow(count.ToString(), news.NewsName, news.Profession, news.CityAddress, news.SalaryRange);
             }
         }
         table.LeftAligned();
@@ -772,9 +784,15 @@ public class Menu
         int maxRow = page * 5;
         table.AddColumn("Pos");
         table.AddColumn("Name");
+        table.AddColumn("Date of Birth");
+        table.AddColumn("Career Title");
+        table.AddColumn("Address");
         table.Title("CVs");
         table.Columns[0].Width(4).Centered();
-        table.Columns[1].Width(40);
+        table.Columns[1].Width(25);
+        table.Columns[2].Width(10);
+        table.Columns[3].Width(25);
+        table.Columns[4].Width(30);
 
         int count = 0;
         foreach (CV cvs in cv)
@@ -784,9 +802,9 @@ public class Menu
             {
                 if(count > (maxRow - 4))
                 {
-                    table.AddRow("----", "----------------------------------------");
+                    table.AddRow("----", "-------------------------", "----------", "-------------------------", "------------------------------");
                 }
-                table.AddRow(count.ToString(), cvs.FullName ?? "");
+                table.AddRow(count.ToString(), cvs.FullName ?? "", cvs.BirthDate?.ToString("dd/MM/yyyy") ?? "", cvs.CareerTitle ?? "", cvs.PersonalAddress);
             }
         }
         table.LeftAligned();
