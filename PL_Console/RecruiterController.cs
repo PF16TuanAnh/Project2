@@ -1113,7 +1113,7 @@ public class RecruiterController
                         Console.WriteLine("================================");
                         Console.WriteLine("          Hiring Position");
                         Console.WriteLine("================================");
-                        Console.WriteLine(" Old Hiring Positio: {0}", news.HiringPosition);
+                        Console.WriteLine(" Old Hiring Position: {0}", news.HiringPosition);
                         Console.WriteLine(" 1) Staff");
                         Console.WriteLine(" 2) Leader");
                         Console.WriteLine(" 3) Deputy of Department");
@@ -1179,7 +1179,7 @@ public class RecruiterController
                         Console.WriteLine("             UPDATE");
                         Console.WriteLine("\n================================");
                         Console.WriteLine(" Enter 0 to cancel.");
-                        Console.WriteLine(" Old Required Experience: {0}", news.HiringAmount);
+                        Console.WriteLine(" Old Required Experience: {0}", news.RequiredExp);
                         Console.Write(" Required Experience: ");
                         string RequiredExp = UserController.GetUserInput();
                         

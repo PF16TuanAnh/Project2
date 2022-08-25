@@ -209,7 +209,7 @@ public class CandidateController
             Console.WriteLine("================================\n");
             Console.WriteLine("           CREATE CV");
             Console.WriteLine("\n================================");
-            Console.Write(" Social Media:");
+            Console.Write(" Social Media: ");
             SocialMedia = UserController.GetUserInput();
             if(SocialMedia.Length > 2000)
             {
