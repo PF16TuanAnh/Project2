@@ -1431,6 +1431,7 @@ public class CandidateController
                     }
                     else
                     {
+                        detail.JobPosition = _JobPosition;
                         break;
                     }
                 }
@@ -1561,6 +1562,7 @@ public class CandidateController
                                     }
                                     else
                                     {
+                                        detail.Association = Association;
                                         break;
                                     }
                                 }
@@ -1590,6 +1592,7 @@ public class CandidateController
                                     }
                                     else
                                     {
+                                        detail.Description = Description;
                                         break;
                                     }
                                 }
