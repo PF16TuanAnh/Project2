@@ -12,8 +12,7 @@ public class RecruiterBL
         recruiterDAL = new RecruiterDAL();
     }
 
-    // NCT 
-    public void CreateNewProfile(Recruiter profile, int? RecruiterID)
+    public int? CreateNewProfile(Recruiter profile, int? RecruiterID)
     {
         int? ProfileID = recruiterDAL.InsertNewProfile(profile, RecruiterID);
         if(ProfileID == null)
@@ -26,8 +25,9 @@ public class RecruiterBL
         {
             Console.Clear();
         }
+        return ProfileID;
     }
-    public void CreateRecruitment(RecruitNews news, int? RecruiterID)
+    public int? CreateRecruitment(RecruitNews news, int? RecruiterID)
     {
         int? NewsID = recruiterDAL.InsertRecruitmentNew(news, RecruiterID);
         if(NewsID == null)
@@ -40,6 +40,7 @@ public class RecruiterBL
         {
             Console.Clear();
         }
+        return NewsID;
     }
     public Recruiter GetRecruiterByID(int? RecruiterID)
     {
@@ -49,7 +50,7 @@ public class RecruiterBL
     {
         return recruiterDAL.GetRecruitNewsByRecruterID(RecruiterID);
     }
-    public void UpdateNewsInfo(RecruitNews news)
+    public bool UpdateNewsInfo(RecruitNews news)
     {
         if(!recruiterDAL.UpdateNews(news))
         {
@@ -61,8 +62,9 @@ public class RecruiterBL
         {
             Console.Clear();
         }
+        return true;
     }
-    public void UpdatePersonalRecruitInfo(Recruiter recruiter)
+    public bool UpdatePersonalRecruitInfo(Recruiter recruiter)
     {
         if(!recruiterDAL.UpdateRecruitInformation(recruiter))
         {
@@ -73,8 +75,8 @@ public class RecruiterBL
         {
             Console.Clear();
         }
+        return true;
     }
-
     public List<CV> GetCVByJobPosition(string JobPosition)
     {
         return recruiterDAL.GetCVByJobPosition(JobPosition);

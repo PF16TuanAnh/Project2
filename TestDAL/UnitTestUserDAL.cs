@@ -42,53 +42,112 @@ public class UnitTestUserDAL : IDisposable
     }
 
     [Fact]
-    public void PassingGetUserByEmail()
+    public void PassingGetUserByEmail() //TC01
     {
         var result = userDAL.GetUserByEmail("User001@gmail.com");
         Assert.IsType<User>(result);
-        Assert.Equal(1, result.UserID);
-    }
-
+        Assert.Equal(1, result.UserID);     
+    } 
     [Fact]
-    public void FailingGetUserByEmail()
+    public void FailingGetUserByEmail_notfound() //TC02
     {
         Assert.Null(userDAL.GetUserByEmail("User000@gmail.com"));
     }
+    [Fact]
+    public void FailingGetUserByEmail_malformed() //TC02
+    {
+        Assert.Null(userDAL.GetUserByEmail("User001gmail.com ") );
+    }
+    [Fact]
+    public void FailingGetUserByEmail_null() //TC02
+    {
+        Assert.Null(userDAL.GetUserByEmail(""));
+    }
 
     [Fact]
-    public void PassingGetCandidateIDByEmail()
+    public void PassingGetCandidateIDByEmail() //TC03
     {
         Assert.Equal(1, userDAL.GetCandidateIDByEmail("User001@gmail.com"));
-        Assert.NotEqual(2, userDAL.GetCandidateIDByEmail("User001@gmail.com"));
+        // Assert.NotEqual(2, userDAL.GetCandidateIDByEmail("User001@gmail.com"));
     }
-
     [Fact]
-    public void FailingGetCandidateIDByEmail()
+    public void FailingGetCandidateIDByEmail_notfound() //TC04
     {
-        Assert.Null(userDAL.GetCandidateIDByEmail("User006@gmail.com"));
+        Assert.Null(userDAL.GetCandidateIDByEmail("User000@gmail.com"));
+    }
+    [Fact]
+    public void FailingGetCandidateIDByEmail_malformed()//TC04
+    {
+        Assert.Null(userDAL.GetCandidateIDByEmail("User006gmail.com"));
+    }
+    [Fact]
+    public void FailingGetCandidateIDByEmail_null()//TC04
+    {
+        Assert.Null(userDAL.GetCandidateIDByEmail(""));
     }
 
     [Fact]
-    public void PassingInsertNewCandidate()
+    public void PassingInsertNewCandidate() //TC05
     {
         Assert.IsType<int>(userDAL.InsertNewCandidate(new User("User011", "User011@gmail.com", "12345", "Male")));
     }
-
     [Fact]
-    public void FailingInsertNewCandidate()
+    public void FailingInsertNewCandidate_already_exists() //TC06
     {
         Assert.Null(userDAL.InsertNewCandidate(new User("User001", "User001@gmail.com", "12345", "Male")));
     }
-
     [Fact]
-    public void PassingInsertNewRecruiter()
+    public void FailingInsertNewCandidate_null() //TC06
     {
-        Assert.IsType<int>(userDAL.InsertNewRecruiter(new User("User011", "User011@gmail.com", "12345", "Male")));
+        Assert.Null(userDAL.InsertNewCandidate(new User("User011", "", "12345", "Male")));
+    }
+    [Fact]
+    public void FailingInsertNewCandidate_malformed() //TC06
+    {
+        Assert.Null(userDAL.InsertNewCandidate(new User("User011", " User011gmail.com ", "12345", "Male")));
     }
 
     [Fact]
-    public void FailingInsertNewRecruiter()
+    public void PassingInsertNewRecruiter() //TC07
     {
-        Assert.Null(userDAL.InsertNewRecruiter(new User("User001", "User001@gmail.com", "12345", "Male")));
+        Assert.IsType<int>(userDAL.InsertNewRecruiter(new User("User016", "User016@gmail.com", "12345", "Male")));
     }
+    [Fact]
+    public void FailingInsertNewRecruiter_already_exists() //TC08
+    {
+        Assert.Null(userDAL.InsertNewRecruiter(new User("User006", "User006@gmail.com", "12345", "Male")));
+    }
+    [Fact]
+    public void FailingInsertNewRecruiter_null() //TC08
+    {
+        Assert.Null(userDAL.InsertNewRecruiter(new User("User016", "", "12345", "Male")));
+    }
+    [Fact]
+    public void FailingInsertNewRecruiter_malformed() //TC08
+    {
+        Assert.Null(userDAL.InsertNewRecruiter(new User("User016", "User016gmail.com", "12345", "Male")));
+    }
+
+    [Fact]
+    public void PassingGetRecruiterIDByEmail() //TC91
+    {
+        Assert.Equal(1, userDAL.GetRecruiterIDByEmail("User006@gmail.com"));
+        // Assert.NotEqual(2, userDAL.GetCandidateIDByEmail("User006@gmail.com"));
+    }
+    [Fact]
+    public void FailingGetRecruiterIDByEmail_notfound() //TC92
+    {
+        Assert.Null(userDAL.GetRecruiterIDByEmail("User000@gmail.com"));
+    }
+    [Fact]
+    public void FailingGetRecruiterIDByEmail_malformed()//TC92
+    {
+        Assert.Null(userDAL.GetRecruiterIDByEmail("User006gmail.com"));
+    }
+    [Fact]
+    public void FailingGetRecruiterIDByEmail_null()//TC92
+    {
+        Assert.Null(userDAL.GetRecruiterIDByEmail(""));
+    }
+
 }
