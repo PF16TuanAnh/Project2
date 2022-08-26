@@ -46,17 +46,17 @@ public class UnitTestCandidateBL : IDisposable
     [Fact]
     public void FailingCreateNewCV_only_1() //TC18.1
     {
-        Assert.IsType<int>(candidateBL.CreateNewCV(new CV("", "", "", DateTime.Parse("11/02/2010"), "0123456789", "test@gmail.com", "", "", null), 1));
+        Assert.Null(candidateBL.CreateNewCV(new CV("", "", "", DateTime.Parse("11/02/2010"), "0123456789", "test@gmail.com", "", "", null), 1));
     }
     [Fact]
     public void FailingCreateNewCV_CandidateID_not_found () //TC18.2
     {
-        Assert.IsType<int>(candidateBL.CreateNewCV(new CV("", "", "", DateTime.Parse("11/02/2010"), "0123456789", "test@gmail.com", "", "", null), 0));
+        Assert.Null(candidateBL.CreateNewCV(new CV("", "", "", DateTime.Parse("11/02/2010"), "0123456789", "test@gmail.com", "", "", null), 0));
     }
     [Fact]
     public void FailingCreateNewCV_CandidateID_null() //TC18.3
     {
-        Assert.IsType<int>(candidateBL.CreateNewCV(new CV("", "", "", DateTime.Parse("11/02/2010"), "0123456789", "test@gmail.com", "", "", null), null));
+        Assert.Null(candidateBL.CreateNewCV(new CV("", "", "", DateTime.Parse("11/02/2010"), "0123456789", "test@gmail.com", "", "", null), null));
     }
     [Fact]
     public void FailingCreateNewCV_PhoneNum_only_accepts_digits() //TC18.4
