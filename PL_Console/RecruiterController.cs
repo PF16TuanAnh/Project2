@@ -1596,10 +1596,10 @@ public class RecruiterController
             Console.WriteLine("================================\n");
             Console.WriteLine("             UPDATE");
             Console.WriteLine("\n================================");
-            Console.WriteLine(" 1) CompanyName");
+            Console.WriteLine(" 1) Company Name");
             Console.WriteLine(" 2) Position");
             Console.WriteLine(" 3) PhoneNum");
-            Console.WriteLine(" 4) CompanyDescription");
+            Console.WriteLine(" 4) Company Description");
             Console.WriteLine(" 5) Business Size");
             Console.WriteLine(" 6) Business Field");
             Console.WriteLine(" 7) Company Address");
