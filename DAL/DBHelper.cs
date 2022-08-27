@@ -9,29 +9,11 @@ public class DBHelper
 
     public static MySqlConnection GetConnection()
     {
-        string? s;
-        string path = Directory.GetCurrentDirectory() + @"\ConnectionString.txt";
-        if (!File.Exists(path))
-        {
-            // Create a file to write to.
-            using (StreamWriter sw = File.CreateText(path))
-            {
-                sw.WriteLine(@"server=localhost; user=root; password=36558136; database=project;");
-            }
-        }
-
-        // Open the file to read from.
-        using (StreamReader sr = File.OpenText(path))
-        {
-            s = sr.ReadLine();
-        }
-
-
         if (connection == null)
         {
             connection = new MySqlConnection
             {
-                ConnectionString = s // Change password according to your MySQL password
+                ConnectionString = @"server=localhost; user=guest; password=123456; database=project;"
             };
         }
 
