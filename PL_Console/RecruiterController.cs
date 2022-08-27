@@ -241,7 +241,8 @@ public class RecruiterController
         }
         
         Recruiter newProfile = new Recruiter(PhoneNum, Position, CompanyName, CompanyDescription, CompanyAddress, BusinessSize, BusinessField);
-        recruiterBL.CreateNewProfile(newProfile, RecruiterID);
+        newProfile.RecruiterID = (int)RecruiterID!;
+        recruiterBL.CreateNewProfile(newProfile);
         
     }
     

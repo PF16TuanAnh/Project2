@@ -12,10 +12,10 @@ public class RecruiterBL
         recruiterDAL = new RecruiterDAL();
     }
 
-    public int? CreateNewProfile(Recruiter profile, int? RecruiterID)
+    public bool CreateNewProfile(Recruiter profile)
     {
-        int? ProfileID = recruiterDAL.InsertNewProfile(profile, RecruiterID);
-        if(ProfileID == null)
+        bool success = recruiterDAL.UpdateRecruitInformation(profile);
+        if(success == false)
         {
             Console.Clear();
             Console.WriteLine("================================"); 
@@ -25,7 +25,7 @@ public class RecruiterBL
         {
             Console.Clear();
         }
-        return ProfileID;
+        return success;
     }
     public int? CreateRecruitment(RecruitNews news, int? RecruiterID)
     {

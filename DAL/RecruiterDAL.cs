@@ -42,44 +42,7 @@ public class RecruiterDAL
         if (!reader.IsDBNull(reader.GetOrdinal("IsOpen"))) recruitNews.IsOpen = reader.GetBoolean("IsOpen");
         return recruitNews;
     }
-    // NCT 
-    public int? InsertNewProfile(Recruiter profile, int? RecruiterID) 
-    {
-        MySqlCommand cmd = new MySqlCommand("sp_InsertProfile", DBHelper.OpenConnection());
-        int? ProfileID = null;
-        try
-        {
-            cmd.CommandType = System.Data.CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@RecruiterID", RecruiterID);
-            cmd.Parameters["@RecruiterID"].Direction = System.Data.ParameterDirection.Input;
-            cmd.Parameters.AddWithValue("@Name", profile.Name);
-            cmd.Parameters["@Name"].Direction = System.Data.ParameterDirection.Input;
-            cmd.Parameters.AddWithValue("@PhoneNum", profile.PhoneNum);
-            cmd.Parameters["@PhoneNum"].Direction = System.Data.ParameterDirection.Input;
-            cmd.Parameters.AddWithValue("@Position", profile.Position);
-            cmd.Parameters["@Position"].Direction = System.Data.ParameterDirection.Input;
-            cmd.Parameters.AddWithValue("@CompanyName", profile.CompanyName);
-            cmd.Parameters["@CompanyName"].Direction = System.Data.ParameterDirection.Input;
-            cmd.Parameters.AddWithValue("@CompanyDescription", profile.CompanyDescription);
-            cmd.Parameters["@CompanyDescription"].Direction = System.Data.ParameterDirection.Input;
-            cmd.Parameters.AddWithValue("@CompanyAddress", profile.CompanyAddress);
-            cmd.Parameters["@CompanyAddress"].Direction = System.Data.ParameterDirection.Input;
-            cmd.Parameters.AddWithValue("@BusinessSize", profile.BusinessSize);
-            cmd.Parameters["@BusinessSize"].Direction = System.Data.ParameterDirection.Input;
-            cmd.Parameters.AddWithValue("@BusinessField", profile.BusinessField);
-            cmd.Parameters["@BusinessField"].Direction = System.Data.ParameterDirection.Input;
-            cmd.Parameters.AddWithValue("@ProfileID", MySqlDbType.Int32);
-            cmd.Parameters["@ProfileID"].Direction = System.Data.ParameterDirection.Output;
-            cmd.ExecuteNonQuery();
-            ProfileID = (int) cmd.Parameters["@ProfileID"].Value;
-        }
-        catch {}
-        finally
-        {
-            DBHelper.CloseConnection();
-        }
-        return ProfileID;
-    }
+    
     public Recruiter GetRecruiterByID(int? RecruiterID)
     {
         query = @"select u.Name, c.* from Recruiters c inner join Users u on c.UserID = u.UserID where RecruiterID = " + RecruiterID;
