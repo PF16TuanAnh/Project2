@@ -1096,7 +1096,16 @@ public class CandidateController
             switch (UserController.GetUserInput())
             {
                 case "1":
-                    Menu.PrintSubMenu(2, CVDetails, null);
+                    if(CVDetails != null)
+                    {
+                        Menu.PrintSubMenu(2, CVDetails, null);
+                    }
+                    else
+                    {
+                        Console.Clear();
+                        Console.WriteLine("================================"); 
+                        Console.WriteLine(" There's nothing to view!");
+                    }
                     break;
                 case "2": // Add more CVDetails
                     Console.Clear();
