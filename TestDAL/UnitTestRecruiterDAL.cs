@@ -32,48 +32,7 @@ public class UnitTestRecruiterDAL : IDisposable
     {
         Assert.IsType<Recruiter>(recruiterDAL.GetRecruiterByID(0));
     }
-
-    [Fact]
-    public void PassingInsertNewProfile() //TC53
-    {
-        Assert.Null(recruiterDAL.InsertNewProfile(new Recruiter("0123456789","staff" , "", "", "", "", "" ), 6) );
-    }
-    [Fact]
-    public void FailingInsertNewProfile_ID_not_found() //TC54.1
-    {
-        Assert.Null(recruiterDAL.InsertNewProfile(new Recruiter("0123456789","staff" , "", "", "", "", "" ), 0) );
-    }
-    [Fact]
-    public void FailingInsertNewProfile_ID_null() //TC54.2
-    {
-        Assert.Null(recruiterDAL.InsertNewProfile(new Recruiter("0123456789","staff" , "", "", "", "", "" ), null) );
-    }
-    [Fact]
-    public void FailingInsertNewProfile_PhoneNum_only_degits() //TC54.3
-    {
-        Assert.Null(recruiterDAL.InsertNewProfile(new Recruiter("012345678a","staff" , "", "", "", "", "" ), 6) );
-    }
-    [Fact]
-    public void FailingInsertNewProfile_PhoneNum_null() //TC54.4
-    {
-        Assert.Null(recruiterDAL.InsertNewProfile(new Recruiter("","staff" , "", "", "", "", "" ), 6) );
-    }
-    [Fact]
-    public void FailingInsertNewProfile_Position_null() //TC54.5
-    {
-        Assert.Null(recruiterDAL.InsertNewProfile(new Recruiter("0123456789","" , "", "", "", "", "" ), 6) );
-    }
-    [Fact]
-    public void FailingInsertNewProfile_Position_improperly() //TC54.6
-    {
-        Assert.Null(recruiterDAL.InsertNewProfile(new Recruiter("0123456789","a" , "", "", "", "", "" ), 6) );
-    }
-    [Fact]
-    public void FailingInsertNewProfile_PhoneNum_must_10() //TC54.7
-    {
-        Assert.Null(recruiterDAL.InsertNewProfile(new Recruiter("01234567891","staff" , "", "", "", "", "" ), 6) );
-    }
-
+    
     [Fact]
     public void PassingGetRecruitNewsByRecruterID() //TC67
     {

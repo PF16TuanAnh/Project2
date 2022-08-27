@@ -790,7 +790,7 @@ public class Menu
         table.Title("CVs");
         table.Columns[0].Width(4).Centered();
         table.Columns[1].Width(25);
-        table.Columns[2].Width(10);
+        table.Columns[2].Width(15);
         table.Columns[3].Width(25);
         table.Columns[4].Width(30);
 
@@ -802,7 +802,7 @@ public class Menu
             {
                 if(count > (maxRow - 4))
                 {
-                    table.AddRow("----", "-------------------------", "----------", "-------------------------", "------------------------------");
+                    table.AddRow("----", "-------------------------", "---------------", "-------------------------", "------------------------------");
                 }
                 table.AddRow(count.ToString(), cvs.FullName ?? "", cvs.BirthDate?.ToString("dd/MM/yyyy") ?? "", cvs.CareerTitle ?? "", cvs.PersonalAddress);
             }

@@ -14,48 +14,6 @@ public class UnitTestRecruiterDAL : IDisposable
     {
         
     }
-    
-    [Fact]
-    public void PassingCreateNewProfile() //TC55
-    {
-        Assert.IsType<Recruiter>(recruiterBL.CreateNewProfile(new Recruiter("0123456789","staff" , "", "", "", "", ""), 6));
-    }
-    [Fact]
-    public void FailingCreateNewProfile_ID_not_found() //TC56.1
-    {
-        Assert.Null(recruiterBL.CreateNewProfile(new Recruiter("0123456789","staff" , "", "", "", "", "" ), 0));
-    }
-    [Fact]
-    public void FailingCreateNewProfile_ID_null() //TC56.2
-    {
-        Assert.Null(recruiterBL.CreateNewProfile(new Recruiter("0123456789","staff" , "", "", "", "", "" ), null));
-    }
-    [Fact]
-    public void FailingCreateNewProfile_PhoneNUm_only_digits() //TC56.3
-    {
-        Assert.Null(recruiterBL.CreateNewProfile(new Recruiter("012345678a","staff" , "", "", "", "", "" ), 6));
-    }
-    [Fact]
-    public void FailingCreateNewProfile_PhoneNum_null() //TC56.4
-    {
-        Assert.Null(recruiterBL.CreateNewProfile(new Recruiter("","staff" , "", "", "", "", "" ), 6));
-    }
-    [Fact]
-    public void FailingCreateNewProfile_Postion_null() //TC56.5
-    {
-        Assert.Null(recruiterBL.CreateNewProfile(new Recruiter("0123456789","" , "", "", "", "", "" ), 6));
-    }
-    [Fact]
-    public void FailingCreateNewProfile_Position_improperly() //TC56.6
-    {
-        Assert.Null(recruiterBL.CreateNewProfile(new Recruiter("0123456789","a" , "", "", "", "", "" ), 6));
-    }
-    [Fact]
-    public void FailingCreateNewProfile_PhoneNum_must_10() //TC56.7
-    {
-        Assert.Null(recruiterBL.CreateNewProfile(new Recruiter("01234567891","staff" , "", "", "", "", "" ), 6));
-    }
-
 
     [Fact]
     public void PassingCreateRecruitment() //TC57

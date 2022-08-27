@@ -839,11 +839,20 @@ public class RecruiterController
         while(true)
         {
             Menu.PrintSubMenu(8, news, null);
-            Console.Write(" Enter 1 to Update the details or View applied candidates, 0 to return: ");
+            Console.WriteLine("================================");
+            Console.WriteLine(" 1) Update details");
+            Console.WriteLine(" 2) View applied CV");
+            Console.WriteLine(" 0) Return");
+            Console.WriteLine("================================");
+            Console.Write(" Your input: ");
+
             switch (UserController.GetUserInput())
             {
                 case "1":
                     UpdateRecruitmentNews(news, RecruiterID);
+                    break;
+                case "2":
+                    DisplaySearchedCVs(recruiterBL.GetCVAppliedInNews(news.NewsID), RecruiterID);
                     break;
                 case "0":
                     Console.Clear();
@@ -916,7 +925,6 @@ public class RecruiterController
             Console.WriteLine(" 9) City Address");
             Console.WriteLine(" 10) Profession");
             Console.WriteLine(" 11) Status");
-            Console.WriteLine(" R) View Applied CV");
             Console.WriteLine(" 0) Return ");
             Console.WriteLine("================================");
             Console.Write(" Enter the option number to change the details: ");
@@ -1423,9 +1431,6 @@ public class RecruiterController
                         }
                     }
                     Console.Clear();
-                    break;
-                case "R" or "r":
-                    DisplaySearchedCVs(recruiterBL.GetCVAppliedInNews(news.NewsID), RecruiterID);
                     break;
                 case "0":
                     Console.Clear();
