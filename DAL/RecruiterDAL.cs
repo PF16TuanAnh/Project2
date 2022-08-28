@@ -387,6 +387,7 @@ public class RecruiterDAL
                 Console.Clear();
                 Console.WriteLine("================================"); 
                 Console.WriteLine(" No results!");
+                Console.WriteLine("================================"); 
             }
         }
         catch
